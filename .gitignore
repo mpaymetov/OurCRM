@@ -10,3 +10,4 @@ views/site/*
 web/*
 tests/*
 vagrant/*
+.idea/*
