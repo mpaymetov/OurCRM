@@ -1,15 +1,35 @@
 <?php
-use yii\helpers\Html;
-use yii\widgets\LinkPager;
-?>
-    <h1>Managers</h1>
-    <ul>
-        <?php foreach ($managers as $manager): ?>
-            <li>
-                <?= Html::encode("{$manager->id_manager} ({$manager->name})") ?>:
-                <?= $manager->id_department ?>
-            </li>
-        <?php endforeach; ?>
-    </ul>
 
-<?= LinkPager::widget(['pagination' => $pagination]) ?>
+use yii\helpers\Html;
+use yii\grid\GridView;
+
+/* @var $this yii\web\View */
+/* @var $searchModel app\models\ManagerSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = 'Managers';
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="manager-index">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    <p>
+        <?= Html::a('Create Manager', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'id_manager',
+            'name',
+            'id_department',
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
+</div>
