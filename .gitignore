@@ -10,3 +10,4 @@ web/*
 tests/*
 vagrant/*
 .idea/*
+config/db.php
