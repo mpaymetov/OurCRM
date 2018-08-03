@@ -9,6 +9,8 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\ClientSearch;
+use app\models\ProjectSearch;
 
 class SiteController extends Controller
 {
@@ -61,7 +63,19 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $searchModel = new ClientSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $projectSearchModel = new ProjectSearch();
+        $projectDataProvider = $projectSearchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index',
+        [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'projectSearchModel' => $projectSearchModel,
+            'projectDataProvider' => $projectDataProvider
+        ]);
     }
 
     /**
