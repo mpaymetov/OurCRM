@@ -8,7 +8,6 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Clients';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="client-index">
 
@@ -42,7 +41,6 @@ $this->params['breadcrumbs'][] = $this->title;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Projects';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="project-index">
 
@@ -77,7 +75,6 @@ $this->params['breadcrumbs'][] = $this->title;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Managers';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="manager-index">
 
