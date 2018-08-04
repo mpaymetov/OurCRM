@@ -11,6 +11,7 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\ClientSearch;
 use app\models\ProjectSearch;
+use app\models\ManagerSearch;
 
 class SiteController extends Controller
 {
@@ -69,12 +70,17 @@ class SiteController extends Controller
         $projectSearchModel = new ProjectSearch();
         $projectDataProvider = $projectSearchModel->search(Yii::$app->request->queryParams);
 
+        $managerSearchModel = new managerSearch();
+        $managerDataProvider = $managerSearchModel->search(Yii::$app->request->queryParams);
+
         return $this->render('index',
         [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'projectSearchModel' => $projectSearchModel,
-            'projectDataProvider' => $projectDataProvider
+            'projectDataProvider' => $projectDataProvider,
+            'managerSearchModel' => $managerSearchModel,
+            'managerDataProvider' => $managerDataProvider
         ]);
     }
 

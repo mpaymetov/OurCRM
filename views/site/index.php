@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\ProjectSearch */
+/* @var $searchModel app\models\ProjectSearchSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Projects';
@@ -65,6 +65,38 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_manager',
             'comment:ntext',
             //'is_active',
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
+</div>
+
+<?php
+/* @var $this yii\web\View */
+/* @var $searchModel app\models\ManagerSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = 'Managers';
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="manager-index">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    <p>
+        <?= Html::a('Create Manager', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+
+    <?= GridView::widget([
+        'dataProvider' => $managerDataProvider,
+        'filterModel' => $managerSearchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'id_manager',
+            'name',
+            'id_department',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -11,3 +11,7 @@ tests/*
 vagrant/*
 .idea/*
 config/db.php
+.idea/ourCRM.iml
+.idea/ourCRM.iml
+config/db.php
+.idea/workspace.xml
