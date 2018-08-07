@@ -7,6 +7,7 @@ use app\models\Client;
 use app\controllers\ClientController;
 use app\models\ClientSearch;
 use yii\web\Controller;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ClientSearch */
@@ -21,7 +22,7 @@ $this->title = 'Clients';
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Client', ['create'], ['class' => 'btn btn-success']) ?>
+        <a href='<?= Url::toRoute('/client/index');?>' class="btn btn-success" >Create client</a>
     </p>
 
     <?= ListView::widget([
