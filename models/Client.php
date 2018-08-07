@@ -70,4 +70,9 @@ class Client extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Project::className(), ['id_client' => 'id_client']);
     }
+
+    public function create()
+    {
+        Client::actionCreate();
+    }
 }

@@ -2,6 +2,11 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\ListView;
+use app\models\Client;
+use app\controllers\ClientController;
+use app\models\ClientSearch;
+use yii\web\Controller;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ClientSearch */
@@ -10,7 +15,8 @@ use yii\grid\GridView;
 $this->title = 'Clients';
 ?>
 <div class="client-index">
-
+        <div class="row">
+            <div class="col">
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -18,22 +24,12 @@ $this->title = 'Clients';
         <?= Html::a('Create Client', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?= GridView::widget([
-        'filterModel' => $searchModel,
-        'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id_client',
-            'name',
-            'created',
-            'comment:ntext',
-            'id_manager',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+    <?= ListView::widget([
+    'dataProvider' => $dataProvider,
+    'itemView' => '_post_client',
+    ]) ?>
 </div>
+        <div class="col">
 <?php
 
 /* @var $this yii\web\View */
@@ -51,24 +47,16 @@ $this->title = 'Projects';
         <?= Html::a('Create Project', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?= GridView::widget([
+
+    <?= ListView::widget([
         'dataProvider' => $projectDataProvider,
-        'filterModel' => $projectSearchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+        'itemView' => '_post_project',
+    ]) ?>
 
-            'id_project',
-            'name',
-            'id_client',
-            'id_manager',
-            'comment:ntext',
-            //'is_active',
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
 </div>
-
+        </div>
+        <div class="col">
 <?php
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ManagerSearch */
@@ -85,17 +73,12 @@ $this->title = 'Managers';
         <?= Html::a('Create Manager', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?= GridView::widget([
+    <?= ListView::widget([
         'dataProvider' => $managerDataProvider,
-        'filterModel' => $managerSearchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+        'itemView' => '_post_manager',
+    ]) ?>
 
-            'id_manager',
-            'name',
-            'id_department',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
 </div>
+        </div>
+        </div>
+        </div>
