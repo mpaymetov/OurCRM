@@ -48,7 +48,7 @@ $this->title = 'Projects';
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <a href='<?= Url::toRoute('/project/create'); ?>' class="btn btn-success">Create Project</a>
+        <a href='<?= Url::to(['project/create', 'id' => $model->id_client])?>' class="btn btn-success">Create Project</a>
     </p>
 
     <?= GridView::widget([
