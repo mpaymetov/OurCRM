@@ -7,8 +7,9 @@ use yii\helpers\Url;
 ?>
 <div class="post panel">
     <div class="panel-body">
+        <p class="post_number">project number:   <?= HtmlPurifier::process($model->id_project) ?></p>
         <h2><?= Html::encode($model->name) ?></h2>
-        <?= HtmlPurifier::process($model->id_project) ?>
+        <p><?= html::encode($model->comment)?></p>
         <a href='<?= Url::to(['project/view', 'id' => $model->id_project]) ?>' class="btn btn_more">view more</a>
     </div>
 </div>
