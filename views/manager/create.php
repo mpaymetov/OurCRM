@@ -11,11 +11,12 @@ $this->params['breadcrumbs'][] = ['label' => 'Managers', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="manager-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
-
+    <div class="panel">
+        <div class="panel-body">
+            <h1><?= Html::encode($this->title) ?></h1>
+            <?= $this->render('_form', [
+                'model' => $model,
+            ]) ?>
+        </div>
+    </div>
 </div>

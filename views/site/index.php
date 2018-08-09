@@ -22,9 +22,8 @@ use yii\helpers\Url;
 
                 <h1><?= Html::encode($this->title) ?></h1>
                 <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
                 <p>
-                    <a href='<?= Url::toRoute('/manager/index'); ?>' class="btn btn-success">Create manager</a>
+                    <a href='<?= Url::toRoute('/manager/create'); ?>' class="btn btn-success">Create manager</a>
                 </p>
 
                 <?= ListView::widget([
@@ -36,11 +35,12 @@ use yii\helpers\Url;
         </div>
         <div class="col">
 
-            <h1><?= $this->title = 'Clients'; Html::encode($this->title) ?></h1>
+            <h1><?= $this->title = 'Clients';
+                Html::encode($this->title) ?></h1>
             <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
             <p>
-                <a href='<?= Url::toRoute('/client/index'); ?>' class="btn btn-success">Create client</a>
+                <a href='<?= Url::toRoute('/client/create'); ?>' class="btn btn-success">Create client</a>
             </p>
 
             <?= ListView::widget([
@@ -62,7 +62,7 @@ use yii\helpers\Url;
                 <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
                 <p>
-                    <a href='<?= Url::toRoute('/project/index'); ?>' class="btn btn-success">Create project</a>
+                    <a href='<?= Url::toRoute('/project/create'); ?>' class="btn btn-success">Create project</a>
                 </p>
 
 
