@@ -74,5 +74,27 @@ use yii\helpers\Url;
 
             </div>
         </div>
+        <div class="col">
+            <?php
+            /* @var $this yii\web\View */
+            /* @var $searchModel app\models\EventSearch */
+            /* @var $dataProvider yii\data\ActiveDataProvider */
+
+            $this->title = 'Events';
+            ?>
+            <div class="manager-index">
+
+                <h1><?= Html::encode($this->title) ?></h1>
+                <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+                <p>
+                    <a href='<?= Url::toRoute('/event/create'); ?>' class="btn btn-success">Create Event</a>
+                </p>
+
+                <?= ListView::widget([
+                    'dataProvider' => $eventDataProvider,
+                    'itemView' => '_post_event',
+                ]) ?>
+
+            </div>
+        </div>
     </div>
-</div>
