@@ -6,7 +6,6 @@ protected/data/*.db
 themes/classic/views/
 vendor/*
 web/phpMyAdmin/*
-web/*
 tests/*
 vagrant/*
 .idea/*
