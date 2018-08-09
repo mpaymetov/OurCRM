@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Client */
@@ -47,7 +48,7 @@ $this->title = 'Projects';
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Project', ['create'], ['class' => 'btn btn-success']) ?>
+        <a href='<?= Url::toRoute('/project/create'); ?>' class="btn btn-success">Create Project</a>
     </p>
 
     <?= GridView::widget([
