@@ -5,6 +5,8 @@ namespace app\controllers;
 use Yii;
 use app\models\Project;
 use app\models\ProjectSearch;
+use app\models\Serviceset;
+use app\models\ServicesetSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -52,8 +54,13 @@ class ProjectController extends Controller
      */
     public function actionView($id)
     {
+        $searchModel = new ServicesetSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 

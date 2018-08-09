@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Project */
@@ -10,6 +12,8 @@ $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Projects', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+
 <div class="project-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -37,4 +41,33 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+</div>
+
+<?php
+$this->title = 'Servicesets';
+?>
+<div class="serviceset-index">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    <p>
+        <?= Html::a('Create Serviceset', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'id_serviceset',
+            'id_project',
+            'id_state',
+            'delivery',
+            'payment',
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
 </div>
