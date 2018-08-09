@@ -5,9 +5,12 @@ namespace app\controllers;
 use Yii;
 use app\models\Manager;
 use app\models\ManagerSearch;
+use app\models\Client;
+use app\models\ClientSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+
 
 /**
  * ManagerController implements the CRUD actions for Manager model.
@@ -52,10 +55,15 @@ class ManagerController extends Controller
      */
     public function actionView($id)
     {
+        $searchModel = new ClientSearch();
+        $dataProvider = $searchModel->searchManagerId($id);
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
+
 
     /**
      * Creates a new Manager model.

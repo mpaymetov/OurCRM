@@ -69,4 +69,18 @@ class ClientSearch extends Client
 
         return $dataProvider;
     }
+
+    public function searchManagerId($id)
+    {
+        $query = Client::find();
+        // add conditions that should always apply here
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id_manager' => $id,
+        ]);
+        return $dataProvider;
+    }
 }
