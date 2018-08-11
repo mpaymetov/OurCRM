@@ -19,7 +19,7 @@ use yii\helpers\Url;
 
     <?= $form->field($model, 'id_manager')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'comment')->textarea(['rows' => 6]) ?>s
+    <?= $form->field($model, 'comment')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'is_active')->textInput() ?>
 

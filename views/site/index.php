@@ -18,23 +18,19 @@ use yii\helpers\Url;
 
             $this->title = 'Managers';
             ?>
-            <div class="manager-index">
 
-                <h1><?= Html::encode($this->title) ?></h1>
-                <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-                <p>
-                    <a href='<?= Url::toRoute('/manager/create'); ?>' class="btn btn-success">Create manager</a>
-                </p>
+            <h1><?= Html::encode($this->title) ?></h1>
+            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+            <p>
+                <a href='<?= Url::toRoute('/manager/create'); ?>' class="btn btn-success">Create manager</a>
+            </p>
 
-                <?= ListView::widget([
-                    'dataProvider' => $managerDataProvider,
-                    'itemView' => '_post_manager',
-                ]) ?>
-
-            </div>
+            <?= ListView::widget([
+                'dataProvider' => $managerDataProvider,
+                'itemView' => '_post_manager',
+            ]) ?>
         </div>
         <div class="col">
-
             <h1><?= $this->title = 'Clients';
                 Html::encode($this->title) ?></h1>
             <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -56,23 +52,19 @@ use yii\helpers\Url;
 
             $this->title = 'Projects';
             ?>
-            <div class="project-index">
 
-                <h1><?= Html::encode($this->title) ?></h1>
-                <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+            <h1><?= Html::encode($this->title) ?></h1>
+            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-                <p>
-                    <a href='<?= Url::toRoute('/project/create'); ?>' class="btn btn-success">Create project</a>
-                </p>
-
-
-                <?= ListView::widget([
-                    'dataProvider' => $projectDataProvider,
-                    'itemView' => '_post_project',
-                ]) ?>
+            <p>
+                <a href='<?= Url::toRoute('/project/create'); ?>' class="btn btn-success">Create project</a>
+            </p>
 
 
-            </div>
+            <?= ListView::widget([
+                'dataProvider' => $projectDataProvider,
+                'itemView' => '_post_project',
+            ]) ?>
         </div>
         <div class="col">
             <?php
@@ -82,19 +74,16 @@ use yii\helpers\Url;
 
             $this->title = 'Events';
             ?>
-            <div class="manager-index">
+            <h1><?= Html::encode($this->title) ?></h1>
+            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+            <p>
+                <a href='<?= Url::toRoute('/event/create'); ?>' class="btn btn-success">Create Event</a>
+            </p>
 
-                <h1><?= Html::encode($this->title) ?></h1>
-                <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-                <p>
-                    <a href='<?= Url::toRoute('/event/create'); ?>' class="btn btn-success">Create Event</a>
-                </p>
+            <?= ListView::widget([
+                'dataProvider' => $eventDataProvider,
+                'itemView' => '_post_event',
+            ]) ?>
 
-                <?= ListView::widget([
-                    'dataProvider' => $eventDataProvider,
-                    'itemView' => '_post_event',
-                ]) ?>
-
-            </div>
         </div>
     </div>
