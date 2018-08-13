@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Manager */
@@ -43,7 +44,7 @@ $this->title = 'Clients';
 <div class="client-index">
     <h1><?= Html::encode($this->title) ?></h1>
     <p>
-        <?= Html::a('Create Client', ['create'], ['class' => 'btn btn-success']) ?>
+        <a href='<?= Url::toRoute('/client/create'); ?>' class="btn btn-success">Create client</a>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
