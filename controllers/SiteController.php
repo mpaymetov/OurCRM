@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use yii\web\Cookie;
 use app\models\LoginForm;
+use app\models\SignupForm;
 use app\models\ContactForm;
 use app\models\ClientSearch;
 use app\models\ProjectSearch;
@@ -170,5 +171,22 @@ class SiteController extends Controller
         ]);
         Yii::$app->response->cookies->add($languageCookie);
         return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    public function actionSignup()
+    {
+        $model = new SignupForm();
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->signup()) {
+                if (Yii::$app->getUser()->login($user)) {
+                    return $this->goHome();
+                }
+            }
+        }
+
+        return $this->render('signup', [
+            'model' => $model,
+        ]);
     }
 }

@@ -36,33 +36,35 @@ AppAsset::register($this);
         ],
     ]);
 
+    $menuItems = [
+        ['label' => 'Manager', 'url' => ['/manager/index']],
+        ['label' => 'Client', 'url' => ['/client/index']],
+        ['label' => 'Project', 'url' => ['/project/index']],
+        ['label' => 'Department', 'url' => ['/department/index']],
+        ['label' => 'Service', 'url' => ['/service/index']],
+        ['label' => 'State', 'url' => ['/state/index']],
+        ['label' => 'Event', 'url' => ['/event/index']],
+        ['label' => 'About', 'url' => ['/site/about']],
+        ['label' => 'Contact', 'url' => ['/site/contact']]
+    ];
+
+    if (Yii::$app->user->isGuest) {
+        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
+        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+    } else {
+        $menuItems[] = '<li>'
+            . Html::beginForm(['/site/logout'], 'post')
+            . Html::submitButton(
+                'Logout (' . Yii::$app->user->identity->username . ')',
+                ['class' => 'btn btn-link logout']
+            )
+            . Html::endForm()
+            . '</li>';
+    }
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => \Yii::t('common', 'Manager'), 'url' => ['/manager/index']],
-            ['label' => \Yii::t('common', 'Client'), 'url' => ['/client/index']],
-            ['label' => \Yii::t('common', 'Project'), 'url' => ['/project/index']],
-            ['label' => \Yii::t('common', 'Department'), 'url' => ['/department/index']],
-            ['label' => \Yii::t('common', 'Service'), 'url' => ['/service/index']],
-            ['label' => \Yii::t('common', 'State'), 'url' => ['/state/index']],
-            ['label' => \Yii::t('common', 'Event'), 'url' => ['/event/index']],
-            ['label' => \Yii::t('common', 'About'), 'url' => ['/site/about']],
-            ['label' => \Yii::t('common', 'Contact'), 'url' => ['/site/contact']],
-
-            Yii::$app->user->isGuest ? (
-                ['label' => \Yii::t('common', 'Login'), 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-
-        ],
+        'items' => $menuItems
     ]);
     NavBar::end();
     ?>
