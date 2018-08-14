@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\helpers\Url;
 use yii\widgets\ListView;
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Client */
@@ -54,6 +55,11 @@ $this->params['breadcrumbs'][] = $this->title;
             <a href='<?= Url::to(['project/create', 'id' => $model->id_client]) ?>' class="btn btn-success">Create
                 Project</a>
         </p>
+        <?php
+        /* @var $this yii\web\View */
+        /* @var $searchProjectModel app\models\EventSearch */
+        /* @var $dataProvider; yii\data\ActiveDataProvider */
+        ?>
 
         <?= ListView::widget([
             'dataProvider' => $dataProvider,
@@ -65,8 +71,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="event-index">
         <?php
         /* @var $this yii\web\View */
-        /* @var $searchModel app\models\EventSearch */
-        /* @var $dataProvider yii\data\ActiveDataProvider */
+        /* @var $searchEventModel app\models\EventSearch */
+        /* @var $eventDataProvider yii\data\ActiveDataProvider */
         ?>
         <h1><?= Html::encode($this->title) ?>'s Events</h1>
 
@@ -74,10 +80,11 @@ $this->params['breadcrumbs'][] = $this->title;
             <a href='<?= Url::to(['event/create', 'id' => $model->id_client]) ?>' class="btn btn-success">Create
                 Event</a>
         </p>
-
+        <div class="client-index">
         <?= ListView::widget([
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $eventDataProvider,
             'itemView' => '../event/_event_id',
         ]) ?>
+
     </div>
 </div>

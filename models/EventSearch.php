@@ -74,7 +74,7 @@ class EventSearch extends Event
 
     public function searchEventId($id)
     {
-        $query = Client::find();
+        $query = Event::find();
         // add conditions that should always apply here
         $eventDataProvider = new ActiveDataProvider([
             'query' => $query,
