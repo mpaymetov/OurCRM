@@ -8,7 +8,7 @@ use yii\helpers\Url;
 /* @var $searchModel app\models\ProjectSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Projects';
+$this->title = Yii::t('common', 'Projects');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="project-index">
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Project', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('common', 'Create Project'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -44,10 +44,10 @@ $this->params['breadcrumbs'][] = $this->title;
     /* @var $dataProvider yii\data\ActiveDataProvider */
 
     ?>
-    <h1>Events</h1>
+    <h1><?= Yii::t('common', 'Events') ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <p>
-        <a href='<?= Url::toRoute('/project/create'); ?>' class="btn btn-success">Create Event</a>
+        <a href='<?= Url::toRoute('/project/create'); ?>' class="btn btn-success"><?= Yii::t('common', 'Create Event')?></a>
     </p>
 
 

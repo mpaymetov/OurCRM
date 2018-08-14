@@ -7,13 +7,13 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Login';
+$this->title = \Yii::t('common', 'Login');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
+    <p><?= \Yii::t('common', 'Please fill out the following fields to login: ') ?></p>
 
     <?php $form = ActiveForm::begin([
         'id' => 'login-form',
@@ -34,17 +34,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
-                <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                <?= Html::submitButton(\Yii::t('common', 'Login'), ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
             </div>
         </div>
 
         <div class="col-lg-offset-1 col-lg-11">
-            <p>or</p>
+            <p><?= \Yii::t('common', 'or') ?></p>
         </div>
 
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
-                <?= Html::a('Signup', ['/site/signup'], ['class'=>'btn btn-success']) ?>
+                <?= Html::a(\Yii::t('common', 'Signup'), ['/site/signup'], ['class'=>'btn btn-success']) ?>
             </div>
         </div>
 

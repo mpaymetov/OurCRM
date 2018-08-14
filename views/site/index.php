@@ -18,10 +18,10 @@ use yii\helpers\Url;
             /* @var $dataProvider yii\data\ActiveDataProvider */
             ?>
 
-            <h1>Managers</h1>
+            <h1><?= \Yii::t('common', 'Managers')?></h1>
             <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
             <p>
-                <a href='<?= Url::toRoute('/manager/create'); ?>' class="btn btn-success">Create manager</a>
+                <a href='<?= Url::toRoute('/manager/create'); ?>' class="btn btn-success"><?= \Yii::t('common', 'Create Manager')?></a>
             </p>
 
             <?= ListView::widget([
@@ -30,11 +30,11 @@ use yii\helpers\Url;
             ]) ?>
         </div>
         <div class="col">
-            <h1>Clients</h1>
+            <h1><?= \Yii::t('common', 'Clients')?></h1>
             <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
             <p>
-                <a href='<?= Url::toRoute('/client/create'); ?>' class="btn btn-success">Create client</a>
+                <a href='<?= Url::toRoute('/client/create'); ?>' class="btn btn-success"><?= \Yii::t('common', 'Create Client')?></a>
             </p>
 
             <?= ListView::widget([
@@ -51,11 +51,11 @@ use yii\helpers\Url;
 
             ?>
 
-            <h1>Projects</h1>
+            <h1><?= \Yii::t('common', 'Projects')?></h1>
             <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
             <p>
-                <a href='<?= Url::toRoute('/project/create'); ?>' class="btn btn-success">Create project</a>
+                <a href='<?= Url::toRoute('/project/create'); ?>' class="btn btn-success"><?= \Yii::t('common', 'Create Project')?></a>
             </p>
 
 
@@ -71,10 +71,10 @@ use yii\helpers\Url;
             /* @var $dataProvider yii\data\ActiveDataProvider */
 
             ?>
-            <h1>Events</h1>
+            <h1><?= \Yii::t('common', 'Events')?></h1>
             <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
             <p>
-                <a href='<?= Url::toRoute('/event/create'); ?>' class="btn btn-success">Create Event</a>
+                <a href='<?= Url::toRoute('/event/create'); ?>' class="btn btn-success"><?= \Yii::t('common', 'Create Event')?></a>
             </p>
 
             <?= ListView::widget([

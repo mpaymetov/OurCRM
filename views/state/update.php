@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\State */
 
-$this->title = 'Update State: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'States', 'url' => ['index']];
+$this->title = \Yii::t('common', 'Update State: ') . $model->name;
+$this->params['breadcrumbs'][] = ['label' => \Yii::t('common', 'States'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id_state]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = \Yii::t('common', 'Update');
 ?>
 <div class="state-update">
 

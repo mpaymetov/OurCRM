@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Service */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Services', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => \Yii::t('common', 'Services'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="service-view">
@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id_service], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id_service], [
+        <?= Html::a(\Yii::t('common', 'Update'), ['update', 'id' => $model->id_service], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(\Yii::t('common', 'Delete'), ['delete', 'id' => $model->id_service], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',

@@ -9,7 +9,7 @@ use yii\helpers\Url;
 /* @var $model app\models\Project */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Projects', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Projects'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -19,8 +19,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id_project], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id_project], [
+        <?= Html::a(Yii::t('common', 'Update'), ['update', 'id' => $model->id_project], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('common', 'Delete'), ['delete', 'id' => $model->id_project], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <?php
-$this->title = 'Servicesets';
+$this->title = Yii::t('common', 'Servicesets');
 ?>
 <div class="serviceset-index">
 
@@ -52,7 +52,7 @@ $this->title = 'Servicesets';
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Serviceset', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('common', 'Create Serviceset'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

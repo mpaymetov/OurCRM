@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\StateSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'States';
+$this->title = \Yii::t('common', 'States');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="state-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create State', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(\Yii::t('common', 'Create State'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

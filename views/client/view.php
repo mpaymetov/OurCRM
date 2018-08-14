@@ -12,7 +12,7 @@ use yii\grid\GridView;
 /* @var $model app\models\Event */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Clients', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => \Yii::t('common', 'Clients'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="client-view">
@@ -20,8 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id_client], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id_client], [
+        <?= Html::a(\Yii::t('common', 'Update'), ['update', 'id' => $model->id_client], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(\Yii::t('common', 'Delete'), ['delete', 'id' => $model->id_client], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -52,8 +52,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <h1><?= Html::encode($this->title) ?>'s projects</h1>
 
         <p>
-            <a href='<?= Url::to(['project/create', 'id_client' => $model->id_client]) ?>' class="btn btn-success">Create
-                Project</a>
+            <a href='<?= Url::to(['project/create', 'id_client' => $model->id_client]) ?>' class="btn btn-success">
+                <?= \Yii::t('common', 'Create Project') ?></a>
         </p>
         <?php
         /* @var $this yii\web\View */
@@ -77,8 +77,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <h1><?= Html::encode($this->title) ?>'s Events</h1>
 
         <p>
-            <a href='<?= Url::to(['event/create', 'id_client' => $model->id_client]) ?>' class="btn btn-success">Create
-                Event</a>
+            <a href='<?= Url::to(['event/create', 'id_client' => $model->id_client]) ?>' class="btn btn-success">
+                <?= \Yii::t('common', 'Create Event') ?></a>
         </p>
         <div class="client-index">
         <?= ListView::widget([
