@@ -9,7 +9,11 @@ use yii\helpers\Html;
 $this->title = 'Create Project';
 $this->params['breadcrumbs'][] = ['label' => 'Projects', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$request = Yii::$app->request;
+$client_id = $request->get('id_client');
+$model->id_client = $client_id;
 ?>
+
 <div class="project-create">
     <div class="panel">
         <div class="panel-body">

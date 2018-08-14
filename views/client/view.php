@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <h1><?= Html::encode($this->title) ?>'s projects</h1>
 
         <p>
-            <a href='<?= Url::to(['project/create', 'id' => $model->id_client]) ?>' class="btn btn-success">Create
+            <a href='<?= Url::to(['project/create', 'id_client' => $model->id_client]) ?>' class="btn btn-success">Create
                 Project</a>
         </p>
 
@@ -71,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <h1><?= Html::encode($this->title) ?>'s Events</h1>
 
         <p>
-            <a href='<?= Url::to(['event/create', 'id' => $model->id_client]) ?>' class="btn btn-success">Create
+            <a href='<?= Url::to(['event/create', 'id_client' => $model->id_client]) ?>' class="btn btn-success">Create
                 Event</a>
         </p>
 
