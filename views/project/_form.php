@@ -15,8 +15,8 @@ use yii\helpers\Url;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?
-    if($model->id_client){
+    <?php
+    if ($model->id_client) {
         echo $form->field($model, 'id_client')->textInput(['maxlength' => true, 'readonly' => true]);
     } else {
         echo $form->field($model, 'id_client')->textInput(['maxlength' => true]);
