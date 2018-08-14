@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\ManagerSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Managers';
+$this->title = \Yii::t('common', 'Managers');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="manager-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Manager', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(\Yii::t('common', 'Create Manager'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

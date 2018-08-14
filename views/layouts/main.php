@@ -35,20 +35,22 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Manager', 'url' => ['/manager/index']],
-            ['label' => 'Client', 'url' => ['/client/index']],
-            ['label' => 'Project', 'url' => ['/project/index']],
-            ['label' => 'Department', 'url' => ['/department/index']],
-            ['label' => 'Service', 'url' => ['/service/index']],
-            ['label' => 'State', 'url' => ['/state/index']],
-            ['label' => 'Event', 'url' => ['/event/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => \Yii::t('common', 'Manager'), 'url' => ['/manager/index']],
+            ['label' => \Yii::t('common', 'Client'), 'url' => ['/client/index']],
+            ['label' => \Yii::t('common', 'Project'), 'url' => ['/project/index']],
+            ['label' => \Yii::t('common', 'Department'), 'url' => ['/department/index']],
+            ['label' => \Yii::t('common', 'Service'), 'url' => ['/service/index']],
+            ['label' => \Yii::t('common', 'State'), 'url' => ['/state/index']],
+            ['label' => \Yii::t('common', 'Event'), 'url' => ['/event/index']],
+            ['label' => \Yii::t('common', 'About'), 'url' => ['/site/about']],
+            ['label' => \Yii::t('common', 'Contact'), 'url' => ['/site/contact']],
+
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+                ['label' => \Yii::t('common', 'Login'), 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
@@ -59,6 +61,7 @@ AppAsset::register($this);
                 . Html::endForm()
                 . '</li>'
             )
+
         ],
     ]);
     NavBar::end();
@@ -75,9 +78,14 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
+        <p class="pull-left">&copy; My Company <?= date('Y') ?> </p>
         <p class="pull-right"><?= Yii::powered() ?></p>
+
+            <?= Html::beginForm(['/site/language'])?>
+            <?= Html::dropDownList('language', Yii::$app->language, ['en' => 'English', 'ru' => 'Русский']) ?>
+            <?= Html::submitButton('Change') ?>
+            <?= Html::endForm() ?>
+
     </div>
 </footer>
 
