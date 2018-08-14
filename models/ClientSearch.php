@@ -83,4 +83,29 @@ class ClientSearch extends Client
         ]);
         return $dataProvider;
     }
+
+    public function searchEventId($id)
+    {
+        $query = Client::find();
+        // add conditions that should always apply here
+        $eventDataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id_manager' => $id,
+        ]);
+        return $eventDataProvider;
+    }
+
+    public function searchEventIdByClient($id, $id_client)
+    {
+        $query = $this->searchEventId($id);
+        $query->andFilterWhere([
+            'id_client'  => $id_client
+        ]);
+        $eventDataProvider = $query;
+        return $eventDataProvider;
+    }
 }
+

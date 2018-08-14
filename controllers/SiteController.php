@@ -7,7 +7,9 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
+use yii\web\Cookie;
 use app\models\LoginForm;
+use app\models\SignupForm;
 use app\models\ContactForm;
 use app\models\ClientSearch;
 use app\models\ProjectSearch;
@@ -155,5 +157,36 @@ class SiteController extends Controller
     public function actionSay($message = 'Привет')
     {
         return $this->render('say', ['message' => $message]);
+    }
+
+    public function actionLanguage()
+    {
+        $language = Yii::$app->request->post('language');
+        Yii::$app->language = $language;
+
+        $languageCookie = new Cookie([
+            'name' => 'language',
+            'value' => $language,
+            'expire' => time() + 60 * 60 * 24 * 30,
+        ]);
+        Yii::$app->response->cookies->add($languageCookie);
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    public function actionSignup()
+    {
+        $model = new SignupForm();
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->signup()) {
+                if (Yii::$app->getUser()->login($user)) {
+                    return $this->goHome();
+                }
+            }
+        }
+
+        return $this->render('signup', [
+            'model' => $model,
+        ]);
     }
 }

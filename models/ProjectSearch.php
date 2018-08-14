@@ -74,13 +74,7 @@ class ProjectSearch extends Project
     public function searchClientId($id)
     {
         $query = Project::find();
-
         // add conditions that should always apply here
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-
         $projectDataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -88,7 +82,7 @@ class ProjectSearch extends Project
         $query->andFilterWhere([
             'id_client' => $id,
         ]);
-
-        return $projectDataProvider;
+        return  $projectDataProvider;
     }
+
 }

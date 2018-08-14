@@ -9,7 +9,7 @@ use yii\helpers\Url;
 /* @var $model app\models\Manager */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Managers', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => \Yii::t('common', 'Managers'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="manager-view">
@@ -17,8 +17,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id_manager], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id_manager], [
+        <?= Html::a(\Yii::t('common', 'Update'), ['update', 'id' => $model->id_manager], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(\Yii::t('common', 'Delete'), ['delete', 'id' => $model->id_manager], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -39,12 +39,13 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <?php
-$this->title = 'Clients';
+$this->title = \Yii::t('common', 'Clients');
 ?>
 <div class="client-index">
     <h1><?= Html::encode($this->title) ?></h1>
     <p>
-        <a href='<?= Url::toRoute('/client/create'); ?>' class="btn btn-success">Create client</a>
+        <?= Html::a(\Yii::t('common', 'Create client'), ['/client/create'], ['class' => 'btn btn-success']) ?>
+
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

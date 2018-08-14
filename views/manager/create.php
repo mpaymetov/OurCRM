@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Manager */
 
-$this->title = 'Create Manager';
-$this->params['breadcrumbs'][] = ['label' => 'Managers', 'url' => ['index']];
+$this->title = \Yii::t('common', 'Create Manager');
+$this->params['breadcrumbs'][] = ['label' => \Yii::t('common', 'Managers'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="manager-create">

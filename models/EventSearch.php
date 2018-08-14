@@ -72,9 +72,9 @@ class EventSearch extends Event
         return $dataProvider;
     }
 
-    public function searchEventId($id)
+    public function searchEventId($id, $id_client)
     {
-        $query = Client::find();
+        $query = Event::find();
         // add conditions that should always apply here
         $eventDataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -83,7 +83,9 @@ class EventSearch extends Event
         $query->andFilterWhere([
             'id_manager' => $id,
         ]);
+
         return $eventDataProvider;
     }
+
 
 }

@@ -1,6 +1,5 @@
 <?php
 
-use yii\helpers\Html;
 use yii\widgets\ListView;
 use yii\helpers\Url;
 
@@ -8,6 +7,7 @@ use yii\helpers\Url;
 /* @var $searchModel app\models\ClientSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 ?>
+
 <?= $this->title = 'OurCrm'; ?>
 <div class="client-index">
     <div class="row">
@@ -45,7 +45,7 @@ use yii\helpers\Url;
         <div class="col">
             <?php
             /* @var $this yii\web\View */
-            /* @var $searchModel app\models\ProjectSearchSearch */
+            /* @var $searchModel app\models\ProjectSearch */
             /* @var $dataProvider yii\data\ActiveDataProvider */
 
 

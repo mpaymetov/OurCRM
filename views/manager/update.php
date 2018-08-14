@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Manager */
 
-$this->title = 'Update Manager: ' . $model->name;
+$this->title = \Yii::t('common', 'Update Manager: ') . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Managers', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id_manager]];
 $this->params['breadcrumbs'][] = 'Update';

@@ -10,6 +10,9 @@ use app\models\ServicesetSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Event;
+use app\models\EventSearch;
+
 
 /**
  * ProjectController implements the CRUD actions for Project model.
@@ -56,7 +59,6 @@ class ProjectController extends Controller
     {
         $searchModel = new ServicesetSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
         return $this->render('view', [
             'model' => $this->findModel($id),
             'searchModel' => $searchModel,
