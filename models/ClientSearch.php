@@ -97,4 +97,15 @@ class ClientSearch extends Client
         ]);
         return $eventDataProvider;
     }
+
+    public function searchEventIdByClient($id, $id_client)
+    {
+        $query = $this->searchEventId($id);
+        $query->andFilterWhere([
+            'id_client'  => $id_client
+        ]);
+        $eventDataProvider = $query;
+        return $eventDataProvider;
+    }
 }
+

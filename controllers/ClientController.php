@@ -62,7 +62,7 @@ class ClientController extends Controller
         $searchModel = new ProjectSearch();
         $dataProvider = $searchModel->searchClientId($id);
         $searchEventModel = new EventSearch();
-        $eventDataProvider = $searchEventModel->searchEventId($id);
+        $eventDataProvider = $searchEventModel->searchEventId($id, $this);
         return $this->render('view', [
             'model' => $this->findModel($id),
             'searchModel' => $searchModel,

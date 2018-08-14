@@ -50,9 +50,5 @@ $this->params['breadcrumbs'][] = $this->title;
         <a href='<?= Url::toRoute('/project/create'); ?>' class="btn btn-success">Create Event</a>
     </p>
 
-    <?= ListView::widget([
-        'dataProvider' => $dataProvider,
-        'itemView' => '_project_id',
-    ]) ?>
 
 </div>
