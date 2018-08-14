@@ -8,6 +8,7 @@ use yii\helpers\Url;
 /* @var $searchModel app\models\ClientSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 ?>
+<?= $this->title = 'OurCrm'; ?>
 <div class="client-index">
     <div class="row">
         <div class="col">
@@ -15,11 +16,9 @@ use yii\helpers\Url;
             /* @var $this yii\web\View */
             /* @var $searchModel app\models\ManagerSearch */
             /* @var $dataProvider yii\data\ActiveDataProvider */
-
-            $this->title = 'Managers';
             ?>
 
-            <h1><?= Html::encode($this->title) ?></h1>
+            <h1>Managers</h1>
             <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
             <p>
                 <a href='<?= Url::toRoute('/manager/create'); ?>' class="btn btn-success">Create manager</a>
@@ -31,8 +30,7 @@ use yii\helpers\Url;
             ]) ?>
         </div>
         <div class="col">
-            <h1><?= $this->title = 'Clients';
-                Html::encode($this->title) ?></h1>
+            <h1>Clients</h1>
             <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
             <p>
@@ -50,10 +48,10 @@ use yii\helpers\Url;
             /* @var $searchModel app\models\ProjectSearchSearch */
             /* @var $dataProvider yii\data\ActiveDataProvider */
 
-            $this->title = 'Projects';
+
             ?>
 
-            <h1><?= Html::encode($this->title) ?></h1>
+            <h1>Projects</h1>
             <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
             <p>
@@ -72,9 +70,8 @@ use yii\helpers\Url;
             /* @var $searchModel app\models\EventSearch */
             /* @var $dataProvider yii\data\ActiveDataProvider */
 
-            $this->title = 'Events';
             ?>
-            <h1><?= Html::encode($this->title) ?></h1>
+            <h1>Events</h1>
             <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
             <p>
                 <a href='<?= Url::toRoute('/event/create'); ?>' class="btn btn-success">Create Event</a>
@@ -87,3 +84,4 @@ use yii\helpers\Url;
 
         </div>
     </div>
+</div>

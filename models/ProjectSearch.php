@@ -81,11 +81,14 @@ class ProjectSearch extends Project
             'query' => $query,
         ]);
 
+        $projectDataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
         // grid filtering conditions
         $query->andFilterWhere([
             'id_client' => $id,
         ]);
 
-        return $dataProvider;
+        return $projectDataProvider;
     }
 }

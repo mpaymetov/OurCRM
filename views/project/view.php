@@ -68,6 +68,7 @@ $this->title = 'Servicesets';
             'payment',
 
             ['class' => 'yii\grid\ActionColumn'],
+
         ],
     ]); ?>
 </div>

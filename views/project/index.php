@@ -2,7 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-
+use yii\widgets\ListView;
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProjectSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -31,8 +32,27 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_manager',
             'comment:ntext',
             //'is_active',
-
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+</div>
+
+<div class="col">
+    <?php
+    /* @var $this yii\web\View */
+    /* @var $searchModel app\models\ProjectSearch */
+    /* @var $dataProvider yii\data\ActiveDataProvider */
+
+    ?>
+    <h1>Events</h1>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <p>
+        <a href='<?= Url::toRoute('/project/create'); ?>' class="btn btn-success">Create Event</a>
+    </p>
+
+    <?= ListView::widget([
+        'dataProvider' => $dataProvider,
+        'itemView' => '_project_id',
+    ]) ?>
+
 </div>

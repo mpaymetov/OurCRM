@@ -71,4 +71,19 @@ class EventSearch extends Event
 
         return $dataProvider;
     }
+
+    public function searchEventId($id)
+    {
+        $query = Client::find();
+        // add conditions that should always apply here
+        $eventDataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id_manager' => $id,
+        ]);
+        return $eventDataProvider;
+    }
+
 }

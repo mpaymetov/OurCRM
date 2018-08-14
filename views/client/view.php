@@ -2,11 +2,13 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use yii\grid\GridView;
 use yii\helpers\Url;
+use yii\widgets\ListView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Client */
+/* @var $model app\models\Project */
+/* @var $model app\models\Event */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Clients', 'url' => ['index']];
@@ -41,30 +43,41 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <?php
-$this->title = 'Projects';
+
 ?>
-<div class="project-index">
+<div class="col-md-6">
+    <div class="project-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+        <h1><?= Html::encode($this->title) ?>'s projects</h1>
 
-    <p>
-        <a href='<?= Url::to(['project/create', 'id' => $model->id_client])?>' class="btn btn-success">Create Project</a>
-    </p>
+        <p>
+            <a href='<?= Url::to(['project/create', 'id' => $model->id_client]) ?>' class="btn btn-success">Create
+                Project</a>
+        </p>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+        <?= ListView::widget([
+            'dataProvider' => $dataProvider,
+            'itemView' => '../project/_project_id',
+        ]) ?>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="event-index">
+        <?php
+        /* @var $this yii\web\View */
+        /* @var $searchModel app\models\EventSearch */
+        /* @var $dataProvider yii\data\ActiveDataProvider */
+        ?>
+        <h1><?= Html::encode($this->title) ?>'s Events</h1>
 
-            'id_project',
-            'name',
-            'id_client',
-            'id_manager',
-            'comment:ntext',
-            //'is_active',
+        <p>
+            <a href='<?= Url::to(['event/create', 'id' => $model->id_client]) ?>' class="btn btn-success">Create
+                Event</a>
+        </p>
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+        <?= ListView::widget([
+            'dataProvider' => $dataProvider,
+            'itemView' => '../event/_event_id',
+        ]) ?>
+    </div>
 </div>
