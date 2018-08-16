@@ -52,7 +52,8 @@ $this->title = Yii::t('common', 'Servicesets');
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <a href='<?= Url::toRoute('/serviceset/create'); ?>' class="btn btn-success"><?= \Yii::t('common', 'Create Serviceset')?></a>
+        <a href='<?= Url::to(['serviceset/create', 'id_project' => $model->id_project]) ?>' class="btn btn-success">
+            <?= \Yii::t('common', 'Create Serviceset') ?></a>
     </p>
 
     <?= GridView::widget([

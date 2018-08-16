@@ -1,7 +1,9 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Serviceset */
@@ -12,7 +14,13 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id_project')->textInput(['maxlength' => true]) ?>
+    <?php
+    if($model->id_project) {
+       echo $form->field($model, 'id_project')->textInput(['maxlength' => true, 'readonly' => true]);
+    } else {
+       echo $form->field($model, 'id_project')->textInput(['maxlength' => true]);
+    }
+    ?>
 
     <?= $form->field($model, 'id_state')->textInput(['maxlength' => true]) ?>
 
