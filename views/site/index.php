@@ -18,15 +18,15 @@ use yii\helpers\Url;
             /* @var $dataProvider yii\data\ActiveDataProvider */
             ?>
 
-            <h1><?= \Yii::t('common', 'Managers')?></h1>
+            <h1><?= \Yii::t('common', 'Users')?></h1>
             <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
             <p>
-                <a href='<?= Url::toRoute('/manager/create'); ?>' class="btn btn-success"><?= \Yii::t('common', 'Create Manager')?></a>
+                <a href='<?= Url::toRoute('/user/create'); ?>' class="btn btn-success"><?= \Yii::t('common', 'Create user')?></a>
             </p>
 
             <?= ListView::widget([
-                'dataProvider' => $managerDataProvider,
-                'itemView' => '_post_manager',
+                'dataProvider' => $userDataProvider,
+                'itemView' => '_post_user',
             ]) ?>
         </div>
         <div class="col">

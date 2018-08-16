@@ -18,7 +18,7 @@ class ClientSearch extends Client
     public function rules()
     {
         return [
-            [['id_client', 'id_manager'], 'integer'],
+            [['id_client', 'id_user'], 'integer'],
             [['name', 'created', 'comment'], 'safe'],
         ];
     }
@@ -61,7 +61,7 @@ class ClientSearch extends Client
         $query->andFilterWhere([
             'id_client' => $this->id_client,
             'created' => $this->created,
-            'id_manager' => $this->id_manager,
+            'id_user' => $this->id_user,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
@@ -69,43 +69,4 @@ class ClientSearch extends Client
 
         return $dataProvider;
     }
-
-    public function searchManagerId($id)
-    {
-        $query = Client::find();
-        // add conditions that should always apply here
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id_manager' => $id,
-        ]);
-        return $dataProvider;
-    }
-
-    public function searchEventId($id)
-    {
-        $query = Client::find();
-        // add conditions that should always apply here
-        $eventDataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id_manager' => $id,
-        ]);
-        return $eventDataProvider;
-    }
-
-    public function searchEventIdByClient($id, $id_client)
-    {
-        $query = $this->searchEventId($id);
-        $query->andFilterWhere([
-            'id_client'  => $id_client
-        ]);
-        $eventDataProvider = $query;
-        return $eventDataProvider;
-    }
 }
-

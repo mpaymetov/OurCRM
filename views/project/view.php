@@ -2,28 +2,24 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use yii\grid\GridView;
-use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Project */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Projects'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Projects'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
-
 <div class="project-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('common', 'Update'), ['update', 'id' => $model->id_project], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('common', 'Delete'), ['delete', 'id' => $model->id_project], [
+        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id_project], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id_project], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
                 'method' => 'post',
             ],
         ]) ?>
@@ -35,40 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_project',
             'name',
             'id_client',
-            'id_manager',
+            'id_user',
             'comment:ntext',
             'is_active',
         ],
     ]) ?>
 
-</div>
-
-<?php
-$this->title = Yii::t('common', 'Servicesets');
-?>
-<div class="serviceset-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a(Yii::t('common', 'Create Serviceset'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id_serviceset',
-            'id_project',
-            'id_state',
-            'delivery',
-            'payment',
-
-            ['class' => 'yii\grid\ActionColumn'],
-
-        ],
-    ]); ?>
 </div>

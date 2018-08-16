@@ -18,7 +18,7 @@ class ProjectSearch extends Project
     public function rules()
     {
         return [
-            [['id_project', 'id_client', 'id_manager', 'is_active'], 'integer'],
+            [['id_project', 'id_client', 'id_user', 'is_active'], 'integer'],
             [['name', 'comment'], 'safe'],
         ];
     }
@@ -61,7 +61,7 @@ class ProjectSearch extends Project
         $query->andFilterWhere([
             'id_project' => $this->id_project,
             'id_client' => $this->id_client,
-            'id_manager' => $this->id_manager,
+            'id_user' => $this->id_user,
             'is_active' => $this->is_active,
         ]);
 
@@ -70,19 +70,4 @@ class ProjectSearch extends Project
 
         return $dataProvider;
     }
-
-    public function searchClientId($id)
-    {
-        $query = Project::find();
-        // add conditions that should always apply here
-        $projectDataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id_client' => $id,
-        ]);
-        return  $projectDataProvider;
-    }
-
 }

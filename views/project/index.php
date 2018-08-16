@@ -2,13 +2,12 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\ListView;
-use yii\helpers\Url;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProjectSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('common', 'Projects');
+$this->title = Yii::t('app', 'Projects');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="project-index">
@@ -17,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('common', 'Create Project'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Project'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -29,26 +28,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'id_project',
             'name',
             'id_client',
-            'id_manager',
+            'id_user',
             'comment:ntext',
             //'is_active',
+
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-</div>
-
-<div class="col">
-    <?php
-    /* @var $this yii\web\View */
-    /* @var $searchModel app\models\ProjectSearch */
-    /* @var $dataProvider yii\data\ActiveDataProvider */
-
-    ?>
-    <h1><?= Yii::t('common', 'Events') ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-    <p>
-        <a href='<?= Url::toRoute('/project/create'); ?>' class="btn btn-success"><?= Yii::t('common', 'Create Event')?></a>
-    </p>
-
-
 </div>
