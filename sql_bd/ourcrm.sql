@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Авг 16 2018 г., 17:20
+-- Время создания: Авг 16 2018 г., 17:23
 -- Версия сервера: 5.7.22-log
 -- Версия PHP: 7.1.10
 
@@ -136,7 +136,7 @@ CREATE TABLE `state` (
 --
 
 CREATE TABLE `user` (
-  `id_user` bigint(11) UNSIGNED NOT NULL,
+  `id` bigint(11) UNSIGNED NOT NULL,
   `username` varchar(255) NOT NULL,
   `first_name` varchar(255) DEFAULT NULL,
   `second_name` varchar(255) DEFAULT NULL,
@@ -212,7 +212,7 @@ ALTER TABLE `state`
 -- Индексы таблицы `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id_user`),
+  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username` (`username`);
 
 --
@@ -271,7 +271,7 @@ ALTER TABLE `state`
 -- AUTO_INCREMENT для таблицы `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
