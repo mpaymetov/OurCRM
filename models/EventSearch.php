@@ -18,7 +18,7 @@ class EventSearch extends Event
     public function rules()
     {
         return [
-            [['id_event', 'link', 'id_link', 'id_manager'], 'integer'],
+            [['id_event', 'link', 'id_link', 'id_user'], 'integer'],
             [['message', 'created', 'assignment'], 'safe'],
         ];
     }
@@ -64,28 +64,11 @@ class EventSearch extends Event
             'assignment' => $this->assignment,
             'link' => $this->link,
             'id_link' => $this->id_link,
-            'id_manager' => $this->id_manager,
+            'id_user' => $this->id_user,
         ]);
 
         $query->andFilterWhere(['like', 'message', $this->message]);
 
         return $dataProvider;
     }
-
-    public function searchEventId($id, $id_client)
-    {
-        $query = Event::find();
-        // add conditions that should always apply here
-        $eventDataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id_manager' => $id,
-        ]);
-
-        return $eventDataProvider;
-    }
-
-
 }

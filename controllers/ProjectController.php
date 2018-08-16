@@ -5,14 +5,9 @@ namespace app\controllers;
 use Yii;
 use app\models\Project;
 use app\models\ProjectSearch;
-use app\models\Serviceset;
-use app\models\ServicesetSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\Event;
-use app\models\EventSearch;
-
 
 /**
  * ProjectController implements the CRUD actions for Project model.
@@ -57,12 +52,8 @@ class ProjectController extends Controller
      */
     public function actionView($id)
     {
-        $searchModel = new ServicesetSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -131,6 +122,6 @@ class ProjectController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 }

@@ -8,13 +8,6 @@ use app\models\ClientSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\Project;
-use app\models\ProjectSearch;
-use app\models\Event;
-use app\models\EventSearch;
-
-
-
 
 /**
  * ClientController implements the CRUD actions for Client model.
@@ -57,18 +50,10 @@ class ClientController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-     public function actionView($id)
+    public function actionView($id)
     {
-        $searchModel = new ProjectSearch();
-        $dataProvider = $searchModel->searchClientId($id);
-        $searchEventModel = new EventSearch();
-        $eventDataProvider = $searchEventModel->searchEventId($id, $this);
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'searchEventModel' => $searchEventModel,
-            'eventDataProvider' => $eventDataProvider,
         ]);
     }
 
@@ -137,6 +122,6 @@ class ClientController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 }

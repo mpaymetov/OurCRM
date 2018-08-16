@@ -11,9 +11,8 @@ use Yii;
  * @property string $name
  * @property string $created
  * @property string $comment
- * @property string $id_manager
+ * @property string $id_user
  *
- * @property Manager $manager
  * @property Project[] $projects
  */
 class Client extends \yii\db\ActiveRecord
@@ -32,12 +31,11 @@ class Client extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'comment', 'id_manager'], 'required'],
+            [['name', 'comment', 'id_user'], 'required'],
             [['created'], 'safe'],
             [['comment'], 'string'],
-            [['id_manager'], 'integer'],
+            [['id_user'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['id_manager'], 'exist', 'skipOnError' => true, 'targetClass' => Manager::className(), 'targetAttribute' => ['id_manager' => 'id_manager']],
         ];
     }
 
@@ -47,20 +45,12 @@ class Client extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_client' => 'Id Client',
-            'name' => 'Name',
-            'created' => 'Created',
-            'comment' => 'Comment',
-            'id_manager' => 'Id Manager',
+            'id_client' => Yii::t('app', 'Id Client'),
+            'name' => Yii::t('app', 'Name'),
+            'created' => Yii::t('app', 'Created'),
+            'comment' => Yii::t('app', 'Comment'),
+            'id_user' => Yii::t('app', 'Id User'),
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getManager()
-    {
-        return $this->hasOne(Manager::className(), ['id_manager' => 'id_manager']);
     }
 
     /**
@@ -69,10 +59,5 @@ class Client extends \yii\db\ActiveRecord
     public function getProjects()
     {
         return $this->hasMany(Project::className(), ['id_client' => 'id_client']);
-    }
-
-    public function create()
-    {
-        Client::actionCreate();
     }
 }

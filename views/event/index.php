@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\EventSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = \Yii::t('common', 'Events');
+$this->title = Yii::t('app', 'Events');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="event-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(\Yii::t('common', 'Create Event'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Event'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'assignment',
             'link',
             //'id_link',
-            //'id_manager',
+            //'id_user',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

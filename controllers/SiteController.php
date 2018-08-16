@@ -14,6 +14,7 @@ use app\models\ContactForm;
 use app\models\ClientSearch;
 use app\models\ProjectSearch;
 use app\models\ManagerSearch;
+use app\models\UserSearch;
 use app\models\EventSearch;
 
 class SiteController extends Controller
@@ -73,8 +74,8 @@ class SiteController extends Controller
         $projectSearchModel = new ProjectSearch();
         $projectDataProvider = $projectSearchModel->search(Yii::$app->request->queryParams);
 
-        $managerSearchModel = new managerSearch();
-        $managerDataProvider = $managerSearchModel->search(Yii::$app->request->queryParams);
+        $userSearchModel = new userSearch();
+        $userDataProvider = $userSearchModel->search(Yii::$app->request->queryParams);
 
         $eventSearchModel = new eventSearch();
         $eventDataProvider = $eventSearchModel->search(Yii::$app->request->queryParams);
@@ -85,8 +86,8 @@ class SiteController extends Controller
             'dataProvider' => $dataProvider,
             'projectSearchModel' => $projectSearchModel,
             'projectDataProvider' => $projectDataProvider,
-            'managerSearchModel' => $managerSearchModel,
-            'managerDataProvider' => $managerDataProvider,
+            'userSearchModel' => $userSearchModel,
+            'userDataProvider' => $userDataProvider,
             'eventSearchModel' => $eventSearchModel,
             'eventDataProvider' => $eventDataProvider,
         ]);
