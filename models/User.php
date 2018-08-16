@@ -11,8 +11,8 @@ use \yii\web\IdentityInterface;
 /**
  * This is the model class for table "user".
  *
- * @property string $id
- * @property string $username
+ * @property string $id_user
+ * @property string $login
  * @property string $auth_key
  * @property string $password_hash
  * @property string $password_reset_token
@@ -41,11 +41,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email'], 'required'],
+            [['login', 'auth_key', 'password_hash', 'password_reset_token', 'email'], 'required'],
             [['status'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
-            [['username'], 'unique'],
+            [['login', 'auth_key', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
+            [['login'], 'unique'],
         ];
     }*/
 
@@ -55,8 +55,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'username' => Yii::t('app', 'Username'),
+            'id_user' => Yii::t('app', 'Id User'),
+            'login' => Yii::t('app', 'Login'),
             'auth_key' => Yii::t('app', 'Auth Key'),
             'password_hash' => Yii::t('app', 'Password Hash'),
             'password_reset_token' => Yii::t('app', 'Password Reset Token'),
@@ -101,7 +101,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['id_user' => $id, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -113,14 +113,14 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Finds user by username
+     * Finds user by login
      *
-     * @param string $username
+     * @param string $login
      * @return static|null
      */
-    public static function findByUsername($username)
+    public static function findByLogin($login)
     {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['login' => $login, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
