@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Авг 16 2018 г., 17:23
+-- Время создания: Авг 16 2018 г., 22:02
 -- Версия сервера: 5.7.22-log
 -- Версия PHP: 7.1.10
 
@@ -36,6 +36,15 @@ CREATE TABLE `client` (
   `id_user` bigint(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Дамп данных таблицы `client`
+--
+
+INSERT INTO `client` (`id_client`, `name`, `created`, `comment`, `id_user`) VALUES
+(1, 'Николай', NULL, 'Встретил во дворе', 3),
+(2, 'Вова', NULL, 'познакомился на конференции', 3),
+(3, 'Сергей', '2018-07-25 21:15:11', 'Встретил в кафе', 3);
+
 -- --------------------------------------------------------
 
 --
@@ -46,6 +55,15 @@ CREATE TABLE `department` (
   `id_department` bigint(11) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `department`
+--
+
+INSERT INTO `department` (`id_department`, `name`) VALUES
+(1, 'Отдел продаж'),
+(3, 'отдел тестирования'),
+(4, 'отдел разработки');
 
 -- --------------------------------------------------------
 
@@ -63,6 +81,13 @@ CREATE TABLE `event` (
   `id_user` bigint(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Дамп данных таблицы `event`
+--
+
+INSERT INTO `event` (`id_event`, `message`, `created`, `assignment`, `link`, `id_link`, `id_user`) VALUES
+(1, 'cofee', '2018-08-09 15:32:19', '2018-08-10 07:00:00', 1, 2, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -77,6 +102,13 @@ CREATE TABLE `project` (
   `comment` text NOT NULL,
   `is_active` tinyint(4) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `project`
+--
+
+INSERT INTO `project` (`id_project`, `name`, `id_client`, `id_user`, `comment`, `is_active`) VALUES
+(1, 'написать сайт для Вовы', 2, 3, 'че-нить придумать', 1);
 
 -- --------------------------------------------------------
 
@@ -136,11 +168,11 @@ CREATE TABLE `state` (
 --
 
 CREATE TABLE `user` (
-  `id` bigint(11) UNSIGNED NOT NULL,
-  `username` varchar(255) NOT NULL,
+  `id_user` bigint(11) UNSIGNED NOT NULL,
+  `login` varchar(255) NOT NULL,
   `first_name` varchar(255) DEFAULT NULL,
   `second_name` varchar(255) DEFAULT NULL,
-  `id_department` bigint(11) UNSIGNED DEFAULT NULL,
+  `id_department` bigint(11) UNSIGNED NOT NULL,
   `auth_key` varchar(255) NOT NULL,
   `password_hash` varchar(255) NOT NULL,
   `password_reset_token` varchar(255) DEFAULT NULL,
@@ -151,6 +183,13 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Дамп данных таблицы `user`
+--
+
+INSERT INTO `user` (`id_user`, `login`, `first_name`, `second_name`, `id_department`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`) VALUES
+(3, 'admin', NULL, NULL, 1, 'kFmKfzdkSt6ocjVu2iTWGJpnF_cnyvrV', '$2y$13$eC8indj0TKQfwWmsDqGfXemXJfTjL97BNb9nqLxfSsAXKjLAw83LK', NULL, 'admin@ourcrm.ru', 10, 1534264094, 1534264094);
+
+--
 -- Индексы сохранённых таблиц
 --
 
@@ -158,7 +197,8 @@ CREATE TABLE `user` (
 -- Индексы таблицы `client`
 --
 ALTER TABLE `client`
-  ADD PRIMARY KEY (`id_client`);
+  ADD PRIMARY KEY (`id_client`),
+  ADD KEY `fk_id_user2` (`id_user`);
 
 --
 -- Индексы таблицы `department`
@@ -170,7 +210,8 @@ ALTER TABLE `department`
 -- Индексы таблицы `event`
 --
 ALTER TABLE `event`
-  ADD PRIMARY KEY (`id_event`);
+  ADD PRIMARY KEY (`id_event`),
+  ADD KEY `fk_id_user` (`id_user`);
 
 --
 -- Индексы таблицы `project`
@@ -178,7 +219,7 @@ ALTER TABLE `event`
 ALTER TABLE `project`
   ADD PRIMARY KEY (`id_project`),
   ADD KEY `id_client` (`id_client`),
-  ADD KEY `id_manager` (`id_user`);
+  ADD KEY `fk_id_user3` (`id_user`);
 
 --
 -- Индексы таблицы `service`
@@ -212,8 +253,9 @@ ALTER TABLE `state`
 -- Индексы таблицы `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`);
+  ADD PRIMARY KEY (`id_user`),
+  ADD UNIQUE KEY `username` (`login`),
+  ADD KEY `fk_id_department` (`id_department`);
 
 --
 -- AUTO_INCREMENT для сохранённых таблиц
@@ -271,17 +313,30 @@ ALTER TABLE `state`
 -- AUTO_INCREMENT для таблицы `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_user` bigint(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --
 
 --
+-- Ограничения внешнего ключа таблицы `client`
+--
+ALTER TABLE `client`
+  ADD CONSTRAINT `fk_id_user2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `event`
+--
+ALTER TABLE `event`
+  ADD CONSTRAINT `fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON UPDATE CASCADE;
+
+--
 -- Ограничения внешнего ключа таблицы `project`
 --
 ALTER TABLE `project`
-  ADD CONSTRAINT `fk_id_client` FOREIGN KEY (`id_client`) REFERENCES `client` (`id_client`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_id_client` FOREIGN KEY (`id_client`) REFERENCES `client` (`id_client`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_id_user3` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`) ON UPDATE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `servicelist`
@@ -296,6 +351,12 @@ ALTER TABLE `servicelist`
 ALTER TABLE `serviceset`
   ADD CONSTRAINT `fk_id_project` FOREIGN KEY (`id_project`) REFERENCES `project` (`id_project`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_id_state` FOREIGN KEY (`id_state`) REFERENCES `state` (`id_state`) ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `fk_id_department` FOREIGN KEY (`id_department`) REFERENCES `department` (`id_department`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
