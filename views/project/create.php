@@ -11,7 +11,9 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Projects'), 'url' =>
 $this->params['breadcrumbs'][] = $this->title;
 $request = Yii::$app->request;
 $client_id = $request->get('id_client');
+$user_id = $request->get('id_user');
 $model->id_client = $client_id;
+$model->id_user = $user_id;
 ?>
 <div class="project-create">
 

@@ -22,6 +22,14 @@ use yii\widgets\ActiveForm;
     }
     ?>
 
+    <?
+    if($model->id_user){
+        echo $form->field($model, 'id_user')->textInput(['maxlength' => true, 'readonly' => true]);
+    } else {
+        echo $form->field($model, 'id_user')->textInput(['maxlength' => true]);
+    }
+    ?>
+
     <?= $form->field($model, 'comment')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'is_active')->textInput() ?>

@@ -10,12 +10,12 @@ use Yii;
  * @property string $id_project
  * @property string $name
  * @property string $id_client
- * @property string $id_manager
+ * @property string id_user
  * @property string $comment
  * @property int $is_active
  *
  * @property Client $client
- * @property Manager $manager
+ * @property User $user
  * @property Serviceset[] $servicesets
  */
 class Project extends \yii\db\ActiveRecord
@@ -34,12 +34,12 @@ class Project extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'id_client', 'id_manager', 'comment'], 'required'],
-            [['id_client', 'id_manager', 'is_active'], 'integer'],
+            [['name', 'id_client', 'id_user', 'comment'], 'required'],
+            [['id_client', 'id_user', 'is_active'], 'integer'],
             [['comment'], 'string'],
             [['name'], 'string', 'max' => 255],
             [['id_client'], 'exist', 'skipOnError' => true, 'targetClass' => Client::className(), 'targetAttribute' => ['id_client' => 'id_client']],
-            [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_manager' => 'id_manager']],
+            [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_user' => 'id_user']],
         ];
     }
 
@@ -52,7 +52,7 @@ class Project extends \yii\db\ActiveRecord
             'id_project' => 'Id Project',
             'name' => 'Name',
             'id_client' => 'Id Client',
-            'id_manager' => 'Id Manager',
+            'id_user' => 'Id Manager',
             'comment' => 'Comment',
             'is_active' => 'Is Active',
         ];
@@ -71,7 +71,7 @@ class Project extends \yii\db\ActiveRecord
      */
     public function getManager()
     {
-        return $this->hasOne(Manager::className(), ['id_manager' => 'id_manager']);
+        return $this->hasOne(User::className(), ['id_user' => 'id_user']);
     }
 
     /**
