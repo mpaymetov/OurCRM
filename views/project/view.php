@@ -40,7 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
 </div>
-<<<<<<< HEAD
 
 <?php
 $this->title = Yii::t('common', 'Servicesets');
@@ -72,5 +71,3 @@ $this->title = Yii::t('common', 'Servicesets');
         ],
     ]); ?>
 </div>
-=======
->>>>>>> 9dc0b2445973a8068dac6872d220edc162654f86

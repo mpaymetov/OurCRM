@@ -3,6 +3,15 @@
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
+use app\models\State;
+use app\models\StateSearch;
+
+$state = (new \yii\db\Query())
+->select('id_state, name')
+->from('state')
+->all();
+
+$itemsState = ArrayHelper::map($state, 'id_state', 'name');
 
 
 /* @var $this yii\web\View */
@@ -22,7 +31,7 @@ use yii\widgets\ActiveForm;
     }
     ?>
 
-    <?= $form->field($model, 'id_state')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'id_state')->dropDownList($itemsState)?>
 
     <?= $form->field($model, 'delivery')->textInput() ?>
 
