@@ -68,4 +68,19 @@ class ServicesetSearch extends Serviceset
 
         return $dataProvider;
     }
+
+    public function searchProjectId($id)
+    {
+        $query = Serviceset::find();
+        // add conditions that should always apply here
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id_project' => $id,
+        ]);
+        return $dataProvider;
+    }
+
 }

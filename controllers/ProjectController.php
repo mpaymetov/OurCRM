@@ -57,7 +57,7 @@ class ProjectController extends Controller
     public function actionView($id)
     {
         $searchModel = new ServicesetSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->searchProjectId($id);
         return $this->render('view', [
             'model' => $this->findModel($id),
             'searchModel' => $searchModel,
