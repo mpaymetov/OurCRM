@@ -14,7 +14,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'id_client')->textInput(['maxlength' => true]) ?>
+    <?
+    if($model->id_client){
+        echo $form->field($model, 'id_client')->textInput(['maxlength' => true, 'readonly' => true]);
+    } else {
+        echo $form->field($model, 'id_client')->textInput(['maxlength' => true]);
+    }
+    ?>
 
     <?= $form->field($model, 'comment')->textarea(['rows' => 6]) ?>
 

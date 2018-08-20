@@ -39,7 +39,7 @@ class Project extends \yii\db\ActiveRecord
             [['comment'], 'string'],
             [['name'], 'string', 'max' => 255],
             [['id_client'], 'exist', 'skipOnError' => true, 'targetClass' => Client::className(), 'targetAttribute' => ['id_client' => 'id_client']],
-            [['id_manager'], 'exist', 'skipOnError' => true, 'targetClass' => Manager::className(), 'targetAttribute' => ['id_manager' => 'id_manager']],
+            [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_manager' => 'id_manager']],
         ];
     }
 
