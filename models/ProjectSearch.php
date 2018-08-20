@@ -70,4 +70,18 @@ class ProjectSearch extends Project
 
         return $dataProvider;
     }
+
+    public function searchClientId($id)
+    {
+        $query = Project::find();
+        // add conditions that should always apply here
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id_client' => $id,
+        ]);
+        return $dataProvider;
+    }
 }

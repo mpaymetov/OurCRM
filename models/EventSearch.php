@@ -80,7 +80,7 @@ class EventSearch extends Event
         ]);
         // grid filtering conditions
         $query->andFilterWhere([
-            'id_manager' => $id,
+            'id_user' => $id,
         ]);
         return $eventDataProvider;
     }

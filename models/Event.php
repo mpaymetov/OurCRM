@@ -13,7 +13,7 @@ use Yii;
  * @property string $assignment
  * @property int $link
  * @property string $id_link
- * @property string $id_manager
+ * @property string $id_user
  */
 class Event extends \yii\db\ActiveRecord
 {
@@ -31,9 +31,9 @@ class Event extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['message', 'id_manager'], 'required'],
+            [['message', 'id_user'], 'required'],
             [['created', 'assignment'], 'safe'],
-            [['link', 'id_link', 'id_manager'], 'integer'],
+            [['link', 'id_link', 'id_user'], 'integer'],
             [['message'], 'string', 'max' => 255],
         ];
     }
@@ -50,7 +50,7 @@ class Event extends \yii\db\ActiveRecord
             'assignment' => 'Assignment',
             'link' => 'Link',
             'id_link' => 'Id Link',
-            'id_manager' => 'Id Manager',
+            'id_user' => 'Id Manager',
         ];
     }
 }
