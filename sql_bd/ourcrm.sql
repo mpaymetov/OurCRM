@@ -254,7 +254,7 @@ ALTER TABLE `state`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`),
-  ADD UNIQUE KEY `username` (`login`),
+  ADD UNIQUE KEY `login` (`login`),
   ADD KEY `fk_id_department` (`id_department`);
 
 --
