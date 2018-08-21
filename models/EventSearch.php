@@ -73,15 +73,23 @@ class EventSearch extends Event
     }
     public function searchEventId($id, $id_client)
     {
-        $query = Event::find();
-        // add conditions that should always apply here
-        $eventDataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id_user' => $id,
-        ]);
-        return $eventDataProvider;
+        print_r($id);
+        print_r($id_client);
+        if (!Yii::$app->user->isGuest) {
+            $query = Event::find();
+            $eventDataProvider = new ActiveDataProvider([
+                'query' => $query,
+            ]);
+            $query->andFilterWhere([
+                'event.id_user' => $id,
+            ]);
+            $query-> select(['*'])
+                -> from('event')
+                -> where(['link' => '1'])
+                -> andwhere(['id_link' => $id])
+                -> andwhere(['id_user' => $id_client])
+                -> all();
+            return $eventDataProvider;
+        }
     }
 }
