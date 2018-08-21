@@ -49,12 +49,12 @@ class Project extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_project' => 'Id Project',
-            'name' => 'Name',
-            'id_client' => 'Id Client',
-            'id_user' => 'Id Manager',
-            'comment' => 'Comment',
-            'is_active' => 'Is Active',
+            'id_project' => Yii::t('common', 'Id Project'),
+            'name' => Yii::t('common', 'Name'),
+            'id_client' => Yii::t('common', 'Id Client'),
+            'id_user' => Yii::t('common', 'Id User'),
+            'comment' => Yii::t('common', 'Comment'),
+            'is_active' => Yii::t('common', 'Is Active'),
         ];
     }
 
