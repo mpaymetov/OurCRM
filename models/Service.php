@@ -45,11 +45,11 @@ class Service extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_service' => 'Id Service',
-            'name' => 'Name',
-            'description' => 'Description',
-            'cost' => 'Cost',
-            'is_enable' => 'Is Enable',
+            'id_service' =>  Yii::t('common', 'Id Service'),
+            'name' =>  Yii::t('common', 'Name'),
+            'description' =>  Yii::t('common', 'Description'),
+            'cost' =>  Yii::t('common', 'Cost'),
+            'is_enable' =>  Yii::t('common', 'Is Enable'),
         ];
     }
 

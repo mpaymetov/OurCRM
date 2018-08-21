@@ -45,11 +45,11 @@ class Client extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_client' => Yii::t('app', 'Id Client'),
-            'name' => Yii::t('app', 'Name'),
-            'created' => Yii::t('app', 'Created'),
-            'comment' => Yii::t('app', 'Comment'),
-            'id_user' => Yii::t('app', 'Id User'),
+            'id_client' => Yii::t('common', 'Id Client'),
+            'name' => Yii::t('common', 'Name'),
+            'created' => Yii::t('common', 'Created'),
+            'comment' => Yii::t('common', 'Comment'),
+            'id_user' => Yii::t('common', 'Id User'),
         ];
     }
 

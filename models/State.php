@@ -39,8 +39,8 @@ class State extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_state' => 'Id State',
-            'name' => 'Name',
+            'id_state' => Yii::t('common', 'Id State'),
+            'name' => Yii::t('common', 'Name'),
         ];
     }
 
