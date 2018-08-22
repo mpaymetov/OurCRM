@@ -71,10 +71,8 @@ class EventSearch extends Event
 
         return $dataProvider;
     }
-    public function searchEventId($id, $id_client)
+    public function searchEventId($id, $id_client, $check)
     {
-        print_r($id);
-        print_r($id_client);
         if (!Yii::$app->user->isGuest) {
             $query = Event::find();
             $eventDataProvider = new ActiveDataProvider([
@@ -83,7 +81,7 @@ class EventSearch extends Event
 
             $query-> select(['*'])
                 -> from('event')
-                -> where(['link' => '1'])
+                -> where(['link' => $check])
                 -> andwhere(['id_link' => $id])
                 -> andwhere(['id_user' => $id_client])
                 -> all();

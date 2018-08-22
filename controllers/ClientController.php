@@ -59,7 +59,7 @@ class ClientController extends Controller
         $searchModel = new ProjectSearch();
         $dataProvider = $searchModel->searchClientId($id);
         $searchEventModel = new EventSearch();
-        $eventDataProvider = $searchEventModel->searchEventId($id, Yii::$app->user->identity->id_user);
+        $eventDataProvider = $searchEventModel->searchEventId($id, Yii::$app->user->identity->id_user, 1);
         return $this->render('view', [
             'model' => $this->findModel($id),
             'searchModel' => $searchModel,
