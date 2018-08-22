@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\ServicesetSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Servicesets';
+$this->title = Yii::t('common', 'Servicesets');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="serviceset-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Serviceset', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('common', 'Create Serviceset'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

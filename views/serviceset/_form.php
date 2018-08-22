@@ -38,7 +38,7 @@ $itemsState = ArrayHelper::map($state, 'id_state', 'name');
     <?= $form->field($model, 'payment')->textInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('common', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
