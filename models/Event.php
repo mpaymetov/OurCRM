@@ -35,6 +35,7 @@ class Event extends \yii\db\ActiveRecord
             [['created', 'assignment'], 'safe'],
             [['link', 'id_link', 'id_user'], 'integer'],
             [['message'], 'string', 'max' => 255],
+            [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_user' => 'id_user']],
         ];
     }
 

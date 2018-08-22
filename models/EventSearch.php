@@ -80,9 +80,7 @@ class EventSearch extends Event
             $eventDataProvider = new ActiveDataProvider([
                 'query' => $query,
             ]);
-            $query->andFilterWhere([
-                'event.id_user' => $id,
-            ]);
+
             $query-> select(['*'])
                 -> from('event')
                 -> where(['link' => '1'])

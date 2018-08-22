@@ -46,13 +46,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="project-index">
         <h1><?= Html::encode($this->title) ?>'s projects</h1>
         <p>
-            <a href='<?= Url::to(['project/create', 'id_client' => $model->id_client, 'id_user' => $model->id_user ]) ?>' class="btn btn-success">
+            <a href='<?= Url::to(['project/create', 'id_client' => $model->id_client, 'id_user' => $model->id_user]) ?>'
+               class="btn btn-success">
                 <?= \Yii::t('common', 'Create Project') ?></a>
         </p>
         <?php
         /* @var $this yii\web\View */
         /* @var $searchProjectModel app\models\EventSearch */
-        /* @var $dataProvider; yii\data\ActiveDataProvider */
+        /* @var $dataProvider ; yii\data\ActiveDataProvider */
         ?>
         <?= ListView::widget([
             'dataProvider' => $dataProvider,
@@ -69,7 +70,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
         <h1><?= Html::encode($this->title) ?>'s Events</h1>
         <p>
-            <a href='<?= Url::to(['event/create', 'id_client' => $model->id_client]) ?>' class="btn btn-success">
+
+            <a href='<?= Url::to(['event/create', 'id' => $model->id_user]) ?>' class="btn btn-success">
                 <?= \Yii::t('common', 'Create Event') ?></a>
         </p>
         <div class="client-index">
