@@ -71,7 +71,7 @@ class EventSearch extends Event
 
         return $dataProvider;
     }
-    public function searchEventId($id, $id_client, $check)
+    public function searchEventId($id_link, $id_user, $route_link)
     {
         if (!Yii::$app->user->isGuest) {
             $query = Event::find();
@@ -79,12 +79,13 @@ class EventSearch extends Event
                 'query' => $query,
             ]);
 
-            $query-> select(['*'])
+             $query-> select(['*'])
                 -> from('event')
-                -> where(['link' => $check])
-                -> andwhere(['id_link' => $id])
-                -> andwhere(['id_user' => $id_client])
+                -> where(['link' => $route_link])
+                -> andwhere(['id_link' => $id_link])
+                -> andwhere(['id_user' => $id_user])
                 -> all();
+
             return $eventDataProvider;
         }
     }
