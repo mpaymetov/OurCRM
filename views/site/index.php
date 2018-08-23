@@ -3,6 +3,9 @@
 use yii\widgets\ListView;
 use yii\helpers\Url;
 
+if ( Yii::$app->user->isGuest )
+    return Yii::$app->getResponse()->redirect(array('/site/login',302));
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ClientSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */

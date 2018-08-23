@@ -35,6 +35,7 @@ class Event extends \yii\db\ActiveRecord
             [['created', 'assignment'], 'safe'],
             [['link', 'id_link', 'id_user'], 'integer'],
             [['message'], 'string', 'max' => 255],
+            [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_user' => 'id_user']],
         ];
     }
 
@@ -44,13 +45,13 @@ class Event extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_event' => 'Id Event',
-            'message' => 'Message',
-            'created' => 'Created',
-            'assignment' => 'Assignment',
-            'link' => 'Link',
-            'id_link' => 'Id Link',
-            'id_user' => 'Id Manager',
+            'id_event' =>  Yii::t('common', 'Id Event'),
+            'message' =>  Yii::t('common', 'Message'),
+            'created' =>  Yii::t('common', 'Created'),
+            'assignment' =>  Yii::t('common', 'Assignment'),
+            'link' =>  Yii::t('common', 'Link'),
+            'id_link' =>  Yii::t('common', 'Id Link'),
+            'id_user' =>  Yii::t('common', 'Id User'),
         ];
     }
 }

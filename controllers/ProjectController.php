@@ -41,7 +41,6 @@ class ProjectController extends Controller
     {
         $searchModel = new ProjectSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -58,10 +57,15 @@ class ProjectController extends Controller
     {
         $searchModel = new ServicesetSearch();
         $dataProvider = $searchModel->searchProjectId($id);
+        $searchEventModel = new EventSearch();
+        $eventDataProvider = $searchEventModel->searchEventId($id, Yii::$app->user->identity->id_user, 2);
+        print_r($id);
+        print_r(Yii::$app->user->identity->id_user);
         return $this->render('view', [
             'model' => $this->findModel($id),
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'eventDataProvider' => $eventDataProvider,
         ]);
     }
 
