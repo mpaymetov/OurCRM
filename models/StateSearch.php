@@ -66,4 +66,9 @@ class StateSearch extends State
 
         return $dataProvider;
     }
+
+    public function getStateList()
+    {
+
+    }
 }

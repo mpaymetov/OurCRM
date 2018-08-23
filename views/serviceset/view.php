@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
+
 /* @var $this yii\web\View */
 /* @var $model app\models\Serviceset */
 
@@ -37,3 +38,14 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
 </div>
+
+<div class="servicelist-create">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <?= $this->render('_formServiceLIst',[
+        'modelServicelist' => $modelServicelist,
+    ]) ?>
+
+</div>
+
