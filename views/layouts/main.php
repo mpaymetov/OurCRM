@@ -49,7 +49,7 @@ AppAsset::register($this);
     ];
 
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => \Yii::t('common', 'Login'), 'url' => ['/site/login']];
+        $menuItems[] = ['label' => \Yii::t('common', 'Log in'), 'url' => ['/site/login']];
     } else {
         $menuItems[] = ['label' => \Yii::t('common', 'Users'), 'url' => ['/user/index']];
         $menuItems[] = '<li>'
