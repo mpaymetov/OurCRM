@@ -19,6 +19,7 @@ $model->id_project = $project_id;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'itemsState' => $itemsState,
     ]) ?>
 
 </div>

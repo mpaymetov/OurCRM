@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use yii\helpers\ArrayHelper;
 use app\models\State;
 
 /**
@@ -69,6 +70,11 @@ class StateSearch extends State
 
     public function getStateList()
     {
+        $state = (new \yii\db\Query())
+            ->select('id_state, name')
+            ->from('state')
+            ->all();
 
+        return ArrayHelper::map($state, 'id_state', 'name');
     }
 }

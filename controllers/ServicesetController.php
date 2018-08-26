@@ -7,6 +7,8 @@ use app\models\Serviceset;
 use app\models\ServicesetSearch;
 use app\models\Servicelist;
 use app\models\ServicelistSearch;
+use app\models\State;
+use app\models\StateSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -63,7 +65,7 @@ class ServicesetController extends Controller
 
         return $this->render('view', [
             'model' => $model,
-            'modelServicelist' => $modelServicelist
+            'modelServicelist' => $modelServicelist,
         ]);
     }
 
@@ -75,6 +77,8 @@ class ServicesetController extends Controller
     public function actionCreate()
     {
         $model = new Serviceset();
+        $state = new StateSearch();
+        $itemsState = $state -> getStateList();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id_serviceset]);
@@ -82,7 +86,7 @@ class ServicesetController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-
+            'itemsState' => $itemsState,
         ]);
     }
 
