@@ -10,6 +10,7 @@ use yii\widgets\DetailView;
 $this->title = $model->id_serviceset;
 $this->params['breadcrumbs'][] = ['label' => 'Servicesets', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$idServiceSet = $model->id_serviceset;
 ?>
 <div class="serviceset-view">
 
@@ -45,7 +46,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_formServiceLIst',[
         'modelServicelist' => $modelServicelist,
+        'itemsService' => $itemsService,
+        'idServiceSet' => $idServiceSet,
     ]) ?>
+
 
 </div>
 

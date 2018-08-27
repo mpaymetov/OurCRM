@@ -9,6 +9,8 @@ use app\models\Servicelist;
 use app\models\ServicelistSearch;
 use app\models\State;
 use app\models\StateSearch;
+use app\models\Service;
+use app\models\ServiceSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -58,6 +60,8 @@ class ServicesetController extends Controller
     {
         $model = $this->findModel($id);
         $modelServicelist = new Servicelist();
+        $service = new ServiceSearch();
+        $itemsService = $service->getServiceListItems();
 
         if ($modelServicelist->load(Yii::$app->request->post()) && $modelServicelist->save()) {
             return $this->redirect(['project/view', 'id' => $this->findModel($id)->id_project]);
@@ -66,6 +70,7 @@ class ServicesetController extends Controller
         return $this->render('view', [
             'model' => $model,
             'modelServicelist' => $modelServicelist,
+            'itemsService' => $itemsService,
         ]);
     }
 

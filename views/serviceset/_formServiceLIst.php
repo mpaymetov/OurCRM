@@ -19,9 +19,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($modelServicelist, 'id_serviceset')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($modelServicelist, 'id_serviceset')->textInput(['value' => $idServiceSet, 'readonly' => true]) ?>
 
-    <?= $form->field($modelServicelist, 'id_service')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($modelServicelist, 'id_service')->dropDownList($itemsService)?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

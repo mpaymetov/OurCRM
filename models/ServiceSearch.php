@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Service;
+use yii\helpers\ArrayHelper;
 
 /**
  * ServiceSearch represents the model behind the search form of `app\models\Service`.
@@ -69,5 +70,16 @@ class ServiceSearch extends Service
             ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
+    }
+
+
+    public function getServiceListItems()
+    {
+        $state = (new \yii\db\Query())
+            ->select('id_service, name')
+            ->from('service')
+            ->all();
+
+        return ArrayHelper::map($state, 'id_service', 'name');
     }
 }
