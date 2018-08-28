@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 
+if ( Yii::$app->user->isGuest )
+    return Yii::$app->getResponse()->redirect(array('/site/login',302));
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Client */
@@ -9,6 +11,7 @@ use yii\helpers\Html;
 $this->title = Yii::t('common', 'Create Client');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Clients'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+$model->id_user = Yii::$app->user->identity->id_user;
 ?>
 <div class="client-create">
 
