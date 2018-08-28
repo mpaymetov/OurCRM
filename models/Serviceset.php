@@ -33,7 +33,7 @@ class Serviceset extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_project', 'id_state', 'delivery', 'payment'], 'required'],
+            [['id_project', 'id_state'], 'required'],
             [['id_project', 'id_state'], 'integer'],
             [['delivery', 'payment'], 'safe'],
             [['id_project'], 'exist', 'skipOnError' => true, 'targetClass' => Project::className(), 'targetAttribute' => ['id_project' => 'id_project']],
