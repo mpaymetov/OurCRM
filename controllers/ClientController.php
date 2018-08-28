@@ -12,6 +12,8 @@ use app\models\Project;
 use app\models\ProjectSearch;
 use app\models\Event;
 use app\models\EventSearch;
+use yii\db\StaleObjectException;
+
 
 /**
  * ClientController implements the CRUD actions for Client model.
@@ -98,13 +100,18 @@ class ClientController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_client]);
+        try {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_client]);
+            } else {
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
+        } catch (StaleObjectException $e) {
+            // логика разрешения конфликта версий
+            echo('error');
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**

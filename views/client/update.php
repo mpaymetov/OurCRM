@@ -9,6 +9,7 @@ $this->title = Yii::t('common', 'Update Client: ') . $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Clients'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id_client]];
 $this->params['breadcrumbs'][] = Yii::t('common', 'Update');
+echo Html::activeHiddenInput($model, 'version');
 ?>
 <div class="client-update">
 

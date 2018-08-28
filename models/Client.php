@@ -25,6 +25,11 @@ class Client extends \yii\db\ActiveRecord
         return 'client';
     }
 
+    public function optimisticLock()
+    {
+        return 'version';
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -36,6 +41,7 @@ class Client extends \yii\db\ActiveRecord
             [['comment'], 'string'],
             [['id_user'], 'integer'],
             [['name'], 'string', 'max' => 255],
+            [['version'], 'integer'],
         ];
     }
 
@@ -50,6 +56,7 @@ class Client extends \yii\db\ActiveRecord
             'created' => Yii::t('common', 'Created'),
             'comment' => Yii::t('common', 'Comment'),
             'id_user' => Yii::t('common', 'Id User'),
+            'version' => Yii::t('common', 'Version'),
         ];
     }
 
