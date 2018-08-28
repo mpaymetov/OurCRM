@@ -8,6 +8,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use unclead\multipleinput\MultipleInput;
 
 /* @var $this yii\web\View */
 /* @var $modelServicelist app\models\Servicelist */
@@ -21,7 +22,19 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($modelServicelist, 'id_serviceset')->textInput(['value' => $idServiceSet, 'readonly' => true]) ?>
 
-    <?= $form->field($modelServicelist, 'id_service')->dropDownList($itemsService)?>
+    <?= $form->field($modelServicelist, 'id_service')-> widget(MultipleInput::className(), [
+            'max' => 12,
+            'min' => 1,
+            'columns' => [
+            [
+                'name' => 'Service',
+                 'type'  => 'dropDownList',
+                 'items' => $itemsService,
+            ]
+            ]
+    ])?>
+
+    <?/*= $form->field($modelServicelist, 'id_service')->dropDownList($itemsService)*/?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
