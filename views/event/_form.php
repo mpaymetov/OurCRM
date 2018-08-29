@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'assignment')->textInput() ?>
 
-    <?
+    <?php
     if($model->id_user){
         echo $form->field($model, 'link')->textInput(['maxlength' => true, 'readonly' => true]);
     } else {
@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
     }
     ?>
 
-    <?
+    <?php
     if($model->id_user){
         echo $form->field($model, 'id_link')->textInput(['maxlength' => true, 'readonly' => true]);
     } else {
@@ -34,7 +34,7 @@ use yii\widgets\ActiveForm;
     }
     ?>
 
-    <?
+    <?php
     if($model->id_user){
         echo $form->field($model, 'id_user')->textInput(['maxlength' => true, 'readonly' => true]);
     } else {
