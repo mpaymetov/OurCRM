@@ -10,7 +10,7 @@ $this->title = Yii::t('common', 'Create Project');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Projects'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 $request = Yii::$app->request;
-$client_id = $request->get('id_client');
+$client_id = $request->get('id_link');
 $user_id = $request->get('id_user');
 $model->id_client = $client_id;
 $model->id_user = $user_id;

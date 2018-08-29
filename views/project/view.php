@@ -8,7 +8,7 @@ use yii\widgets\ListView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Project */
-
+$route_link = 2;
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Projects'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <h1><?= Html::encode($this->title) ?>'s Events</h1>
             <p>
 
-                <a href='<?= Url::to(['event/create', 'id_user' => $model->id_user, 'id_client' => $model -> id_client, 'link' => $route_link]) ?>' class="btn btn-success">
+                <a href='<?= Url::to(['event/create', 'id_user' => $model->id_user, 'id_link' => $model -> id_project, 'link' => $route_link]) ?>' class="btn btn-success">
                     <?= \Yii::t('common', 'Create Event') ?></a>
             </p>
             <div class="client-index">
