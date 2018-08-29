@@ -18,9 +18,21 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'assignment')->textInput() ?>
 
-    <?= $form->field($model, 'link')->textInput() ?>
+    <?
+    if($model->id_user){
+        echo $form->field($model, 'link')->textInput(['maxlength' => true, 'readonly' => true]);
+    } else {
+        echo $form->field($model, 'link')->textInput(['maxlength' => true]);
+    }
+    ?>
 
-    <?= $form->field($model, 'id_link')->textInput(['maxlength' => true]) ?>
+    <?
+    if($model->id_user){
+        echo $form->field($model, 'id_link')->textInput(['maxlength' => true, 'readonly' => true]);
+    } else {
+        echo $form->field($model, 'id_link')->textInput(['maxlength' => true]);
+    }
+    ?>
 
     <?
     if($model->id_user){
