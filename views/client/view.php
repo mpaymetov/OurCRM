@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="project-index">
         <h1><?= Html::encode($this->title) ?>'s projects</h1>
         <p>
-            <a href='<?= Url::to(['project/create', 'id_client' => $model->id_client, 'id_user' => $model->id_user]) ?>'
+            <a href='<?= Url::to(['project/create', 'id_client' => $model->id_client, 'id_user' => Yii::$app->user->identity->getId()]) ?>'
                class="btn btn-success">
                 <?= \Yii::t('common', 'Create Project') ?></a>
         </p>
