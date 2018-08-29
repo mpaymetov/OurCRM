@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?
+    <?php
     if($model->id_client){
         echo $form->field($model, 'id_client')->textInput(['maxlength' => true, 'readonly' => true]);
     } else {
@@ -22,7 +22,7 @@ use yii\widgets\ActiveForm;
     }
     ?>
 
-    <?
+    <?php
     if($model->id_user){
         echo $form->field($model, 'id_user')->textInput(['maxlength' => true, 'readonly' => true]);
     } else {
