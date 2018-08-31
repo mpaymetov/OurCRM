@@ -73,6 +73,7 @@ class SiteController extends Controller
 
         $projectSearchModel = new ProjectSearch();
         $projectDataProvider = $projectSearchModel->search(Yii::$app->request->queryParams);
+        $projectDataProvider->query->andWhere('project.id_user = ' . Yii::$app->user->identity->id_user);
 
         $userSearchModel = new userSearch();
         $userDataProvider = $userSearchModel->search(Yii::$app->request->queryParams);
