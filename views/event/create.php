@@ -13,7 +13,6 @@ $request = Yii::$app->request;
 $request = Yii::$app->request;
 $user_id = Yii::$app->user->identity->id_user;
 $link_id = $request->get('id_link');
-$user_id = $request->get('id_user');
 $link = $request->get('link');
 $model->link = $link;
 $model->id_link = $link_id;

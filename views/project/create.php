@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Projects'), 'url'
 $this->params['breadcrumbs'][] = $this->title;
 $request = Yii::$app->request;
 $client_id = $request->get('id_link');
-$user_id = $request->get('id_user');
+$user_id = Yii::$app->user->identity->id_user;
 $model->id_client = $client_id;
 $model->id_user = $user_id;
 ?>
