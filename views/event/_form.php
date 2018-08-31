@@ -19,11 +19,15 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'assignment')->textInput() ?>
 
     <?php
+    if ($model->link != '') {
+        echo $form->field($model, 'link')->textInput(['maxlength' => true, 'readonly' => true]);
+    } else {
         echo $form->field($model, 'link')->textInput(['maxlength' => true]);
+    }
     ?>
 
     <?php
-        echo $form->field($model, 'id_link')->textInput(['maxlength' => true]);
+    echo $form->field($model, 'id_link')->textInput(['maxlength' => true]);
     ?>
 
     <?php
