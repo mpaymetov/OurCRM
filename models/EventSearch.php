@@ -89,4 +89,22 @@ class EventSearch extends Event
             return $eventDataProvider;
         }
     }
+
+    public function searchClientEventid($id_client)
+    {
+        if (!Yii::$app->user->isGuest) {
+            $query = Event::find();
+            $eventDataProvider = new ActiveDataProvider([
+                'query' => $query,
+            ]);
+
+            $query-> select(['*'])
+                -> from('event')
+                -> leftJoin('project', 'event.id_link = project.id_project')
+                -> where(['or',['and',['event.link' => 2, 'project.id_client' => $id_client]],['and', ['event.link' => 1, 'event.id_link' => $id_client]]])
+                -> all();
+
+            return $eventDataProvider;
+        }
+    }
 }

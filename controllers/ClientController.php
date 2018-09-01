@@ -62,12 +62,15 @@ class ClientController extends Controller
         $dataProvider = $searchModel->searchClientId($id);
         $searchEventModel = new EventSearch();
         $eventDataProvider = $searchEventModel->searchEventId($id, Yii::$app->user->identity->id_user, 1);
+        $searchCientEventModel = new EventSearch();
+        $clientEventDataProvider = $searchCientEventModel->searchClientEventId($id, Yii::$app->user->identity->id_user, 1);
         return $this->render('view', [
             'model' => $this->findModel($id),
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'searchEventModel' => $searchEventModel,
             'eventDataProvider' => $eventDataProvider,
+            'clientEventDataProvider' => $clientEventDataProvider,
         ]);
     }
 
