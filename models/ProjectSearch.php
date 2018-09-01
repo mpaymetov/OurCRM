@@ -66,7 +66,8 @@ class ProjectSearch extends Project
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'comment', $this->comment]);
+            ->andFilterWhere(['like', 'comment', $this->comment])
+            ->andWhere('project.id_user = ' . Yii::$app->user->identity->id_user);
 
         return $dataProvider;
     }

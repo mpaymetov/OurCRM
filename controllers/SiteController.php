@@ -73,15 +73,16 @@ class SiteController extends Controller
         } else {
             $searchModel = new ClientSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+            $dataProvider->query->andWhere('client.id_user = ' . Yii::$app->user->identity->id_user);
             $projectSearchModel = new ProjectSearch();
             $projectDataProvider = $projectSearchModel->search(Yii::$app->request->queryParams);
-                $projectDataProvider->query->andWhere('project.id_user = ' . Yii::$app->user->identity->id_user);
+            $projectDataProvider->query->andWhere('project.id_user = ' . Yii::$app->user->identity->id_user);
             $userSearchModel = new userSearch();
             $userDataProvider = $userSearchModel->search(Yii::$app->request->queryParams);
 
             $eventSearchModel = new eventSearch();
             $eventDataProvider = $eventSearchModel->search(Yii::$app->request->queryParams);
+            $eventDataProvider->query->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user);
 
             return $this->render('index',
                 [

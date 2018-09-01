@@ -67,10 +67,12 @@ class EventSearch extends Event
             'id_user' => $this->id_user,
         ]);
 
-        $query->andFilterWhere(['like', 'message', $this->message]);
+        $query->andFilterWhere(['like', 'message', $this->message])
+            ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user);
 
         return $dataProvider;
     }
+
     public function searchEventId($id_link, $id_user, $route_link)
     {
         if (!Yii::$app->user->isGuest) {
@@ -79,12 +81,12 @@ class EventSearch extends Event
                 'query' => $query,
             ]);
 
-             $query-> select(['*'])
-                -> from('event')
-                -> where(['link' => $route_link])
-                -> andwhere(['id_link' => $id_link])
-                -> andwhere(['id_user' => $id_user])
-                -> all();
+            $query->select(['*'])
+                ->from('event')
+                ->where(['link' => $route_link])
+                ->andwhere(['id_link' => $id_link])
+                ->andwhere(['id_user' => $id_user])
+                ->all();
 
             return $eventDataProvider;
         }
@@ -98,11 +100,11 @@ class EventSearch extends Event
                 'query' => $query,
             ]);
 
-            $query-> select(['*'])
-                -> from('event')
-                -> leftJoin('project', 'event.id_link = project.id_project')
-                -> where(['or',['and',['event.link' => 2, 'project.id_client' => $id_client]],['and', ['event.link' => 1, 'event.id_link' => $id_client]]])
-                -> all();
+            $query->select(['*'])
+                ->from('event')
+                ->leftJoin('project', 'event.id_link = project.id_project')
+                ->where(['or', ['and', ['event.link' => 2, 'project.id_client' => $id_client]], ['and', ['event.link' => 1, 'event.id_link' => $id_client]]])
+                ->all();
 
             return $eventDataProvider;
         }

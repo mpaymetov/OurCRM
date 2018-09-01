@@ -65,8 +65,8 @@ class ClientSearch extends Client
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'comment', $this->comment]);
-
+            ->andFilterWhere(['like', 'comment', $this->comment])
+            ->andWhere('client.id_user = ' . Yii::$app->user->identity->id_user);
         return $dataProvider;
     }
     public function searchEventId($id)
