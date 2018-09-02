@@ -48,6 +48,7 @@ $idServiceSet = $model->id_serviceset;
         'modelServicelist' => $modelServicelist,
         'itemsService' => $itemsService,
         'idServiceSet' => $idServiceSet,
+        'data'=> $data,
     ]) ?>
 
 

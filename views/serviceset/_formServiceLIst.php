@@ -18,23 +18,24 @@ use unclead\multipleinput\MultipleInput;
 
 <div class="servicelist-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php
+    var_dump($data);
+    ?>
 
-    <?= $form->field($modelServicelist, 'id_serviceset')->textInput(['value' => $idServiceSet, 'readonly' => true]) ?>
+    <?php $form = ActiveForm::begin([]); ?>
 
-    <?= $form->field($modelServicelist, 'id_service')-> widget(MultipleInput::className(), [
+    <?= $form->field($modelServicelist, 'serviceList')-> widget(MultipleInput::className(), [
             'max' => 12,
             'min' => 1,
             'columns' => [
             [
                 'name' => 'Service',
-                 'type'  => 'dropDownList',
-                 'items' => $itemsService,
+                'type'  => 'dropDownList',
+                'items' => $itemsService,
             ]
             ]
     ])?>
 
-    <?/*= $form->field($modelServicelist, 'id_service')->dropDownList($itemsService)*/?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
