@@ -65,8 +65,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="event-index">
         <?php
         /* @var $this yii\web\View */
-        /* @var $searchEventModel app\models\EventSearch */
-        /* @var $eventDataProvider yii\data\ActiveDataProvider */
+        /* @var $searchClientEventModel app\models\EventSearch */
+        /* @var $clientEventDataProvider yii\data\ActiveDataProvider */
         ?>
         <h1><?= Html::encode($this->title) ?>'s Events</h1>
         <p>
@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
         <div class="client-index">
             <?= ListView::widget([
-                'dataProvider' => $eventDataProvider,
+                'dataProvider' => $clientEventDataProvider,
                 'itemView' => '../event/_event_id',
             ]) ?>
         </div>

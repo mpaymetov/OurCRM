@@ -68,29 +68,34 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ClientSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (Yii::$app->user->isGuest) {
+            return Yii::$app->getResponse()->redirect(array('/site/login', 302));
+        } else {
+            $searchModel = new ClientSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+            $dataProvider->query->andWhere('client.id_user = ' . Yii::$app->user->identity->id_user);
+            $projectSearchModel = new ProjectSearch();
+            $projectDataProvider = $projectSearchModel->search(Yii::$app->request->queryParams);
+            $projectDataProvider->query->andWhere('project.id_user = ' . Yii::$app->user->identity->id_user);
+            $userSearchModel = new userSearch();
+            $userDataProvider = $userSearchModel->search(Yii::$app->request->queryParams);
 
-        $projectSearchModel = new ProjectSearch();
-        $projectDataProvider = $projectSearchModel->search(Yii::$app->request->queryParams);
+            $eventSearchModel = new eventSearch();
+            $eventDataProvider = $eventSearchModel->search(Yii::$app->request->queryParams);
+            $eventDataProvider->query->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user);
 
-        $userSearchModel = new userSearch();
-        $userDataProvider = $userSearchModel->search(Yii::$app->request->queryParams);
-
-        $eventSearchModel = new eventSearch();
-        $eventDataProvider = $eventSearchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index',
-        [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'projectSearchModel' => $projectSearchModel,
-            'projectDataProvider' => $projectDataProvider,
-            'userSearchModel' => $userSearchModel,
-            'userDataProvider' => $userDataProvider,
-            'eventSearchModel' => $eventSearchModel,
-            'eventDataProvider' => $eventDataProvider,
-        ]);
+            return $this->render('index',
+                [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                    'projectSearchModel' => $projectSearchModel,
+                    'projectDataProvider' => $projectDataProvider,
+                    'userSearchModel' => $userSearchModel,
+                    'userDataProvider' => $userDataProvider,
+                    'eventSearchModel' => $eventSearchModel,
+                    'eventDataProvider' => $eventDataProvider,
+                ]);
+        }
     }
 
     /**
