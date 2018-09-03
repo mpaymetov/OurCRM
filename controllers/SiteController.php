@@ -13,7 +13,6 @@ use app\models\SignupForm;
 use app\models\ContactForm;
 use app\models\ClientSearch;
 use app\models\ProjectSearch;
-use app\models\ManagerSearch;
 use app\models\UserSearch;
 use app\models\EventSearch;
 

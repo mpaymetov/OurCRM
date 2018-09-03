@@ -72,7 +72,7 @@ class ProjectSearch extends Project
         return $dataProvider;
     }
 
-    public function searchClientId($id)
+    public function searchClientProject($id)
     {
         $query = Project::find();
         // add conditions that should always apply here

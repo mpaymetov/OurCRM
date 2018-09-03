@@ -32,6 +32,7 @@ if ( Yii::$app->user->isGuest )
                 'itemView' => '_post_user',
             ]) ?>
         </div>
+        <!-- Colored FAB button -->
         <div class="col">
             <h1><?= \Yii::t('common', 'Clients')?></h1>
             <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

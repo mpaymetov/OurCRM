@@ -69,26 +69,19 @@ class ClientSearch extends Client
             ->andWhere('client.id_user = ' . Yii::$app->user->identity->id_user);
         return $dataProvider;
     }
-    public function searchEventId($id)
+
+    public function searchClientId($id)
     {
-        $query = Client::find();
+        $query = Project::find();
         // add conditions that should always apply here
-        $eventDataProvider = new ActiveDataProvider([
+        $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
         // grid filtering conditions
         $query->andFilterWhere([
-            'id_user' => $id,
-        ]);
-        return $eventDataProvider;
-    }
-    public function searchEventIdByClient($id, $id_client)
-    {
-        $query = $this->searchEventId($id);
-        $query->andFilterWhere([
-            'id_client'  => $id_client
-        ]);
-        $eventDataProvider = $query;
-        return $eventDataProvider;
+            'id_client' => $id,
+        ])
+            ->andWhere('client.id_user = ' . Yii::$app->user->identity->id_user);;
+        return $dataProvider;
     }
 }

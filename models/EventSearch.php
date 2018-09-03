@@ -92,7 +92,7 @@ class EventSearch extends Event
         }
     }
 
-    public function searchClientEventid($id_client)
+    public function searchClientEventId($id_client)
     {
         if (!Yii::$app->user->isGuest) {
             $query = Event::find();

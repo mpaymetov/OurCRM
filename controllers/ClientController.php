@@ -59,11 +59,11 @@ class ClientController extends Controller
     public function actionView($id)
     {
         $searchModel = new ProjectSearch();
-        $dataProvider = $searchModel->searchClientId($id);
+        $dataProvider = $searchModel->searchClientProject($id);
         $searchEventModel = new EventSearch();
         $eventDataProvider = $searchEventModel->searchEventId($id, Yii::$app->user->identity->id_user, 1);
-        $searchCientEventModel = new EventSearch();
-        $clientEventDataProvider = $searchCientEventModel->searchClientEventId($id, Yii::$app->user->identity->id_user, 1);
+        $searchClientEventModel = new EventSearch();
+        $clientEventDataProvider = $searchClientEventModel->searchClientEventId($id, Yii::$app->user->identity->id_user, 1);
         return $this->render('view', [
             'model' => $this->findModel($id),
             'searchModel' => $searchModel,
@@ -141,6 +141,7 @@ class ClientController extends Controller
     protected function findModel($id)
     {
         if (($model = Client::findOne($id)) !== null) {
+            if(Yii::$app->user->identity->id_user = $model->id_user)
             return $model;
         }
 
