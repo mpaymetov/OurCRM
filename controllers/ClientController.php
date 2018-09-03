@@ -65,7 +65,7 @@ class ClientController extends Controller
         $searchClientEventModel = new EventSearch();
         $clientEventDataProvider = $searchClientEventModel->searchClientEventId($id, Yii::$app->user->identity->id_user, 1);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($id, Yii::$app->user->identity->id_user),
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'searchEventModel' => $searchEventModel,
@@ -138,13 +138,20 @@ class ClientController extends Controller
      * @return Client the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
+
+
     protected function findModel($id)
     {
         if (($model = Client::findOne($id)) !== null) {
-            if(Yii::$app->user->identity->id_user = $model->id_user)
-            return $model;
-        }
+            if($model->id_user == Yii::$app->user->identity->id_user)
+            {
+                return $model;
+            }
 
+        }
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+
+
 }
+
