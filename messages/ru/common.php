@@ -87,4 +87,5 @@ return [
     'Id Serviceset' => 'id набора услуг',
     's events' => 'События для клиента: ',
     's projects' => 'Проекты клиента: ',
+    'Roles' => 'Роли',
 ];

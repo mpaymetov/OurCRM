@@ -45,13 +45,13 @@ AppAsset::register($this);
         ['label' => \Yii::t('common', 'Event'), 'url' => ['/event/index']],
         ['label' => \Yii::t('common', 'About'), 'url' => ['/site/about']],
         ['label' => \Yii::t('common', 'Contact'), 'url' => ['/site/contact']]
-
     ];
 
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => \Yii::t('common', 'Log in'), 'url' => ['/site/login']];
     } else {
         $menuItems[] = ['label' => \Yii::t('common', 'Users'), 'url' => ['/user/index']];
+        $menuItems[] = ['label' => \Yii::t('common', 'Roles'), 'url' => ['/role/index']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
