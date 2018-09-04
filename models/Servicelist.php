@@ -64,4 +64,11 @@ class Servicelist extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Serviceset::className(), ['id_serviceset' => 'id_serviceset']);
     }
+
+    public function saveServiceList($data)
+    {
+        $this->id_serviceset = $data['id_serviceset'];
+        $this->id_service = $data['id_service'];
+        return $this->save();
+    }
 }

@@ -45,10 +45,9 @@ $idServiceSet = $model->id_serviceset;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_formServiceLIst',[
-        'modelServicelist' => $modelServicelist,
+        'modelForm' => $modelForm,
         'itemsService' => $itemsService,
         'idServiceSet' => $idServiceSet,
-        'data'=> $data,
     ]) ?>
 
 

@@ -18,13 +18,10 @@ use unclead\multipleinput\MultipleInput;
 
 <div class="servicelist-form">
 
-    <?php
-    var_dump($data);
-    ?>
 
     <?php $form = ActiveForm::begin([]); ?>
 
-    <?= $form->field($modelServicelist, 'serviceList')-> widget(MultipleInput::className(), [
+    <?= $form->field($modelForm, 'serviceList')-> widget(MultipleInput::className(), [
             'max' => 12,
             'min' => 1,
             'columns' => [

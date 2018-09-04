@@ -60,23 +60,28 @@ class ServicesetController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        $modelServicelist = new ServiceListForm();
+        $modelForm = new ServiceListForm();
         $service = new ServiceSearch();
         $itemsService = $service->getServiceListItems();
-
+        if($modelForm->loadServiceList())
+        {
+            $data = $modelForm->getServiceList($id);
+            $this->saveServiceListArray($data);
+            return $this->redirect(['project/view', 'id' => $this->findModel($id)->id_project]);
+        }
         /*if ($modelServicelist->load(Yii::$app->request->post()) && $modelServicelist->save()) {
             return $this->redirect(['project/view', 'id' => $this->findModel($id)->id_project]);
         }*/
 
-        $modelServicelist->loadServiceList();
 
-        $data = $modelServicelist->getServiceList($id);
+      //  $modelServicelist->loadServiceList();
+
+       // $data = $modelServicelist->getServiceList($id);
 
         return $this->render('view', [
             'model' => $model,
-            'modelServicelist' => $modelServicelist,
+            'modelForm' => $modelForm,
             'itemsService' => $itemsService,
-            'data'=> $data,
         ]);
     }
 
@@ -134,6 +139,17 @@ class ServicesetController extends Controller
 
         return $this->redirect(['index']);
     }
+
+    public function saveServiceListArray($arr)
+    {
+        foreach ($arr as $item)
+        {
+            $model = new Servicelist();
+            $model->saveServiceList($item);
+        }
+    }
+
+
 
     /**
      * Finds the Serviceset model based on its primary key value.

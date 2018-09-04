@@ -43,13 +43,17 @@ class ServiceListForm extends \yii\base\Model
 
     public function loadServiceList()
     {
-        $this->load(\Yii::$app->request->post());
+        if(!(($this->load(\Yii::$app->request->post())) && ($this->validate())))
+            {
+                $errors = $this->errors;
+                return false;
+            }
 
-        if(!($this->validate()))
+        /*if(!($this->validate()))
         {
             $errors = $this->errors;
             return false;
-        }
+        }*/
 
         return true;
     }
@@ -58,7 +62,6 @@ class ServiceListForm extends \yii\base\Model
     public function getServiceList($id)
     {
         $data = [];
-        if($this->loadServiceList()) {
             $arr = $this->serviceList['Service'];
              foreach ($arr as $index => $item)
              {
@@ -67,7 +70,6 @@ class ServiceListForm extends \yii\base\Model
                      'id_service' =>  $item,
                  ];
              }
-        }
         return $data;
     }
 }
