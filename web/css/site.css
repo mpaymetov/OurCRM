@@ -141,3 +141,8 @@ body {
     float: right;
     padding: 0;
 }
+
+.active_button
+{
+    float: right;
+}
