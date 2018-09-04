@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Project;
+use app\models\Role;
 
 /**
- * ProjectSearch represents the model behind the search form of `app\models\Project`.
+ * RoleSearch represents the model behind the search form of `app\models\Role`.
  */
-class ProjectSearch extends Project
+class RoleSearch extends Role
 {
     /**
      * {@inheritdoc}
@@ -18,8 +18,8 @@ class ProjectSearch extends Project
     public function rules()
     {
         return [
-            [['id_project', 'id_client', 'id_user', 'is_active'], 'integer'],
-            [['name', 'comment'], 'safe'],
+            [['id_role', 'is_admin', 'user_read_all', 'user_self_dep', 'user_create', 'client_read_all', 'client_create', 'project_read_all', 'project_create'], 'integer'],
+            [['name'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class ProjectSearch extends Project
      */
     public function search($params)
     {
-        $query = Project::find();
+        $query = Role::find();
 
         // add conditions that should always apply here
 
@@ -59,30 +59,19 @@ class ProjectSearch extends Project
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id_project' => $this->id_project,
-            'id_client' => $this->id_client,
-            'id_user' => $this->id_user,
-            'is_active' => $this->is_active,
+            'id_role' => $this->id_role,
+            'is_admin' => $this->is_admin,
+            'user_read_all' => $this->user_read_all,
+            'user_self_dep' => $this->user_self_dep,
+            'user_create' => $this->user_create,
+            'client_read_all' => $this->client_read_all,
+            'client_create' => $this->client_create,
+            'project_read_all' => $this->project_read_all,
+            'project_create' => $this->project_create,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'comment', $this->comment])
-            ->andWhere('project.id_user = ' . Yii::$app->user->identity->id_user);
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
-        return $dataProvider;
-    }
-
-    public function searchClientProject($id)
-    {
-        $query = Project::find();
-        // add conditions that should always apply here
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id_client' => $id,
-        ]);
         return $dataProvider;
     }
 }

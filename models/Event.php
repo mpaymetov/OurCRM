@@ -54,4 +54,9 @@ class Event extends \yii\db\ActiveRecord
             'id_user' =>  Yii::t('common', 'Id User'),
         ];
     }
+
+    public function activeEvent($id)
+    {
+
+    }
 }

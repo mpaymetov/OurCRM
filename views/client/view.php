@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
         <?php
         /* @var $this yii\web\View */
-        /* @var $searchProjectModel app\models\EventSearch */
+        /* @var $searchProjectModel app\models\ProjectSearch */
         /* @var $dataProvider ; yii\data\ActiveDataProvider */
         ?>
         <?= ListView::widget([
