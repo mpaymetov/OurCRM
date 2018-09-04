@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="col-md-6">
     <div class="project-index">
-        <h1><?= Html::encode($this->title) ?>'s projects</h1>
+        <h1><?= Yii::t('common', 'Projects for client: ')?><?= Html::encode($this->title) ?></h1>
         <p>
             <a href='<?= Url::to(['project/create', 'id_client' => $model->id_client, 'id_user' => Yii::$app->user->identity->getId()]) ?>'
                class="btn btn-success">
@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
         /* @var $searchClientEventModel app\models\EventSearch */
         /* @var $clientEventDataProvider yii\data\ActiveDataProvider */
         ?>
-        <h1><?= Html::encode($this->title) ?>'s Events</h1>
+        <h1><?= Yii::t('common', 'Events for client: ')?><?= Html::encode($this->title) ?></h1>
         <p>
 
             <a href='<?= Url::to(['event/create', 'id_user' =>Yii::$app->user->identity->getId(), 'id_link' => $model -> id_client, 'link' => $route_link]) ?>' class="btn btn-success">

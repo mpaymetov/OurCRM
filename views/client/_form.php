@@ -14,7 +14,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'created')->textInput() ?>
+    <?= $form->field($model, 'created')->widget(\kartik\datetime\DateTimePicker::class, [
+        'language' => 'ru',
+        'pluginOptions' => [
+            'autoclose' => true,
+        ]
+    ]) ?>
 
     <?= $form->field($model, 'comment')->textarea(['rows' => 6]) ?>
 

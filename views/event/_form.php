@@ -17,11 +17,17 @@ use kartik\datetime\DateTimePicker;
 
     <?= $form->field($model, 'created')->widget(\kartik\datetime\DateTimePicker::class, [
         'language' => 'ru',
+        'pluginOptions' => [
+            'autoclose' => true,
+        ]
     ]) ?>
 
 
     <?= $form->field($model, 'assignment')->widget(\kartik\datetime\DateTimePicker::class, [
         'language' => 'ru',
+        'pluginOptions' => [
+            'autoclose' => true,
+        ]
     ]) ?>
 
 

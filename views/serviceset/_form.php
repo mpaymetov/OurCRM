@@ -24,9 +24,19 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_state')->dropDownList($itemsState)?>
 
-    <?= $form->field($model, 'delivery')->textInput() ?>
+    <?= $form->field($model, 'delivery')->widget(\kartik\datetime\DateTimePicker::class, [
+        'language' => 'ru',
+        'pluginOptions' => [
+            'autoclose' => true,
+        ]
+    ]) ?>
 
-    <?= $form->field($model, 'payment')->textInput() ?>
+    <?= $form->field($model, 'payment')->widget(\kartik\datetime\DateTimePicker::class, [
+        'language' => 'ru',
+        'pluginOptions' => [
+            'autoclose' => true,
+        ]
+    ]) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('common', 'Save'), ['class' => 'btn btn-success']) ?>
