@@ -63,20 +63,13 @@ class ServicesetController extends Controller
         $modelForm = new ServiceListForm();
         $service = new ServiceSearch();
         $itemsService = $service->getServiceListItems();
+
         if($modelForm->loadServiceList())
         {
             $data = $modelForm->getServiceList($id);
             $this->saveServiceListArray($data);
             return $this->redirect(['project/view', 'id' => $this->findModel($id)->id_project]);
         }
-        /*if ($modelServicelist->load(Yii::$app->request->post()) && $modelServicelist->save()) {
-            return $this->redirect(['project/view', 'id' => $this->findModel($id)->id_project]);
-        }*/
-
-
-      //  $modelServicelist->loadServiceList();
-
-       // $data = $modelServicelist->getServiceList($id);
 
         return $this->render('view', [
             'model' => $model,
@@ -116,6 +109,8 @@ class ServicesetController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $state = new StateSearch();
+        $itemsState = $state -> getStateList();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id_serviceset]);
@@ -123,6 +118,7 @@ class ServicesetController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'itemsState' => $itemsState,
         ]);
     }
 
