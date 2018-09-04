@@ -15,6 +15,8 @@ use app\models\ClientSearch;
 use app\models\ProjectSearch;
 use app\models\UserSearch;
 use app\models\EventSearch;
+use app\models\Role;
+use app\models\RoleSearch;
 
 class SiteController extends Controller
 {
@@ -73,11 +75,18 @@ class SiteController extends Controller
             $searchModel = new ClientSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
             $dataProvider->query->andWhere('client.id_user = ' . Yii::$app->user->identity->id_user);
+
             $projectSearchModel = new ProjectSearch();
             $projectDataProvider = $projectSearchModel->search(Yii::$app->request->queryParams);
             $projectDataProvider->query->andWhere('project.id_user = ' . Yii::$app->user->identity->id_user);
+
             $userSearchModel = new userSearch();
             $userDataProvider = $userSearchModel->search(Yii::$app->request->queryParams);
+
+            $roleSearchModel = new roleSearch();
+            if ($roleSearchModel->getUserReadAll()) {} else {
+                $userDataProvider->query->andWhere('user.id_user = ' . Yii::$app->user->identity->id_user);
+            }
 
             $eventSearchModel = new eventSearch();
             $eventDataProvider = $eventSearchModel->search(Yii::$app->request->queryParams);
