@@ -126,4 +126,19 @@ class EventController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+
+    public function eventState($id_event)
+    {
+        $model = findModel($id_event);
+        if($model->is_active == true)
+        {
+            $model->is_active = false;
+            $model->save();
+        } else
+        {
+            $model->is_active == true;
+            $model->save();
+        }
+
+    }
 }

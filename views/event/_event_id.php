@@ -10,6 +10,9 @@ use yii\helpers\Url;
             <p class="post_number"><?= \Yii::t('common', 'event number: ')?><?= HtmlPurifier::process($model->id_event) ?></p>
             <h3><?= Html::encode($model->message) ?></h3>
             <p><?= html::encode($model->created) ?></p>
+            <form action="event.php">
+                <p>is active<input type="checkbox" value="Отправить"></p>
+            </form>
             <a href='<?= Url::to(['event/view', 'id' => $model->id_event]) ?>' class="btn btn_more"><?= \Yii::t('common', 'view more')?></a>
         </div>
     </div>
