@@ -62,7 +62,7 @@ return [
     'Delivery' => 'Дата поставки',
     'Name' => 'Имя',
     'Id Client' => 'id клиента',
-    'Created' => 'Дата первого контакта',
+    'Created' => 'Дата создания',
     'Comment' => 'Комментарии',
     'Id User' => 'id пользователя',
     'Id Department' => 'id отдела',
