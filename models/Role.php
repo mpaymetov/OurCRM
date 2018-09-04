@@ -68,4 +68,12 @@ class Role extends \yii\db\ActiveRecord
     {
         return $this->hasMany(User::className(), ['id_role' => 'id_role']);
     }
+
+    public function getUserReadAll()
+    {
+        $role = Role::find()
+            ->where(['id_role' => Yii::$app->user->identity->id_role])
+            ->one();
+        return ($role->user_read_all == 1);
+    }
 }
