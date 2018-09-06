@@ -52,6 +52,10 @@ use kartik\datetime\DateTimePicker;
     }
     ?>
 
+    <?php
+        echo $form->field($model, 'is_active')->textInput(['maxlength' => true]);
+    ?>
+
     <div class="form-group">
         <?= Html::submitButton(Yii::t('common', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>

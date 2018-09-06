@@ -13,6 +13,9 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
+        'options' => [
+            'data-pjax' => 1
+        ],
     ]); ?>
 
     <?= $form->field($model, 'id_event') ?>
@@ -28,6 +31,8 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'id_link') ?>
 
     <?php // echo $form->field($model, 'id_user') ?>
+
+    <?php // echo $form->field($model, 'is_active') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
