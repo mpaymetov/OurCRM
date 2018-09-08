@@ -30,6 +30,7 @@ use kartik\datetime\DateTimePicker;
         ]
     ]) ?>
 
+    <?= Html::activeHiddenInput($model, 'version'); ?>
 
 
     <?php

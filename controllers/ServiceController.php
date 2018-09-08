@@ -8,6 +8,7 @@ use app\models\ServiceSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\db\StaleObjectException;
 
 /**
  * ServiceController implements the CRUD actions for Service model.
@@ -85,14 +86,18 @@ class ServiceController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        try {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_service]);
+            }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_service]);
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        } catch (StaleObjectException $e) {
+
+            throw new StaleObjectException(Yii::t('app', 'Error data version'));
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**

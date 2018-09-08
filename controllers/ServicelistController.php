@@ -8,6 +8,7 @@ use app\models\ServicelistSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\db\StaleObjectException;
 
 /**
  * ServicelistController implements the CRUD actions for Servicelist model.
@@ -85,14 +86,18 @@ class ServicelistController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        try {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_servicelist]);
+            }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_servicelist]);
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        } catch (StaleObjectException $e) {
+
+            throw new StaleObjectException(Yii::t('app', 'Error data version'));
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**

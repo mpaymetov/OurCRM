@@ -8,6 +8,7 @@ use app\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\db\StaleObjectException;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -67,14 +68,18 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        try {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_user]);
+            }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_user]);
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        } catch (StaleObjectException $e) {
+
+            throw new StaleObjectException(Yii::t('app', 'Error data version'));
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     protected function findModel($id)

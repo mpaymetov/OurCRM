@@ -27,6 +27,10 @@ class Serviceset extends \yii\db\ActiveRecord
         return 'serviceset';
     }
 
+    public function optimisticLock()
+    {
+        return 'version';
+    }
     /**
      * {@inheritdoc}
      */
@@ -38,6 +42,7 @@ class Serviceset extends \yii\db\ActiveRecord
             [['delivery', 'payment'], 'safe'],
             [['id_project'], 'exist', 'skipOnError' => true, 'targetClass' => Project::className(), 'targetAttribute' => ['id_project' => 'id_project']],
             [['id_state'], 'exist', 'skipOnError' => true, 'targetClass' => State::className(), 'targetAttribute' => ['id_state' => 'id_state']],
+            [['version'], 'integer'],
         ];
     }
 

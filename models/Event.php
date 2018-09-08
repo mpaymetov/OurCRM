@@ -28,6 +28,11 @@ class Event extends \yii\db\ActiveRecord
         return 'event';
     }
 
+    public function optimisticLock()
+    {
+        return 'version';
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -39,6 +44,7 @@ class Event extends \yii\db\ActiveRecord
             [['link', 'id_link', 'id_user', 'is_active'], 'integer'],
             [['message'], 'string', 'max' => 255],
             [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_user' => 'id_user']],
+            [['version'], 'integer'],
         ];
     }
 

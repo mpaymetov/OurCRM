@@ -24,6 +24,10 @@ class Servicelist extends \yii\db\ActiveRecord
         return 'servicelist';
     }
 
+    public function optimisticLock()
+    {
+        return 'version';
+    }
     /**
      * {@inheritdoc}
      */
@@ -34,6 +38,7 @@ class Servicelist extends \yii\db\ActiveRecord
             [['id_serviceset', 'id_service'], 'integer'],
             [['id_service'], 'exist', 'skipOnError' => true, 'targetClass' => Service::className(), 'targetAttribute' => ['id_service' => 'id_service']],
             [['id_serviceset'], 'exist', 'skipOnError' => true, 'targetClass' => Serviceset::className(), 'targetAttribute' => ['id_serviceset' => 'id_serviceset']],
+            [['version'], 'integer'],
         ];
     }
 

@@ -14,6 +14,8 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= Html::activeHiddenInput($model, 'version'); ?>
+
     <?php
     if($model->id_project) {
        echo $form->field($model, 'id_project')->textInput(['maxlength' => true, 'readonly' => true]);

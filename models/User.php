@@ -35,6 +35,10 @@ class User extends ActiveRecord implements IdentityInterface
         return 'user';
     }
 
+    public function optimisticLock()
+    {
+        return 'version';
+    }
     /**
      * {@inheritdoc}
      *
@@ -96,6 +100,7 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            [['version'], 'integer'],
         ];
     }
 
