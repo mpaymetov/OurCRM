@@ -88,6 +88,9 @@ class EventController extends Controller
         $model = $this->findModel($id);
 
         try {
+            if(\Yii::$app->request->isAjax && $model->save()){
+                return 'test';
+            }
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id_event]);
             }

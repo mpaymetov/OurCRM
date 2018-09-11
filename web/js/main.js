@@ -13,11 +13,11 @@ function cnahgeStatus() {
                 var elem = $(this).attr('id');
 
                 // отправляем AJAX запрос
-             /*   $.ajax(
+                $.ajax(
                     {
                         type: "POST",
-                        url: "update",
-                        data: "id=" + elem,
+                        url: "index.php?r=event%2Fupdate&id=" + elem,
+                        data: "is_active" + elem,
                         success: function (response) {
                             if (response == "OK") {
                                 alert("Товар " + article_title + " добавлен!");
@@ -27,7 +27,7 @@ function cnahgeStatus() {
                                 alert("Ошибка в запросе! Сервер вернул вот что: " + response);
                         }
                     }
-                );*/
+                );
 
             }
         }

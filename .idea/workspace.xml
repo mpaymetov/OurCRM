@@ -21,25 +21,26 @@
           <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.17" value="1" />
+          <entry key="project.open.time.18" value="1" />
           <entry key="project.open.time.19" value="1" />
           <entry key="project.open.time.21" value="1" />
           <entry key="project.open.time.36" value="1" />
           <entry key="project.open.time.9" value="3" />
-          <entry key="project.opened" value="11" />
+          <entry key="project.opened" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="376" />
-          <entry key="js" value="220" />
-          <entry key="php" value="7268" />
+          <entry key="js" value="237" />
+          <entry key="php" value="7372" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="376" />
-          <entry key="JavaScript" value="220" />
-          <entry key="PHP" value="7268" />
+          <entry key="JavaScript" value="237" />
+          <entry key="PHP" value="7372" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -48,7 +49,7 @@
           <entry key="ico" value="1" />
           <entry key="js" value="2" />
           <entry key="json" value="2" />
-          <entry key="php" value="302" />
+          <entry key="php" value="307" />
           <entry key="sql" value="5" />
         </counts>
       </usages-collector>
@@ -58,7 +59,7 @@
           <entry key="Image" value="1" />
           <entry key="JSON" value="2" />
           <entry key="JavaScript" value="2" />
-          <entry key="PHP" value="302" />
+          <entry key="PHP" value="307" />
           <entry key="SQL" value="5" />
         </counts>
       </usages-collector>
@@ -69,8 +70,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/EventController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-68">
-              <caret line="61" column="5" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
+            <state relative-caret-position="537">
+              <caret line="95" column="13" selection-start-line="95" selection-start-column="13" selection-end-line="95" selection-end-column="13" />
               <folding>
                 <element signature="e#35#43#0#PHP" expanded="true" />
               </folding>
@@ -79,13 +80,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/event/view.php">
+        <entry file="file://$PROJECT_DIR$/models/Event.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="650">
-              <caret line="39" column="9" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
-              <folding>
-                <element signature="e#7#28#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="-150">
+              <caret line="34" selection-start-line="34" selection-end-line="34" />
             </state>
           </provider>
         </entry>
@@ -117,8 +115,29 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/site/_post_event.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
+            <state relative-caret-position="170">
+              <caret line="12" column="29" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/site/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="415">
+              <caret line="85" column="38" selection-start-line="85" selection-start-column="38" selection-end-line="85" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/EventSearch.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="276">
+              <caret line="95" column="34" selection-start-line="95" selection-start-column="34" selection-end-line="95" selection-end-column="34" />
+              <folding>
+                <element signature="e#30#38#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -126,8 +145,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="29" column="20" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
+            <state relative-caret-position="306">
+              <caret line="18" column="60" selection-start-line="18" selection-start-column="60" selection-end-line="18" selection-end-column="60" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/components/selector.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
             </state>
           </provider>
         </entry>
@@ -152,7 +180,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>client/</find>
       <find>defaultRout</find>
       <find>GridView</find>
       <find>ClientSearch</find>
@@ -182,6 +209,7 @@
       <find>main</find>
       <find>sear</find>
       <find>.js</find>
+      <find>opti</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -191,8 +219,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/views/site/say.php" />
-        <option value="$PROJECT_DIR$/models/Manager.php" />
         <option value="$PROJECT_DIR$/controllers/ManagerController.php" />
         <option value="$PROJECT_DIR$/views/manager/index.php" />
         <option value="$PROJECT_DIR$/tests/acceptance/HomeCest.php" />
@@ -237,11 +263,13 @@
         <option value="$PROJECT_DIR$/views/project/create.php" />
         <option value="$PROJECT_DIR$/controllers/ProjectController.php" />
         <option value="$PROJECT_DIR$/controllers/ClientController.php" />
-        <option value="$PROJECT_DIR$/controllers/EventController.php" />
         <option value="$PROJECT_DIR$/web/css/site.css" />
         <option value="$PROJECT_DIR$/views/event/_event_id.php" />
-        <option value="$PROJECT_DIR$/views/site/_post_event.php" />
+        <option value="$PROJECT_DIR$/web/statusSelector.php" />
         <option value="$PROJECT_DIR$/web/js/main.js" />
+        <option value="$PROJECT_DIR$/components/selector.php" />
+        <option value="$PROJECT_DIR$/controllers/EventController.php" />
+        <option value="$PROJECT_DIR$/views/site/_post_event.php" />
       </list>
     </option>
   </component>
@@ -260,6 +288,7 @@
       <path value="$PROJECT_DIR$/vendor/bower-asset/typeahead.js/package.json" />
       <path value="$PROJECT_DIR$/vendor/bower-asset/yii2-pjax/package.json" />
       <path value="$PROJECT_DIR$/vendor/unclead/yii2-multiple-input/package.json" />
+      <path value="$PROJECT_DIR$/web/assets/9ad67008/package.json" />
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
@@ -285,12 +314,45 @@
             <path>
               <item name="OurCRM" type="b2602c69:ProjectViewProjectNode" />
               <item name="OurCRM" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="commands" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OurCRM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OurCRM" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="OurCRM" type="b2602c69:ProjectViewProjectNode" />
               <item name="OurCRM" type="462c0819:PsiDirectoryNode" />
               <item name="controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OurCRM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OurCRM" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OurCRM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OurCRM" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OurCRM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OurCRM" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OurCRM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OurCRM" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="event" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OurCRM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OurCRM" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="site" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="OurCRM" type="b2602c69:ProjectViewProjectNode" />
@@ -350,17 +412,18 @@
       <workItem from="1535811998518" duration="618000" />
       <workItem from="1535836596466" duration="6168000" />
       <workItem from="1535981415935" duration="4328000" />
+      <workItem from="1536679873993" duration="4019000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="127360000" />
+    <option name="totallyTimeSpent" value="131379000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20067114" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20347957" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Command Line Tools Console" order="0" weight="0.32923076" />
@@ -390,16 +453,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/sql_bd/28.08.2018.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="38" selection-start-line="2" selection-start-column="38" selection-end-line="2" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/project/update.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/yiisoft/yii2/grid/ActionColumn.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-136">
@@ -425,16 +478,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1394">
           <caret line="82" column="40" lean-forward="true" selection-start-line="82" selection-start-column="40" selection-end-line="82" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/project/_form.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="16" column="54" selection-start-line="12" selection-start-column="3" selection-end-line="16" selection-end-column="54" />
-          <folding>
-            <element signature="e#7#28#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -581,16 +624,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/EventSearch.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="105" column="91" selection-start-line="105" selection-start-column="91" selection-end-line="105" selection-end-column="91" />
-          <folding>
-            <element signature="e#30#38#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/yiisoft/yii2/db/BaseActiveRecord.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="349">
@@ -602,13 +635,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
           <caret line="70" column="23" selection-start-line="70" selection-start-column="23" selection-end-line="70" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/Event.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="514">
-          <caret line="59" selection-start-line="59" selection-end-line="59" />
         </state>
       </provider>
     </entry>
@@ -663,16 +689,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/event/view.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="650">
-          <caret line="39" column="9" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
-          <folding>
-            <element signature="e#7#28#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/client/_form.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -684,13 +700,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-7">
           <caret line="48" column="82" selection-start-line="48" selection-start-column="82" selection-end-line="48" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/site/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="85" column="42" selection-start-line="85" selection-start-column="31" selection-end-line="85" selection-end-column="42" />
         </state>
       </provider>
     </entry>
@@ -715,10 +724,78 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/views/event/view.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="39" column="9" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
+          <folding>
+            <element signature="e#7#28#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/project/_form.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="16" column="54" selection-start-line="12" selection-start-column="3" selection-end-line="16" selection-end-column="54" />
+          <folding>
+            <element signature="e#7#28#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/assets/AppAsset.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="25" column="16" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/Event.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-150">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/statusSelector.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="5" lean-forward="true" selection-start-column="5" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/selector.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/EventController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="537">
+          <caret line="95" column="13" selection-start-line="95" selection-start-column="13" selection-end-line="95" selection-end-column="13" />
+          <folding>
+            <element signature="e#35#43#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/EventSearch.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="95" column="34" selection-start-line="95" selection-start-column="34" selection-end-line="95" selection-end-column="34" />
+          <folding>
+            <element signature="e#30#38#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/site/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="415">
+          <caret line="85" column="38" selection-start-line="85" selection-start-column="38" selection-end-line="85" selection-end-column="38" />
         </state>
       </provider>
     </entry>
@@ -734,25 +811,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/site/_post_event.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/EventController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-68">
-          <caret line="61" column="5" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
-          <folding>
-            <element signature="e#35#43#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="170">
+          <caret line="12" column="29" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="29" column="20" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
+        <state relative-caret-position="306">
+          <caret line="18" column="60" selection-start-line="18" selection-start-column="60" selection-end-line="18" selection-end-column="60" />
         </state>
       </provider>
     </entry>
