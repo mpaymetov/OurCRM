@@ -9,7 +9,7 @@ use yii\helpers\Url;
 <div class="post panel">
     <div class="panel-body">
         <form class="active_button" action="event.php">
-            <p>active <input type="checkbox" value="Отправить"></p>
+            <p>active <input type="checkbox" value="Отправить" class="status" checked = "checked" id="<?= HtmlPurifier::process($model->id_event) ?>"></p>
         </form>
         <p class="post_number"><?= \Yii::t('common', 'event number: ')?> <?= HtmlPurifier::process($model->id_event) ?></p>
 
