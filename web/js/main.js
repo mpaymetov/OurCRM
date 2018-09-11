@@ -13,7 +13,7 @@ function cnahgeStatus() {
                 var elem = $(this).attr('id');
 
                 // отправляем AJAX запрос
-                $.ajax(
+             /*   $.ajax(
                     {
                         type: "POST",
                         url: "update",
@@ -27,7 +27,7 @@ function cnahgeStatus() {
                                 alert("Ошибка в запросе! Сервер вернул вот что: " + response);
                         }
                     }
-                );
+                );*/
 
             }
         }
