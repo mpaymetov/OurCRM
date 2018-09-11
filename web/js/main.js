@@ -17,7 +17,7 @@ function cnahgeStatus() {
                     {
                         type: "POST",
                         url: "index.php?r=event%2Fupdate&id=" + elem,
-                        data: "is_active" + elem,
+                        data: "",
                         success: function (response) {
                             if (response == "OK") {
                                 alert("Товар " + article_title + " добавлен!");

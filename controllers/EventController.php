@@ -88,7 +88,14 @@ class EventController extends Controller
         $model = $this->findModel($id);
 
         try {
-            if(\Yii::$app->request->isAjax && $model->save()){
+
+            if(\Yii::$app->request->isAjax){
+                if ($model->is_active == 0) {
+                  $model->is_active = 1;
+                } else{
+                    $model->is_active = 0;
+                };
+                $model->save();
                 return 'test';
             }
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
