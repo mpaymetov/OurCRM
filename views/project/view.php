@@ -13,7 +13,6 @@ $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Projects'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-var_dump($serviceListDataProvider);
 ?>
 <div>
     <div class="col-md-6">
@@ -66,57 +65,47 @@ var_dump($serviceListDataProvider);
                 ]) ?>
             </div>
         </div>
+
+        <div class="serviceset-index">
+
+            <?php
+            $this->title = Yii::t('common', 'Servicesets');
+            ?>
+
+            <h1><?= Html::encode($this->title) ?></h1>
+            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+            <p>
+                <a href='<?= Url::to(['serviceset/create', 'id_project' => $model->id_project]) ?>' class="btn btn-success">
+                    <?= \Yii::t('common', 'Create Serviceset') ?></a>
+            </p>
+
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="servicelist-index">
+            <?php
+            for ($i = 0; $i < count($serviceListDataProvider); $i++)
+            {
+                $serviceSetInfo = $serviceListDataProvider[$i]['ServiceSetInfo'];
+                $serviceListInfo = $serviceListDataProvider[$i]['ServiceListInfo'];
+                echo ListView::widget([
+                    'dataProvider' => $serviceSetInfo,
+                    'itemView' => '_servicelist-view',
+                    'layout' => "{items}"
+                ]);
+                echo GridView::widget([
+                    'dataProvider' => $serviceListInfo,
+                    'layout' => "{items}"
+                ]);
+            }
+            ?>
+        </div>
     </div>
 </div>
-<?php
-$this->title = Yii::t('common', 'Servicesets');
-?>
-<div class="serviceset-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <a href='<?= Url::to(['serviceset/create', 'id_project' => $model->id_project]) ?>' class="btn btn-success">
-            <?= \Yii::t('common', 'Create Serviceset') ?></a>
-    </p>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
-            'id_serviceset',
-            'id_project',
-            'id_state',
-            'delivery',
-            'payment',
-
-            ['class' => 'yii\grid\ActionColumn'],
-
-        ],
-    ]); ?>
-</div>
-
-<div class="serviceset-index">
-    <?php
-    /*echo GridView::widget([
-        'dataProvider' => $serviceListDataProvider,
-    ]);*/
-    for ($i = 0; $i < count($serviceListDataProvider); $i++)
-        {
-            $serviceSetInfo = $serviceListDataProvider[$i]['ServiceSetInfo'];
-            $serviceListInfo = $serviceListDataProvider[$i]['ServiceListInfo'];
-            echo ListView::widget([
-                'dataProvider' => $serviceSetInfo,
-                'itemView' => '_servicelist-view',
-            ]);
-            echo GridView::widget([
-                'dataProvider' => $serviceListInfo,
-            ]);
-        }
-    ?>
-
-</div>
 
