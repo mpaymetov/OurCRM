@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Servicelist;
+use yii\data\SqlDataProvider;
 
 /**
  * ServicelistSearch represents the model behind the search form of `app\models\Servicelist`.
@@ -65,4 +66,22 @@ class ServicelistSearch extends Servicelist
 
         return $dataProvider;
     }
+
+    public function getServiceSetInfo($id)
+    {
+        $count = Yii::$app->db->createCommand(
+            'SELECT COUNT(*) FROM {{servicelist}} WHERE [[id_serviceset]]=:id_serviceset',
+            [':id_serviceset' => $id])->queryScalar();
+
+        $provider = new SqlDataProvider([
+            'sql' => 'SELECT [[service.name]] AS name, [[service.cost]] AS cost
+            FROM {{servicelist}}
+            LEFT JOIN {{service}} ON [[service.id_service]]=[[servicelist.id_service]]
+            WHERE [[id_serviceset]]=:id_serviceset',
+            'params' => [':id_serviceset' => $id],
+        ]);
+
+       return $provider->getModels();
+    }
+
 }

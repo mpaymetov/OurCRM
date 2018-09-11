@@ -2,16 +2,20 @@
 
 namespace app\controllers;
 
+use app\models\ServicelistSearch;
 use Yii;
 use app\models\Project;
 use app\models\ProjectSearch;
+use app\models\Service;
 use app\models\Serviceset;
 use app\models\ServicesetSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ArrayDataProvider;
 use app\models\Event;
 use app\models\EventSearch;
+
 
 /**
  * ProjectController implements the CRUD actions for Project model.
@@ -57,15 +61,30 @@ class ProjectController extends Controller
     {
         $searchModel = new ServicesetSearch();
         $dataProvider = $searchModel->searchProjectId($id);
+        $servicesetInfo = $searchModel->getServiceSetInfoByProjectId($id);
+        $serviceListDataProvider = [];
+        for ($i=0; $i<count($servicesetInfo); $i++)
+        {
+            $info = $servicesetInfo[$i];
+            $searchServiceList = new ServicelistSearch();
+            $serviceListDataProvider[$i] = array(
+                'ServiceSetInfo' => new ArrayDataProvider([
+                    'allModels' => array(
+                        0 =>$info),
+                ]),
+                'ServiceListInfo' => new ArrayDataProvider([
+                    'allModels' => $searchServiceList->getServiceSetInfo($info['id']),
+                ]),
+            );
+        }
         $searchEventModel = new EventSearch();
         $eventDataProvider = $searchEventModel->searchEventId($id, Yii::$app->user->identity->id_user, 2);
-        print_r($id);
-        print_r(Yii::$app->user->identity->id_user);
         return $this->render('view', [
             'model' => $this->findModel($id),
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'eventDataProvider' => $eventDataProvider,
+            'serviceListDataProvider' => $serviceListDataProvider,
         ]);
     }
 
@@ -121,6 +140,10 @@ class ProjectController extends Controller
 
             return $this->redirect(['index']);
     }
+
+
+
+
 
     /**
      * Finds the Project model based on its primary key value.

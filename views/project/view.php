@@ -12,6 +12,8 @@ $route_link = 2;
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Projects'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+var_dump($serviceListDataProvider);
 ?>
 <div>
     <div class="col-md-6">
@@ -95,5 +97,26 @@ $this->title = Yii::t('common', 'Servicesets');
 
         ],
     ]); ?>
+</div>
+
+<div class="serviceset-index">
+    <?php
+    /*echo GridView::widget([
+        'dataProvider' => $serviceListDataProvider,
+    ]);*/
+    for ($i = 0; $i < count($serviceListDataProvider); $i++)
+        {
+            $serviceSetInfo = $serviceListDataProvider[$i]['ServiceSetInfo'];
+            $serviceListInfo = $serviceListDataProvider[$i]['ServiceListInfo'];
+            echo ListView::widget([
+                'dataProvider' => $serviceSetInfo,
+                'itemView' => '_servicelist-view',
+            ]);
+            echo GridView::widget([
+                'dataProvider' => $serviceListInfo,
+            ]);
+        }
+    ?>
+
 </div>
 

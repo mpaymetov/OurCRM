@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use yii\data\SqlDataProvider;
 use app\models\Serviceset;
 
 /**
@@ -81,6 +82,19 @@ class ServicesetSearch extends Serviceset
             'id_project' => $id,
         ]);
         return $dataProvider;
+    }
+
+    public function getServiceSetInfoByProjectId($id)
+    {
+        $provider = new SqlDataProvider([
+            'sql' => 'SELECT [[serviceset.id_serviceset]] AS id, [[state.name]] AS state
+            FROM {{serviceset}}
+            LEFT JOIN {{state}} ON [[state.id_state]]=[[serviceset.id_state]]
+            WHERE [[id_project]]=:id_project',
+            'params' => [':id_project' => $id],
+        ]);
+
+        return $provider->getModels();
     }
 
 }
