@@ -20,6 +20,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'is_enable')->textInput() ?>
 
+    <?= Html::activeHiddenInput($model, 'version'); ?>
+
     <div class="form-group">
         <?= Html::submitButton(\Yii::t('common', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>

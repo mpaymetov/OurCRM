@@ -8,6 +8,7 @@ use app\models\EventSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\db\StaleObjectException;
 
 /**
  * EventController implements the CRUD actions for Event model.
@@ -86,15 +87,19 @@ class EventController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_event]);
+        try {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_event]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        } catch (StaleObjectException $e) {
+
+            throw new StaleObjectException(Yii::t('app', 'Error data version'));
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
-
     /**
      * Deletes an existing Event model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

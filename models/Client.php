@@ -56,7 +56,6 @@ class Client extends \yii\db\ActiveRecord
             'created' => Yii::t('common', 'Created'),
             'comment' => Yii::t('common', 'Comment'),
             'id_user' => Yii::t('common', 'Id User'),
-            'version' => Yii::t('common', 'Version'),
         ];
     }
 

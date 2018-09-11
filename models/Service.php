@@ -25,6 +25,10 @@ class Service extends \yii\db\ActiveRecord
         return 'service';
     }
 
+    public function optimisticLock()
+    {
+        return 'version';
+    }
     /**
      * {@inheritdoc}
      */
@@ -36,6 +40,7 @@ class Service extends \yii\db\ActiveRecord
             [['is_enable'], 'integer'],
             [['name'], 'string', 'max' => 50],
             [['description'], 'string', 'max' => 255],
+            [['version'], 'integer'],
         ];
     }
 

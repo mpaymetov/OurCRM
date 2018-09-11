@@ -9,6 +9,7 @@ $this->title = Yii::t('common', 'Update Project: ') . $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Projects'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id_project]];
 $this->params['breadcrumbs'][] = Yii::t('common', 'Update');
+echo Html::activeHiddenInput($model, 'version');
 ?>
 <div class="project-update">
 

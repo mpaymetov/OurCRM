@@ -112,7 +112,7 @@ class ClientController extends Controller
                 ]);
             }
         } catch (StaleObjectException $e) {
-            // логика разрешения конфликта версий
+
             throw new StaleObjectException(Yii::t('app', 'Error data version'));
         }
     }

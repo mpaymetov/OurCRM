@@ -18,7 +18,7 @@ class EventSearch extends Event
     public function rules()
     {
         return [
-            [['id_event', 'link', 'id_link', 'id_user'], 'integer'],
+            [['id_event', 'link', 'id_link', 'id_user', 'is_active'], 'integer'],
             [['message', 'created', 'assignment'], 'safe'],
         ];
     }
@@ -65,6 +65,7 @@ class EventSearch extends Event
             'link' => $this->link,
             'id_link' => $this->id_link,
             'id_user' => $this->id_user,
+            'is_active' => $this->is_active,
         ]);
 
         $query->andFilterWhere(['like', 'message', $this->message])

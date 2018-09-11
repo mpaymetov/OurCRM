@@ -28,6 +28,10 @@ class Project extends \yii\db\ActiveRecord
         return 'project';
     }
 
+    public function optimisticLock()
+    {
+        return 'version';
+    }
     /**
      * {@inheritdoc}
      */
@@ -39,7 +43,7 @@ class Project extends \yii\db\ActiveRecord
             [['comment'], 'string'],
             [['name'], 'string', 'max' => 255],
             [['id_client'], 'exist', 'skipOnError' => true, 'targetClass' => Client::className(), 'targetAttribute' => ['id_client' => 'id_client']],
-
+            [['version'], 'integer'],
         ];
     }
 

@@ -9,6 +9,7 @@ $this->title = Yii::t('common', 'Update Department: ') . $model->name;
 $this->params['breadcrumbs'][] = ['label' => \Yii::t('common', 'Departments'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id_department]];
 $this->params['breadcrumbs'][] = \Yii::t('common', 'Update');
+echo Html::activeHiddenInput($model, 'version');
 ?>
 <div class="department-update">
 

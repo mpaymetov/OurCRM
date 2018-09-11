@@ -15,6 +15,7 @@ use app\models\ServiceListForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\db\StaleObjectException;
 
 /**
  * ServicesetController implements the CRUD actions for Serviceset model.
@@ -111,15 +112,19 @@ class ServicesetController extends Controller
         $model = $this->findModel($id);
         $state = new StateSearch();
         $itemsState = $state -> getStateList();
+        try {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_serviceset]);
+            }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_serviceset]);
+            return $this->render('update', [
+                'model' => $model,
+                'itemsState' => $itemsState,
+            ]);
+        } catch (StaleObjectException $e) {
+
+            throw new StaleObjectException(Yii::t('app', 'Error data version'));
         }
-
-        return $this->render('update', [
-            'model' => $model,
-            'itemsState' => $itemsState,
-        ]);
     }
 
     /**

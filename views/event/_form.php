@@ -30,6 +30,7 @@ use kartik\datetime\DateTimePicker;
         ]
     ]) ?>
 
+    <?= Html::activeHiddenInput($model, 'version'); ?>
 
 
     <?php
@@ -50,6 +51,10 @@ use kartik\datetime\DateTimePicker;
     } else {
         echo $form->field($model, 'id_user')->textInput(['maxlength' => true]);
     }
+    ?>
+
+    <?php
+        echo $form->field($model, 'is_active')->textInput(['maxlength' => true]);
     ?>
 
     <div class="form-group">

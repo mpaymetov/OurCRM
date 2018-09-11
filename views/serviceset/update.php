@@ -9,6 +9,7 @@ $this->title = 'Update Serviceset: ' . $model->id_serviceset;
 $this->params['breadcrumbs'][] = ['label' => 'Servicesets', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id_serviceset, 'url' => ['view', 'id' => $model->id_serviceset]];
 $this->params['breadcrumbs'][] = 'Update';
+echo Html::activeHiddenInput($model, 'version');
 ?>
 <div class="serviceset-update">
 

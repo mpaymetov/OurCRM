@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'link',
             'id_link',
             'id_user',
+            'is_active',
         ],
     ]) ?>
 

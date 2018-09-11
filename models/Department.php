@@ -22,6 +22,10 @@ class Department extends \yii\db\ActiveRecord
         return 'department';
     }
 
+    public function optimisticLock()
+    {
+        return 'version';
+    }
     /**
      * {@inheritdoc}
      */
@@ -30,6 +34,7 @@ class Department extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['name'], 'string', 'max' => 255],
+            [['version'], 'integer'],
         ];
     }
 

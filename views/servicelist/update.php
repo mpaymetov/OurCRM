@@ -11,6 +11,7 @@ $this->title = Yii::t('app', 'Update Servicelist: ' . $model->id_servicelist, [
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Servicelists'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id_servicelist, 'url' => ['view', 'id' => $model->id_servicelist]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+echo Html::activeHiddenInput($model, 'version');
 ?>
 <div class="servicelist-update">
 

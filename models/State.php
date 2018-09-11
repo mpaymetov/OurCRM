@@ -22,6 +22,10 @@ class State extends \yii\db\ActiveRecord
         return 'state';
     }
 
+    public function optimisticLock()
+    {
+        return 'version';
+    }
     /**
      * {@inheritdoc}
      */
@@ -30,6 +34,7 @@ class State extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['name'], 'string', 'max' => 20],
+            [['version'], 'integer'],
         ];
     }
 

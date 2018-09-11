@@ -15,7 +15,7 @@ use yii\filters\VerbFilter;
 use yii\data\ArrayDataProvider;
 use app\models\Event;
 use app\models\EventSearch;
-
+use yii\db\StaleObjectException;
 
 /**
  * ProjectController implements the CRUD actions for Project model.
@@ -117,14 +117,18 @@ class ProjectController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        try {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_project]);
+            }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_project]);
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        } catch (StaleObjectException $e) {
+
+            throw new StaleObjectException(Yii::t('app', 'Error data version'));
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
