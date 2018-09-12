@@ -86,7 +86,6 @@ class EventController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
         try {
             if (\Yii::$app->request->isAjax) {
                 if ($model->is_active == 0) {
@@ -96,15 +95,14 @@ class EventController extends Controller
                 };
                 $model->save();
                 return("OK");
-            } else {
+            }
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
                     return $this->redirect(['view', 'id' => $model->id_event]);
                 }
-
                 return $this->render('update', [
                     'model' => $model,
                 ]);
-            }
+
         } catch (StaleObjectException $e) {
 
             throw new StaleObjectException(Yii::t('app', 'Error data version'));
