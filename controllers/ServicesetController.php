@@ -88,6 +88,9 @@ class ServicesetController extends Controller
     {
         $model = new Serviceset();
         $state = new StateSearch();
+        $modelForm = new ServiceListForm();
+        $service = new ServiceSearch();
+        $itemsService = $service->getServiceListItems();
         $itemsState = $state -> getStateList();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -97,6 +100,8 @@ class ServicesetController extends Controller
         return $this->render('create', [
             'model' => $model,
             'itemsState' => $itemsState,
+            'modelForm' => $modelForm,
+            'itemsService' => $itemsService,
         ]);
     }
 
@@ -111,6 +116,9 @@ class ServicesetController extends Controller
     {
         $model = $this->findModel($id);
         $state = new StateSearch();
+        $modelForm = new ServiceListForm();
+        $service = new ServiceSearch();
+        $itemsService = $service->getServiceListItems();
         $itemsState = $state -> getStateList();
         try {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -120,6 +128,8 @@ class ServicesetController extends Controller
             return $this->render('update', [
                 'model' => $model,
                 'itemsState' => $itemsState,
+                'modelForm' => $modelForm,
+                'itemsService' => $itemsService,
             ]);
         } catch (StaleObjectException $e) {
 
