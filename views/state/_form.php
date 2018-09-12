@@ -20,6 +20,14 @@ use yii\widgets\ActiveForm;
         <?= Html::submitButton(\Yii::t('common', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>
 
+    <?php
+    if ($model->version == '') {
+        $model->version = 0;
+        echo $form->field($model, 'version')->textInput(['maxlength' => true, 'readonly' => true]);
+    } else {
+        echo $form->field($model, 'version')->textInput(['maxlength' => true, 'readonly' => true]);
+    }
+    ?>
     <?php ActiveForm::end(); ?>
 
 </div>
