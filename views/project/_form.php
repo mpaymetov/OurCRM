@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
     <?= Html::activeHiddenInput($model, 'version'); ?>
 
     <?php
-    if($model->id_client){
+    if ($model->id_client) {
         echo $form->field($model, 'id_client')->textInput(['maxlength' => true, 'readonly' => true]);
     } else {
         echo $form->field($model, 'id_client')->textInput(['maxlength' => true]);
@@ -25,10 +25,16 @@ use yii\widgets\ActiveForm;
     ?>
 
     <?php
-    if($model->id_user){
+    if ($model->id_user) {
         echo $form->field($model, 'id_user')->textInput(['maxlength' => true, 'readonly' => true]);
     } else {
         echo $form->field($model, 'id_user')->textInput(['maxlength' => true]);
+    }
+    if ($model->version == '') {
+        $model->version = 0;
+        echo $form->field($model, 'version')->textInput(['maxlength' => true, 'readonly' => true]);
+    } else {
+        echo $form->field($model, 'version')->textInput(['maxlength' => true, 'readonly' => true]);
     }
     ?>
 

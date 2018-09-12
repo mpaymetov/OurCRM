@@ -2,14 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="74bbeaca-3346-4a7a-b87d-ce0dd4fab6a8" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/selector.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/EventController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/EventController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/event/_event_id.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/event/_event_id.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/event/_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/event/_form.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/event/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/event/create.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/site/_post_event.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/site/_post_event.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/department/_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/department/_form.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/project/_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/project/_form.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/service/_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/service/_form.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/servicelist/_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/servicelist/_form.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/serviceset/_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/serviceset/_form.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,14 +37,14 @@
         <counts>
           <entry key="css" value="376" />
           <entry key="js" value="229" />
-          <entry key="php" value="7769" />
+          <entry key="php" value="7808" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="376" />
           <entry key="JavaScript" value="229" />
-          <entry key="PHP" value="7769" />
+          <entry key="PHP" value="7808" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -56,7 +53,7 @@
           <entry key="ico" value="1" />
           <entry key="js" value="2" />
           <entry key="json" value="2" />
-          <entry key="php" value="307" />
+          <entry key="php" value="312" />
           <entry key="sql" value="5" />
         </counts>
       </usages-collector>
@@ -66,7 +63,7 @@
           <entry key="Image" value="1" />
           <entry key="JSON" value="2" />
           <entry key="JavaScript" value="2" />
-          <entry key="PHP" value="307" />
+          <entry key="PHP" value="312" />
           <entry key="SQL" value="5" />
         </counts>
       </usages-collector>
@@ -87,10 +84,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/event/_event_id.php">
+        <entry file="file://$PROJECT_DIR$/views/project/_form.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="10" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
+            <state relative-caret-position="429">
+              <caret line="37" column="5" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
               <folding>
                 <element signature="e#7#28#0#PHP" expanded="true" />
               </folding>
@@ -99,19 +96,28 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/site/_post_event.php">
+        <entry file="file://$PROJECT_DIR$/views/service/_form.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="21" column="6" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
+            <state relative-caret-position="510">
+              <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/site/index.php">
+        <entry file="file://$PROJECT_DIR$/views/servicelist/_form.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="514">
-              <caret line="84" column="24" selection-start-line="84" selection-start-column="24" selection-end-line="84" selection-end-column="24" />
+            <state relative-caret-position="442">
+              <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/views/serviceset/_form.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="633">
+              <caret line="47" column="5" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -137,11 +143,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/event/_form.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="51" column="101" selection-start-line="51" selection-start-column="101" selection-end-line="51" selection-end-column="101" />
+            <state relative-caret-position="578">
+              <caret line="58" column="5" lean-forward="true" selection-start-line="53" selection-start-column="4" selection-end-line="58" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/department/_form.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="26" column="5" lean-forward="true" selection-start-line="21" selection-start-column="4" selection-end-line="26" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -205,10 +220,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/views/site/say.php" />
-        <option value="$PROJECT_DIR$/models/Manager.php" />
-        <option value="$PROJECT_DIR$/controllers/ManagerController.php" />
-        <option value="$PROJECT_DIR$/views/manager/index.php" />
         <option value="$PROJECT_DIR$/tests/acceptance/HomeCest.php" />
         <option value="$PROJECT_DIR$/vendor/yiisoft/yii2/base/Module.php" />
         <option value="$PROJECT_DIR$/vendor/yiisoft/yii2/web/Application.php" />
@@ -233,7 +244,6 @@
         <option value="$PROJECT_DIR$/views/event/view.php" />
         <option value="$PROJECT_DIR$/models/Project.php" />
         <option value="$PROJECT_DIR$/views/client/index.php" />
-        <option value="$PROJECT_DIR$/views/project/_form.php" />
         <option value="$PROJECT_DIR$/views/client/_form.php" />
         <option value="$PROJECT_DIR$/views/project/view.php" />
         <option value="$PROJECT_DIR$/models/EventSearch.php" />
@@ -256,6 +266,11 @@
         <option value="$PROJECT_DIR$/controllers/EventController.php" />
         <option value="$PROJECT_DIR$/views/event/create.php" />
         <option value="$PROJECT_DIR$/views/event/_form.php" />
+        <option value="$PROJECT_DIR$/views/department/_form.php" />
+        <option value="$PROJECT_DIR$/views/project/_form.php" />
+        <option value="$PROJECT_DIR$/views/service/_form.php" />
+        <option value="$PROJECT_DIR$/views/servicelist/_form.php" />
+        <option value="$PROJECT_DIR$/views/serviceset/_form.php" />
       </list>
     </option>
   </component>
@@ -331,7 +346,37 @@
               <item name="OurCRM" type="b2602c69:ProjectViewProjectNode" />
               <item name="OurCRM" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="department" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OurCRM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OurCRM" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="event" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OurCRM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OurCRM" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="project" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OurCRM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OurCRM" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OurCRM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OurCRM" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="servicelist" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OurCRM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OurCRM" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="serviceset" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="OurCRM" type="b2602c69:ProjectViewProjectNode" />
@@ -397,12 +442,12 @@
       <workItem from="1535811998518" duration="618000" />
       <workItem from="1535836596466" duration="6168000" />
       <workItem from="1535981415935" duration="4328000" />
-      <workItem from="1536705228915" duration="5422000" />
+      <workItem from="1536705228915" duration="5782000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="134265000" />
+    <option name="totallyTimeSpent" value="134625000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
@@ -461,34 +506,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/vendor/yiisoft/yii2/grid/ActionColumn.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-136">
-          <caret line="33" column="6" selection-start-line="33" selection-start-column="6" selection-end-line="33" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/yiisoft/yii2/grid/SerialColumn.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="33" column="7" selection-start-line="33" selection-start-column="7" selection-end-line="33" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/client/create.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="22" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/project/view.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1394">
-          <caret line="82" column="40" lean-forward="true" selection-start-line="82" selection-start-column="40" selection-end-line="82" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/yiisoft/yii2/widgets/ActiveForm.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
@@ -719,16 +736,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/project/_form.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="16" column="54" selection-start-line="12" selection-start-column="3" selection-end-line="16" selection-end-column="54" />
-          <folding>
-            <element signature="e#7#28#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/AppAsset.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
@@ -740,13 +747,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/site/_post_event.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="21" column="6" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -820,8 +820,53 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/event/_form.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="51" column="101" selection-start-line="51" selection-start-column="101" selection-end-line="51" selection-end-column="101" />
+        <state relative-caret-position="578">
+          <caret line="58" column="5" lean-forward="true" selection-start-line="53" selection-start-column="4" selection-end-line="58" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/site/_post_event.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="21" column="6" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/department/_form.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="26" column="5" lean-forward="true" selection-start-line="21" selection-start-column="4" selection-end-line="26" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/project/_form.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="37" column="5" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
+          <folding>
+            <element signature="e#7#28#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/service/_form.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/servicelist/_form.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/serviceset/_form.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="633">
+          <caret line="47" column="5" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
         </state>
       </provider>
     </entry>
