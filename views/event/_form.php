@@ -39,23 +39,26 @@ use kartik\datetime\DateTimePicker;
     } else {
         echo $form->field($model, 'link')->textInput(['maxlength' => true]);
     }
-    ?>
-
-    <?php
     echo $form->field($model, 'id_link')->textInput(['maxlength' => true]);
-    ?>
-
-    <?php
     if ($model->id_user) {
         echo $form->field($model, 'id_user')->textInput(['maxlength' => true, 'readonly' => true]);
     } else {
         echo $form->field($model, 'id_user')->textInput(['maxlength' => true]);
     }
+    if ($model->is_active == '') {
+        $model->is_active = 1;
+        echo $form->field($model, 'is_active')->textInput(['maxlength' => true, 'readonly' => true]);
+    } else {
+        echo $form->field($model, 'is_active')->textInput(['maxlength' => true, 'readonly' => true]);
+    }
+    if ($model->version == '') {
+        $model->version = 0;
+        echo $form->field($model, 'version')->textInput(['maxlength' => true, 'readonly' => true]);
+    } else {
+        echo $form->field($model, 'version')->textInput(['maxlength' => true, 'readonly' => true]);
+    }
     ?>
 
-    <?php
-        echo $form->field($model, 'is_active')->textInput(['maxlength' => true]);
-    ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('common', 'Save'), ['class' => 'btn btn-success']) ?>

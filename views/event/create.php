@@ -24,6 +24,7 @@ $model->id_user = $user_id;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'version' => $model->version,
     ]) ?>
 
 </div>

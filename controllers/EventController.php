@@ -88,28 +88,29 @@ class EventController extends Controller
         $model = $this->findModel($id);
 
         try {
-
-            if(\Yii::$app->request->isAjax){
+            if (\Yii::$app->request->isAjax) {
                 if ($model->is_active == 0) {
-                  $model->is_active = 1;
-                } else{
+                    $model->is_active = 1;
+                } else {
                     $model->is_active = 0;
                 };
                 $model->save();
-                return 'test';
-            }
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id_event]);
-            }
+                return("OK");
+            } else {
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id_event]);
+                }
 
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
         } catch (StaleObjectException $e) {
 
             throw new StaleObjectException(Yii::t('app', 'Error data version'));
         }
     }
+
     /**
      * Deletes an existing Event model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -145,12 +146,10 @@ class EventController extends Controller
     public function eventState($id_event)
     {
         $model = findModel($id_event);
-        if($model->is_active == true)
-        {
+        if ($model->is_active == true) {
             $model->is_active = false;
             $model->save();
-        } else
-        {
+        } else {
             $model->is_active == true;
             $model->save();
         }

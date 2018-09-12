@@ -12,7 +12,7 @@ use yii\helpers\Url;
             <h3><?= Html::encode($model->message) ?></h3>
             <p><?= html::encode($model->created) ?></p>
             <form action="event.php">
-                <p>is active<input type="checkbox" value="Отправить" checked="checked"
+                <p>is active<input type="checkbox" class="status" <?php if ($model->is_active == 1) echo "checked" ?>
                                    id="<?= HtmlPurifier::process($model->id_event) ?>"></p>
             </form>
             <a href='<?= Url::to(['event/view', 'id' => $model->id_event]) ?>'

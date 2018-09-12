@@ -9,7 +9,7 @@ use yii\helpers\Url;
 <div class="post panel">
     <div class="panel-body">
         <form class="active_button" action="event.php">
-            <p>active <input type="checkbox" value="Отправить" class="status"
+            <p>active <input type="checkbox" class="status"
                              <?php if ($model->is_active == 1) echo "checked" ?> id="<?= HtmlPurifier::process($model->id_event) ?>">
             </p>
         </form>
