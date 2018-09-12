@@ -47,9 +47,9 @@ use kartik\datetime\DateTimePicker;
     }
     if ($model->is_active == '') {
         $model->is_active = 1;
-        echo $form->field($model, 'is_active')->textInput(['maxlength' => true, 'readonly' => true]);
+        echo $form->field($model, 'is_active')->textInput(['maxlength' => true]);
     } else {
-        echo $form->field($model, 'is_active')->textInput(['maxlength' => true, 'readonly' => true]);
+        echo $form->field($model, 'is_active')->textInput(['maxlength' => true]);
     }
     if ($model->version == '') {
         $model->version = 0;

@@ -89,7 +89,7 @@ class SiteController extends Controller
             }
 
             $eventSearchModel = new eventSearch();
-            $eventDataProvider = $eventSearchModel->search(Yii::$app->request->queryParams);
+            $eventDataProvider = $eventSearchModel->search(Yii::$app->request->queryParams, 'index');
             $eventDataProvider->query->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user);
 
             return $this->render('index',

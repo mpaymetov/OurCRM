@@ -39,7 +39,7 @@ class EventSearch extends Event
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $location = null)
     {
         $query = Event::find();
 
@@ -67,12 +67,23 @@ class EventSearch extends Event
             'id_user' => $this->id_user,
             'is_active' => $this->is_active,
         ]);
+        print_r($location);
 
-        $query->andFilterWhere(['like', 'message', $this->message])
-            ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user)
-            ->andWhere('event.is_active != 0');
+        if ($location == 'index') {
+            $query->andFilterWhere(['like', 'message', $this->message])
+                ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user)
+                ->andWhere('event.is_active != 0');
+        } else {
+            $query->andFilterWhere(['like', 'message', $this->message])
+                ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user);
+        }
 
         return $dataProvider;
+    }
+
+    public function searchEventOnIndex()
+    {
+
     }
 
     public function searchEventId($id_link, $id_user, $route_link)
