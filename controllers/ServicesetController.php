@@ -16,6 +16,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\StaleObjectException;
+use yii\helpers\ArrayHelper;
 
 /**
  * ServicesetController implements the CRUD actions for Serviceset model.
@@ -88,6 +89,9 @@ class ServicesetController extends Controller
     {
         $model = new Serviceset();
         $state = new StateSearch();
+        $modelForm = new ServiceListForm();
+        $service = new ServiceSearch();
+        $itemsService = $service->getServiceListItems();
         $itemsState = $state -> getStateList();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -97,6 +101,8 @@ class ServicesetController extends Controller
         return $this->render('create', [
             'model' => $model,
             'itemsState' => $itemsState,
+            'modelForm' => $modelForm,
+            'itemsService' => $itemsService,
         ]);
     }
 
@@ -111,7 +117,12 @@ class ServicesetController extends Controller
     {
         $model = $this->findModel($id);
         $state = new StateSearch();
+        $modelForm = new ServiceListForm();
+        $service = new ServiceSearch();
+        $itemsService = $service->getServiceListItems();
         $itemsState = $state -> getStateList();
+        //$modelForm->serviceList = ['Service' => $this->findServiceList($id)];
+        $info = $this->findServiceList($id);
         try {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id_serviceset]);
@@ -120,6 +131,9 @@ class ServicesetController extends Controller
             return $this->render('update', [
                 'model' => $model,
                 'itemsState' => $itemsState,
+                'modelForm' => $modelForm,
+                'itemsService' => $itemsService,
+                'info'=>$info,
             ]);
         } catch (StaleObjectException $e) {
 
@@ -166,5 +180,13 @@ class ServicesetController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    protected function findServiceList($id)
+    {
+        $serviceListInfo = new ServicelistSearch();
+        $setInfo = $serviceListInfo->getServiceSetInfo($id);
+
+        return ArrayHelper::getColumn($setInfo, 'id');
     }
 }

@@ -74,7 +74,7 @@ class ServicelistSearch extends Servicelist
             [':id_serviceset' => $id])->queryScalar();
 
         $provider = new SqlDataProvider([
-            'sql' => 'SELECT [[service.name]] AS name, [[service.cost]] AS cost
+            'sql' => 'SELECT [[servicelist.id_service]] AS id, [[service.name]] AS name, [[service.cost]] AS cost
             FROM {{servicelist}}
             LEFT JOIN {{service}} ON [[service.id_service]]=[[servicelist.id_service]]
             WHERE [[id_serviceset]]=:id_serviceset',

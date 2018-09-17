@@ -9,7 +9,12 @@ $this->title = 'Update Serviceset: ' . $model->id_serviceset;
 $this->params['breadcrumbs'][] = ['label' => 'Servicesets', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id_serviceset, 'url' => ['view', 'id' => $model->id_serviceset]];
 $this->params['breadcrumbs'][] = 'Update';
+$idServiceSet = $model->id_serviceset;
 echo Html::activeHiddenInput($model, 'version');
+
+var_dump($info);
+
+
 ?>
 <div class="serviceset-update">
 
@@ -20,4 +25,13 @@ echo Html::activeHiddenInput($model, 'version');
         'itemsState' => $itemsState,
     ]) ?>
 
+    <div class="servicelist-create">
+        <?= $this->render('_formServiceLIstUpdate',[
+            'modelForm' => $modelForm,
+            'itemsService' => $itemsService,
+            'idServiceSet' => $idServiceSet,
+            'info' => $info,
+        ]) ?>
+    </div>
 </div>
+
