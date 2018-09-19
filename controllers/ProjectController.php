@@ -63,14 +63,13 @@ class ProjectController extends Controller
         $dataProvider = $searchModel->searchProjectId($id);
         $servicesetInfo = $searchModel->getServiceSetInfoByProjectId($id);
         $serviceListDataProvider = [];
-        for ($i=0; $i<count($servicesetInfo); $i++)
-        {
+        for ($i = 0; $i < count($servicesetInfo); $i++) {
             $info = $servicesetInfo[$i];
             $searchServiceList = new ServicelistSearch();
             $serviceListDataProvider[$i] = array(
                 'ServiceSetInfo' => new ArrayDataProvider([
                     'allModels' => array(
-                        0 =>$info),
+                        0 => $info),
                 ]),
                 'ServiceListInfo' => new ArrayDataProvider([
                     'allModels' => $searchServiceList->getServiceSetInfo($info['id']),
@@ -97,15 +96,16 @@ class ProjectController extends Controller
     public function actionCreate()
     {
         $model = new Project();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_project]);
+        if ($model->id_user == Yii::$app->user->identity->id_user) {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_project]);
+            }
         }
-
         return $this->render('create', [
             'model' => $model,
         ]);
     }
+
 
     /**
      * Updates an existing Project model.
@@ -140,13 +140,10 @@ class ProjectController extends Controller
      */
     public function actionDelete($id)
     {
-            $this->findModel($id)->delete();
+        $this->findModel($id)->delete();
 
-            return $this->redirect(['index']);
+        return $this->redirect(['index']);
     }
-
-
-
 
 
     /**
