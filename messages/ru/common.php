@@ -88,4 +88,5 @@ return [
     'Events for client: ' => 'События по клиенту: ',
     'Projects for client: ' => 'Проекты клиента: ',
     'Roles' => 'Роли',
+    'Back' => 'Назад',
 ];
