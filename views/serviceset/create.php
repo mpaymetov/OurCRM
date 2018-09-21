@@ -12,14 +12,16 @@ $this->params['breadcrumbs'][] = $this->title;
 $request = Yii::$app->request;
 $project_id = $request->get('id_project');
 $model->id_project = $project_id;
+var_dump($address);
 ?>
-<div class="serviceset-create">
+<div class="servicelist-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-        'itemsState' => $itemsState,
+    <?= $this->render('_formServiceLIst',[
+        'modelForm' => $modelForm,
+        'itemsService' => $itemsService,
     ]) ?>
+
 
 </div>

@@ -17,7 +17,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\StaleObjectException;
 use yii\helpers\ArrayHelper;
-
+use yii\web\Request;
+use yii\web\Session;
 /**
  * ServicesetController implements the CRUD actions for Serviceset model.
  */
@@ -94,15 +95,21 @@ class ServicesetController extends Controller
         $itemsService = $service->getServiceListItems();
         $itemsState = $state -> getStateList();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_serviceset]);
-        }
+       /* if($modelForm->loadServiceList())
+        {
 
+            $data = $modelForm->getServiceList($id);
+            $this->saveServiceListArray($data);
+            return $this->redirect(['project/view', 'id' => $this->findModel($id)->id_project]);
+        }*/
+
+       $address = Yii::$app->session;
         return $this->render('create', [
             'model' => $model,
             'itemsState' => $itemsState,
             'modelForm' => $modelForm,
             'itemsService' => $itemsService,
+            'address' => $address,
         ]);
     }
 
@@ -155,16 +162,6 @@ class ServicesetController extends Controller
         return $this->redirect(['index']);
     }
 
-    public function saveServiceListArray($arr)
-    {
-        foreach ($arr as $item)
-        {
-            $model = new Servicelist();
-            $model->saveServiceList($item);
-        }
-    }
-
-
 
     /**
      * Finds the Serviceset model based on its primary key value.
@@ -189,4 +186,20 @@ class ServicesetController extends Controller
 
         return ArrayHelper::getColumn($setInfo, 'id');
     }
+
+    protected function saveServiceListArray($arr)
+    {
+        foreach ($arr as $item)
+        {
+            $model = new Servicelist();
+            $model->saveServiceList($item);
+        }
+    }
+
+    protected function saveNewServiceSet($model)
+    {
+        $model->id_state = 1;
+        return $model->save();
+    }
+
 }

@@ -48,13 +48,6 @@ class ServiceListForm extends \yii\base\Model
                 $errors = $this->errors;
                 return false;
             }
-
-        /*if(!($this->validate()))
-        {
-            $errors = $this->errors;
-            return false;
-        }*/
-
         return true;
     }
 

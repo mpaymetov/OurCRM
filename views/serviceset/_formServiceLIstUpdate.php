@@ -36,7 +36,6 @@ use unclead\multipleinput\MultipleInput;
 
     <?= $form->field($modelForm, 'serviceList')-> widget(MultipleInput::className(), [
         'max' => 12,
-        'min' => 1,
         'columns' => [
             [
                 'name' => 'Service',
