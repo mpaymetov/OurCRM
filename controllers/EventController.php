@@ -66,11 +66,16 @@ class EventController extends Controller
     public function actionCreate()
     {
         $model = new Event();
-
+       //проверку id user проводить вызовом метода из класса безопасности
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_event]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_event]);
+            }
         }
-
+        else
+        {
+            // тут вызов метода из класса безопасности
+        }
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -94,14 +99,14 @@ class EventController extends Controller
                     $model->is_active = 0;
                 };
                 $model->save();
-                return("OK");
+                return ("OK");
             }
-                if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id_event]);
-                }
-                return $this->render('update', [
-                    'model' => $model,
-                ]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_event]);
+            }
+            return $this->render('update', [
+                'model' => $model,
+            ]);
 
         } catch (StaleObjectException $e) {
 
