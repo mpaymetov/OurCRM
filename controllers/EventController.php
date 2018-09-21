@@ -92,7 +92,7 @@ class EventController extends Controller
     {
         $model = $this->findModel($id);
         try {
-            if (\Yii::$app->request->isAjax) {
+            /*if (\Yii::$app->request->isAjax) {
                 if ($model->is_active == 0) {
                     $model->is_active = 1;
                 } else {
@@ -100,6 +100,26 @@ class EventController extends Controller
                 };
                 $model->save();
                 return ("OK");
+            }
+            */
+            $model2 = new Event();
+            $model2->load(Yii::$app->request->post());
+            switch ($model2->id_link.$model2->link) {
+                case '':
+                    return $this->render('update', [
+                        'model' => $model,
+                    ]);
+                    break;
+                case $model->id_link.$model->link:
+                    if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                        return $this->redirect(['view', 'id' => $model->id_event]);
+                    };
+                    break;
+                default:
+                    return $this->render('update', [
+                        'model' => $model,
+                    ]);
+
             }
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id_event]);

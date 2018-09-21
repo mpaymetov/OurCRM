@@ -117,17 +117,23 @@ class ProjectController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        try {
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id_project]);
-            }
-
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        } catch (StaleObjectException $e) {
-
-            throw new StaleObjectException(Yii::t('app', 'Error data version'));
+        $model2 = new Project();
+        $model2->load(Yii::$app->request->post());
+        switch ($model2->id_client) {
+            case '':
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+                break;
+            case $model->id_client:
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id_project]);
+                };
+                break;
+            default:
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
         }
     }
 
