@@ -138,7 +138,6 @@ class ClientController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 
@@ -154,15 +153,12 @@ class ClientController extends Controller
     protected function findModel($id)
     {
         if (($model = Client::findOne($id)) !== null) {
-            if($model->id_user == Yii::$app->user->identity->id_user)
-            {
+            if ($model->id_user == Yii::$app->user->identity->id_user) {
                 return $model;
             }
 
         }
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
-
-
 }
 
