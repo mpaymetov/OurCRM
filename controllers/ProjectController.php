@@ -119,21 +119,15 @@ class ProjectController extends Controller
         $model = $this->findModel($id);
         $model2 = new Project();
         $model2->load(Yii::$app->request->post());
-        switch ($model2->id_client) {
-            case '':
-                return $this->render('update', [
-                    'model' => $model,
-                ]);
-                break;
-            case $model->id_client:
-                if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id_project]);
-                };
-                break;
-            default:
-                return $this->render('update', [
-                    'model' => $model,
-                ]);
+
+        if (SecurityController::validateProjectParam($model, $model2)) {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_project]);
+            };
+        } else {
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
     }
 

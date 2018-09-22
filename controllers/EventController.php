@@ -102,29 +102,16 @@ class EventController extends Controller
 
             $model2 = new Event();
             $model2->load(Yii::$app->request->post());
-            switch ($model2->id_link . $model2->link) {
-                case '':
-                    return $this->render('update', [
-                        'model' => $model,
-                    ]);
-                    break;
-                case $model->id_link . $model->link:
-                    if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                        return $this->redirect(['view', 'id' => $model->id_event]);
-                    };
-                    break;
-                default:
-                    return $this->render('update', [
-                        'model' => $model,
-                    ]);
 
+            if (SecurityController::validateEventParam($model, $model2)) {
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id_event]);
+                };
+            } else {
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
             }
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id_event]);
-            }
-            return $this->render('update', [
-                'model' => $model,
-            ]);
 
         } catch (StaleObjectException $e) {
 
@@ -160,7 +147,6 @@ class EventController extends Controller
                 return $model;
             }
         }
-
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 

@@ -106,21 +106,11 @@ class ClientController extends Controller
         try {
             $model2 = new Client();
             $model2->load(Yii::$app->request->post());
-            switch ($model2->id_user) {
-                case '':
-                    return $this->render('update', [
-                        'model' => $model,
-                    ]);
-                    break;
-                case $model->id_user:
-                    if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                        return $this->redirect(['view', 'id' => $model->id_user]);
-                    };
-                    break;
-                default:
-                    return $this->render('update', [
-                        'model' => $model,
-                    ]);
+            if(SecurityController::validateParam($model, $model2)) {
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id_user]);
+                }
+
             }
         } catch (StaleObjectException $e) {
 
