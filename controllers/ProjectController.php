@@ -117,17 +117,17 @@ class ProjectController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        try {
+        $model2 = new Project();
+        $model2->load(Yii::$app->request->post());
+
+        if (SecurityController::validateProjectParam($model, $model2)) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id_project]);
-            }
-
+            };
+        } else {
             return $this->render('update', [
                 'model' => $model,
             ]);
-        } catch (StaleObjectException $e) {
-
-            throw new StaleObjectException(Yii::t('app', 'Error data version'));
         }
     }
 

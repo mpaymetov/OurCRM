@@ -104,12 +104,13 @@ class ClientController extends Controller
         $model = $this->findModel($id);
 
         try {
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id_client]);
-            } else {
-                return $this->render('update', [
-                    'model' => $model,
-                ]);
+            $model2 = new Client();
+            $model2->load(Yii::$app->request->post());
+            if(SecurityController::validateParam($model, $model2)) {
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id_user]);
+                }
+
             }
         } catch (StaleObjectException $e) {
 
@@ -127,7 +128,6 @@ class ClientController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 
@@ -143,15 +143,12 @@ class ClientController extends Controller
     protected function findModel($id)
     {
         if (($model = Client::findOne($id)) !== null) {
-            if($model->id_user == Yii::$app->user->identity->id_user)
-            {
+            if ($model->id_user == Yii::$app->user->identity->id_user) {
                 return $model;
             }
 
         }
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
-
-
 }
 

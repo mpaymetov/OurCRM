@@ -66,14 +66,12 @@ class EventController extends Controller
     public function actionCreate()
     {
         $model = new Event();
-       //проверку id user проводить вызовом метода из класса безопасности
+        //проверку id user проводить вызовом метода из класса безопасности
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id_event]);
             }
-        }
-        else
-        {
+        } else {
             // тут вызов метода из класса безопасности
         }
         return $this->render('create', [
@@ -101,12 +99,19 @@ class EventController extends Controller
                 $model->save();
                 return ("OK");
             }
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id_event]);
+
+            $model2 = new Event();
+            $model2->load(Yii::$app->request->post());
+
+            if (SecurityController::validateEventParam($model, $model2)) {
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id_event]);
+                };
+            } else {
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
             }
-            return $this->render('update', [
-                'model' => $model,
-            ]);
 
         } catch (StaleObjectException $e) {
 
@@ -142,7 +147,6 @@ class EventController extends Controller
                 return $model;
             }
         }
-
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
