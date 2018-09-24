@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use phpDocumentor\Reflection\Types\Null_;
 use Yii;
 use app\models\Serviceset;
 use app\models\ServicesetSearch;
@@ -89,35 +90,49 @@ class ServicesetController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Serviceset();
         $state = new StateSearch();
         $modelForm = new ServiceListForm();
         $service = new ServiceSearch();
         $itemsService = $service->getServiceListItems();
         $itemsState = $state -> getStateList();
+        /* if($modelForm->loadServiceList())
+         {
+             $data = $modelForm->getServiceList($id);
+             $this->saveServiceListArray($data);
+             return $this->redirect(['project/view', 'id' => $this->findModel($id)->id_project]);
+         }*/
+        $session = Yii::$app->session;
+        $address = Yii::$app->request->getReferrer();
+        $pathRefer = 'project/view';
+        $pathCurr = 'serviceset/create';
+        $gettingId = $this->getReferrerId($address);
 
-       /* if($modelForm->loadServiceList())
-        {
+        if ((($this->checkPage($address, $pathRefer)) && ($this->getReferrerId($address)!= NULL)) || ($this->checkPage($address, $pathCurr))) {
+            if(!ArrayHelper::keyExists('id_project', $session)) {
+                $session->set('id_project', $gettingId);
+           }
 
-            $data = $modelForm->getServiceList($id);
-            $this->saveServiceListArray($data);
-            return $this->redirect(['project/view', 'id' => $this->findModel($id)->id_project]);
-        }*/
+            if($modelForm->loadServiceList()) {
+                $model = new Serviceset();
+                $model->id_project = $session->get('id_project');
+                $model->id_state = 1;
+                $model->save();
+                $id = $model->id_serviceset;
+                $data = $modelForm->getServiceList($id);
+                $this->saveServiceListArray($data);
+                $session->remove('id_project');
+                return $this->redirect(['project/view', 'id' => $model->id_project]);
+            }
 
-       $address = Yii::$app->request->getReferrer();
-       if (($this->checkLastPage($address)) && ($this->getReferrerId($address)!= NULL)) {
-           return $this->render('create', [
-               'model' => $model,
-               'itemsState' => $itemsState,
-               'modelForm' => $modelForm,
-               'itemsService' => $itemsService,
-           ]);
-       } else {
-           return $this->redirect(['site/index']);
-       }
+            return $this->render('create', [
+                'itemsState' => $itemsState,
+                'modelForm' => $modelForm,
+                'itemsService' => $itemsService,
+            ]);
 
+        }
 
-
+        return $this->redirect(['site/index']);
     }
 
     /**
@@ -203,10 +218,15 @@ class ServicesetController extends Controller
         }
     }
 
-    protected function saveNewServiceSet($model)
+    protected function saveNewServiceSet($project_id)
     {
+        $model = new Serviceset();
+        $model->id_project = $project_id;
         $model->id_state = 1;
-        return $model->save();
+        if(!($model->save())) {
+            return NULL;
+        }
+        return $model->id_serviceset;
     }
 
     protected function getReferrerId($str)
@@ -219,13 +239,13 @@ class ServicesetController extends Controller
         return $result;
     }
 
-    protected function checkLastPage($str)
+    protected function checkPage($str, $path)
     {
         $query = parse_url($str, PHP_URL_QUERY);
         parse_str($query,$el);
-        $address = 'project/view';
+        //$address = 'project/view';
         if(ArrayHelper::keyExists('r', $el)) {
-            return ($el['r'] === $address);
+            return ($el['r'] === $path);
         }
         return false;
     }

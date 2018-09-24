@@ -9,7 +9,6 @@ use yii\helpers\Html;
 $this->title = Yii::t('common', 'Create Serviceset');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Servicesets'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-
 ?>
 <div class="servicelist-create">
 
