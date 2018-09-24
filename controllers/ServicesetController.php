@@ -19,6 +19,7 @@ use yii\db\StaleObjectException;
 use yii\helpers\ArrayHelper;
 use yii\web\Request;
 use yii\web\Session;
+
 /**
  * ServicesetController implements the CRUD actions for Serviceset model.
  */
@@ -103,14 +104,20 @@ class ServicesetController extends Controller
             return $this->redirect(['project/view', 'id' => $this->findModel($id)->id_project]);
         }*/
 
-       $address = Yii::$app->session;
-        return $this->render('create', [
-            'model' => $model,
-            'itemsState' => $itemsState,
-            'modelForm' => $modelForm,
-            'itemsService' => $itemsService,
-            'address' => $address,
-        ]);
+       $address = Yii::$app->request->getReferrer();
+       if (($this->checkLastPage($address)) && ($this->getReferrerId($address)!= NULL)) {
+           return $this->render('create', [
+               'model' => $model,
+               'itemsState' => $itemsState,
+               'modelForm' => $modelForm,
+               'itemsService' => $itemsService,
+           ]);
+       } else {
+           return $this->redirect(['site/index']);
+       }
+
+
+
     }
 
     /**
@@ -200,6 +207,27 @@ class ServicesetController extends Controller
     {
         $model->id_state = 1;
         return $model->save();
+    }
+
+    protected function getReferrerId($str)
+    {
+        $result = NULL;
+        parse_str($str, $el);
+        if(ArrayHelper::keyExists('id', $el)) {
+            $result = (integer)$el['id'];
+        }
+        return $result;
+    }
+
+    protected function checkLastPage($str)
+    {
+        $query = parse_url($str, PHP_URL_QUERY);
+        parse_str($query,$el);
+        $address = 'project/view';
+        if(ArrayHelper::keyExists('r', $el)) {
+            return ($el['r'] === $address);
+        }
+        return false;
     }
 
 }

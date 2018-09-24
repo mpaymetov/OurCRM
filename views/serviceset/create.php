@@ -9,10 +9,7 @@ use yii\helpers\Html;
 $this->title = Yii::t('common', 'Create Serviceset');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Servicesets'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-$request = Yii::$app->request;
-$project_id = $request->get('id_project');
-$model->id_project = $project_id;
-var_dump($address);
+
 ?>
 <div class="servicelist-create">
 
