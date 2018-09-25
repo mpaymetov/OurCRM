@@ -96,7 +96,6 @@ class ProjectController extends Controller
     public function actionCreate()
     {
         $model = new Project();
-        $model->load(Yii::$app->request->post());
         if ($model->id_user == Yii::$app->user->identity->id_user) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id_project]);
