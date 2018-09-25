@@ -20,13 +20,10 @@ var_dump($info);
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-        'itemsState' => $itemsState,
-    ]) ?>
-
     <div class="servicelist-create">
         <?= $this->render('_formServiceLIstUpdate',[
+            'model' => $model,
+            'itemsState' => $itemsState,
             'modelForm' => $modelForm,
             'itemsService' => $itemsService,
             'idServiceSet' => $idServiceSet,

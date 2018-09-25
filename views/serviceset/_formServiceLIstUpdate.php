@@ -21,6 +21,33 @@ use unclead\multipleinput\MultipleInput;
 
     <?php $form = ActiveForm::begin([]); ?>
 
+    <?= Html::activeHiddenInput($model, 'version'); ?>
+    <?= Html::activeHiddenInput($model, 'id_project'); ?>
+
+    <?php
+   /* if ($model->id_project) {
+        echo $form->field($model, 'id_project')->textInput(['maxlength' => true, 'readonly' => true]);
+    } else {
+        echo $form->field($model, 'id_project')->textInput(['maxlength' => true]);
+    }*/
+    ?>
+
+    <?= $form->field($model, 'id_state')->dropDownList($itemsState) ?>
+
+    <?= $form->field($model, 'delivery')->widget(\kartik\datetime\DateTimePicker::class, [
+        'language' => 'ru',
+        'pluginOptions' => [
+            'autoclose' => true,
+        ]
+    ]) ?>
+
+    <?= $form->field($model, 'payment')->widget(\kartik\datetime\DateTimePicker::class, [
+        'language' => 'ru',
+        'pluginOptions' => [
+            'autoclose' => true,
+        ]
+    ]) ?>
+
     <?php
     for($i = 0; $i < count($info); $i++)
     {
