@@ -96,6 +96,7 @@ class ProjectController extends Controller
     public function actionCreate()
     {
         $model = new Project();
+        $model->load(Yii::$app->request->post());
         if ($model->id_user == Yii::$app->user->identity->id_user) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id_project]);
@@ -119,8 +120,7 @@ class ProjectController extends Controller
         $model = $this->findModel($id);
         $model2 = new Project();
         $model2->load(Yii::$app->request->post());
-
-        if (SecurityController::validateProjectParam($model, $model2)) {
+        if (SecurityController::validateParam1($model, $model2)) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id_project]);
             };

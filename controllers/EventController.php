@@ -66,6 +66,7 @@ class EventController extends Controller
     public function actionCreate()
     {
         $model = new Event();
+        $model->load(Yii::$app->request->post());
         //проверку id user проводить вызовом метода из класса безопасности
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -100,10 +101,11 @@ class EventController extends Controller
                 return ("OK");
             }
 
+            var_dump(property_exists($model, 'id_client'));
             $model2 = new Event();
             $model2->load(Yii::$app->request->post());
 
-            if (SecurityController::validateEventParam($model, $model2)) {
+            if (SecurityController::validateParam1($model, $model2)) {
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
                     return $this->redirect(['view', 'id' => $model->id_event]);
                 };
