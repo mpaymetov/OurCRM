@@ -69,8 +69,7 @@ class ServicesetController extends Controller
         $service = new ServiceSearch();
         $itemsService = $service->getServiceListItems();
 
-        if($modelForm->loadServiceList())
-        {
+        if ($modelForm->loadServiceList()) {
             $data = $modelForm->getServiceList($id);
             $this->saveServiceListArray($data);
             return $this->redirect(['project/view', 'id' => $this->findModel($id)->id_project]);
@@ -94,7 +93,7 @@ class ServicesetController extends Controller
         $modelForm = new ServiceListForm();
         $service = new ServiceSearch();
         $itemsService = $service->getServiceListItems();
-        $itemsState = $state -> getStateList();
+        $itemsState = $state->getStateList();
 
         $session = Yii::$app->session;
         $address = Yii::$app->request->getReferrer();
@@ -102,12 +101,12 @@ class ServicesetController extends Controller
         $pathCurr = 'serviceset/create';
         $gettingId = $this->getReferrerId($address);
 
-        if ((($this->checkPage($address, $pathRefer)) && ($this->getReferrerId($address)!= NULL)) || ($this->checkPage($address, $pathCurr))) {
-            if(!ArrayHelper::keyExists('id_project', $session)) {
+        if ((($this->checkPage($address, $pathRefer)) && ($this->getReferrerId($address) != NULL)) || ($this->checkPage($address, $pathCurr))) {
+            if (!ArrayHelper::keyExists('id_project', $session)) {
                 $session->set('id_project', $gettingId);
-           }
+            }
 
-            if($modelForm->loadServiceList()) {
+            if ($modelForm->loadServiceList()) {
                 $model = new Serviceset();
                 $model->id_project = $session->get('id_project');
                 $model->id_state = 1;
@@ -144,7 +143,7 @@ class ServicesetController extends Controller
         $modelForm = new ServiceListForm();
         $service = new ServiceSearch();
         $itemsService = $service->getServiceListItems();
-        $itemsState = $state -> getStateList();
+        $itemsState = $state->getStateList();
         $modelForm->serviceList = $this->findServiceList($id);
         $modelServiceList = ServiceList::findAll(['id_serviceset' => $id]);
 
@@ -154,17 +153,16 @@ class ServicesetController extends Controller
         $pathCurr = 'serviceset/update';
         $gettingId = $this->getReferrerId($address);
 
-        if ((($this->checkPage($address, $pathRefer)) && ($this->getReferrerId($address)!= NULL)) || ($this->checkPage($address, $pathCurr))) {
+        if ((($this->checkPage($address, $pathRefer)) && ($this->getReferrerId($address) != NULL)) || ($this->checkPage($address, $pathCurr))) {
             try {
-            /*if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id_serviceset]);
-            }*/
-               /* if(!ArrayHelper::keyExists('id_project', $session)) {
-                    $session->set('id_project', $gettingId);
+                /*if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id_serviceset]);
                 }*/
+                /* if(!ArrayHelper::keyExists('id_project', $session)) {
+                     $session->set('id_project', $gettingId);
+                 }*/
 
-                if($model->load(Yii::$app->request->post()) && $model->validate() && $modelForm->loadServiceList())
-                {
+                if ($model->load(Yii::$app->request->post()) && $model->validate() && $modelForm->loadServiceList()) {
                     $model->save();
                     $data = $modelForm->getServiceList($id);
                     $this->updateServiceListArray($data, $modelServiceList);
@@ -197,6 +195,7 @@ class ServicesetController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+        $this->id_serviselist;
 
         return $this->redirect(['index']);
     }
@@ -223,8 +222,8 @@ class ServicesetController extends Controller
         $serviceListInfo = new ServicelistSearch();
         $setInfo = $serviceListInfo->getServiceSetInfo($id);
         $arr = [];
-        for ($i=0; $i<count($setInfo); $i++) {
-            $arr[$i] = ['Service' =>  $setInfo[$i]['id']];
+        for ($i = 0; $i < count($setInfo); $i++) {
+            $arr[$i] = ['Service' => $setInfo[$i]['id']];
         }
         return $arr;
     }
@@ -232,32 +231,26 @@ class ServicesetController extends Controller
     protected function updateServiceListArray($arrData, $arrModel)
     {
         $num = min(count($arrData), count($arrModel));
-
-        for ($i = 0; $i < $num; $i++)
-        {
-            $arrModel[$i] -> saveServiceList($arrData[$i]);
+/*
+        for ($i = 0; $i < $num; $i++) {
+            $arrModel[$i]->saveServiceList($arrData[$i]);
         }
-
-        if(count($arrData) > count($arrModel))
-        {
-            for ($i = $num; $i < count($arrData); $i++)
-            {
+*/
+        if (count($arrData) > count($arrModel)) {
+            for ($i = $num; $i < count($arrData); $i++) {
                 $model = new Servicelist();
                 $model->saveServiceList($arrData[$i]);
             }
         }
 
-        for ($i = $num; $i < count($arrModel); $i++)
-        {
-            $arrModel[$i] -> delete();
+        for ($i = $num; $i < count($arrModel); $i++) {
+            $arrModel[$i]->delete();
         }
-
     }
 
     protected function saveServiceListArray($arr)
     {
-        foreach ($arr as $item)
-        {
+        foreach ($arr as $item) {
             $model = new Servicelist();
             $model->saveServiceList($item);
         }
@@ -268,7 +261,7 @@ class ServicesetController extends Controller
         $model = new Serviceset();
         $model->id_project = $project_id;
         $model->id_state = 1;
-        if(!($model->save())) {
+        if (!($model->save())) {
             return NULL;
         }
         return $model->id_serviceset;
@@ -278,7 +271,7 @@ class ServicesetController extends Controller
     {
         $result = NULL;
         parse_str($str, $el);
-        if(ArrayHelper::keyExists('id', $el)) {
+        if (ArrayHelper::keyExists('id', $el)) {
             $result = (integer)$el['id'];
         }
         return $result;
@@ -287,9 +280,9 @@ class ServicesetController extends Controller
     protected function checkPage($str, $path)
     {
         $query = parse_url($str, PHP_URL_QUERY);
-        parse_str($query,$el);
+        parse_str($query, $el);
         //$address = 'project/view';
-        if(ArrayHelper::keyExists('r', $el)) {
+        if (ArrayHelper::keyExists('r', $el)) {
             return ($el['r'] === $path);
         }
         return false;
