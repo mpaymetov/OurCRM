@@ -103,7 +103,23 @@ class EventController extends Controller
             var_dump(property_exists($model, 'id_client'));
             $model2 = new Event();
             $model2->load(Yii::$app->request->post());
+            switch ($model2->id_link . $model2->link) {
+                case '':
+                    return $this->render('update', [
+                        'model' => $model,
+                    ]);
+                    break;
+                case $model->id_link . $model->link:
+                    if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                        return $this->redirect(['view', 'id' => $model->id_event]);
+                    };
+                    break;
+                default:
+                    return $this->render('update', [
+                        'model' => $model,
+                    ]);
 
+<<<<<<< HEAD
             if (SecurityController::validateParam1($model, $model2)) {
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
                     return $this->redirect(['view', 'id' => $model->id_event]);
@@ -112,7 +128,15 @@ class EventController extends Controller
                 return $this->render('update', [
                     'model' => $model,
                 ]);
+=======
+>>>>>>> parent of d532fda... Набросок Security
             }
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_event]);
+            }
+            return $this->render('update', [
+                'model' => $model,
+            ]);
 
         } catch (StaleObjectException $e) {
 
@@ -148,6 +172,7 @@ class EventController extends Controller
                 return $model;
             }
         }
+
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
