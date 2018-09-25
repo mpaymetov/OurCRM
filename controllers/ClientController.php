@@ -128,6 +128,9 @@ class ClientController extends Controller
                     return $this->render('update', [
                         'model' => $model,
                     ]);
+<<<<<<< HEAD
+>>>>>>> parent of d532fda... Набросок Security
+=======
 >>>>>>> parent of d532fda... Набросок Security
             }
         } else {

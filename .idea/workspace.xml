@@ -3,10 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="74bbeaca-3346-4a7a-b87d-ce0dd4fab6a8" name="Default" comment="">
 <<<<<<< HEAD
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/controllers/ClientController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ClientController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/EventController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/EventController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/ProjectController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/ProjectController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/SecurityController.php" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/controllers/SiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/SiteController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/EventSearch.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/EventSearch.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/event/_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/event/_form.php" afterDir="false" />
+>>>>>>> parent of d532fda... Набросок Security
 =======
       <change beforePath="$PROJECT_DIR$/controllers/SiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/SiteController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/EventSearch.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/EventSearch.php" afterDir="false" />
@@ -79,6 +85,7 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
 <<<<<<< HEAD
+<<<<<<< HEAD
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/controllers/SecurityController.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -99,6 +106,12 @@
           <provider selected="true" editor-type-id="text-editor">
             <state>
               <caret line="108" lean-forward="true" selection-start-line="108" selection-end-line="108" />
+=======
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controllers/ProjectController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret line="108" lean-forward="true" selection-start-line="108" selection-end-line="108" />
               <folding>
                 <element signature="e#35#68#0#PHP" expanded="true" />
               </folding>
@@ -113,8 +126,26 @@
               <caret line="101" column="12" lean-forward="true" selection-start-line="101" selection-start-column="12" selection-end-line="101" selection-end-column="12" />
 >>>>>>> parent of d532fda... Набросок Security
               <folding>
+                <element signature="e#35#68#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/controllers/EventController.php">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state relative-caret-position="381">
+              <caret line="101" column="12" lean-forward="true" selection-start-line="101" selection-start-column="12" selection-end-line="101" selection-end-column="12" />
+>>>>>>> parent of d532fda... Набросок Security
+              <folding>
                 <element signature="e#35#43#0#PHP" expanded="true" />
               </folding>
+=======
+            <state relative-caret-position="347">
+              <caret line="139" column="40" selection-start-line="139" selection-start-column="40" selection-end-line="139" selection-end-column="40" />
+>>>>>>> parent of d532fda... Набросок Security
             </state>
           </provider>
         </entry>
@@ -256,10 +287,16 @@
         <option value="$PROJECT_DIR$/models/EventSearch.php" />
         <option value="$PROJECT_DIR$/views/event/_form.php" />
 <<<<<<< HEAD
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/controllers/EventController.php" />
         <option value="$PROJECT_DIR$/controllers/ProjectController.php" />
         <option value="$PROJECT_DIR$/controllers/ClientController.php" />
         <option value="$PROJECT_DIR$/controllers/SecurityController.php" />
+=======
+        <option value="$PROJECT_DIR$/controllers/ProjectController.php" />
+        <option value="$PROJECT_DIR$/controllers/ClientController.php" />
+        <option value="$PROJECT_DIR$/controllers/EventController.php" />
+>>>>>>> parent of d532fda... Набросок Security
 =======
         <option value="$PROJECT_DIR$/controllers/ProjectController.php" />
         <option value="$PROJECT_DIR$/controllers/ClientController.php" />
@@ -353,11 +390,20 @@
               <item name="OurCRM" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="project" type="462c0819:PsiDirectoryNode" />
+<<<<<<< HEAD
+=======
             </path>
             <path>
               <item name="OurCRM" type="b2602c69:ProjectViewProjectNode" />
               <item name="OurCRM" type="462c0819:PsiDirectoryNode" />
               <item name="web" type="462c0819:PsiDirectoryNode" />
+>>>>>>> parent of d532fda... Набросок Security
+            </path>
+            <path>
+              <item name="OurCRM" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OurCRM" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="OurCRM" type="b2602c69:ProjectViewProjectNode" />
@@ -426,7 +472,11 @@
   </component>
   <component name="TimeTrackingManager">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="156621000" />
+=======
+    <option name="totallyTimeSpent" value="147431000" />
+>>>>>>> parent of d532fda... Набросок Security
 =======
     <option name="totallyTimeSpent" value="147431000" />
 >>>>>>> parent of d532fda... Набросок Security
@@ -810,6 +860,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="347">
           <caret line="139" column="40" selection-start-line="139" selection-start-column="40" selection-end-line="139" selection-end-column="40" />
+<<<<<<< HEAD
+>>>>>>> parent of d532fda... Набросок Security
+=======
 >>>>>>> parent of d532fda... Набросок Security
         </state>
       </provider>
@@ -817,8 +870,13 @@
     <entry file="file://$PROJECT_DIR$/controllers/ProjectController.php">
       <provider selected="true" editor-type-id="text-editor">
 <<<<<<< HEAD
+<<<<<<< HEAD
         <state relative-caret-position="311">
           <caret line="120" column="50" selection-start-line="120" selection-start-column="50" selection-end-line="120" selection-end-column="50" />
+=======
+        <state>
+          <caret line="108" lean-forward="true" selection-start-line="108" selection-end-line="108" />
+>>>>>>> parent of d532fda... Набросок Security
 =======
         <state>
           <caret line="108" lean-forward="true" selection-start-line="108" selection-end-line="108" />
@@ -832,8 +890,13 @@
     <entry file="file://$PROJECT_DIR$/controllers/EventController.php">
       <provider selected="true" editor-type-id="text-editor">
 <<<<<<< HEAD
+<<<<<<< HEAD
         <state relative-caret-position="306">
           <caret line="105" selection-start-line="105" selection-end-line="105" />
+=======
+        <state relative-caret-position="381">
+          <caret line="101" column="12" lean-forward="true" selection-start-line="101" selection-start-column="12" selection-end-line="101" selection-end-column="12" />
+>>>>>>> parent of d532fda... Набросок Security
 =======
         <state relative-caret-position="381">
           <caret line="101" column="12" lean-forward="true" selection-start-line="101" selection-start-column="12" selection-end-line="101" selection-end-column="12" />
@@ -844,6 +907,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/controllers/ClientController.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -862,6 +926,8 @@
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> parent of d532fda... Набросок Security
 =======
 >>>>>>> parent of d532fda... Набросок Security
   </component>

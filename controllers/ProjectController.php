@@ -120,6 +120,7 @@ class ProjectController extends Controller
         $model2 = new Project();
         $model2->load(Yii::$app->request->post());
 <<<<<<< HEAD
+<<<<<<< HEAD
         if (SecurityController::validateParam1($model, $model2)) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id_project]);
@@ -129,6 +130,8 @@ class ProjectController extends Controller
                 'model' => $model,
             ]);
 =======
+=======
+>>>>>>> parent of d532fda... Набросок Security
         switch ($model2->id_client) {
             case '':
                 return $this->render('update', [
@@ -144,6 +147,9 @@ class ProjectController extends Controller
                 return $this->render('update', [
                     'model' => $model,
                 ]);
+<<<<<<< HEAD
+>>>>>>> parent of d532fda... Набросок Security
+=======
 >>>>>>> parent of d532fda... Набросок Security
         }
     }

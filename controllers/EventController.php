@@ -120,6 +120,7 @@ class EventController extends Controller
                     ]);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             if (SecurityController::validateParam1($model, $model2)) {
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
                     return $this->redirect(['view', 'id' => $model->id_event]);
@@ -128,6 +129,8 @@ class EventController extends Controller
                 return $this->render('update', [
                     'model' => $model,
                 ]);
+=======
+>>>>>>> parent of d532fda... Набросок Security
 =======
 >>>>>>> parent of d532fda... Набросок Security
             }
