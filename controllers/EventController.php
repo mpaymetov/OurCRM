@@ -1,7 +1,5 @@
 <?php
-
 namespace app\controllers;
-
 use Yii;
 use app\models\Event;
 use app\models\EventSearch;
@@ -9,7 +7,6 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\StaleObjectException;
-
 /**
  * EventController implements the CRUD actions for Event model.
  */
@@ -29,7 +26,6 @@ class EventController extends Controller
             ],
         ];
     }
-
     /**
      * Lists all Event models.
      * @return mixed
@@ -38,13 +34,11 @@ class EventController extends Controller
     {
         $searchModel = new EventSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
-
     /**
      * Displays a single Event model.
      * @param string $id
@@ -57,7 +51,6 @@ class EventController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
-
     /**
      * Creates a new Event model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -78,7 +71,6 @@ class EventController extends Controller
             'model' => $model,
         ]);
     }
-
     /**
      * Updates an existing Event model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -99,29 +91,9 @@ class EventController extends Controller
                 $model->save();
                 return ("OK");
             }
-
-            var_dump(property_exists($model, 'id_client'));
             $model2 = new Event();
             $model2->load(Yii::$app->request->post());
-            switch ($model2->id_link . $model2->link) {
-                case '':
-                    return $this->render('update', [
-                        'model' => $model,
-                    ]);
-                    break;
-                case $model->id_link . $model->link:
-                    if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                        return $this->redirect(['view', 'id' => $model->id_event]);
-                    };
-                    break;
-                default:
-                    return $this->render('update', [
-                        'model' => $model,
-                    ]);
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-            if (SecurityController::validateParam1($model, $model2)) {
+            if (SecurityController::validateEventParam($model, $model2)) {
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
                     return $this->redirect(['view', 'id' => $model->id_event]);
                 };
@@ -129,24 +101,11 @@ class EventController extends Controller
                 return $this->render('update', [
                     'model' => $model,
                 ]);
-=======
->>>>>>> parent of d532fda... Набросок Security
-=======
->>>>>>> parent of d532fda... Набросок Security
             }
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id_event]);
-            }
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-
         } catch (StaleObjectException $e) {
-
             throw new StaleObjectException(Yii::t('app', 'Error data version'));
         }
     }
-
     /**
      * Deletes an existing Event model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -157,10 +116,8 @@ class EventController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
-
     /**
      * Finds the Event model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -175,10 +132,8 @@ class EventController extends Controller
                 return $model;
             }
         }
-
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
-
     public function eventState($id_event)
     {
         $model = findModel($id_event);
@@ -189,6 +144,5 @@ class EventController extends Controller
             $model->is_active == true;
             $model->save();
         }
-
     }
 }
