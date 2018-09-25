@@ -103,18 +103,14 @@ class ClientController extends Controller
     {
         $model = $this->findModel($id);
 
-        try {
-            $model2 = new Client();
-            $model2->load(Yii::$app->request->post());
-            if(SecurityController::validateParam($model, $model2)) {
-                if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id_user]);
-                }
-
+        $model2 = new Client();
+        $model2->load(Yii::$app->request->post());
+        if (SecurityController::validateParam1($model, $model2)) {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_user]);
             }
-        } catch (StaleObjectException $e) {
-
-            throw new StaleObjectException(Yii::t('app', 'Error data version'));
+        } else {
+            return $this->render('update', ['model' => $model,]);
         }
     }
 
@@ -125,7 +121,8 @@ class ClientController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public
+    function actionDelete($id)
     {
         $this->findModel($id)->delete();
         return $this->redirect(['index']);
@@ -140,7 +137,8 @@ class ClientController extends Controller
      */
 
 
-    protected function findModel($id)
+    protected
+    function findModel($id)
     {
         if (($model = Client::findOne($id)) !== null) {
             if ($model->id_user == Yii::$app->user->identity->id_user) {

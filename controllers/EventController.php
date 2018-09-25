@@ -100,10 +100,11 @@ class EventController extends Controller
                 return ("OK");
             }
 
+            var_dump(property_exists($model, 'id_client'));
             $model2 = new Event();
             $model2->load(Yii::$app->request->post());
 
-            if (SecurityController::validateEventParam($model, $model2)) {
+            if (SecurityController::validateParam1($model, $model2)) {
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
                     return $this->redirect(['view', 'id' => $model->id_event]);
                 };
