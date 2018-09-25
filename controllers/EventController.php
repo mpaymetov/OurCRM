@@ -66,6 +66,7 @@ class EventController extends Controller
     public function actionCreate()
     {
         $model = new Event();
+        $model->load(Yii::$app->request->post());
         //проверку id user проводить вызовом метода из класса безопасности
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
