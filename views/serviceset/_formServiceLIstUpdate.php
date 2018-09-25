@@ -49,7 +49,7 @@ use unclead\multipleinput\MultipleInput;
     ]) ?>
 
     <?php
-    for($i = 0; $i < count($info); $i++)
+    /*for($i = 0; $i < count($info); $i++)
     {
         $num = $info[$i];
         echo $form->field($modelForm, 'serviceList')->dropDownList(
@@ -58,7 +58,7 @@ use unclead\multipleinput\MultipleInput;
                 $num => ['Selected' => true],
                 ],
             ]);
-    }
+    }*/
     ?>
 
     <?= $form->field($modelForm, 'serviceList')-> widget(MultipleInput::className(), [

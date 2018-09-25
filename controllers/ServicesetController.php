@@ -150,7 +150,7 @@ class ServicesetController extends Controller
         $service = new ServiceSearch();
         $itemsService = $service->getServiceListItems();
         $itemsState = $state -> getStateList();
-        //$modelForm->serviceList = ['Service' => $this->findServiceList($id)];
+        $modelForm->serviceList = $this->findServiceList($id);
         $info = $this->findServiceList($id);
         try {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -205,8 +205,11 @@ class ServicesetController extends Controller
     {
         $serviceListInfo = new ServicelistSearch();
         $setInfo = $serviceListInfo->getServiceSetInfo($id);
-
-        return ArrayHelper::getColumn($setInfo, 'id');
+        $arr = [];
+        for ($i=0; $i<count($setInfo); $i++) {
+            $arr[$i] = ['Service' =>  $setInfo[$i]['id']];
+        }
+        return $arr;
     }
 
     protected function saveServiceListArray($arr)
