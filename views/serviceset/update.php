@@ -11,9 +11,7 @@ $this->params['breadcrumbs'][] = ['label' => $model->id_serviceset, 'url' => ['v
 $this->params['breadcrumbs'][] = 'Update';
 $idServiceSet = $model->id_serviceset;
 echo Html::activeHiddenInput($model, 'version');
-
-var_dump($info);
-
+//var_dump($modelServiceList);
 
 ?>
 <div class="serviceset-update">
@@ -27,7 +25,6 @@ var_dump($info);
             'modelForm' => $modelForm,
             'itemsService' => $itemsService,
             'idServiceSet' => $idServiceSet,
-            'info' => $info,
         ]) ?>
     </div>
 </div>

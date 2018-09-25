@@ -95,12 +95,7 @@ class ServicesetController extends Controller
         $service = new ServiceSearch();
         $itemsService = $service->getServiceListItems();
         $itemsState = $state -> getStateList();
-        /* if($modelForm->loadServiceList())
-         {
-             $data = $modelForm->getServiceList($id);
-             $this->saveServiceListArray($data);
-             return $this->redirect(['project/view', 'id' => $this->findModel($id)->id_project]);
-         }*/
+
         $session = Yii::$app->session;
         $address = Yii::$app->request->getReferrer();
         $pathRefer = 'project/view';
@@ -151,23 +146,45 @@ class ServicesetController extends Controller
         $itemsService = $service->getServiceListItems();
         $itemsState = $state -> getStateList();
         $modelForm->serviceList = $this->findServiceList($id);
-        $info = $this->findServiceList($id);
-        try {
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $modelServiceList = ServiceList::findAll(['id_serviceset' => $id]);
+
+        $session = Yii::$app->session;
+        $address = Yii::$app->request->getReferrer();
+        $pathRefer = 'project/view';
+        $pathCurr = 'serviceset/update';
+        $gettingId = $this->getReferrerId($address);
+
+        if ((($this->checkPage($address, $pathRefer)) && ($this->getReferrerId($address)!= NULL)) || ($this->checkPage($address, $pathCurr))) {
+            try {
+            /*if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id_serviceset]);
+            }*/
+               /* if(!ArrayHelper::keyExists('id_project', $session)) {
+                    $session->set('id_project', $gettingId);
+                }*/
+
+                if($model->load(Yii::$app->request->post()) && $model->validate() && $modelForm->loadServiceList())
+                {
+                    $model->save();
+                    $data = $modelForm->getServiceList($id);
+                    $this->updateServiceListArray($data, $modelServiceList);
+                    return $this->redirect(['project/view', 'id' => $model->id_project]);
+                }
+
+                return $this->render('update', [
+                    'model' => $model,
+                    'itemsState' => $itemsState,
+                    'modelForm' => $modelForm,
+                    'itemsService' => $itemsService,
+                    'modelServiceList' => $modelServiceList,
+                ]);
+            } catch (StaleObjectException $e) {
+
+                throw new StaleObjectException(Yii::t('app', 'Error data version'));
             }
-
-            return $this->render('update', [
-                'model' => $model,
-                'itemsState' => $itemsState,
-                'modelForm' => $modelForm,
-                'itemsService' => $itemsService,
-                'info'=>$info,
-            ]);
-        } catch (StaleObjectException $e) {
-
-            throw new StaleObjectException(Yii::t('app', 'Error data version'));
         }
+
+        return $this->redirect(['site/index']);
     }
 
     /**
@@ -210,6 +227,31 @@ class ServicesetController extends Controller
             $arr[$i] = ['Service' =>  $setInfo[$i]['id']];
         }
         return $arr;
+    }
+
+    protected function updateServiceListArray($arrData, $arrModel)
+    {
+        $num = min(count($arrData), count($arrModel));
+
+        for ($i = 0; $i < $num; $i++)
+        {
+            $arrModel[$i] -> saveServiceList($arrData[$i]);
+        }
+
+        if(count($arrData) > count($arrModel))
+        {
+            for ($i = $num; $i < count($arrData); $i++)
+            {
+                $model = new Servicelist();
+                $model->saveServiceList($arrData[$i]);
+            }
+        }
+
+        for ($i = $num; $i < count($arrModel); $i++)
+        {
+            $arrModel[$i] -> delete();
+        }
+
     }
 
     protected function saveServiceListArray($arr)
