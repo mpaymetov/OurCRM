@@ -22,11 +22,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'formatter' => [
+            'class' => '\yii\i18n\Formatter',
+            'dateFormat' => 'yyyy/MM/dd',
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'id_client',
             'name',
-            'created',
+            'created:date',
             'comment:ntext',
             'id_user',
 

@@ -30,10 +30,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= DetailView::widget([
         'model' => $model,
+        'formatter' => [
+            'class' => '\yii\i18n\Formatter',
+            'dateFormat' => 'yyyy/MM/dd',
+        ],
         'attributes' => [
             'id_client',
             'name',
-            'created',
+            'created:date',
             'comment:ntext',
             'id_user',
         ],

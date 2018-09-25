@@ -27,11 +27,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= DetailView::widget([
         'model' => $model,
+        'formatter' => [
+            'class' => '\yii\i18n\Formatter',
+            'dateFormat' => 'yyyy/MM/dd',
+        ],
         'attributes' => [
             'message',
             'id_event',
-            'created',
-            'assignment',
+            'created:date',
+            'assignment:date',
             'link',
             'id_link',
             'id_user',
