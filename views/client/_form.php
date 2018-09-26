@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'created')->widget(\kartik\datetime\DateTimePicker::class, [
+    <?= $form->field($model, 'created')->widget(\kartik\date\DatePicker::class, [
         'language' => 'ru',
         'pluginOptions' => [
             'autoclose' => true,

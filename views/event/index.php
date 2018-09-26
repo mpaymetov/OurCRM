@@ -22,13 +22,17 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'formatter' => [
+            'class' => '\yii\i18n\Formatter',
+            'dateFormat' => 'yyyy/MM/dd',
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             'id_event',
             'message',
-            'created',
-            'assignment',
+            'created:date',
+            'assignment:date',
             'link',
             //'id_link',
             //'id_user',

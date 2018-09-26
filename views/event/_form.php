@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use kartik\datetime\DateTimePicker;
+use kartik\datetime\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Event */
@@ -15,18 +15,20 @@ use kartik\datetime\DateTimePicker;
 
     <?= $form->field($model, 'message')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'created')->widget(\kartik\datetime\DateTimePicker::class, [
+    <?= $form->field($model, 'created')->widget(\kartik\date\DatePicker::class, [
         'language' => 'ru',
         'pluginOptions' => [
             'autoclose' => true,
+            'format' => 'yyyy-mm-dd',
         ]
     ]) ?>
 
 
-    <?= $form->field($model, 'assignment')->widget(\kartik\datetime\DateTimePicker::class, [
+    <?= $form->field($model, 'assignment')->widget(\kartik\date\DatePicker::class, [
         'language' => 'ru',
         'pluginOptions' => [
             'autoclose' => true,
+            'format' => 'yyyy-mm-dd',
         ]
     ]) ?>
 

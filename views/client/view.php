@@ -15,8 +15,6 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Clients'), 'url' 
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="client-view">
-
-
     <div class="post panel">
         <div class="panel-body">
             <h4><?= html::encode($model->name)?></h4>

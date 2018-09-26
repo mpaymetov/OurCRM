@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Events'), 'url' =
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="event-view">
-
+    
     <div class="post panel">
         <div class="panel-body">
             <p class="post_number"><?= \Yii::t('common', 'event number: ')?> <?= HtmlPurifier::process($model->id_event) ?></p>
@@ -31,5 +31,4 @@ $this->params['breadcrumbs'][] = $this->title;
             </p>
         </div>
     </div>
-
 </div>
