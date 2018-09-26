@@ -5,6 +5,7 @@ use yii\widgets\DetailView;
 use yii\grid\GridView;
 use yii\helpers\Url;
 use yii\widgets\ListView;
+use yii\helpers\HtmlPurifier;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Project */
@@ -31,17 +32,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]) ?>
             </p>
 
-            <?= DetailView::widget([
-                'model' => $model,
-                'attributes' => [
-                    'id_project',
-                    'name',
-                    'id_client',
-                    'id_user',
-                    'comment:ntext',
-                    'is_active',
-                ],
-            ]) ?>
+            <div class="post panel">
+                <div class="panel-body">
+                    <p class="post_number"><?= \Yii::t('common', 'project number: ')?> <?= HtmlPurifier::process($model->id_project) ?></p>
+                    <p><?= html::encode($model->comment)?></p>
+                    <a href='<?= Url::to(['project/view', 'id' => $model->id_project]) ?>' class="btn btn_more"><?= \Yii::t('common', 'view more')?></a>
+                </div>
+            </div>
 
         </div>
     </div>

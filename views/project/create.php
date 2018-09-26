@@ -10,11 +10,6 @@ use yii\web\Request;
 $this->title = Yii::t('common', 'Create Project');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Projects'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-$request = Yii::$app->request;
-$client_id = $request->get('id_client');
-$user_id = Yii::$app->user->identity->id_user;
-$model->id_client = $client_id;
-$model->id_user = $user_id;
 ?>
 <div class="project-create">
 

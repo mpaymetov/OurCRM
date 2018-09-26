@@ -9,14 +9,7 @@ use yii\helpers\Html;
 $this->title = Yii::t('common', 'Create Event');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Events'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-$request = Yii::$app->request;
-$request = Yii::$app->request;
-$user_id = Yii::$app->user->identity->id_user;
-$link_id = $request->get('id_link');
-$link = $request->get('link');
-$model->link = $link;
-$model->id_link = $link_id;
-$model->id_user = $user_id;
+
 ?>
 <div class="event-create">
 

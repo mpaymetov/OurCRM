@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\HtmlPurifier;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Event */
@@ -12,31 +13,23 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="event-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a(Yii::t('common', 'Update'), ['update', 'id' => $model->id_event], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('common', 'Delete'), ['delete', 'id' => $model->id_event], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'message',
-            'id_event',
-            'created',
-            'assignment',
-            'link',
-            'id_link',
-            'id_user',
-            'is_active',
-        ],
-    ]) ?>
+    <div class="post panel">
+        <div class="panel-body">
+            <p class="post_number"><?= \Yii::t('common', 'event number: ')?> <?= HtmlPurifier::process($model->id_event) ?></p>
+            <h4><?= html::encode($model->message)?></h4>
+        <p><?= \Yii::t('common', 'created: ')?><?= html::encode($model->created)?></p>
+        <p><?= \Yii::t('common', 'assignment: ')?><?= html::encode($model->assignment)?></p>
+            <p class=" btn btn_more">
+                <?= Html::a(Yii::t('common', 'Update'), ['update', 'id' => $model->id_event], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a(Yii::t('common', 'Delete'), ['delete', 'id' => $model->id_event], [
+                    'class' => 'btn btn-danger',
+                    'data' => [
+                        'confirm' => Yii::t('common', 'Are you sure you want to delete this item?'),
+                        'method' => 'post',
+                    ],
+                ]) ?>
+            </p>
+        </div>
+    </div>
 
 </div>

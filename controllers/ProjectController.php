@@ -89,6 +89,11 @@ class ProjectController extends Controller
     public function actionCreate()
     {
         $model = new Project();
+        $request = Yii::$app->request;
+        $client_id = $request->get('id_client');
+        $user_id = Yii::$app->user->identity->id_user;
+        $model->id_client = $client_id;
+        $model->id_user = $user_id;
         if ($model->id_user == Yii::$app->user->identity->id_user) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id_project]);
@@ -108,6 +113,13 @@ class ProjectController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+
+
+        $request = Yii::$app->request;
+        $user_id = Yii::$app->user->identity->id_user;
+        $model->id_client = $request->get('id_client');
+        $model->id_user = $user_id;
+
         $model2 = new Project();
         $model2->load(Yii::$app->request->post());
         if (SecurityController::validateProjectParam($model, $model2)) {

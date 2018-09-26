@@ -231,11 +231,14 @@ class ServicesetController extends Controller
     protected function updateServiceListArray($arrData, $arrModel)
     {
         $num = min(count($arrData), count($arrModel));
-/*
-        for ($i = 0; $i < $num; $i++) {
-            $arrModel[$i]->saveServiceList($arrData[$i]);
+
+        $i = 0;
+        foreach ($arrData as $value) {
+            $arrModel[$i]->saveServiceList($value);
+            $i++;
+            if ($i == $num) break;
         }
-*/
+
         if (count($arrData) > count($arrModel)) {
             for ($i = $num; $i < count($arrData); $i++) {
                 $model = new Servicelist();

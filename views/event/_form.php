@@ -34,28 +34,11 @@ use kartik\datetime\DateTimePicker;
 
 
     <?php
-    if ($model->link != '') {
-        echo $form->field($model, 'link')->textInput(['maxlength' => true, 'readonly' => true]);
-    } else {
-        echo $form->field($model, 'link')->textInput(['maxlength' => true]);
-    }
-    echo $form->field($model, 'id_link')->textInput(['maxlength' => true]);
-    if ($model->id_user) {
-        echo $form->field($model, 'id_user')->textInput(['maxlength' => true, 'readonly' => true]);
-    } else {
-        echo $form->field($model, 'id_user')->textInput(['maxlength' => true]);
-    }
     if ($model->is_active == '') {
         $model->is_active = 1;
         echo $form->field($model, 'is_active')->textInput(['maxlength' => true]);
     } else {
         echo $form->field($model, 'is_active')->textInput(['maxlength' => true]);
-    }
-    if ($model->version == '') {
-        $model->version = 0;
-        echo $form->field($model, 'version')->textInput(['maxlength' => true, 'readonly' => true]);
-    } else {
-        echo $form->field($model, 'version')->textInput(['maxlength' => true, 'readonly' => true]);
     }
     ?>
 

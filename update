@@ -1,0 +1,9 @@
+#!/usr/bin/env php
+
+Warning: Phar::mapPhar(-): failed to open stream: No such file or directory in - on line 23
+
+Fatal error: Uncaught PharException: unable to open phar for reading "-" in -:23
+Stack trace:
+#0 -(23): Phar::mapPhar('composer.phar')
+#1 {main}
+  thrown in - on line 23

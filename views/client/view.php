@@ -5,6 +5,7 @@ use yii\widgets\DetailView;
 use yii\helpers\Url;
 use yii\widgets\ListView;
 use yii\grid\GridView;
+use yii\helpers\HtmlPurifier;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Client */
@@ -15,30 +16,24 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="client-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a(Yii::t('common', 'Update'), ['update', 'id' => $model->id_client], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('common', 'Delete'), ['delete', 'id' => $model->id_client], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('common', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id_client',
-            'name',
-            'created',
-            'comment:ntext',
-            'id_user',
-        ],
-    ]) ?>
-
+    <div class="post panel">
+        <div class="panel-body">
+            <h4><?= html::encode($model->name)?></h4>
+            <p class="post_number"><?= \Yii::t('common', 'client number: ')?> <?= HtmlPurifier::process($model->id_client) ?></p>
+            <p><?= html::encode($model->comment)?></p>
+            <p class=" btn btn_more">
+                <?= Html::a(Yii::t('common', 'Update'), ['update', 'id' => $model->id_client], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a(Yii::t('common', 'Delete'), ['delete', 'id' => $model->id_client], [
+                    'class' => 'btn btn-danger',
+                    'data' => [
+                        'confirm' => Yii::t('common', 'Are you sure you want to delete this item?'),
+                        'method' => 'post',
+                    ],
+                ]) ?>
+            </p>
+        </div>
+    </div>
 </div>
 
 
