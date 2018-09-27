@@ -15,21 +15,12 @@ use kartik\datetime\DatePicker;
 
     <?= $form->field($model, 'message')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'created')->widget(\kartik\date\DatePicker::class, [
-        'language' => 'ru',
-        'pluginOptions' => [
-            'autoclose' => true,
-            'format' => 'yyyy-mm-dd',
-        ]
+    <?= $form->field($model, 'created')->textInput( [
+            'value' => date('Y/m/d H:i:s', time()),
     ]) ?>
 
-
-    <?= $form->field($model, 'assignment')->widget(\kartik\date\DatePicker::class, [
-        'language' => 'ru',
-        'pluginOptions' => [
-            'autoclose' => true,
-            'format' => 'yyyy-mm-dd',
-        ]
+    <?= $form->field($model, 'assignment')->textInput( [
+        'value' => date('Y/m/d H:i:s', time()),
     ]) ?>
 
     <?= Html::activeHiddenInput($model, 'version'); ?>
