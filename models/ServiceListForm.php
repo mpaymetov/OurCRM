@@ -55,14 +55,17 @@ class ServiceListForm extends \yii\base\Model
     public function getServiceList($id)
     {
         $data = [];
-            $arr = $this->serviceList['Service'];
-             foreach ($arr as $index => $item)
-             {
-                 $data[$index] = [
-                     'id_serviceset' => $id,
-                     'id_service' =>  $item,
-                 ];
-             }
+        $arr = $this->serviceList['Service'];
+        $i = 0;
+        $num = count($arr);
+        foreach ($arr as $item)
+        {
+            $data[$i] = [
+                'id_serviceset' => $id,
+                'id_service' =>  $item,
+            ];
+            $i++;
+        }
         return $data;
     }
 }

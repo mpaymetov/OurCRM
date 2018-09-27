@@ -162,6 +162,8 @@ class ServicesetController extends Controller
                      $session->set('id_project', $gettingId);
                  }*/
 
+                $data = 0;
+
                 if ($model->load(Yii::$app->request->post()) && $model->validate() && $modelForm->loadServiceList()) {
                     $model->save();
                     $data = $modelForm->getServiceList($id);
@@ -175,6 +177,7 @@ class ServicesetController extends Controller
                     'modelForm' => $modelForm,
                     'itemsService' => $itemsService,
                     'modelServiceList' => $modelServiceList,
+                    'data' => $data,
                 ]);
             } catch (StaleObjectException $e) {
 
@@ -230,13 +233,13 @@ class ServicesetController extends Controller
 
     protected function updateServiceListArray($arrData, $arrModel)
     {
+
         $num = min(count($arrData), count($arrModel));
 
-        $i = 0;
-        foreach ($arrData as $value) {
-            $arrModel[$i]->saveServiceList($value);
-            $i++;
-            if ($i == $num) break;
+        if($num != 0) {
+            for ($i = 0; $i < $num; $i++) {
+                $arrModel[$i]->saveServiceList($arrData[$i]);
+            }
         }
 
         if (count($arrData) > count($arrModel)) {
@@ -284,7 +287,6 @@ class ServicesetController extends Controller
     {
         $query = parse_url($str, PHP_URL_QUERY);
         parse_str($query, $el);
-        //$address = 'project/view';
         if (ArrayHelper::keyExists('r', $el)) {
             return ($el['r'] === $path);
         }
