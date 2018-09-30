@@ -155,13 +155,6 @@ class ServicesetController extends Controller
 
         if ((($this->checkPage($address, $pathRefer)) && ($this->getReferrerId($address) != NULL)) || ($this->checkPage($address, $pathCurr))) {
             try {
-                /*if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id_serviceset]);
-                }*/
-                /* if(!ArrayHelper::keyExists('id_project', $session)) {
-                     $session->set('id_project', $gettingId);
-                 }*/
-
                 $data = 0;
 
                 if ($model->load(Yii::$app->request->post()) && $model->validate() && $modelForm->loadServiceList()) {
@@ -197,10 +190,13 @@ class ServicesetController extends Controller
      */
     public function actionDelete($id)
     {
+        if (($modelServiceList = ServiceList::findAll(['id_serviceset' => $id])) != null) {
+            foreach ($modelServiceList as $el) {
+                $el -> delete();
+            }
+        }
         $this->findModel($id)->delete();
-        $this->id_serviselist;
-
-        return $this->redirect(['index']);
+        return $this->redirect(Yii::$app->request->getReferrer());
     }
 
 

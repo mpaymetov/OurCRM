@@ -94,6 +94,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]);
                 echo GridView::widget([
                     'dataProvider' => $serviceListInfo,
+                    'columns' => [
+                        ['class' => 'yii\grid\SerialColumn'],
+                        [
+                            'attribute' => 'name',
+                            'label' => \Yii::t('common', 'Service'),
+                        ],
+                        [
+                            'attribute' => 'cost',
+                            'label' => \Yii::t('common', 'Cost'),
+                        ],
+                    ],
                     'layout' => "{items}"
                 ]);
             }
