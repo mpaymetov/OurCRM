@@ -89,4 +89,6 @@ return [
     'Projects for client: ' => 'Проекты клиента: ',
     'Roles' => 'Роли',
     'Back' => 'Назад',
+    'Service List' => 'Пакет услуг',
+    'Serviceset number' => 'Номер набора услуг',
 ];

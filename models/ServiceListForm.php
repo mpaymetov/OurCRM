@@ -8,6 +8,7 @@
 
 namespace app\models;
 
+use Yii;
 use yii\validators\NumberValidator;
 
 class ServiceListForm extends \yii\base\Model
@@ -19,6 +20,13 @@ class ServiceListForm extends \yii\base\Model
         return [
             [['serviceList'], 'required' ],
             [['serviceList'], 'validateServiceList'],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'serviceList' =>Yii::t('common', 'Service List'),
         ];
     }
 

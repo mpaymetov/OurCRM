@@ -54,7 +54,7 @@ class Serviceset extends \yii\db\ActiveRecord
         return [
             'id_serviceset' => Yii::t('common', 'Id Serviceset'),
             'id_project' => Yii::t('common', 'Id Project'),
-            'id_state' => Yii::t('common', 'Id State'),
+            'id_state' => Yii::t('common', 'State'),
             'delivery' => Yii::t('common', 'Delivery'),
             'payment' => Yii::t('common', 'Payment'),
         ];
