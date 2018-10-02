@@ -91,4 +91,6 @@ return [
     'Back' => 'Назад',
     'Service List' => 'Пакет услуг',
     'Serviceset number' => 'Номер набора услуг',
+    'Close project' => 'Закрыть проект',
+    'Paid' => 'Оплачено',
 ];

@@ -87,7 +87,8 @@ class ServicesetSearch extends Serviceset
     public function getServiceSetInfoByProjectId($id)
     {
         $provider = new SqlDataProvider([
-            'sql' => 'SELECT [[serviceset.id_serviceset]] AS id, [[state.name]] AS state
+            'sql' => 'SELECT [[serviceset.id_serviceset]] AS id, [[state.name]] AS state,
+            [[serviceset.delivery]] AS delivery, [[serviceset.payment]] AS payment, [[serviceset.is_open]] AS isOpen
             FROM {{serviceset}}
             LEFT JOIN {{state}} ON [[state.id_state]]=[[serviceset.id_state]]
             WHERE [[id_project]]=:id_project',

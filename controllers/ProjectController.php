@@ -153,6 +153,17 @@ class ProjectController extends SecurityController
         return $this->redirect(['index']);
     }
 
+
+    public function actionClose()
+    {
+
+    }
+
+    public function actionPayment()
+    {
+
+    }
+
     /**
      * Finds the Project model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
