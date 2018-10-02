@@ -26,11 +26,45 @@ use yii\helpers\Url;
           ],
       ]) ?>
   </p>
-  <p>
+  <div>
+      <?php
+      echo Html::beginForm( 'project/close', 'post');
+      echo Html::checkbox('agree', false, ['label' => \Yii::t('common', 'Close project')]);
+      echo Html::endForm();
+      ?>
+  </div>
+  <div>
+     <?php
+     echo Html::beginForm( 'project/payment', 'post');
+     echo Html::checkbox('agree', false, ['label' => \Yii::t('common', 'Paid')]);
+     echo Html::endForm();
+     ?>
+  </div>
+  <div>
       <?php
       echo \Yii::t('common', 'State') . ': ';
       echo Html::encode($model['state']);
       ?>
-  </p>
+  </div>
+  <div>
+      <?php
+      echo \Yii::t('common', 'Payment') . ': ';
+      if ($model['payment'] != null) {
+          echo Html::encode($model['payment']);
+      } else {
+          echo Html::encode('--');
+      }
+      ?>
+  </div>
+  <div>
+      <?php
+      echo \Yii::t('common', 'Delivery') . ': ';
+      if ($model['delivery'] != null) {
+          echo Html::encode($model['delivery']);
+      } else {
+          echo Html::encode('--');
+      }
+      ?>
+  </div>
  </div>
 </div>
