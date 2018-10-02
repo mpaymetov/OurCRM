@@ -6,9 +6,11 @@ use yii\grid\GridView;
 use yii\helpers\Url;
 use yii\widgets\ListView;
 use yii\helpers\HtmlPurifier;
+use app\assets\ProjectAsset;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Project */
+ProjectAsset::register($this);
 $route_link = 2;
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Projects'), 'url' => ['index']];
