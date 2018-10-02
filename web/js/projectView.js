@@ -9,10 +9,13 @@ function currDate() {
         mm = '0' + mm;
     }
     var yy = date.getFullYear();
-    //alert(yy + '-' + mm + '-' + dd);
     return yy + '-' + mm + '-' + dd;
 }
 
 $("[name=close-project_form]").change(function() {
-    console.log($(this).parent());
+    var par = $(this).parent();
+    var title = par.children(".serviceset-info-title").text();
+    console.log(title.match(/\d+/)[0]);
+    var message = {"id": title.match(/\d+/)[0]};
+
 });

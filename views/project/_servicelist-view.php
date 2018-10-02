@@ -28,7 +28,7 @@ use yii\helpers\Url;
      echo Html::a(\Yii::t('common', 'Update'), ['serviceset/update', 'id' => $model['id']], $optionUpdate);
      echo Html::a(\Yii::t('common', 'Delete'), ['serviceset/delete', 'id' => $model['id']], $optionDelet); ?>
   </p>
-  <div>
+
       <?php
       $checked = ($model['isOpen'] == '0');
       $option = ['label' => \Yii::t('common', 'Close project')];
@@ -39,8 +39,7 @@ use yii\helpers\Url;
       echo Html::checkbox('close-project', $checked, $option);
       echo Html::endForm();
       ?>
-  </div>
-  <div>
+
      <?php
      $checked = ($model['payment'] != null);
      $option = ['label' => \Yii::t('common', 'Paid')];
@@ -51,7 +50,6 @@ use yii\helpers\Url;
      echo Html::checkbox('pay', $checked, $option);
      echo Html::endForm();
      ?>
-  </div>
   <div>
       <?php
       echo \Yii::t('common', 'State') . ': ';
