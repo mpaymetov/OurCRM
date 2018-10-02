@@ -29,7 +29,7 @@ class SecurityController extends \yii\web\Controller
                         }
                         break;
                     case 'client':
-                        if ($this->validateClientParam($model)) {
+                        if ($this->validateCreateClientParam($model)) {
                             return true;
                         }
                         break;
@@ -78,11 +78,16 @@ class SecurityController extends \yii\web\Controller
 
     public function validateCreateProjectParam($model)
     {
-        if(!property_exists($model, 'id_client')){
-                return true;
+        if (!property_exists($model, 'id_client')) {
+            return true;
         } else {
             return false;
         }
+    }
+
+    public function validateCreateClientParam($model)
+    {
+        return true;
     }
 
     public function takeStartParams($model)
@@ -91,11 +96,11 @@ class SecurityController extends \yii\web\Controller
         if ($model->version == null) {
             $model->version = 0;
         }
-
-        if ($model->is_active == null) {
-            $model->version = 0;
+        if (property_exists($model, 'is_active')) {
+            if ($model->is_active == null) {
+                $model->is_active = 0;
+            }
         }
-
         $user_id = Yii::$app->user->identity->id_user;
         $model->id_user = $user_id;
 
@@ -112,7 +117,7 @@ class SecurityController extends \yii\web\Controller
                 break;
             case 'client':
                 if ($this->takeStartClientParam($model, $request)) {
-                    return true;
+                    return $model;
                 }
                 break;
             default:
@@ -132,5 +137,10 @@ class SecurityController extends \yii\web\Controller
     {
         $client_id = $request->get('id_client');
         $model->id_client = $client_id;
+    }
+
+    public function takeStartClientParam($model, $request)
+    {
+
     }
 }

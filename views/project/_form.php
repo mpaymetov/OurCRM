@@ -8,22 +8,26 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-< class="project-form">
+<div class="project-form">
 
-<?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(); ?>
 
-<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-<?= Html::activeHiddenInput($model, 'version'); ?>
+    <?= Html::activeHiddenInput($model, 'version'); ?>
 
-<?= $form->field($model, 'comment')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'comment')->textarea(['rows' => 6]) ?>
 
-<?= $form->field($model, 'is_active')->checkbox(['value' => '1', 'checked ' => true]) ?>
+    <?php
+    echo $form->field($model, 'is_active')->checkbox([ 'checked ' => true]);
+    ?>
 
-<div class="form-group">
-    <?= Html::submitButton(Yii::t('common', 'Save'), ['class' => 'btn btn-success']) ?>
-</div>
 
-<?php ActiveForm::end(); ?>
+    <div class="form-group">
+        <?= Html::a(Yii::t('common', 'Back'), Yii::$app->request->getReferrer(), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('common', 'Save'), ['class' => 'btn btn-success']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
 
 </div>

@@ -97,19 +97,11 @@ class ProjectController extends SecurityController
         $model = new Project();
         $this->takeStartParams($model);
         if ($this->dataControl($model)) {
-        $request = Yii::$app->request;
-        $client_id = $request->get('id_client');
-        $user_id = Yii::$app->user->identity->id_user;
-        $model->id_client = $client_id;
-        $model->id_user = $user_id;
-            var_dump($model);
-            var_dump($model->load(Yii::$app->request->post()));
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id_project]);
             }
 
         }
-        print_r("false");
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -130,10 +122,14 @@ class ProjectController extends SecurityController
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
                     return $this->redirect(['view', 'id' => $model->id_project]);
                 };
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
             }
             return $this->render('update', [
                 'model' => $model,
             ]);
+
         } catch
         (StaleObjectException $e) {
             throw new StaleObjectException(Yii::t('app', 'Error data version'));
@@ -149,19 +145,9 @@ class ProjectController extends SecurityController
      */
     public function actionDelete($id)
     {
+        EventController::actionDelete($id);
         $this->findModel($id)->delete();
         return $this->redirect(['index']);
-    }
-
-
-    public function actionClose()
-    {
-
-    }
-
-    public function actionPayment()
-    {
-
     }
 
     /**

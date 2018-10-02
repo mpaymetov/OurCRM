@@ -1,5 +1,7 @@
 <?php
+
 namespace app\controllers;
+
 use Yii;
 use app\models\Client;
 use app\models\ClientSearch;
@@ -11,10 +13,11 @@ use app\models\ProjectSearch;
 use app\models\Event;
 use app\models\EventSearch;
 use yii\db\StaleObjectException;
+
 /**
  * ClientController implements the CRUD actions for Client model.
  */
-class ClientController extends Controller
+class ClientController extends SecurityController
 {
     /**
      * {@inheritdoc}
@@ -30,6 +33,7 @@ class ClientController extends Controller
             ],
         ];
     }
+
     /**
      * Lists all Client models.
      * @return mixed
@@ -43,6 +47,7 @@ class ClientController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
     /**
      * Displays a single Client model.
      * @param string $id
@@ -66,6 +71,7 @@ class ClientController extends Controller
             'clientEventDataProvider' => $clientEventDataProvider,
         ]);
     }
+
     /**
      * Creates a new Client model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -74,13 +80,17 @@ class ClientController extends Controller
     public function actionCreate()
     {
         $model = new Client();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_client]);
+        $this->takeStartParams($model);
+        if ($this->dataControl($model)) {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_client]);
+            }
         }
         return $this->render('create', [
             'model' => $model,
         ]);
     }
+
     /**
      * Updates an existing Client model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -92,17 +102,21 @@ class ClientController extends Controller
     {
         $model = $this->findModel($id);
         try {
-            $model2 = new Client();
-            $model2->load(Yii::$app->request->post());
-            if(SecurityController::validateParam($model, $model2)) {
+            if ($this->compareUserId($model)) {
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id_user]);
+                    return $this->redirect(['view', 'id' => $model->id_client]);
                 }
+                return $this->render('update', [
+                    'model' => $model,]);
             }
+            return $this->render('update', [
+                'model' => $model,]);
         } catch (StaleObjectException $e) {
             throw new StaleObjectException(Yii::t('app', 'Error data version'));
         }
     }
+
+
     /**
      * Deletes an existing Client model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -115,6 +129,7 @@ class ClientController extends Controller
         $this->findModel($id)->delete();
         return $this->redirect(['index']);
     }
+
     /**
      * Finds the Client model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

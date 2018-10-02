@@ -67,7 +67,6 @@ class EventController extends SecurityController
         $model = new Event();
         $this->takeStartParams($model);
         if ($this->dataControl($model)) {
-            var_dump($model->save());
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id_event]);
             }
@@ -100,10 +99,11 @@ class EventController extends SecurityController
             }
 
             if ($this->dataControl($model)) {
-
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
                     return $this->redirect(['view', 'id' => $model->id_event]);
                 };
+                return $this->render('update', [
+                    'model' => $model,]);
             }
             return $this->render('update', [
                 'model' => $model,
@@ -142,17 +142,5 @@ class EventController extends SecurityController
             }
         }
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
-    }
-
-    public function eventState($id_event)
-    {
-        $model = findModel($id_event);
-        if ($model->is_active == true) {
-            $model->is_active = false;
-            $model->save();
-        } else {
-            $model->is_active == true;
-            $model->save();
-        }
     }
 }

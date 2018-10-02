@@ -67,7 +67,6 @@ class EventSearch extends Event
             'id_user' => $this->id_user,
             'is_active' => $this->is_active,
         ]);
-        print_r($location);
 
         if ($location == 'index') {
             $query->andFilterWhere(['like', 'message', $this->message])
