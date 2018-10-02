@@ -18,6 +18,7 @@ class SecurityController extends \yii\web\Controller
             if ($this->checkReferer($model)) {
                 switch ($model->tableName()) {
                     case 'event':
+
                         if ($this->validateCreateEventParam($model)) {
                             return $model;
                         }
@@ -58,11 +59,7 @@ class SecurityController extends \yii\web\Controller
         $referer = Yii::$app->request->getReferrer();
         $str = stristr($referer, 'id=');
         $result = substr($str, 3);
-        print_r($result);
-        print_r($tableName);
-        var_dump($model->{$tableName} == $result);
         if ($model->{$tableName} == $result) {
-            print_r("table name");
             return true;
         } else {
             return false;
@@ -93,14 +90,10 @@ class SecurityController extends \yii\web\Controller
         $request = Yii::$app->request;
         if ($model->version == null) {
             $model->version = 0;
-        } else {
-            return false;
         }
 
         if ($model->is_active == null) {
             $model->version = 0;
-        } else {
-            return false;
         }
 
         $user_id = Yii::$app->user->identity->id_user;
@@ -121,6 +114,7 @@ class SecurityController extends \yii\web\Controller
                 if ($this->takeStartClientParam($model, $request)) {
                     return true;
                 }
+                break;
             default:
                 return false;
         }

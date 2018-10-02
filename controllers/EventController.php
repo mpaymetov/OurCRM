@@ -67,8 +67,8 @@ class EventController extends SecurityController
         $model = new Event();
         $this->takeStartParams($model);
         if ($this->dataControl($model)) {
+            var_dump($model->save());
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                print_r("model saved");
                 return $this->redirect(['view', 'id' => $model->id_event]);
             }
         }
@@ -99,12 +99,10 @@ class EventController extends SecurityController
                 return ("OK");
             }
 
-            $model2 = new Event();
-            $model2->load(Yii::$app->request->post());
             if ($this->dataControl($model)) {
 
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                    //return $this->redirect(['view', 'id' => $model->id_event]);
+                    return $this->redirect(['view', 'id' => $model->id_event]);
                 };
             }
             return $this->render('update', [

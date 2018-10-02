@@ -97,11 +97,14 @@ class ProjectController extends SecurityController
         $model = new Project();
         $this->takeStartParams($model);
         if ($this->dataControl($model)) {
+            var_dump($model->save());
+            var_dump($model->load(Yii::$app->request->post()));
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id_project]);
             }
 
         }
+        print_r("false");
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -117,23 +120,19 @@ class ProjectController extends SecurityController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-
-        $request = Yii::$app->request;
-        $user_id = Yii::$app->user->identity->id_user;
-        $model->id_client = $request->get('id_client');
-        $model->id_user = $user_id;
-
-        $model2 = new Project();
-        $model2->load(Yii::$app->request->post());
-        //if (SecurityController::validateProjectParam($model, $model2)) {
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_project]);
-        };
-        // } else {
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        try {
+            if ($this->dataControl($model)) {
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id_project]);
+                };
+            }
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        } catch
+        (StaleObjectException $e) {
+            throw new StaleObjectException(Yii::t('app', 'Error data version'));
+        }
     }
 
     /**
@@ -145,7 +144,6 @@ class ProjectController extends SecurityController
      */
     public function actionDelete($id)
     {
-        EventController::actionDelete($id);
         $this->findModel($id)->delete();
         return $this->redirect(['index']);
     }
@@ -160,7 +158,7 @@ class ProjectController extends SecurityController
     protected function findModel($id)
     {
         if (($model = Project::findOne($id)) !== null) {
-            if ($model->id_user == Yii::$app->user->identity->id_user) {
+            if ($this->compareUserId($model)) {
                 return $model;
             }
         }
