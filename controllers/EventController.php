@@ -13,7 +13,7 @@ use yii\db\StaleObjectException;
 /**
  * EventController implements the CRUD actions for Event model.
  */
-class EventController extends Controller
+class EventController extends SecurityController
 {
     /**
      * {@inheritdoc}
@@ -65,21 +65,17 @@ class EventController extends Controller
     public function actionCreate()
     {
         $model = new Event();
-        $request = Yii::$app->request;
-        $user_id = Yii::$app->user->identity->id_user;
-        $link_id = $request->get('id_link');
-        $link = $request->get('link');
-        $model->link = $link;
-        $model->id_link = $link_id;
-        $model->id_user = $user_id;
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_event]);
-        } else {
-            // тут вызов метода из класса безопасности
+        $this->takeStartParams($model);
+        if ($this->dataControl($model)) {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                print_r("model saved");
+                return $this->redirect(['view', 'id' => $model->id_event]);
+            }
         }
         return $this->render('create', [
             'model' => $model,
         ]);
+
     }
 
     /**
@@ -103,26 +99,19 @@ class EventController extends Controller
                 return ("OK");
             }
 
-            $request = Yii::$app->request;
-            $user_id = Yii::$app->user->identity->id_user;
-            $link_id = $request->get('id_link');
-            $link = $request->get('link');
-            $model->link = $link;
-            $model->id_link = $link_id;
-            $model->id_user = $user_id;
-
             $model2 = new Event();
             $model2->load(Yii::$app->request->post());
-            //if (SecurityController::validateEventParam($model, $model2)) {
+            if ($this->dataControl($model)) {
+
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id_event]);
+                    //return $this->redirect(['view', 'id' => $model->id_event]);
                 };
-          //  } else {
-                return $this->render('update', [
-                    'model' => $model,
-                ]);
-          //  }
-        } catch (StaleObjectException $e) {
+            }
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        } catch
+        (StaleObjectException $e) {
             throw new StaleObjectException(Yii::t('app', 'Error data version'));
         }
     }
@@ -150,7 +139,7 @@ class EventController extends Controller
     protected function findModel($id)
     {
         if (($model = Event::findOne($id)) !== null) {
-            if ($model->id_user == Yii::$app->user->identity->id_user) {
+            if ($this->compareUserId($model)) {
                 return $model;
             }
         }

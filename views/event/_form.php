@@ -15,11 +15,11 @@ use kartik\datetime\DatePicker;
 
     <?= $form->field($model, 'message')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'created')->textInput( [
-            'value' => date('Y/m/d H:i:s', time()),
+    <?= $form->field($model, 'created')->textInput([
+        'value' => date('Y/m/d H:i:s', time()),
     ]) ?>
 
-    <?= $form->field($model, 'assignment')->textInput( [
+    <?= $form->field($model, 'assignment')->textInput([
         'value' => date('Y/m/d H:i:s', time()),
     ]) ?>
 
@@ -27,12 +27,7 @@ use kartik\datetime\DatePicker;
 
 
     <?php
-    if ($model->is_active == '') {
-        $model->is_active = 1;
-        echo $form->field($model, 'is_active')->textInput(['maxlength' => true]);
-    } else {
-        echo $form->field($model, 'is_active')->textInput(['maxlength' => true]);
-    }
+    echo $form->field($model, 'is_active')->checkbox();
     ?>
 
 

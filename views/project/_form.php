@@ -16,31 +16,12 @@ use yii\widgets\ActiveForm;
 
     <?= Html::activeHiddenInput($model, 'version'); ?>
 
-    <?php
-    if ($model->id_client) {
-        echo $form->field($model, 'id_client')->textInput(['maxlength' => true, 'readonly' => true]);
-    } else {
-        echo $form->field($model, 'id_client')->textInput(['maxlength' => true]);
-    }
-    ?>
-
-    <?php
-    if ($model->id_user) {
-        echo $form->field($model, 'id_user')->textInput(['maxlength' => true, 'readonly' => true]);
-    } else {
-        echo $form->field($model, 'id_user')->textInput(['maxlength' => true]);
-    }
-    if ($model->version == '') {
-        $model->version = 0;
-        echo $form->field($model, 'version')->textInput(['maxlength' => true, 'readonly' => true]);
-    } else {
-        echo $form->field($model, 'version')->textInput(['maxlength' => true, 'readonly' => true]);
-    }
-    ?>
-
     <?= $form->field($model, 'comment')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'is_active')->textInput() ?>
+    <?php
+    echo $form->field($model, 'is_active')->checkbox();
+    ?>
+
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('common', 'Save'), ['class' => 'btn btn-success']) ?>

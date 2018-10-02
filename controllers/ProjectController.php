@@ -1,5 +1,7 @@
 <?php
+
 namespace app\controllers;
+
 use app\models\ServicelistSearch;
 use Yii;
 use app\models\Project;
@@ -14,10 +16,11 @@ use yii\data\ArrayDataProvider;
 use app\models\Event;
 use app\models\EventSearch;
 use yii\db\StaleObjectException;
+
 /**
  * ProjectController implements the CRUD actions for Project model.
  */
-class ProjectController extends Controller
+class ProjectController extends SecurityController
 {
     /**
      * {@inheritdoc}
@@ -33,6 +36,7 @@ class ProjectController extends Controller
             ],
         ];
     }
+
     /**
      * Lists all Project models.
      * @return mixed
@@ -46,6 +50,7 @@ class ProjectController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
     /**
      * Displays a single Project model.
      * @param string $id
@@ -81,6 +86,7 @@ class ProjectController extends Controller
             'serviceListDataProvider' => $serviceListDataProvider,
         ]);
     }
+
     /**
      * Creates a new Project model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -89,20 +95,18 @@ class ProjectController extends Controller
     public function actionCreate()
     {
         $model = new Project();
-        $request = Yii::$app->request;
-        $client_id = $request->get('id_client');
-        $user_id = Yii::$app->user->identity->id_user;
-        $model->id_client = $client_id;
-        $model->id_user = $user_id;
-        if ($model->id_user == Yii::$app->user->identity->id_user) {
+        $this->takeStartParams($model);
+        if ($this->dataControl($model)) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id_project]);
             }
+
         }
         return $this->render('create', [
             'model' => $model,
         ]);
     }
+
     /**
      * Updates an existing Project model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -122,16 +126,16 @@ class ProjectController extends Controller
 
         $model2 = new Project();
         $model2->load(Yii::$app->request->post());
-        if (SecurityController::validateProjectParam($model, $model2)) {
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id_project]);
-            };
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
+        //if (SecurityController::validateProjectParam($model, $model2)) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id_project]);
+        };
+        // } else {
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
+
     /**
      * Deletes an existing Project model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -141,9 +145,11 @@ class ProjectController extends Controller
      */
     public function actionDelete($id)
     {
+        EventController::actionDelete($id);
         $this->findModel($id)->delete();
         return $this->redirect(['index']);
     }
+
     /**
      * Finds the Project model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -160,4 +166,5 @@ class ProjectController extends Controller
         }
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+
 }

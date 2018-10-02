@@ -8,7 +8,7 @@ use yii\helpers\HtmlPurifier;
 /* @var $model app\models\Event */
 
 $this->title = $model->message;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Events'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Events')];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="event-view">
