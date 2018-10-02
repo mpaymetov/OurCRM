@@ -8,25 +8,22 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="project-form">
+< class="project-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= Html::activeHiddenInput($model, 'version'); ?>
+<?= Html::activeHiddenInput($model, 'version'); ?>
 
-    <?= $form->field($model, 'comment')->textarea(['rows' => 6]) ?>
+<?= $form->field($model, 'comment')->textarea(['rows' => 6]) ?>
 
-    <?php
-    echo $form->field($model, 'is_active')->checkbox();
-    ?>
+<?= $form->field($model, 'is_active')->checkbox(['value' => '1', 'checked ' => true]) ?>
 
+<div class="form-group">
+    <?= Html::submitButton(Yii::t('common', 'Save'), ['class' => 'btn btn-success']) ?>
+</div>
 
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('common', 'Save'), ['class' => 'btn btn-success']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
+<?php ActiveForm::end(); ?>
 
 </div>
