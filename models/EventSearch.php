@@ -67,22 +67,17 @@ class EventSearch extends Event
             'id_user' => $this->id_user,
             'is_active' => $this->is_active,
         ]);
-
+        
         if ($location == 'index') {
             $query->andFilterWhere(['like', 'message', $this->message])
                 ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user)
-                ->andWhere('event.is_active != 0');
+                ->andWhere('event.is_active != 0')
+                ->andWhere('event.assignment > ' . $d);
         } else {
             $query->andFilterWhere(['like', 'message', $this->message])
                 ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user);
         }
-
         return $dataProvider;
-    }
-
-    public function searchEventOnIndex()
-    {
-
     }
 
     public function searchEventId($id_link, $id_user, $route_link)

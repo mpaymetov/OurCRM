@@ -19,9 +19,12 @@ use kartik\datetime\DatePicker;
         'value' => date('Y/m/d H:i:s', time()),
     ]) ?>
 
-    <?= $form->field($model, 'assignment')->textInput([
-        'value' => date('Y/m/d H:i:s', time()),
-    ]) ?>
+    <?php
+    if ($model->version = 0) {
+        echo $form->field($model, 'assignment')->textInput(['value' => date('Y/m/d H:i:s', time()),
+        ]); } else {
+        echo $form->field($model, 'assignment')->textInput(['value' => $model->assignment]);
+    }?>
 
     <?= Html::activeHiddenInput($model, 'version'); ?>
 
