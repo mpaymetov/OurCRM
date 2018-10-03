@@ -71,7 +71,7 @@ class EventSearch extends Event
         if ($location == 'index') {
             $query->andFilterWhere(['like', 'message', $this->message])
                 ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user)
-                ->andWhere('event.is_active != 0')
+                ->andWhere('event.is_active != 0');
         } else {
             $query->andFilterWhere(['like', 'message', $this->message])
                 ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user);
