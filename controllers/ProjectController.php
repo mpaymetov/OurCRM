@@ -145,7 +145,6 @@ class ProjectController extends SecurityController
      */
     public function actionDelete($id)
     {
-        EventController::actionDelete($id);
         $this->findModel($id)->delete();
         return $this->redirect(['index']);
     }
