@@ -54,9 +54,21 @@ class SecurityController extends \yii\web\Controller
 
     public function checkReferer($model)
     {
+        $tableName = 'id_' . $model->tableName();
+        $referer = Yii::$app->request->getReferrer();
+        $str = stristr($referer, 'id=');
+        $result = substr($str, 3);
+        if ($model->{$tableName} == $result) {
+            return true;
+        } else {
+            return false;
+        }
+
+
+        $model_name = $model->tableName();
         $session = Yii::$app->session;
-        $saved_id = $session->get('id_event');
-        if ($model->id_event == $saved_id || $model->id_event == null) {
+        $saved_id = $session->get('id_' . $model);
+        if ($model->{$tableName} == $saved_id || $model->id_event == null) {
             return true;
         } else {
             return false;

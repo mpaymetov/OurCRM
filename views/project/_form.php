@@ -21,8 +21,6 @@ use yii\widgets\ActiveForm;
     <?php
     echo $form->field($model, 'is_active')->checkbox([ 'checked ' => true]);
     ?>
-
-
     <div class="form-group">
         <?= Html::a(Yii::t('common', 'Back'), Yii::$app->request->getReferrer(), ['class' => 'btn btn-success']) ?>
         <?= Html::submitButton(Yii::t('common', 'Save'), ['class' => 'btn btn-success']) ?>

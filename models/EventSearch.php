@@ -52,8 +52,9 @@ class EventSearch extends Event
         $this->load($params);
 
         if (!$this->validate()) {
+
             // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
+
             return $dataProvider;
         }
 
@@ -69,9 +70,12 @@ class EventSearch extends Event
         ]);
 
         if ($location == 'index') {
+            $date = date('Y-m-d'); // сверяем только по суткам, после 12 не закрытые события переходят в незавершенные
+            var_dump($date);
             $query->andFilterWhere(['like', 'message', $this->message])
                 ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user)
-                ->andWhere('event.is_active != 0');
+                ->andWhere('event.is_active != 0')
+                ->andWhere('event.assignment  >= ' . "'" . $date . "'");
         } else {
             $query->andFilterWhere(['like', 'message', $this->message])
                 ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user);
