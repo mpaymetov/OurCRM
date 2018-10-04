@@ -116,6 +116,9 @@ class ProjectController extends SecurityController
      */
     public function actionUpdate($id)
     {
+        $session = Yii::$app->session;
+        $session->set('id_project', $id);
+
         $model = $this->findModel($id);
         try {
             if ($this->dataControl($model)) {

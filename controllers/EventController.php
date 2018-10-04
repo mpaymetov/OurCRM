@@ -86,20 +86,24 @@ class EventController extends SecurityController
      */
     public function actionUpdate($id)
     {
+        $session = Yii::$app->session;
+        $session->set('id_event', $id);
+
         $model = $this->findModel($id);
         try {
-            if (\Yii::$app->request->isAjax) {
-                if ($model->is_active == 0) {
-                    $model->is_active = 1;
-                } else {
-                    $model->is_active = 0;
-                };
-                $model->save();
-                return ("OK");
-            }
-
             if ($this->dataControl($model)) {
+                if (\Yii::$app->request->isAjax) {
+                    if ($model->is_active == 0) {
+                        $model->is_active = 1;
+                    } else {
+                        $model->is_active = 0;
+                    };
+                    $model->save();
+                    return ("OK");
+                }
+
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                    print_r("save");
                     return $this->redirect(['view', 'id' => $model->id_event]);
                 };
                 return $this->render('update', [

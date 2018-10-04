@@ -100,6 +100,9 @@ class ClientController extends SecurityController
      */
     public function actionUpdate($id)
     {
+        $session = Yii::$app->session;
+        $session->set('id_client', $id);
+
         $model = $this->findModel($id);
         try {
             if ($this->compareUserId($model)) {

@@ -43,8 +43,7 @@ class SecurityController extends \yii\web\Controller
         }
     }
 
-    public
-    function compareUserId($model)
+    public function compareUserId($model)
     {
         if ($model->id_user == Yii::$app->user->identity->id_user) {
             return true;
@@ -55,11 +54,9 @@ class SecurityController extends \yii\web\Controller
 
     public function checkReferer($model)
     {
-        $tableName = 'id_' . $model->tableName();
-        $referer = Yii::$app->request->getReferrer();
-        $str = stristr($referer, 'id=');
-        $result = substr($str, 3);
-        if ($model->{$tableName} == $result) {
+        $session = Yii::$app->session;
+        $saved_id = $session->get('id_event');
+        if ($model->id_event == $saved_id || $model->id_event == null) {
             return true;
         } else {
             return false;
