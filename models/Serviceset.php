@@ -38,10 +38,10 @@ class Serviceset extends \yii\db\ActiveRecord
     {
         return [
             [['id_project', 'id_state'], 'required'],
-            [['id_project', 'id_state'], 'integer'],
+            [['id_project', 'id_state', 'version', 'is_open'], 'integer'],
             [['delivery', 'payment'], 'safe'],
             [['id_project'], 'exist', 'skipOnError' => true, 'targetClass' => Project::className(), 'targetAttribute' => ['id_project' => 'id_project']],
-            [['id_state'], 'exist', 'skipOnError' => true, 'targetClass' => State::className(), 'targetAttribute' => ['id_state' => 'id_state']],
+            //[['id_state'], 'exist', 'skipOnError' => true, 'targetClass' => State::className(), 'targetAttribute' => ['id_state' => 'id_state']],
             [['version'], 'integer'],
         ];
     }

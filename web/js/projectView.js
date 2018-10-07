@@ -17,5 +17,10 @@ $("[name=close-project_form]").change(function() {
     var title = par.children(".serviceset-info-title").text();
     console.log(title.match(/\d+/)[0]);
     var message = {"id": title.match(/\d+/)[0]};
-
+    $.post("/controllers/ProjectController.php", data, onProjectClose, "json");
 });
+
+function onProjectClose(response)
+{
+    
+}

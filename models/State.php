@@ -1,59 +1,72 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: lenovo
+ * Date: 06.10.2018
+ * Time: 19:53
+ */
 
 namespace app\models;
 
-use Yii;
+use  yii\base\Model;
+use yii\validators\NumberValidator;
 
-/**
- * This is the model class for table "state".
- *
- * @property string $id_state
- * @property string $name
- *
- * @property Serviceset[] $servicesets
- */
-class State extends \yii\db\ActiveRecord
+
+class State extends Model
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'state';
-    }
+    private $stateList = [
+        'Установление контакта',
+        'Выявление потребностей',
+        'Выставление счета',
+        'Оплата',
+        'Поставка',
+        'Завершено',
+        'Отказ'
+    ];
 
-    public function optimisticLock()
-    {
-        return 'version';
-    }
-    /**
-     * {@inheritdoc}
-     */
+   /* public $currState;
+
     public function rules()
     {
         return [
-            [['name'], 'required'],
-            [['name'], 'string', 'max' => 20],
-            [['version'], 'integer'],
+            [['currState'], 'required' ],
+            [['currState'], 'integer' ],
+            [['currState'], 'ValidateState'],
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function attributeLabels()
     {
         return [
-            'id_state' => Yii::t('common', 'Id State'),
-            'name' => Yii::t('common', 'Name'),
+            'currState' =>Yii::t('common', 'State'),
         ];
+    }*/
+
+    public function ValidateState($id_state)
+    {
+        $validator = new NumberValidator();
+        $validator->integerOnly = true;
+        $error = null;
+        if((!$validator->validate($id_state, $error)) && (($id_state < 0) || ($id_state >= count($this->stateList))))
+        {
+           return false;
+        }
+        return true;
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getServicesets()
+    public function getStateName($id_state)
     {
-        return $this->hasMany(Serviceset::className(), ['id_state' => 'id_state']);
+        $name = null;
+        if ($this->ValidateState($id_state)){
+            $name = $this->stateList[$id_state];
+        }
+
+        return $name;
+    }
+
+
+    public function getStateList()
+    {
+        return $this->stateList;
     }
 }

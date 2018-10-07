@@ -15,7 +15,6 @@ $route_link = 2;
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Projects'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-
 ?>
 <div>
     <div class="col-md-6">

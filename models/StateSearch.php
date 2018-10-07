@@ -6,12 +6,12 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
-use app\models\State;
+use app\models\State1;
 
 /**
  * StateSearch represents the model behind the search form of `app\models\State`.
  */
-class StateSearch extends State
+class StateSearch extends State1
 {
     /**
      * {@inheritdoc}
@@ -76,5 +76,14 @@ class StateSearch extends State
             ->all();
 
         return ArrayHelper::map($state, 'id_state', 'name');
+    }
+
+    public function getLastStateId()
+    {
+        $state = (new \yii\db\Query())
+            ->select('id_state')
+            ->from('state')
+            ->where('name=\'Закрыт\'');
+        return ArrayHelper::map($state, 'id_state');
     }
 }

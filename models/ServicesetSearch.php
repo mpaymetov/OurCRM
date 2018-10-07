@@ -5,8 +5,8 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use yii\data\SqlDataProvider;
 use app\models\Serviceset;
+use app\models\State;
 
 /**
  * ServicesetSearch represents the model behind the search form of `app\models\Serviceset`.
@@ -86,16 +86,30 @@ class ServicesetSearch extends Serviceset
 
     public function getServiceSetInfoByProjectId($id)
     {
-        $provider = new SqlDataProvider([
+       /* $provider = new SqlDataProvider([
             'sql' => 'SELECT [[serviceset.id_serviceset]] AS id, [[state.name]] AS state,
             [[serviceset.delivery]] AS delivery, [[serviceset.payment]] AS payment, [[serviceset.is_open]] AS isOpen
             FROM {{serviceset}}
             LEFT JOIN {{state}} ON [[state.id_state]]=[[serviceset.id_state]]
             WHERE [[id_project]]=:id_project',
             'params' => [':id_project' => $id],
-        ]);
+        ]);*/
 
-        return $provider->getModels();
+
+        $provider = (new \yii\db\Query())
+            ->select(['id_serviceset AS id', 'id_state AS state', 'delivery AS delivery', 'payment AS payment', 'is_open AS isOpen'])
+            ->from('serviceset')
+            ->where('id_project=:id_project', [':id_project' => $id])
+            ->all();
+
+
+        $state = new State();
+        foreach ($provider as &$item) {
+            $i = $item['state'];
+            $item['state'] = $state->getStateName($i);
+        }
+
+        return $provider;
     }
 
 }

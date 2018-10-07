@@ -9,7 +9,6 @@ use app\models\ServicesetSearch;
 use app\models\Servicelist;
 use app\models\ServicelistSearch;
 use app\models\State;
-use app\models\StateSearch;
 use app\models\Service;
 use app\models\ServiceSearch;
 use app\models\ServiceListForm;
@@ -89,11 +88,9 @@ class ServicesetController extends Controller
      */
     public function actionCreate()
     {
-        $state = new StateSearch();
         $modelForm = new ServiceListForm();
         $service = new ServiceSearch();
         $itemsService = $service->getServiceListItems();
-        $itemsState = $state->getStateList();
 
         $session = Yii::$app->session;
         $address = Yii::$app->request->getReferrer();
@@ -107,19 +104,25 @@ class ServicesetController extends Controller
             }
 
             if ($modelForm->loadServiceList()) {
-                $model = new Serviceset();
-                $model->id_project = $session->get('id_project');
-                $model->id_state = 1;
-                $model->save();
-                $id = $model->id_serviceset;
-                $data = $modelForm->getServiceList($id);
-                $this->saveServiceListArray($data);
+                $db = \Yii::$app->db;
+                $transaction = $db->beginTransaction();
+                try {
+                    $model = new Serviceset();
+                    $model->id_project = $session->get('id_project');
+                    $model->id_state = 1;
+                    $model->save();
+                    $id = $model->id_serviceset;
+                    $data = $modelForm->getServiceList($id);
+                    $this->saveServiceListArray($data);
+                    $transaction->commit();
+                } catch (Exception $e) {
+                    $transaction->rollback();
+                }
                 $session->remove('id_project');
                 return $this->redirect(['project/view', 'id' => $model->id_project]);
             }
 
             return $this->render('create', [
-                'itemsState' => $itemsState,
                 'modelForm' => $modelForm,
                 'itemsService' => $itemsService,
             ]);
@@ -139,7 +142,7 @@ class ServicesetController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $state = new StateSearch();
+        $state = new State();
         $modelForm = new ServiceListForm();
         $service = new ServiceSearch();
         $itemsService = $service->getServiceListItems();
@@ -158,9 +161,15 @@ class ServicesetController extends Controller
                 $data = 0;
 
                 if ($model->load(Yii::$app->request->post()) && $model->validate() && $modelForm->loadServiceList()) {
-                    $model->save();
-                    $data = $modelForm->getServiceList($id);
-                    $this->updateServiceListArray($data, $modelServiceList);
+                    $db = \Yii::$app->db;
+                    $transaction = $db->beginTransaction();
+                    try {
+                        $model->save();
+                        $data = $modelForm->getServiceList($id);
+                        $this->updateServiceListArray($data, $modelServiceList);
+                    } catch (Exception $e) {
+                        $transaction->rollback();
+                    }
                     return $this->redirect(['project/view', 'id' => $model->id_project]);
                 }
 
@@ -190,15 +199,28 @@ class ServicesetController extends Controller
      */
     public function actionDelete($id)
     {
-        if (($modelServiceList = ServiceList::findAll(['id_serviceset' => $id])) != null) {
-            foreach ($modelServiceList as $el) {
-                $el -> delete();
+        $db = \Yii::$app->db;
+        $transaction = $db->beginTransaction();
+        try {
+            if (($modelServiceList = ServiceList::findAll(['id_serviceset' => $id])) != null) {
+                foreach ($modelServiceList as $el) {
+                    $el -> delete();
+                }
             }
+            $this->findModel($id)->delete();
+        } catch (Exception $e) {
+            $transaction->rollback();
         }
-        $this->findModel($id)->delete();
         return $this->redirect(Yii::$app->request->getReferrer());
     }
 
+
+    public function actionClose($id)
+    {
+        $model = $this->findModel($id);
+        $model->is_open = 0;
+
+    }
 
     /**
      * Finds the Serviceset model based on its primary key value.
