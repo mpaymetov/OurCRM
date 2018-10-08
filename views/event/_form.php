@@ -19,12 +19,19 @@ use kartik\datetime\DatePicker;
         'value' => date('Y/m/d H:i:s', time()),
     ]) ?>
 
+    <?php echo '<div class="form-group"> <label class = "control-label">Создавший</label>
+                <div class = "form-control ">' . $model->id_user . '</div> </div>'?>
+
+    <?php echo '<div class="form-group"> <label class = "control-label">Выполняющий</label>
+                <div class = "form-control">' . $model->id_doer . '</div> </div>'?>
+
     <?php
     if ($model->version == 0) {
         echo $form->field($model, 'assignment')->textInput(['value' => date('Y/m/d H:i:s', time()),
-        ]); } else {
+        ]);
+    } else {
         echo $form->field($model, 'assignment')->textInput(['value' => $model->assignment]);
-    }?>
+    } ?>
 
     <?= Html::activeHiddenInput($model, 'version'); ?>
 

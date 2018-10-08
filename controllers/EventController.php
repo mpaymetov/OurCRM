@@ -92,10 +92,6 @@ class EventController extends SecurityController
         $model = $this->findModel($id);
         try {
             if ($this->dataControl($model)) {
-                print_r($model->assignment);
-                $date = date('Y/m/d H:i:s');
-                echo("   ");
-                print_r($date);
                 if (\Yii::$app->request->isAjax) {
                     if ($model->is_active == 0) {
                         $model->is_active = 1;
@@ -107,7 +103,6 @@ class EventController extends SecurityController
                 }
 
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                    print_r("save");
                     return $this->redirect(['view', 'id' => $model->id_event]);
                 };
                 return $this->render('update', [
