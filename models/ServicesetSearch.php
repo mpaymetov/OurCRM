@@ -106,7 +106,8 @@ class ServicesetSearch extends Serviceset
         $state = new State();
         foreach ($provider as &$item) {
             $i = $item['state'];
-            $item['state'] = $state->getStateName($i);
+            $item['state'] =['id_state' => $i, 'name' => $state->getStateName($i)];
+            $item['list'] = $state->getStateList();
         }
 
         return $provider;

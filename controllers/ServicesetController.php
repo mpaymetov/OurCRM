@@ -8,8 +8,8 @@ use app\models\Serviceset;
 use app\models\ServicesetSearch;
 use app\models\Servicelist;
 use app\models\ServicelistSearch;
-use app\models\State;
 use app\models\Service;
+use app\models\State;
 use app\models\ServiceSearch;
 use app\models\ServiceListForm;
 use yii\web\Controller;
@@ -167,6 +167,7 @@ class ServicesetController extends Controller
                         $model->save();
                         $data = $modelForm->getServiceList($id);
                         $this->updateServiceListArray($data, $modelServiceList);
+                        $transaction->commit();
                     } catch (Exception $e) {
                         $transaction->rollback();
                     }
