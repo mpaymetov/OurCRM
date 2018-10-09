@@ -231,8 +231,22 @@ class ServicesetController extends Controller
     {
         $model = $this->findModel($id);
         $model->is_open = 0;
-
+        $model->id_state = 5;
+        $model->save();
+        return $this->redirect(Yii::$app->request->getReferrer());
     }
+
+    public function actionCancel($id)
+    {
+        $model = $this->findModel($id);
+        $model->is_open = 0;
+        $model->id_state = 6;
+        $model->save();
+        return $this->redirect(Yii::$app->request->getReferrer());
+    }
+
+
+
 
     /**
      * Finds the Serviceset model based on its primary key value.
