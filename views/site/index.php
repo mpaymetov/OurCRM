@@ -11,7 +11,6 @@ if ( Yii::$app->user->isGuest )
 /* @var $dataProvider yii\data\ActiveDataProvider */
 ?>
 
-<?= $this->title = 'OurCrm'; ?>
 <div class="client-index">
     <div class="row">
         <div class="col">

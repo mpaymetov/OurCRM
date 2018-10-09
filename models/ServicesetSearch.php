@@ -113,4 +113,29 @@ class ServicesetSearch extends Serviceset
         return $provider;
     }
 
+    public function getServiceSetInfoByStateAndUser($idState, $idUser)
+    {
+         $provider = (new \yii\db\Query())
+            ->select(['project.id_project AS id',
+                    'client.name AS client',
+                    'project.name AS project_name',
+                    'serviceset.payment AS payment_date',
+                    'SUM(service.cost) AS cost',
+                    'project.comment AS comment'])
+            ->from('serviceset')
+            ->leftJoin('project', 'project.id_project=serviceset.id_project')
+            ->leftJoin('servicelist', 'servicelist.id_serviceset=serviceset.id_serviceset')
+            ->leftJoin('service', 'service.id_service=servicelist.id_service')
+            ->leftJoin('client', 'client.id_client=project.id_client')
+            ->where([
+                'project.id_user' => $idUser,
+                'serviceset.id_state' => $idState,
+            ])
+            ->groupBy('serviceset.id_serviceset')
+            ->all();
+         return $provider;
+    }
+
+
+
 }

@@ -17,6 +17,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\StaleObjectException;
 use yii\helpers\ArrayHelper;
+use yii\data\ArrayDataProvider;
 use yii\web\Request;
 use yii\web\Session;
 
@@ -47,10 +48,20 @@ class ServicesetController extends Controller
     public function actionIndex()
     {
         $searchModel = new ServicesetSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $state = new State();
+        $list = $state->getStateList();
+        $dataProvider = [];
+        $item = [];
+        for($i = 0; $i < count($list) - 1; $i++)
+        {
+            $item['state'] = $list[$i];
+            $item['info'] = new ArrayDataProvider([
+                'allModels' => $searchModel->getServiceSetInfoByStateAndUser($i, Yii::$app->user->identity->id_user)
+                ]);
+            $dataProvider[] = $item;
+        }
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }

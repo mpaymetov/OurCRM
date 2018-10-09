@@ -44,6 +44,7 @@ AppAsset::register($this);
         ['label' => \Yii::t('common', 'Service'), 'url' => ['/service/index']],
         ['label' => \Yii::t('common', 'State'), 'url' => ['/state/index']],
         ['label' => \Yii::t('common', 'Event'), 'url' => ['/event/index']],
+        ['label' => \Yii::t('common', 'Analytics'), 'url' => ['/serviceset/index']],
         ['label' => \Yii::t('common', 'About'), 'url' => ['/site/about']],
         ['label' => \Yii::t('common', 'Contact'), 'url' => ['/site/contact']]
     ];

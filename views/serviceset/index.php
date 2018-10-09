@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use yii\helpers\Url;
+use yii\widgets\ListView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ServicesetSearch */
@@ -10,16 +11,22 @@ use yii\grid\GridView;
 $this->title = Yii::t('common', 'Servicesets');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="serviceset-index">
+<div class="serviceset-index col-md-12">
+    <?php
+    //var_dump($dataProvider);
+        foreach($dataProvider as $item) {
+            echo Html::beginTag('div', ['class'=>'col-md-2']);
+            echo Html::tag('h4', $item['state']);
+            echo ListView::widget([
+                'dataProvider' => $item['info'],
+                'itemView' => '_info',
+                'layout' => "{items}"
+            ]);
+            echo Html::endTag('div');
+        }
+    ?>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a(Yii::t('common', 'Create Serviceset'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?= GridView::widget([
+    <?php /*GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -33,5 +40,5 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]); ?>
+    ]); */ ?>
 </div>
