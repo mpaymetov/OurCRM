@@ -8,12 +8,11 @@ use yii\widgets\ListView;
 /* @var $searchModel app\models\ServicesetSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('common', 'Servicesets');
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = Yii::t('common', 'Сделки');
 ?>
 
 <p>
-    <a href='<?= Url::toRoute('/deal/create'); ?>' class="btn btn-success"><?= \Yii::t('common', 'Create')?></a>
+    <a href='<?= Url::toRoute('/deal/create'); ?>' class="btn btn-success"><?= \Yii::t('common', 'Создать сделку')?></a>
 </p>
 
 <div class="serviceset-index col-md-12">

@@ -75,12 +75,7 @@ class Event extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id_user' => 'id_user']);
     }
 
-    public static function findHeadId($id)
-    {
-        $model = UserSearch::findOne($id);
-        $name = $model->login;
-        return $name;
-    }
+
 
     public static function getArrOfDoer()
     {
