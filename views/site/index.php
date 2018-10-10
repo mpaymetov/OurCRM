@@ -1,40 +1,49 @@
 <?php
 
-use yii\widgets\ListView;
+use yii\helpers\Html;
 use yii\helpers\Url;
-
-if ( Yii::$app->user->isGuest )
-    return Yii::$app->getResponse()->redirect(array('/site/login',302));
+use yii\widgets\ListView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\ClientSearch */
+/* @var $searchModel app\models\ServicesetSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = Yii::t('common', 'Servicesets');
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="client-index">
-    <div class="row">
-        <div class="col">
-            <?php
-            /* @var $this yii\web\View */
-            /* @var $searchModel app\models\ProjectSearch */
-            /* @var $dataProvider yii\data\ActiveDataProvider */
+<p>
+    <a href='<?= Url::toRoute('/deal/create'); ?>' class="btn btn-success"><?= \Yii::t('common', 'Create')?></a>
+</p>
 
+<div class="serviceset-index col-md-12">
+    <?php
+    //var_dump($dataProvider);
+    foreach($dataProvider as $item) {
+        echo Html::beginTag('div', ['class'=>'col-md-2']);
+        echo Html::tag('h4', $item['state']);
+        echo ListView::widget([
+            'dataProvider' => $item['info'],
+            'itemView' => '_info',
+            'layout' => "{items}"
+        ]);
+        echo Html::endTag('div');
+    }
+    ?>
 
-            ?>
+    <?php /*GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
 
-            <h1><?= \Yii::t('common', 'Projects')?></h1>
-            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+            'id_serviceset',
+            'id_project',
+            'id_state',
+            'delivery',
+            'payment',
 
-            <p>
-                <a href='<?= Url::toRoute('/project/create'); ?>' class="btn btn-success"><?= \Yii::t('common', 'Create Project')?></a>
-            </p>
-
-
-            <?= ListView::widget([
-                'dataProvider' => $projectDataProvider,
-                'itemView' => '_post_project',
-            ]) ?>
-        </div>
-        </div>
-    </div>
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); */ ?>
 </div>

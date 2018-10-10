@@ -45,6 +45,7 @@ class Event extends \yii\db\ActiveRecord
             [['message'], 'string', 'max' => 255],
             [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_user' => 'id_user']],
             [['version'], 'integer'],
+            [['id_doer'], 'integer'],
         ];
     }
 
@@ -62,6 +63,7 @@ class Event extends \yii\db\ActiveRecord
             'id_link' => Yii::t('common', 'Id Link'),
             'id_user' => Yii::t('common', 'Id User'),
             'is_active' => Yii::t('common', 'Is Active'),
+            'id_doer' => Yii::t('common', 'Doer'),
         ];
     }
 
@@ -71,5 +73,18 @@ class Event extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id_user' => 'id_user']);
+    }
+
+    public static function findHeadId($id)
+    {
+        $model = UserSearch::findOne($id);
+        $name = $model->login;
+        return $name;
+    }
+
+    public static function getArrOfDoer()
+    {
+        $arrModels = UserSearch::find();
+        return $arrModels;
     }
 }

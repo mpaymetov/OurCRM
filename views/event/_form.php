@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\datetime\DatePicker;
+use app\models\Event;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Event */
@@ -20,10 +22,9 @@ use kartik\datetime\DatePicker;
     ]) ?>
 
     <?php echo '<div class="form-group"> <label class = "control-label">Создавший</label>
-                <div class = "form-control ">' . $model->id_user . '</div> </div>'?>
+                <div class = "form-control ">' . (Event::findHeadId($model->id_user)). '</div> </div>' ?>
 
-    <?php echo '<div class="form-group"> <label class = "control-label">Выполняющий</label>
-                <div class = "form-control">' . $model->id_doer . '</div> </div>'?>
+    <?= $form->field($model, 'id_doer')->textInput(['maxlength' => true]) ?>
 
     <?php
     if ($model->version == 0) {
