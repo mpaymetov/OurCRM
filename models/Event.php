@@ -82,4 +82,10 @@ class Event extends \yii\db\ActiveRecord
         $arrModels = UserSearch::find();
         return $arrModels;
     }
+
+
+    public static function getNotDoneEvent()
+    {
+
+    }
 }

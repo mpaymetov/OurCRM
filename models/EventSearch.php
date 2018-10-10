@@ -83,6 +83,51 @@ class EventSearch extends Event
         return $dataProvider;
     }
 
+    public function searchNotDoneEvent($params, $location = null)
+    {
+        $query = Event::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+
+            // uncomment the following line if you do not want to return any records when validation fails
+
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id_event' => $this->id_event,
+            'created' => $this->created,
+            'assignment' => $this->assignment,
+            'link' => $this->link,
+            'id_link' => $this->id_link,
+            'id_user' => $this->id_user,
+            'is_active' => $this->is_active,
+        ]);
+
+        if ($location == 'index') {
+            $date = date('Y-m-d'); // сверяем только по суткам, после 12 не закрытые события переходят в незавершенные
+            var_dump($date);
+            $query->andFilterWhere(['like', 'message', $this->message])
+                ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user)
+                ->andWhere('event.is_active != 0')
+                ->andWhere('event.assignment  < ' . "'" . $date . "'");
+        } else {
+            $query->andFilterWhere(['like', 'message', $this->message])
+                ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user);
+        }
+        return $dataProvider;
+    }
+
+
     public function searchEventId($id_link, $id_user, $route_link)
     {
         if (!Yii::$app->user->isGuest) {

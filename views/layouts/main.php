@@ -40,11 +40,11 @@ AppAsset::register($this);
         ['label' => \Yii::t('common', 'Items'), 'url' => ['/item/index']],
         ['label' => \Yii::t('common', 'Client'), 'url' => ['/client/index']],
         ['label' => \Yii::t('common', 'Project'), 'url' => ['/project/index']],
+        ['label' => \Yii::t('common', 'Not complited'), 'url' => ['/events-not-complited/index']],
         ['label' => \Yii::t('common', 'Department'), 'url' => ['/department/index']],
         ['label' => \Yii::t('common', 'Service'), 'url' => ['/service/index']],
         ['label' => \Yii::t('common', 'State'), 'url' => ['/state/index']],
         ['label' => \Yii::t('common', 'Event'), 'url' => ['/event/index']],
-        ['label' => \Yii::t('common', 'Analytics'), 'url' => ['/serviceset/index']],
         ['label' => \Yii::t('common', 'Contact'), 'url' => ['/site/contact']]
     ];
 
