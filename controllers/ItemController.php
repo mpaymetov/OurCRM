@@ -8,8 +8,7 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use yii\web\Cookie;
-use app\models\LoginForm;
-use app\models\SignupForm;
+
 use app\models\ContactForm;
 use app\models\ClientSearch;
 use app\models\ProjectSearch;
@@ -18,7 +17,7 @@ use app\models\EventSearch;
 use app\models\Role;
 use app\models\RoleSearch;
 
-class ItemController extends \yii\web\Controller
+class ItemController extends Controller
 {
     public function behaviors()
     {

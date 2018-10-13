@@ -3,9 +3,8 @@
 namespace app\controllers;
 
 use Yii;
-use yii\web\Request;
-
-class SecurityController extends \yii\web\Controller
+use yii\web\Controller;
+class SecurityController extends Controller
 {
     public function actionIndex()
     {
