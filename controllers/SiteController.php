@@ -2,30 +2,18 @@
 
 namespace app\controllers;
 
-use phpDocumentor\Reflection\Types\Null_;
 use Yii;
-use app\models\Serviceset;
 use app\models\ServicesetSearch;
-use app\models\Servicelist;
-use app\models\ServicelistSearch;
-use app\models\Service;
 use app\models\LoginForm;
-use app\models\SignupForm;
 use app\models\State;
-use app\models\ServiceSearch;
-use app\models\ServiceListForm;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\db\StaleObjectException;
-use yii\helpers\ArrayHelper;
 use yii\data\ArrayDataProvider;
 use yii\filters\AccessControl;
 
 /**
  * ServicesetController implements the CRUD actions for Serviceset model.
  */
-class SiteController extends Controller
+class SiteController extends SecurityController
 {
     /**
      * {@inheritdoc}

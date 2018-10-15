@@ -147,7 +147,7 @@ class SecurityController extends Controller
         $model->id_client = $client_id;
     }
 
-    public function takeStartClientParam($model, $request)
+    public function test($model, $request)
     {
 
     }
