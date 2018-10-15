@@ -26,21 +26,31 @@ class RbacController extends Controller {
         $viewAdminPage = $auth->createPermission('viewAdminPage');
         $viewAdminPage->description = 'Просмотр админки';
 
-        $updateNews = $auth->createPermission('updateItem');
-        $updateNews->description = 'Редактирование';
+        $createItem = $auth->createPermission('createItem');
+        $createItem->description = 'Создание';
+
+        $updateItem = $auth->createPermission('updateItem');
+        $updateItem->description = 'Редактирование';
 
         // Запишем эти разрешения в БД
         $auth->add($viewAdminPage);
-        $auth->add($updateNews);
+        $auth->add($updateItem);
+        $auth->add($createItem);
 
         // Теперь добавим наследования. Для роли manager мы добавим разрешение updateNews,
         // а для админа добавим наследование от роли manager и еще добавим собственное разрешение viewAdminPage
 
         // Роли «Редактор новостей» присваиваем разрешение «Редактирование новости»
-        $auth->addChild($manager,$updateNews);
+        $auth->addChild($manager,$createItem);
+
+        // Роли «Редактор новостей» присваиваем разрешение «Редактирование новости»
+        $auth->addChild($manager,$updateItem);
 
         // админ наследует роль редактора новостей. Он же админ, должен уметь всё! :D
         $auth->addChild($admin, $manager);
+
+        // Роли «Редактор новостей» присваиваем разрешение «Редактирование новости»
+        $auth->addChild($admin,$createItem);
 
         // Еще админ имеет собственное разрешение - «Просмотр админки»
         $auth->addChild($admin, $viewAdminPage);

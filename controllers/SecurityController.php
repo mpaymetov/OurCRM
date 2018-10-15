@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use yii\web\Controller;
+
 class SecurityController extends Controller
 {
     public function actionIndex()
@@ -114,19 +115,16 @@ class SecurityController extends Controller
 
         switch ($model->tableName()) {
             case 'event':
-                if ($this->takeStartEventParam($model, $request)) {
-                    return $model;
-                }
+                $this->takeStartEventParam($model, $request);
+                return $model;
                 break;
             case 'project':
-                if ($this->takeStartProjectParam($model, $request)) {
-                    return $model;
-                }
+                $this->takeStartProjectParam($model, $request);
+                return $model;
                 break;
             case 'client':
-                if ($this->takeStartClientParam($model, $request)) {
-                    return $model;
-                }
+                $this->takeStartClientParam($model, $request);
+                return $model;
                 break;
             default:
                 return false;
@@ -145,6 +143,11 @@ class SecurityController extends Controller
     {
         $client_id = $request->get('id_client');
         $model->id_client = $client_id;
+    }
+
+    public function takeStartClientParam($model)
+    {
+        $model->id_user = Yii::$app->user->identity->id_user;
     }
 
     public function test($model, $request)

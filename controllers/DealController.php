@@ -18,7 +18,7 @@ class DealController extends SecurityController
         $project = new Project();
         $client = new Client();
         if (!isset($user, $project, $client)) {
-            throw new NotFoundHttpException("The user was not found.");
+            throw new NotFoundHttpException("Something get wrong");
         }
         $this->takeStartParams($project);
         $this->takeStartParams($client);
