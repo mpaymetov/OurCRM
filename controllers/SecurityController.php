@@ -18,7 +18,6 @@ class SecurityController extends Controller
             if ($this->checkReferer($model)) {
                 switch ($model->tableName()) {
                     case 'event':
-
                         if ($this->validateCreateEventParam($model)) {
                             return $model;
                         }
@@ -31,6 +30,10 @@ class SecurityController extends Controller
                     case 'client':
                         if ($this->validateCreateClientParam($model)) {
                             return true;
+                        }
+                    case 'user':
+                        if ($this->validateCreateUserParam($model)) {
+                            return model;
                         }
                         break;
                     default:
@@ -99,31 +102,30 @@ class SecurityController extends Controller
         return true;
     }
 
-    public function takeStartParams($model)
+    public static function takeStartParams($model)
     {
         $request = Yii::$app->request;
-        if ($model->version == null) {
-            $model->version = 0;
+        if (property_exists($model, 'version')) {
+            if ($model->version == null) {
+                $model->version = 0;
+            }
         }
         if (property_exists($model, 'is_active')) {
             if ($model->is_active == null) {
                 $model->is_active = 0;
             }
         }
-        $user_id = Yii::$app->user->identity->id_user;
-        $model->id_user = $user_id;
-
         switch ($model->tableName()) {
             case 'event':
-                $this->takeStartEventParam($model, $request);
+                $model->takeStartEventParam($model, $request);
                 return $model;
                 break;
             case 'project':
-                $this->takeStartProjectParam($model, $request);
+                $model->takeStartProjectParam($model, $request);
                 return $model;
                 break;
             case 'client':
-                $this->takeStartClientParam($model, $request);
+                $model->takeStartClientParam($model, $request);
                 return $model;
                 break;
             default:
@@ -133,6 +135,7 @@ class SecurityController extends Controller
 
     public function takeStartEventParam($model, $request)
     {
+        $model->id_user = Yii::$app->user->identity->id_user;
         $link_id = $request->get('id_link');
         $link = $request->get('link');
         $model->link = $link;
@@ -141,6 +144,7 @@ class SecurityController extends Controller
 
     public function takeStartProjectParam($model, $request)
     {
+        $model->id_user = Yii::$app->user->identity->id_user;
         $client_id = $request->get('id_client');
         $model->id_client = $client_id;
     }

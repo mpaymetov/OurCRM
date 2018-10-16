@@ -6,6 +6,7 @@ use Yii;
 use app\models\ServicesetSearch;
 use app\models\LoginForm;
 use app\models\State;
+use app\models\SignupForm;
 use yii\filters\VerbFilter;
 use yii\data\ArrayDataProvider;
 use yii\filters\AccessControl;
@@ -95,6 +96,7 @@ class SiteController extends SecurityController
             'model' => $model,
         ]);
     }
+
     /**
      * Logout action.
      *
@@ -106,5 +108,22 @@ class SiteController extends SecurityController
         return $this->goHome();
     }
 
+    public function actionSignup()
+    {
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post())) {
+            $this->takeStartParams($model);
+           // if ($this->dataControl($model)) {
+                if ($user = $model->signup()) {
+                    if (Yii::$app->getUser()->login($user)) {
+                        return $this->goHome();
+                    }
+                }
+            }
+    //    }
+        return $this->render('signup', [
+            'model' => $model,
+        ]);
+    }
 
 }
