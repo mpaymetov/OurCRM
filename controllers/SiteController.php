@@ -6,6 +6,7 @@ use Yii;
 use app\models\ServicesetSearch;
 use app\models\LoginForm;
 use app\models\State;
+use app\models\StateSearch;
 use yii\filters\VerbFilter;
 use yii\data\ArrayDataProvider;
 use yii\filters\AccessControl;
@@ -64,11 +65,11 @@ class SiteController extends SecurityController
             return Yii::$app->getResponse()->redirect(array('/site/login', 302));
         } else {
             $searchModel = new ServicesetSearch();
-            $state = new StateCheck();
+            $state = new StateSearch();
             $list = $state->getStateList();
             $dataProvider = [];
             $item = [];
-            for ($i = 0; $i < count($list) - 1; $i++) {
+            for ($i = 1; $i <= count($list) - 1; $i++) {
                 $item['state'] = $list[$i];
                 $item['info'] = new ArrayDataProvider([
                     'allModels' => $searchModel->getServiceSetInfoByStateAndUser($i, Yii::$app->user->identity->id_user)

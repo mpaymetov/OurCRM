@@ -12,12 +12,14 @@ function currDate() {
     return yy + '-' + mm + '-' + dd;
 }
 
-$("[name=close-project_form]").change(function() {
+$(".status-item").click(function(e) {
+    e.preventDefault();
+    console.log($(this));
     var par = $(this).parent();
-    var title = par.children(".serviceset-info-title").text();
-    console.log(title.match(/\d+/)[0]);
-    var message = {"id": title.match(/\d+/)[0]};
-    $.post("/controllers/ProjectController.php", data, onProjectClose, "json");
+    //var title = par.children(".serviceset-info-title").text();
+    console.log(par);
+    //var message = {"id": title.match(/\d+/)[0]};
+   // $.post("/controllers/ProjectController.php", data, onProjectClose, "json");
 });
 
 function onProjectClose(response)
