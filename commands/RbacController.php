@@ -1,9 +1,11 @@
 <?php
 
-namespace console\controllers;
+namespace app\commands;
 
+use app\components\UserPermissions;
 use Yii;
 use yii\console\Controller;
+
 /**
  * Инициализатор RBAC выполняется в консоли php yii rbac/init
  */
