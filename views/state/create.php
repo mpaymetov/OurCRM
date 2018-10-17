@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\State */
+/* @var $model app\models\StateCheck */
 
 $this->title = \Yii::t('common', 'Create State');
 $this->params['breadcrumbs'][] = ['label' => \Yii::t('common', \Yii::t('common', 'States')), 'url' => ['index']];

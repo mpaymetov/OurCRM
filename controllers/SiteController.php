@@ -11,7 +11,7 @@ use app\models\ServicelistSearch;
 use app\models\Service;
 use app\models\LoginForm;
 use app\models\SignupForm;
-use app\models\State;
+use app\models\StateCheck;
 use app\models\ServiceSearch;
 use app\models\ServiceListForm;
 use yii\web\Controller;
@@ -76,7 +76,7 @@ class SiteController extends Controller
             return Yii::$app->getResponse()->redirect(array('/site/login', 302));
         } else {
             $searchModel = new ServicesetSearch();
-            $state = new State();
+            $state = new StateCheck();
             $list = $state->getStateList();
             $dataProvider = [];
             $item = [];

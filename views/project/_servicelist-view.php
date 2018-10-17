@@ -3,18 +3,14 @@
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Url;
-?>
 
-<div class="serviceset-info">
-  <h3 class="serviceset-info-title">
-     <?php
-        echo \Yii::t('common', 'Serviceset number') . ': ';
-        echo HtmlPurifier::process($model['id']);
-     ?>
-  </h3>
+$options = ['class' => 'serviceset-info-' . $model['id']];
+echo Html::beginTag('div', $options);
+    $content = \Yii::t('common', 'Serviceset number') . ': ' . HtmlPurifier::process($model['id']);
 
-  <div class="close pull-left">
-    <?php
+    echo Html::tag('h3', $content, ['class'=>'serviceset-info-title']);
+
+    echo Html::beginTag('div', ['class'=>'close pull-left']);
         $optionClose = ['class' => 'btn btn-primary'];
         $optionСancellation = ['class' => 'btn btn-default'];
         if ($model['isOpen'] == '0') {
@@ -23,70 +19,57 @@ use yii\helpers\Url;
         }
         echo Html::a(\Yii::t('common', 'Close'), ['serviceset/close', 'id' => $model['id']], $optionClose);
         echo Html::a(\Yii::t('common', 'Сancellation'), ['serviceset/cancel', 'id' => $model['id']], $optionСancellation);
-    ?>
-  </div>
+    echo Html::endTag('div');
 
-  <div class="crud pull-right">
-     <?php
-     $optionUpdate = ['class' => 'btn btn-primary'];
-     $optionDelet = [
-          'class' => 'btn btn-danger',
-          'data' => [
-              'confirm' => 'Are you sure you want to delete this item?',
-              'method' => 'post']
-          ];
-     if($model['isOpen'] == '0') {
-         Html::addCssClass($optionUpdate,  ['not_click', 'disabled']);
-         Html::addCssClass($optionDelet, ['not_click', 'disabled']);
-     }
-     echo Html::a(\Yii::t('common', 'Update'), ['serviceset/update', 'id' => $model['id']], $optionUpdate);
-     echo Html::a(\Yii::t('common', 'Delete'), ['serviceset/delete', 'id' => $model['id']], $optionDelet); ?>
-  </div>
+    echo Html::beginTag('div', ['class'=>'crud pull-right']);
+        $optionUpdate = ['class' => 'btn btn-primary'];
+        $optionDelet = [
+            'class' => 'btn btn-danger',
+            'data' => [
+            'confirm' => 'Are you sure you want to delete this item?',
+            'method' => 'post']
+        ];
+        if($model['isOpen'] == '0') {
+             Html::addCssClass($optionUpdate,  ['not_click', 'disabled']);
+             Html::addCssClass($optionDelet, ['not_click', 'disabled']);
+        }
+        echo Html::a(\Yii::t('common', 'Update'), ['serviceset/update', 'id' => $model['id']], $optionUpdate);
+        echo Html::a(\Yii::t('common', 'Delete'), ['serviceset/delete', 'id' => $model['id']], $optionDelet);
+    echo Html::endTag('div');
 
-  <div class="status-bar btn-group btn-group-justified">
-    <?php
+    $statusOption = ['class' => 'btn-group btn-group-justified status-bar-' . $model['id']];
+    echo Html::beginTag('div', $statusOption);
         $option = ['class' => 'btn btn-success'];
         if ($model['isOpen'] == '0') {
             Html::addCssClass($option,  ['not_click', 'disabled']);
         }
-        for ($i = 0; $i < count($model['list']) - 2; $i++ )
-        {
-            if($i > $model['state']['id_state']) {
+        for ($i = 1; $i <= count($model['list']) - 2; $i++) {
+            Html::addCssClass($option, 'status-' . $i);
+             if($i > $model['state']['id_state']) {
                 Html::removeCssClass($option, 'btn-success');
                 Html::addCssClass($option, 'btn-warning');
+             }
+             echo Html::a($model['list'][$i], ['serviceset/status', 'id' => $model['id']], $option);
         }
+    echo Html::endTag('div');
 
-            echo Html::a($model['list'][$i], ['serviceset/delete', 'id' => $model['id']], $option);
-        }
-    ?>
-  </div>
+    $content = \Yii::t('common', 'State') . ': ' . Html::encode($model['state']['name']);
+    echo Html::tag('div', $content, []);
 
-  <div>
-      <?php
-      echo \Yii::t('common', 'State') . ': ';
-      echo Html::encode($model['state']['name']);
-      ?>
-  </div>
+    $content =  \Yii::t('common', 'Payment') . ': ';
+    if ($model['payment'] != null) {
+        $content .= Html::encode($model['payment']);
+    } else {
+        $content .= Html::encode('--');
+    }
+    echo Html::tag('div', $content, []);
 
-  <div>
-      <?php
-      echo \Yii::t('common', 'Payment') . ': ';
-      if ($model['payment'] != null) {
-          echo Html::encode($model['payment']);
-      } else {
-          echo Html::encode('--');
-      }
-      ?>
-  </div>
-
-  <div>
-      <?php
-      echo \Yii::t('common', 'Delivery') . ': ';
-      if ($model['delivery'] != null) {
-          echo Html::encode($model['delivery']);
-      } else {
-          echo Html::encode('--');
-      }
-      ?>
-  </div>
-</div>
+    $content = \Yii::t('common', 'Delivery') . ': ';
+    if ($model['delivery'] != null) {
+        $content .= Html::encode($model['delivery']);
+    } else {
+        $content .= Html::encode('--');
+    }
+    echo Html::tag('div', $content, []);
+echo Html::endTag('div');
+?>

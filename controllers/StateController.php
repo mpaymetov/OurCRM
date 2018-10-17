@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\State;
+use app\models\StateCheck;
 use app\models\StateSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -65,7 +65,7 @@ class StateController extends Controller
      */
     public function actionCreate()
     {
-        $model = new State();
+        $model = new StateCheck();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id_state]);
@@ -118,12 +118,12 @@ class StateController extends Controller
      * Finds the State model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return State the loaded model
+     * @return StateCheck the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = State::findOne($id)) !== null) {
+        if (($model = StateCheck::findOne($id)) !== null) {
             return $model;
         }
 

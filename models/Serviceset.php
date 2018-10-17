@@ -15,7 +15,7 @@ use Yii;
  *
  * @property Servicelist[] $servicelists
  * @property Project $project
- * @property State $state
+ * @property StateCheck $state
  */
 class Serviceset extends \yii\db\ActiveRecord
 {
@@ -81,6 +81,6 @@ class Serviceset extends \yii\db\ActiveRecord
      */
     public function getState()
     {
-        return $this->hasOne(State::className(), ['id_state' => 'id_state']);
+        return $this->hasOne(StateCheck::className(), ['id_state' => 'id_state']);
     }
 }

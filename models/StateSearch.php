@@ -6,12 +6,12 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
-use app\models\State1;
+use app\models\State;
 
 /**
  * StateSearch represents the model behind the search form of `app\models\State`.
  */
-class StateSearch extends State1
+class StateSearch extends State
 {
     /**
      * {@inheritdoc}
@@ -42,7 +42,7 @@ class StateSearch extends State1
      */
     public function search($params)
     {
-        $query = State::find();
+        $query = StateCheck::find();
 
         // add conditions that should always apply here
 
@@ -77,6 +77,24 @@ class StateSearch extends State1
 
         return ArrayHelper::map($state, 'id_state', 'name');
     }
+
+    public function getStateName($id_state)
+    {
+        $name = null;
+
+        $state = (new \yii\db\Query())
+            ->select('name')
+            ->from('state')
+            ->where('id_state=:id_state', [':id_state' => $id_state])
+            ->one();
+
+        if (ArrayHelper::keyExists('name', $state)){
+            $name = $state['name'];
+        }
+
+        return $name;
+    }
+
 
     public function getLastStateId()
     {

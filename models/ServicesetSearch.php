@@ -7,6 +7,7 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Serviceset;
 use app\models\State;
+use app\models\StateSearch;
 
 /**
  * ServicesetSearch represents the model behind the search form of `app\models\Serviceset`.
@@ -103,7 +104,7 @@ class ServicesetSearch extends Serviceset
             ->all();
 
 
-        $state = new State();
+        $state = new StateSearch();
         foreach ($provider as &$item) {
             $i = $item['state'];
             $item['state'] =['id_state' => $i, 'name' => $state->getStateName($i)];

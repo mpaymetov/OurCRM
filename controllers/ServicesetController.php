@@ -10,6 +10,7 @@ use app\models\Servicelist;
 use app\models\ServicelistSearch;
 use app\models\Service;
 use app\models\State;
+use app\models\StateSearch;
 use app\models\ServiceSearch;
 use app\models\ServiceListForm;
 use yii\web\Controller;
@@ -48,7 +49,7 @@ class ServicesetController extends Controller
     public function actionIndex()
     {
         $searchModel = new ServicesetSearch();
-        $state = new State();
+        $state = new StateCheck();
         $list = $state->getStateList();
         $dataProvider = [];
         $item = [];
@@ -153,7 +154,7 @@ class ServicesetController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $state = new State();
+        $state = new StateSearch();
         $modelForm = new ServiceListForm();
         $service = new ServiceSearch();
         $itemsService = $service->getServiceListItems();

@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\State */
+/* @var $model app\models\StateCheck */
 
 $this->title = \Yii::t('common', 'Update State: ') . $model->name;
 $this->params['breadcrumbs'][] = ['label' => \Yii::t('common', 'States'), 'url' => ['index']];
