@@ -111,7 +111,7 @@ class SiteController extends SecurityController
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
-            $this->takeStartParams($model);
+           // $this->takeStartParams($model);
            // if ($this->dataControl($model)) {
                 if ($user = $model->signup()) {
                     if (Yii::$app->getUser()->login($user)) {
