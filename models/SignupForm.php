@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use app\controllers\SecurityController;
 
 /**
  * Signup form
@@ -47,11 +48,16 @@ class SignupForm extends Model
             return null;
         }
 
+
         $user = new User();
         $user->login = $this->login;
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
+        if($user->version == null)
+        {
+            $user->version =0;
+        }
         return $user->save() ? $user : null;
     }
 

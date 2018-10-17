@@ -2,30 +2,18 @@
 
 namespace app\controllers;
 
-use phpDocumentor\Reflection\Types\Null_;
 use Yii;
-use app\models\Serviceset;
 use app\models\ServicesetSearch;
-use app\models\Servicelist;
-use app\models\ServicelistSearch;
-use app\models\Service;
 use app\models\LoginForm;
-use app\models\SignupForm;
-use app\models\StateCheck;
-use app\models\ServiceSearch;
-use app\models\ServiceListForm;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
+use app\models\State;
 use yii\filters\VerbFilter;
-use yii\db\StaleObjectException;
-use yii\helpers\ArrayHelper;
 use yii\data\ArrayDataProvider;
 use yii\filters\AccessControl;
 
 /**
  * ServicesetController implements the CRUD actions for Serviceset model.
  */
-class SiteController extends Controller
+class SiteController extends SecurityController
 {
     /**
      * {@inheritdoc}
@@ -107,6 +95,7 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
     /**
      * Logout action.
      *
@@ -118,5 +107,22 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
+    public function actionSignup()
+    {
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post())) {
+            $this->takeStartParams($model);
+           // if ($this->dataControl($model)) {
+                if ($user = $model->signup()) {
+                    if (Yii::$app->getUser()->login($user)) {
+                        return $this->goHome();
+                    }
+                }
+            }
+    //    }
+        return $this->render('signup', [
+            'model' => $model,
+        ]);
+    }
 
 }

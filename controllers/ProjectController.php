@@ -6,16 +6,13 @@ use app\models\ServicelistSearch;
 use Yii;
 use app\models\Project;
 use app\models\ProjectSearch;
-use app\models\Service;
-use app\models\Serviceset;
 use app\models\ServicesetSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\data\ArrayDataProvider;
-use app\models\Event;
 use app\models\EventSearch;
 use yii\db\StaleObjectException;
+use yii\web\ForbiddenHttpException;
 
 /**
  * ProjectController implements the CRUD actions for Project model.
@@ -43,7 +40,11 @@ class ProjectController extends SecurityController
      */
     public function actionIndex()
     {
+
         $searchModel = new ProjectSearch();
+        if (!\Yii::$app->user->can('updateItem', ['items' => $searchModel])) {
+            throw new ForbiddenHttpException('Access denied');
+        }
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -99,7 +100,11 @@ class ProjectController extends SecurityController
         $model = new Project();
         $this->takeStartParams($model);
         if ($this->dataControl($model)) {
+            var_dump($model->load(Yii::$app->request->post()));
+            var_dump($model->save());
+            var_dump($model->errors );
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                print_r("sucsess");
                 return $this->redirect(['view', 'id' => $model->id_project]);
             }
 
