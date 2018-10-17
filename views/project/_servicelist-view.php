@@ -39,7 +39,7 @@ echo Html::beginTag('div', $options);
 
     $statusOption = ['class' => 'btn-group btn-group-justified status-bar-' . $model['id']];
     echo Html::beginTag('div', $statusOption);
-        $option = ['class' => 'btn btn-success'];
+        $option = ['class' => 'btn btn-success status-item'];
         if ($model['isOpen'] == '0') {
             Html::addCssClass($option,  ['not_click', 'disabled']);
         }
@@ -50,6 +50,7 @@ echo Html::beginTag('div', $options);
                 Html::addCssClass($option, 'btn-warning');
              }
              echo Html::a($model['list'][$i], ['serviceset/status', 'id' => $model['id']], $option);
+            Html::removeCssClass($option, 'status-' . $i);
         }
     echo Html::endTag('div');
 
