@@ -5,7 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\ServicesetSearch;
 use app\models\LoginForm;
-use app\models\State;
+use app\models\SignupForm;
 use app\models\StateSearch;
 use yii\web\Cookie;
 use yii\filters\VerbFilter;
@@ -100,8 +100,6 @@ class SiteController extends SecurityController
 
     /**
      * Logout action.
-     *
-     * @return Response
      */
     public function actionLogout()
     {
@@ -113,15 +111,15 @@ class SiteController extends SecurityController
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
-           // $this->takeStartParams($model);
-           // if ($this->dataControl($model)) {
+            $this->takeStartParams($model);
+            if ($this->dataControl($model)) {
                 if ($user = $model->signup()) {
                     if (Yii::$app->getUser()->login($user)) {
                         return $this->goHome();
                     }
                 }
             }
-    //    }
+        }
         return $this->render('signup', [
             'model' => $model,
         ]);

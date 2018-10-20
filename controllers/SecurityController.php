@@ -31,9 +31,10 @@ class SecurityController extends Controller
                         if ($this->validateCreateClientParam($model)) {
                             return true;
                         }
+                        break;
                     case 'user':
                         if ($this->validateCreateUserParam($model)) {
-                            return model;
+                            return $model;
                         }
                         break;
                     default:
@@ -99,10 +100,10 @@ class SecurityController extends Controller
 
     public function validateCreateClientParam($model)
     {
-        return true;
+        return $model;
     }
 
-    public static function takeStartParams($model)
+    public function takeStartParams($model)
     {
         $request = Yii::$app->request;
         if (property_exists($model, 'version')) {
@@ -117,15 +118,15 @@ class SecurityController extends Controller
         }
         switch ($model->tableName()) {
             case 'event':
-                $model->takeStartEventParam($model, $request);
+                $this->takeStartEventParam($model, $request);
                 return $model;
                 break;
             case 'project':
-                $model->takeStartProjectParam($model, $request);
+                $this->takeStartProjectParam($model, $request);
                 return $model;
                 break;
             case 'client':
-                $model->takeStartClientParam($model, $request);
+                $this->takeStartClientParam($model, $request);
                 return $model;
                 break;
             default:
