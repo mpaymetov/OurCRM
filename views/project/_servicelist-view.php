@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Url;
+use app\models\StateCheck;
 
 $options = ['class' => 'serviceset-info-' . $model['id']];
 echo Html::beginTag('div', $options);
@@ -13,7 +14,7 @@ echo Html::beginTag('div', $options);
     echo Html::beginTag('div', ['class'=>'close pull-left']);
         $optionClose = ['class' => 'btn btn-primary'];
         $optionСancellation = ['class' => 'btn btn-default'];
-        if ($model['isOpen'] == '0') {
+        if ($model['isOpen'] == 0) {
             Html::addCssClass($optionClose,  ['not_click', 'disabled']);
             Html::addCssClass($optionСancellation, ['not_click', 'disabled']);
         }
@@ -29,7 +30,7 @@ echo Html::beginTag('div', $options);
             'confirm' => 'Are you sure you want to delete this item?',
             'method' => 'post']
         ];
-        if($model['isOpen'] == '0') {
+        if($model['isOpen'] == 0) {
              Html::addCssClass($optionUpdate,  ['not_click', 'disabled']);
              Html::addCssClass($optionDelet, ['not_click', 'disabled']);
         }
@@ -38,12 +39,13 @@ echo Html::beginTag('div', $options);
     echo Html::endTag('div');
 
     $statusOption = ['class' => 'btn-group btn-group-justified status-bar-' . $model['id']];
+    $stateName = new StateCheck();
     echo Html::beginTag('div', $statusOption);
         $option = ['class' => 'btn btn-success status-item'];
-        if ($model['isOpen'] == '0') {
+        if ($model['isOpen'] == 0) {
             Html::addCssClass($option,  ['not_click', 'disabled']);
         }
-        for ($i = 1; $i <= count($model['list']) - 2; $i++) {
+        for ($i = $stateName::MakeContact; $i <= $stateName::Delivery; $i++) {
             Html::addCssClass($option, 'status-' . $i);
              if($i > $model['state']['id_state']) {
                 Html::removeCssClass($option, 'btn-success');

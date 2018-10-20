@@ -14,7 +14,15 @@ use yii\validators\NumberValidator;
 
 class StateCheck extends Model
 {
-    private $stateList = [
+    const MakeContact = 1;
+    const IdentifyNeed = 2;
+    const Invoicing = 3;
+    const Payment = 4;
+    const Delivery = 5;
+    const Close = 6;
+    const Сancellation = 7;
+
+    /*private $stateList = [
         'Установление контакта',
         'Выявление потребностей',
         'Выставление счета',

@@ -10,6 +10,7 @@ use app\models\Servicelist;
 use app\models\ServicelistSearch;
 use app\models\Service;
 use app\models\State;
+use app\models\StateCheck;
 use app\models\StateSearch;
 use app\models\ServiceSearch;
 use app\models\ServiceListForm;
@@ -46,7 +47,7 @@ class ServicesetController extends Controller
      * Lists all Serviceset models.
      * @return mixed
      */
-    public function actionIndex()
+    /*public function actionIndex()
     {
         $searchModel = new ServicesetSearch();
         $state = new StateCheck();
@@ -65,7 +66,7 @@ class ServicesetController extends Controller
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
-    }
+    }*/
 
     /**
      * Displays a single Serviceset model.
@@ -102,6 +103,7 @@ class ServicesetController extends Controller
     {
         $modelForm = new ServiceListForm();
         $service = new ServiceSearch();
+        $stateName = new StateCheck();
         $itemsService = $service->getServiceListItems();
 
         $session = Yii::$app->session;
@@ -121,7 +123,7 @@ class ServicesetController extends Controller
                 try {
                     $model = new Serviceset();
                     $model->id_project = $session->get('id_project');
-                    $model->id_state = 1;
+                    $model->id_state = $stateName::MakeContact;
                     $model->save();
                     $id = $model->id_serviceset;
                     $data = $modelForm->getServiceList($id);
@@ -230,23 +232,32 @@ class ServicesetController extends Controller
 
     public function actionClose($id)
     {
+        $stateName = new StateCheck();
         $model = $this->findModel($id);
         $model->is_open = 0;
-        $model->id_state = 5;
+        $model->id_state = $stateName::Delivery;
         $model->save();
         return $this->redirect(Yii::$app->request->getReferrer());
     }
 
     public function actionCancel($id)
     {
+        $stateName = new StateCheck();
         $model = $this->findModel($id);
         $model->is_open = 0;
-        $model->id_state = 6;
+        $model->id_state = $stateName::Close;
         $model->save();
         return $this->redirect(Yii::$app->request->getReferrer());
     }
 
+    public function actionChangeState()
+    {
+        $request = Yii::$app->request;
+        $message = $request->post('stateNameString');
 
+        echo json_encode($message);
+
+    }
 
 
     /**
@@ -338,4 +349,13 @@ class ServicesetController extends Controller
         return false;
     }
 
+    protected function checkGetString($str, $key)
+    {
+        //проверить есть ли в $str выражение вида ' $key.-. цифра '
+    }
+
+    protected function getIdFromStringByKey($str, $key)
+    {
+        //найти в $str из выражение вида ' $key.-. цифра ' цифру
+    }
 }
