@@ -10,6 +10,7 @@ use app\models\Servicelist;
 use app\models\ServicelistSearch;
 use app\models\Service;
 use app\models\State;
+use app\models\StateCheck;
 use app\models\StateSearch;
 use app\models\ServiceSearch;
 use app\models\ServiceListForm;
@@ -46,7 +47,7 @@ class ServicesetController extends Controller
      * Lists all Serviceset models.
      * @return mixed
      */
-    public function actionIndex()
+    /*public function actionIndex()
     {
         $searchModel = new ServicesetSearch();
         $state = new StateCheck();
@@ -65,7 +66,7 @@ class ServicesetController extends Controller
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
-    }
+    }*/
 
     /**
      * Displays a single Serviceset model.
@@ -102,6 +103,7 @@ class ServicesetController extends Controller
     {
         $modelForm = new ServiceListForm();
         $service = new ServiceSearch();
+        $stateName = new StateCheck();
         $itemsService = $service->getServiceListItems();
 
         $session = Yii::$app->session;
@@ -121,7 +123,7 @@ class ServicesetController extends Controller
                 try {
                     $model = new Serviceset();
                     $model->id_project = $session->get('id_project');
-                    $model->id_state = 1;
+                    $model->id_state = $stateName::MakeContact;
                     $model->save();
                     $id = $model->id_serviceset;
                     $data = $modelForm->getServiceList($id);
@@ -230,23 +232,63 @@ class ServicesetController extends Controller
 
     public function actionClose($id)
     {
+        $stateName = new StateCheck();
         $model = $this->findModel($id);
         $model->is_open = 0;
-        $model->id_state = 5;
+        $model->id_state = $stateName::Delivery;
         $model->save();
         return $this->redirect(Yii::$app->request->getReferrer());
     }
 
     public function actionCancel($id)
     {
+        $stateName = new StateCheck();
         $model = $this->findModel($id);
         $model->is_open = 0;
-        $model->id_state = 6;
+        $model->id_state = $stateName::Close;
         $model->save();
         return $this->redirect(Yii::$app->request->getReferrer());
     }
 
+    public function actionChangeState()
+    {
+        $request = Yii::$app->request;
+        $message = [
+            'success' => '',
+            'error' => ''
+        ];
+        $stateName = $request->post('stateNameString');
+        $servicesetNum = $request->post('setNameString');
+        $getStateKey = 'status';
+        $getNumKey = 'status-bar';
+        $id_satate = null;
+        $id = null;
 
+        if (($this->checkGetString($stateName, $getStateKey)) && ($this->checkGetString($servicesetNum, $getNumKey)))
+        {
+            $id_satate = $this -> getIdFromStringByKey($stateName, $getStateKey);
+            $id = $this -> getIdFromStringByKey($servicesetNum, $getNumKey);
+        }
+
+        //Нужно добавить проверку номера serviceset
+
+        if (($id_satate != null) && ($id != null)) {
+            $model = $this->findModel($id);
+            $model->id_state = $id_satate;
+            $success = [
+                'set' => $id,
+                'status' => $id_satate
+            ];
+            ($model->save()) ? ($message['success'] = $success) : ($message['error'] = 'error');
+        }
+
+        if(!$message['success'])
+        {
+            $message['error'] = 'error';
+        }
+
+        echo json_encode($message);
+    }
 
 
     /**
@@ -338,4 +380,33 @@ class ServicesetController extends Controller
         return false;
     }
 
+    protected function checkGetString($str, $key)
+    {
+        //проверить есть ли в $str выражение вида ' $key.-. цифра '
+        $reg = '/' . $key . '-[0-9]{1,}/';
+        return preg_match($reg, $str,$result);
+    }
+
+    protected function getIdFromStringByKey($str, $key)
+    {
+        //найти в $str из выражение вида ' $key.-. цифра ' цифру
+        $arr = explode(' ', $str);
+        $reg = '/' . $key . '-[0-9]{1,}/';
+        $id = null;
+        $counter = 0;
+        foreach ($arr as $el) {
+            if(preg_match($reg, $el,$findEl)) {
+                preg_match('/[0-9]{1,}/', $findEl[0], $result);
+                $id = $result[0];
+                $counter ++;
+            }
+        }
+
+        if ($counter != 1)
+        {
+            $id = null;
+        }
+
+        return $id;
+    }
 }

@@ -125,7 +125,6 @@ class SecurityController extends Controller
         switch ($model->tableName()) {
             case 'event':
                 $this->takeStartEventParam($model, $request);
-                print_r("start params taken");
                 return $model;
                 break;
             case 'project':
