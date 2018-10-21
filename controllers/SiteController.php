@@ -5,7 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\ServicesetSearch;
 use app\models\LoginForm;
-use app\models\State;
+use app\models\SignupForm;
 use app\models\StateSearch;
 use yii\filters\VerbFilter;
 use yii\data\ArrayDataProvider;
@@ -100,7 +100,7 @@ class SiteController extends SecurityController
     /**
      * Logout action.
      *
-     * @return Response
+     *
      */
     public function actionLogout()
     {

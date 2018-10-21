@@ -5,10 +5,11 @@ namespace app\controllers;
 use Yii;
 use app\models\Event;
 use app\models\EventSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\StaleObjectException;
+use app\models\User;
+use yii\db\ActiveRecord;
 
 /**
  * EventController implements the CRUD actions for Event model.
@@ -65,6 +66,7 @@ class EventController extends SecurityController
     public function actionCreate()
     {
         $model = new Event();
+        $user_name = User::findNameById(Yii::$app->user->identity->id_user);
         $this->takeStartParams($model);
         if ($this->dataControl($model)) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -73,6 +75,7 @@ class EventController extends SecurityController
         }
         return $this->render('create', [
             'model' => $model,
+            'user' => $user_name,
         ]);
 
     }

@@ -3,8 +3,6 @@
 namespace app\controllers;
 
 use Yii;
-use yii\base\Model;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use app\models\User;
 use app\models\Client;

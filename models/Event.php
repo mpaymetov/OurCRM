@@ -41,11 +41,9 @@ class Event extends \yii\db\ActiveRecord
         return [
             [['message', 'id_user'], 'required'],
             [['created', 'assignment'], 'safe'],
-            [['link', 'id_link', 'id_user', 'is_active'], 'integer'],
+            [['link', 'id_link', 'id_user', 'is_active', 'version', 'id_doer'], 'integer'],
             [['message'], 'string', 'max' => 255],
             [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_user' => 'id_user']],
-            [['version'], 'integer'],
-            [['id_doer'], 'integer'],
         ];
     }
 
@@ -64,6 +62,7 @@ class Event extends \yii\db\ActiveRecord
             'id_user' => Yii::t('common', 'Id User'),
             'is_active' => Yii::t('common', 'Is Active'),
             'id_doer' => Yii::t('common', 'Doer'),
+            'version'=>Yii::t('common', 'Version'),
         ];
     }
 

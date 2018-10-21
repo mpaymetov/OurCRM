@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use yii\web\Controller;
+use yii\db\ActiveRecord;
 
 class SecurityController extends Controller
 {
@@ -31,13 +32,14 @@ class SecurityController extends Controller
                         if ($this->validateCreateClientParam($model)) {
                             return true;
                         }
+                        break;
                     case 'user':
                         if ($this->validateCreateUserParam($model)) {
-                            return model;
+                            return $model;
                         }
                         break;
                     default:
-                        return false;
+                        return $model;
                 }
             }
 
@@ -99,33 +101,39 @@ class SecurityController extends Controller
 
     public function validateCreateClientParam($model)
     {
-        return true;
+        return $model;
     }
 
-    public static function takeStartParams($model)
+    public function validateCreateUserParam($model)
+    {
+        return $model;
+    }
+
+    public function takeStartParams($model)
     {
         $request = Yii::$app->request;
-        if (property_exists($model, 'version')) {
-            if ($model->version == null) {
-                $model->version = 0;
-            }
+        if ($model->version == null) {
+            print_r(" in taken version");
+            $model->version = 0;
         }
         if (property_exists($model, 'is_active')) {
             if ($model->is_active == null) {
                 $model->is_active = 0;
             }
         }
+
         switch ($model->tableName()) {
             case 'event':
-                $model->takeStartEventParam($model, $request);
+                $this->takeStartEventParam($model, $request);
+                print_r("start params taken");
                 return $model;
                 break;
             case 'project':
-                $model->takeStartProjectParam($model, $request);
+                $this->takeStartProjectParam($model, $request);
                 return $model;
                 break;
             case 'client':
-                $model->takeStartClientParam($model, $request);
+                $this->takeStartClientParam($model, $request);
                 return $model;
                 break;
             default:
@@ -149,12 +157,17 @@ class SecurityController extends Controller
         $model->id_client = $client_id;
     }
 
-    public function takeStartClientParam($model)
+    public function takeStartClientParam($model, $request)
     {
         $model->id_user = Yii::$app->user->identity->id_user;
     }
 
     public function test($model, $request)
+    {
+
+    }
+
+    public function startFromZeroVersion($model)
     {
 
     }

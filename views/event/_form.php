@@ -2,8 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use kartik\datetime\DatePicker;
-use app\models\User;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Event */
@@ -21,7 +19,7 @@ use app\models\User;
     ]) ?>
 
     <?php echo '<div class="form-group"> <label class = "control-label">Создавший</label>
-                <div class = "form-control ">' . (User::findNameById($model->id_user)). '</div> </div>' ?>
+                <div class = "form-control ">' . $user. '</div> </div>' ?>
 
     <?= $form->field($model, 'id_doer')->textInput(['maxlength' => true]) ?>
 
