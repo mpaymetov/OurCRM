@@ -253,10 +253,41 @@ class ServicesetController extends Controller
     public function actionChangeState()
     {
         $request = Yii::$app->request;
-        $message = $request->post('stateNameString');
+        $message = [
+            'success' => '',
+            'error' => ''
+        ];
+        $stateName = $request->post('stateNameString');
+        $servicesetNum = $request->post('setNameString');
+        $getStateKey = 'status';
+        $getNumKey = 'status-bar';
+        $id_satate = null;
+        $id = null;
+
+        if (($this->checkGetString($stateName, $getStateKey)) && ($this->checkGetString($servicesetNum, $getNumKey)))
+        {
+            $id_satate = $this -> getIdFromStringByKey($stateName, $getStateKey);
+            $id = $this -> getIdFromStringByKey($servicesetNum, $getNumKey);
+        }
+
+        //Нужно добавить проверку номера serviceset
+
+        if (($id_satate != null) && ($id != null)) {
+            $model = $this->findModel($id);
+            $model->id_state = $id_satate;
+            $success = [
+                'set' => $id,
+                'status' => $id_satate
+            ];
+            ($model->save()) ? ($message['success'] = $success) : ($message['error'] = 'error');
+        }
+
+        if(!$message['success'])
+        {
+            $message['error'] = 'error';
+        }
 
         echo json_encode($message);
-
     }
 
 
@@ -352,10 +383,30 @@ class ServicesetController extends Controller
     protected function checkGetString($str, $key)
     {
         //проверить есть ли в $str выражение вида ' $key.-. цифра '
+        $reg = '/' . $key . '-[0-9]{1,}/';
+        return preg_match($reg, $str,$result);
     }
 
     protected function getIdFromStringByKey($str, $key)
     {
         //найти в $str из выражение вида ' $key.-. цифра ' цифру
+        $arr = explode(' ', $str);
+        $reg = '/' . $key . '-[0-9]{1,}/';
+        $id = null;
+        $counter = 0;
+        foreach ($arr as $el) {
+            if(preg_match($reg, $el,$findEl)) {
+                preg_match('/[0-9]{1,}/', $findEl[0], $result);
+                $id = $result[0];
+                $counter ++;
+            }
+        }
+
+        if ($counter != 1)
+        {
+            $id = null;
+        }
+
+        return $id;
     }
 }

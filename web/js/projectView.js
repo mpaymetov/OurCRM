@@ -1,28 +1,31 @@
-function currDate() {
-    var date = new Date();
-    var dd = date.getDate();
-    if (dd < 10) {
-        dd = '0' + dd;
-    }
-    var mm = date.getMonth() + 1;
-    if (mm < 10) {
-        mm = '0' + mm;
-    }
-    var yy = date.getFullYear();
-    return yy + '-' + mm + '-' + dd;
-}
 
 $(".status-item").click(function(e) {
     e.preventDefault();
-    console.log($(this));
+    var stateName = $(this).attr('class');
     var par = $(this).parent();
-    //var title = par.children(".serviceset-info-title").text();
-    console.log(par);
-    //var message = {"id": title.match(/\d+/)[0]};
-   // $.post("/controllers/ProjectController.php", data, onProjectClose, "json");
+    var setName = par.attr('class');
+    var message = {
+        "stateNameString": stateName,
+        "setNameString": setName
+    };
+    $.post("index.php?r=serviceset%2Fchange-state", message, onProjectStateChange, "json");
 });
 
-function onProjectClose(response)
+function onProjectStateChange(response)
 {
-    
+    if(response.success)
+    {
+        var set = 'status-bar-' + response.success.set;
+        var arr = $("." + set).children();
+        var counter = 0;
+        arr.each(function(i,elem) {
+            if(i < response.success.status) {
+                $(this).addClass('btn-success');
+                $(this).removeClass('btn-warning');
+            } else {
+                $(this).addClass('btn-warning');
+                $(this).removeClass('btn-success');
+            }
+        });
+    }
 }

@@ -7,6 +7,7 @@ use app\models\ServicesetSearch;
 use app\models\LoginForm;
 use app\models\SignupForm;
 use app\models\StateSearch;
+use app\models\StateCheck;
 use yii\web\Cookie;
 use yii\filters\VerbFilter;
 use yii\data\ArrayDataProvider;
@@ -67,10 +68,11 @@ class SiteController extends SecurityController
         } else {
             $searchModel = new ServicesetSearch();
             $state = new StateSearch();
+            $stateName = new StateCheck();
             $list = $state->getStateList();
             $dataProvider = [];
             $item = [];
-            for ($i = 1; $i <= count($list) - 1; $i++) {
+            for ($i = $stateName::MakeContact; $i <= $stateName::Close; $i++) {
                 $item['state'] = $list[$i];
                 $item['info'] = new ArrayDataProvider([
                     'allModels' => $searchModel->getServiceSetInfoByStateAndUser($i, Yii::$app->user->identity->id_user)
