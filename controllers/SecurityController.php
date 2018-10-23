@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\db\ActiveRecord;
+use app\models\Project;
 
 class SecurityController extends Controller
 {
@@ -39,7 +40,7 @@ class SecurityController extends Controller
                         }
                         break;
                     default:
-                        return $model;
+                        return false;
                 }
             }
 
@@ -109,6 +110,13 @@ class SecurityController extends Controller
         return $model;
     }
 
+    public function validateServisesetParam($model)
+    {
+        if (Project::findOne($model->id_project)->id_user == Yii::$app->user->identity->id_user) {
+            return true;
+        };
+    }
+
     public function takeStartParams($model)
     {
         $request = Yii::$app->request;
@@ -159,15 +167,5 @@ class SecurityController extends Controller
     public function takeStartClientParam($model, $request)
     {
         $model->id_user = Yii::$app->user->identity->id_user;
-    }
-
-    public function test($model, $request)
-    {
-
-    }
-
-    public function startFromZeroVersion($model)
-    {
-
     }
 }

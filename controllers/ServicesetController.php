@@ -9,7 +9,7 @@ use app\models\ServicesetSearch;
 use app\models\Servicelist;
 use app\models\ServicelistSearch;
 use app\models\Service;
-use app\models\State;
+use app\models\Project;
 use app\models\StateCheck;
 use app\models\StateSearch;
 use app\models\ServiceSearch;
@@ -26,7 +26,7 @@ use yii\web\Session;
 /**
  * ServicesetController implements the CRUD actions for Serviceset model.
  */
-class ServicesetController extends Controller
+class ServicesetController extends SecurityController
 {
     /**
      * {@inheritdoc}
@@ -80,7 +80,6 @@ class ServicesetController extends Controller
         $modelForm = new ServiceListForm();
         $service = new ServiceSearch();
         $itemsService = $service->getServiceListItems();
-
         if ($modelForm->loadServiceList()) {
             $data = $modelForm->getServiceList($id);
             $this->saveServiceListArray($data);
@@ -156,6 +155,7 @@ class ServicesetController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        print_r($model->tableName());
         $state = new StateSearch();
         $modelForm = new ServiceListForm();
         $service = new ServiceSearch();
@@ -170,38 +170,40 @@ class ServicesetController extends Controller
         $pathCurr = 'serviceset/update';
         $gettingId = $this->getReferrerId($address);
 
-        if ((($this->checkPage($address, $pathRefer)) && ($this->getReferrerId($address) != NULL)) || ($this->checkPage($address, $pathCurr))) {
-            try {
-                $data = 0;
+        print_r($model->tableName());
+        if ($this->validateServisesetParam($model)) {
+            if ((($this->checkPage($address, $pathRefer)) && ($this->getReferrerId($address) != NULL)) || ($this->checkPage($address, $pathCurr))) {
+                try {
+                    $data = 0;
 
-                if ($model->load(Yii::$app->request->post()) && $model->validate() && $modelForm->loadServiceList()) {
-                    $db = \Yii::$app->db;
-                    $transaction = $db->beginTransaction();
-                    try {
-                        $model->save();
-                        $data = $modelForm->getServiceList($id);
-                        $this->updateServiceListArray($data, $modelServiceList);
-                        $transaction->commit();
-                    } catch (Exception $e) {
-                        $transaction->rollback();
+                    if ($model->load(Yii::$app->request->post()) && $model->validate() && $modelForm->loadServiceList()) {
+                        $db = \Yii::$app->db;
+                        $transaction = $db->beginTransaction();
+                        try {
+                            $model->save();
+                            $data = $modelForm->getServiceList($id);
+                            $this->updateServiceListArray($data, $modelServiceList);
+                            $transaction->commit();
+                        } catch (Exception $e) {
+                            $transaction->rollback();
+                        }
+                        return $this->redirect(['project/view', 'id' => $model->id_project]);
                     }
-                    return $this->redirect(['project/view', 'id' => $model->id_project]);
+
+                    return $this->render('update', [
+                        'model' => $model,
+                        'itemsState' => $itemsState,
+                        'modelForm' => $modelForm,
+                        'itemsService' => $itemsService,
+                        'modelServiceList' => $modelServiceList,
+                        'data' => $data,
+                    ]);
+                } catch (StaleObjectException $e) {
+
+                    throw new StaleObjectException(Yii::t('app', 'Error data version'));
                 }
-
-                return $this->render('update', [
-                    'model' => $model,
-                    'itemsState' => $itemsState,
-                    'modelForm' => $modelForm,
-                    'itemsService' => $itemsService,
-                    'modelServiceList' => $modelServiceList,
-                    'data' => $data,
-                ]);
-            } catch (StaleObjectException $e) {
-
-                throw new StaleObjectException(Yii::t('app', 'Error data version'));
             }
         }
-
         return $this->redirect(['site/index']);
     }
 
@@ -219,7 +221,7 @@ class ServicesetController extends Controller
         try {
             if (($modelServiceList = ServiceList::findAll(['id_serviceset' => $id])) != null) {
                 foreach ($modelServiceList as $el) {
-                    $el -> delete();
+                    $el->delete();
                 }
             }
             $this->findModel($id)->delete();
@@ -264,30 +266,30 @@ class ServicesetController extends Controller
         $id_satate = null;
         $id = null;
 
-        if (($this->checkGetString($stateName, $getStateKey)) && ($this->checkGetString($servicesetNum, $getNumKey)))
-        {
-            $id_satate = $this -> getIdFromStringByKey($stateName, $getStateKey);
-            $id = $this -> getIdFromStringByKey($servicesetNum, $getNumKey);
+        if (($this->checkGetString($stateName, $getStateKey)) && ($this->checkGetString($servicesetNum, $getNumKey))) {
+            $id_satate = $this->getIdFromStringByKey($stateName, $getStateKey);
+            $id = $this->getIdFromStringByKey($servicesetNum, $getNumKey);
         }
 
         //Нужно добавить проверку номера serviceset
 
         if (($id_satate != null) && ($id != null)) {
             $model = $this->findModel($id);
-            $model->id_state = $id_satate;
-            $success = [
-                'set' => $id,
-                'status' => $id_satate
-            ];
-            ($model->save()) ? ($message['success'] = $success) : ($message['error'] = 'error');
-        }
+            if ($this->validateServisesetParam($model)) { //добавил сюда
+                $model->id_state = $id_satate;
+                $success = [
+                    'set' => $id,
+                    'status' => $id_satate
+                ];
+                ($model->save()) ? ($message['success'] = $success) : ($message['error'] = 'error');
+            }
 
-        if(!$message['success'])
-        {
-            $message['error'] = 'error';
-        }
+            if (!$message['success']) {
+                $message['error'] = 'error';
+            }
 
-        echo json_encode($message);
+            echo json_encode($message);
+        }
     }
 
 
@@ -298,7 +300,8 @@ class ServicesetController extends Controller
      * @return Serviceset the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected
+    function findModel($id)
     {
         if (($model = Serviceset::findOne($id)) !== null) {
             return $model;
@@ -307,7 +310,8 @@ class ServicesetController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    protected function findServiceList($id)
+    protected
+    function findServiceList($id)
     {
         $serviceListInfo = new ServicelistSearch();
         $setInfo = $serviceListInfo->getServiceSetInfo($id);
@@ -318,12 +322,13 @@ class ServicesetController extends Controller
         return $arr;
     }
 
-    protected function updateServiceListArray($arrData, $arrModel)
+    protected
+    function updateServiceListArray($arrData, $arrModel)
     {
 
         $num = min(count($arrData), count($arrModel));
 
-        if($num != 0) {
+        if ($num != 0) {
             for ($i = 0; $i < $num; $i++) {
                 $arrModel[$i]->saveServiceList($arrData[$i]);
             }
@@ -341,7 +346,8 @@ class ServicesetController extends Controller
         }
     }
 
-    protected function saveServiceListArray($arr)
+    protected
+    function saveServiceListArray($arr)
     {
         foreach ($arr as $item) {
             $model = new Servicelist();
@@ -349,7 +355,8 @@ class ServicesetController extends Controller
         }
     }
 
-    protected function saveNewServiceSet($project_id)
+    protected
+    function saveNewServiceSet($project_id)
     {
         $model = new Serviceset();
         $model->id_project = $project_id;
@@ -360,7 +367,8 @@ class ServicesetController extends Controller
         return $model->id_serviceset;
     }
 
-    protected function getReferrerId($str)
+    protected
+    function getReferrerId($str)
     {
         $result = NULL;
         parse_str($str, $el);
@@ -370,7 +378,8 @@ class ServicesetController extends Controller
         return $result;
     }
 
-    protected function checkPage($str, $path)
+    protected
+    function checkPage($str, $path)
     {
         $query = parse_url($str, PHP_URL_QUERY);
         parse_str($query, $el);
@@ -380,14 +389,16 @@ class ServicesetController extends Controller
         return false;
     }
 
-    protected function checkGetString($str, $key)
+    protected
+    function checkGetString($str, $key)
     {
         //проверить есть ли в $str выражение вида ' $key.-. цифра '
         $reg = '/' . $key . '-[0-9]{1,}/';
-        return preg_match($reg, $str,$result);
+        return preg_match($reg, $str, $result);
     }
 
-    protected function getIdFromStringByKey($str, $key)
+    protected
+    function getIdFromStringByKey($str, $key)
     {
         //найти в $str из выражение вида ' $key.-. цифра ' цифру
         $arr = explode(' ', $str);
@@ -395,15 +406,14 @@ class ServicesetController extends Controller
         $id = null;
         $counter = 0;
         foreach ($arr as $el) {
-            if(preg_match($reg, $el,$findEl)) {
+            if (preg_match($reg, $el, $findEl)) {
                 preg_match('/[0-9]{1,}/', $findEl[0], $result);
                 $id = $result[0];
-                $counter ++;
+                $counter++;
             }
         }
 
-        if ($counter != 1)
-        {
+        if ($counter != 1) {
             $id = null;
         }
 

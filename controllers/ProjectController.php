@@ -60,6 +60,9 @@ class ProjectController extends SecurityController
      */
     public function actionView($id)
     {
+
+        $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        print_r($actual_link);
         $searchModel = new ServicesetSearch();
         $dataProvider = $searchModel->searchProjectId($id);
         $servicesetInfo = $searchModel->getServiceSetInfoByProjectId($id);
