@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
-                <?= Html::a(\Yii::t('common', 'Signup'), ['/site/signup'], ['class'=>'btn btn-success']) ?>
+                <?= Html::a(\Yii::t('common', 'Signup'), ['/user/signup'], ['class'=>'btn btn-success']) ?>
             </div>
         </div>
 
