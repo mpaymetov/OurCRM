@@ -49,12 +49,12 @@ AppAsset::register($this);
     ];
 
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => \Yii::t('common', 'Log in'), 'url' => ['/site/login']];
+        $menuItems[] = ['label' => \Yii::t('common', 'Log in'), 'url' => ['/user/login']];
     } else {
         $menuItems[] = ['label' => \Yii::t('common', 'Users'), 'url' => ['/user/index']];
         $menuItems[] = ['label' => \Yii::t('common', 'Roles'), 'url' => ['/role/index']];
         $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
+            . Html::beginForm(['/user/logout'], 'post')
             . Html::submitButton(
                 \Yii::t('common', 'Logout (') . Yii::$app->user->identity->login . ')',
                 ['class' => 'btn btn-link logout']

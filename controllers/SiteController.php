@@ -4,8 +4,6 @@ namespace app\controllers;
 
 use Yii;
 use app\models\ServicesetSearch;
-use app\models\LoginForm;
-use app\models\SignupForm;
 use app\models\StateSearch;
 use app\models\StateCheck;
 use yii\web\Cookie;
@@ -64,67 +62,25 @@ class SiteController extends SecurityController
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {
-            return Yii::$app->getResponse()->redirect(array('/site/login', 302));
+            return Yii::$app->getResponse()->redirect(array('/user/login', 302));
         } else {
             $searchModel = new ServicesetSearch();
             $state = new StateSearch();
-            $stateName = new StateCheck();
             $list = $state->getStateList();
             $dataProvider = [];
             $item = [];
-            for ($i = $stateName::MakeContact; $i <= $stateName::Close; $i++) {
-                $item['state'] = $list[$i];
-                $item['info'] = new ArrayDataProvider([
-                    'allModels' => $searchModel->getServiceSetInfoByStateAndUser($i, Yii::$app->user->identity->id_user)
-                ]);
-                $dataProvider[] = $item;
-            }
+            for ($i = 1; $i <= count($list) - 1; $i++) {
+                    $item['state'] = $list[$i];
+                    $item['info'] = new ArrayDataProvider([
+                        'allModels' => $searchModel->getServiceSetInfoByStateAndUser($i, Yii::$app->user->identity->id_user)
+                    ]);
+                    $dataProvider[] = $item;
+                }
+
             return $this->render('index', [
                 'dataProvider' => $dataProvider,
             ]);
         }
-    }
-
-    public function actionLogin()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-        $model->password = '';
-        return $this->render('login', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Logout action.
-     */
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
-        return $this->goHome();
-    }
-
-    public function actionSignup()
-    {
-        $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post())) {
-            $this->takeStartParams($model);
-            if ($this->dataControl($model)) {
-                if ($user = $model->signup()) {
-                    if (Yii::$app->getUser()->login($user)) {
-                        return $this->goHome();
-                    }
-                }
-            }
-        }
-        return $this->render('signup', [
-            'model' => $model,
-        ]);
     }
 
     public function actionLanguage()
