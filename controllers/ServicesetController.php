@@ -11,7 +11,6 @@ use app\models\ServicelistSearch;
 use app\models\Service;
 use app\models\Project;
 use app\models\StateCheck;
-use app\models\StateSearch;
 use app\models\ServiceSearch;
 use app\models\ServiceListForm;
 use yii\web\Controller;
@@ -156,7 +155,7 @@ class ServicesetController extends SecurityController
     {
         $model = $this->findModel($id);
         print_r($model->tableName());
-        $state = new StateSearch();
+        $state = new StateCheck();
         $modelForm = new ServiceListForm();
         $service = new ServiceSearch();
         $itemsService = $service->getServiceListItems();
@@ -261,26 +260,49 @@ class ServicesetController extends SecurityController
         ];
         $stateName = $request->post('stateNameString');
         $servicesetNum = $request->post('setNameString');
+        $state = new StateCheck();
         $getStateKey = 'status';
         $getNumKey = 'status-bar';
-        $id_satate = null;
+        $id_state = null;
         $id = null;
 
         if (($this->checkGetString($stateName, $getStateKey)) && ($this->checkGetString($servicesetNum, $getNumKey))) {
-            $id_satate = $this->getIdFromStringByKey($stateName, $getStateKey);
+            $id_state = $this->getIdFromStringByKey($stateName, $getStateKey);
             $id = $this->getIdFromStringByKey($servicesetNum, $getNumKey);
         }
 
         //Нужно добавить проверку номера serviceset
 
-        if (($id_satate != null) && ($id != null)) {
+        if (($id_state != null) && ($id != null)) {
             $model = $this->findModel($id);
             if ($this->validateServisesetParam($model)) { //добавил сюда
-                $model->id_state = $id_satate;
+                $model->id_state = $id_state;
+
+                if($id_state < $state::Delivery) {
+                    $model->delivery = null;
+                }
+
+                if($id_state < $state::Payment) {
+                    $model->payment = null;
+                }
+
                 $success = [
                     'set' => $id,
-                    'status' => $id_satate
+                    'status' => $id_state,
+                    'delivery' => $state::Delivery,
+                    'payment' => $state::Payment,
                 ];
+
+                if($id_state == $state::Delivery) {
+                    $model->delivery = date("Y-m-d");
+                    $success['delivery_date'] = $model->delivery;
+                }
+
+                if($id_state == $state::Payment) {
+                    $model->payment = date("Y-m-d");
+                    $success['payment_date'] = $model->payment;
+                }
+
                 ($model->save()) ? ($message['success'] = $success) : ($message['error'] = 'error');
             }
 

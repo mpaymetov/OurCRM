@@ -17,9 +17,8 @@ function onProjectStateChange(response)
     {
         var set = 'status-bar-' + response.success.set;
         var arr = $("." + set).children();
-        var counter = 0;
-        arr.each(function(i,elem) {
-            if(i < response.success.status) {
+        arr.each(function(i, elem) {
+            if(i <= response.success.status) {
                 $(this).addClass('btn-success');
                 $(this).removeClass('btn-warning');
             } else {
@@ -27,5 +26,21 @@ function onProjectStateChange(response)
                 $(this).removeClass('btn-success');
             }
         });
+
+        if (response.success.status < response.success.payment) {
+            $("." + 'payment-' + response.success.set).html('Дата оплаты: --');
+        }
+
+        if (response.success.status < response.success.delivery) {
+            $("." + 'delivery-' + response.success.set).html('Дата поставки: --');
+        }
+
+        if(response.success.payment_date) {
+            $("." + 'payment-' + response.success.set).html('Дата оплаты: ' + response.success.payment_date);
+        }
+
+        if(response.success.delivery_date) {
+            $("." + 'delivery-' + response.success.set).html('Дата поставки: ' + response.success.delivery_date);
+        }
     }
 }

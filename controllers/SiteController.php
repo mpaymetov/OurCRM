@@ -4,7 +4,6 @@ namespace app\controllers;
 
 use Yii;
 use app\models\ServicesetSearch;
-use app\models\StateSearch;
 use app\models\StateCheck;
 use yii\web\Cookie;
 use yii\filters\VerbFilter;
@@ -65,11 +64,11 @@ class SiteController extends SecurityController
             return Yii::$app->getResponse()->redirect(array('/user/login', 302));
         } else {
             $searchModel = new ServicesetSearch();
-            $state = new StateSearch();
+            $state = new StateCheck();
             $list = $state->getStateList();
             $dataProvider = [];
             $item = [];
-            for ($i = 1; $i <= count($list) - 1; $i++) {
+            for ($i = $state::MakeContact; $i <= $state::Close; $i++) {
                     $item['state'] = $list[$i];
                     $item['info'] = new ArrayDataProvider([
                         'allModels' => $searchModel->getServiceSetInfoByStateAndUser($i, Yii::$app->user->identity->id_user)

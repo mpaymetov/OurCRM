@@ -65,7 +65,7 @@ echo Html::beginTag('div', $options);
     } else {
         $content .= Html::encode('--');
     }
-    echo Html::tag('div', $content, []);
+    echo Html::tag('div', $content, ['class'=>'payment-' . $model['id']]);
 
     $content = \Yii::t('common', 'Delivery') . ': ';
     if ($model['delivery'] != null) {
@@ -73,6 +73,6 @@ echo Html::beginTag('div', $options);
     } else {
         $content .= Html::encode('--');
     }
-    echo Html::tag('div', $content, []);
+    echo Html::tag('div', $content, ['class'=>'delivery-' . $model['id']]);
 echo Html::endTag('div');
 ?>

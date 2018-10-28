@@ -14,15 +14,15 @@ use yii\validators\NumberValidator;
 
 class StateCheck extends Model
 {
-    const MakeContact = 1;
-    const IdentifyNeed = 2;
-    const Invoicing = 3;
-    const Payment = 4;
-    const Delivery = 5;
-    const Close = 6;
-    const Сancellation = 7;
+    const MakeContact = 0;
+    const IdentifyNeed = 1;
+    const Invoicing = 2;
+    const Payment = 3;
+    const Delivery = 4;
+    const Close = 5;
+    const Сancellation = 6;
 
-    /*private $stateList = [
+    private $stateList = [
         'Установление контакта',
         'Выявление потребностей',
         'Выставление счета',
@@ -32,7 +32,7 @@ class StateCheck extends Model
         'Отказ'
     ];
 
-   /* public $currState;
+   public $currState;
 
     public function rules()
     {
@@ -48,7 +48,7 @@ class StateCheck extends Model
         return [
             'currState' =>Yii::t('common', 'State'),
         ];
-    }*/
+    }
 
     public function ValidateState($id_state)
     {
