@@ -97,4 +97,5 @@ return [
     'Analytics' => 'Аналитика',
     'Close' => 'Закрыть',
     'Сancellation' => 'Отказ',
+    'Statistic' => 'Статистика',
 ];
