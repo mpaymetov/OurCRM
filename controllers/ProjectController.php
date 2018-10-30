@@ -42,9 +42,6 @@ class ProjectController extends SecurityController
     {
 
         $searchModel = new ProjectSearch();
-        if (!\Yii::$app->user->can('updateItem', ['items' => $searchModel])) {
-            throw new ForbiddenHttpException('Access denied');
-        }
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('index', [
             'searchModel' => $searchModel,
