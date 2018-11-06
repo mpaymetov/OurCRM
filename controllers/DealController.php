@@ -17,12 +17,21 @@ class DealController extends Controller
     {
         $answer = DealService::actionDealCreate(); // возвращяем объект и экшн который нужно применить к объекту
         $action = ArrayHelper::getValue($answer, 'action');
-        $model = ArrayHelper::getValue($answer, 'model');
+        $user = ArrayHelper::getValue($answer, 'user');
+        $client = ArrayHelper::getValue($answer, 'client');
+        $project = ArrayHelper::getValue($answer, 'project');
+
         if ($action == 'redirect') {
-            return $this->redirect(['create']);
+            return $this->redirect(['view', [
+                'user' => $user,
+                'client' => $client,
+                'project' => $project,]]);
         } elseif ($action == 'curr') {
-            return $this->render('update', [
-                'model' => $model,]);
+            return $this->render('create', [
+                'user' => $user,
+                'client' => $client,
+                'project' => $project,
+            ]);
         }
         /* $user = User::findOne(Yii::$app->user->identity->id_user);
          $project = new Project();

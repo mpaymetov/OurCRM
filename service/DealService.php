@@ -1,17 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: hp
- * Date: 06.11.2018
- * Time: 20:00
- */
 
 namespace app\service;
 
-use app\models\User;
 use Yii;
+use app\models\User;
 use app\models\Project;
 use app\models\Client;
+
 class DealService
 {
     public static function actionDealCreate()
@@ -32,7 +27,12 @@ class DealService
                     $client->save(false);
                     $project->id_client = $client->id_client;
                     $project->save(false);
-                    return ['action' => 'redirect'];
+                    return [
+                        'user' => $user,
+                        'project' => $project,
+                        'client' => $client,
+                        'action' => 'redirect',
+                    ];
                 }
             }
         }

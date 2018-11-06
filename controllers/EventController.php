@@ -2,13 +2,10 @@
 
 namespace app\controllers;
 
-use app\models\EventSearch;
 use Yii;
 use app\models\Event;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\db\StaleObjectException;
-use app\models\User;
 use app\service\EventService;
 use yii\helpers\ArrayHelper;
 
