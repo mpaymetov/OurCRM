@@ -43,11 +43,10 @@ class EventService extends SecurityController
                 $model->save();
                 return ("OK");
             }
-
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return  ['model' => $model,];
+                return  ['model' => $model, 'action' => 'redirect'];
             };
-            return ['model' => $model,];
+            return ['model' => $model, 'action' => 'curr'];
         } catch
         (StaleObjectException $e) {
             throw new StaleObjectException(Yii::t('app', 'Error data version'));

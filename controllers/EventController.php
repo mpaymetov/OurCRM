@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use yii\db\StaleObjectException;
 use app\models\User;
 use app\service\EventService;
+use yii\helpers\ArrayHelper;
 
 /**
  * EventController implements the CRUD actions for Event model.
@@ -83,7 +84,16 @@ class EventController extends SecurityController
      */
     public function actionUpdate($id)
     {
-        return $this->render('update', EventService::actionEventUpdateRequest($id));
+        $answer = EventService::actionEventUpdateRequest($id);
+        $action = ArrayHelper::getValue($answer, 'action');
+        $model = ArrayHelper::getValue($answer, 'model');
+        if ($action == 'redirect') {
+            return $this->redirect(['view', 'id' => $model->id_event]);
+        } elseif ($action == 'curr') {
+            return $this->render('update', [
+                'model' => $model,]);
+        }
+
     }
 
     /**
