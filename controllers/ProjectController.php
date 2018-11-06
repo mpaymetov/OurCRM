@@ -13,6 +13,7 @@ use yii\data\ArrayDataProvider;
 use app\models\EventSearch;
 use yii\db\StaleObjectException;
 use yii\web\ForbiddenHttpException;
+use app\db_modul\servisetDbQuery;
 
 /**
  * ProjectController implements the CRUD actions for Project model.
@@ -61,8 +62,9 @@ class ProjectController extends SecurityController
         $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         print_r($actual_link);
         $searchModel = new ServicesetSearch();
-        $dataProvider = $searchModel->searchProjectId($id);
-        $servicesetInfo = $searchModel->getServiceSetInfoByProjectId($id);
+        $dataProvider = $searchModel->searchProjectById($id);
+        $servicesetData = new servisetDbQuery();
+        $servicesetInfo = $servicesetData->getServiceSetInfoByProjectId($id);
         $serviceListDataProvider = [];
         for ($i = 0; $i < count($servicesetInfo); $i++) {
             $info = $servicesetInfo[$i];

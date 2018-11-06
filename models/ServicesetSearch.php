@@ -71,7 +71,7 @@ class ServicesetSearch extends Serviceset
         return $dataProvider;
     }
 
-    public function searchProjectId($id)
+    public function searchProjectById($id)
     {
         $query = Serviceset::find();
         // add conditions that should always apply here
@@ -85,57 +85,7 @@ class ServicesetSearch extends Serviceset
         return $dataProvider;
     }
 
-    public function getServiceSetInfoByProjectId($id)
-    {
-       /* $provider = new SqlDataProvider([
-            'sql' => 'SELECT [[serviceset.id_serviceset]] AS id, [[state.name]] AS state,
-            [[serviceset.delivery]] AS delivery, [[serviceset.payment]] AS payment, [[serviceset.is_open]] AS isOpen
-            FROM {{serviceset}}
-            LEFT JOIN {{state}} ON [[state.id_state]]=[[serviceset.id_state]]
-            WHERE [[id_project]]=:id_project',
-            'params' => [':id_project' => $id],
-        ]);*/
 
-
-        $provider = (new \yii\db\Query())
-            ->select(['id_serviceset AS id', 'id_state AS state', 'delivery AS delivery', 'payment AS payment', 'is_open AS isOpen'])
-            ->from('serviceset')
-            ->where('id_project=:id_project', [':id_project' => $id])
-            ->all();
-
-
-        $state = new StateCheck();
-        foreach ($provider as &$item) {
-            $i = $item['state'];
-            $item['state'] =['id_state' => $i, 'name' => $state->getStateName($i)];
-            $item['list'] = $state->getStateList();
-        }
-
-        return $provider;
-    }
-
-    public function getServiceSetInfoByStateAndUser($idState, $idUser)
-    {
-         $provider = (new \yii\db\Query())
-            ->select(['project.id_project AS id',
-                    'client.name AS client',
-                    'project.name AS project_name',
-                    'serviceset.payment AS payment_date',
-                    'SUM(service.cost) AS cost',
-                    'project.comment AS comment'])
-            ->from('serviceset')
-            ->leftJoin('project', 'project.id_project=serviceset.id_project')
-            ->leftJoin('servicelist', 'servicelist.id_serviceset=serviceset.id_serviceset')
-            ->leftJoin('service', 'service.id_service=servicelist.id_service')
-            ->leftJoin('client', 'client.id_client=project.id_client')
-            ->where([
-                'project.id_user' => $idUser,
-                'serviceset.id_state' => $idState,
-            ])
-            ->groupBy('serviceset.id_serviceset')
-            ->all();
-         return $provider;
-    }
 
 
 
