@@ -13,10 +13,8 @@ use app\models\ServiceListForm;
 
 class ServiceListFormHandler
 {
-    public function loadServiceList()
+    public function loadServiceList($list)
     {
-        $list = new ServiceListForm();
-
         if(!(($list->load(\Yii::$app->request->post())) && ($list->validate())))
         {
             $errors = $list->errors;

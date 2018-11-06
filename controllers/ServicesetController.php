@@ -2,25 +2,19 @@
 
 namespace app\controllers;
 
-use phpDocumentor\Reflection\Types\Null_;
+
 use Yii;
 use app\models\Serviceset;
-use app\models\ServicesetSearch;
 use app\models\Servicelist;
-use app\models\ServicelistSearch;
-use app\models\Service;
-use app\models\Project;
 use app\models\StateCheck;
 use app\models\ServiceSearch;
 use app\models\ServiceListForm;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\StaleObjectException;
 use yii\helpers\ArrayHelper;
-use yii\data\ArrayDataProvider;
-use yii\web\Request;
-use yii\web\Session;
+use app\service\ServicesetHandler;
+use app\service\ServiceListFormHandler;
 
 /**
  * ServicesetController implements the CRUD actions for Serviceset model.
@@ -49,7 +43,7 @@ class ServicesetController extends SecurityController
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+   /* public function actionView($id)
     {
         $model = $this->findModel($id);
         $modelForm = new ServiceListForm();
@@ -66,7 +60,7 @@ class ServicesetController extends SecurityController
             'modelForm' => $modelForm,
             'itemsService' => $itemsService,
         ]);
-    }
+    }*/
 
     /**
      * Creates a new Serviceset model.
@@ -76,22 +70,26 @@ class ServicesetController extends SecurityController
     public function actionCreate()
     {
         $modelForm = new ServiceListForm();
-        $service = new ServiceSearch();
+        $listHandler = new ServiceListFormHandler();
+
         $stateName = new StateCheck();
+
+        $service = new ServiceSearch();
         $itemsService = $service->getServiceListItems();
 
         $session = Yii::$app->session;
         $address = Yii::$app->request->getReferrer();
         $pathRefer = 'project/view';
         $pathCurr = 'serviceset/create';
-        $gettingId = $this->getReferrerId($address);
+        $setHandler = new ServicesetHandler();
+        $gettingId = $setHandler->getReferrerId($address);
 
-        if ((($this->checkPage($address, $pathRefer)) && ($this->getReferrerId($address) != NULL)) || ($this->checkPage($address, $pathCurr))) {
+        if ((($setHandler->checkPage($address, $pathRefer)) && ($setHandler->getReferrerId($address) != NULL)) || ($setHandler->checkPage($address, $pathCurr))) {
             if (!ArrayHelper::keyExists('id_project', $session)) {
                 $session->set('id_project', $gettingId);
             }
 
-            if ($modelForm->loadServiceList()) {
+            if ($listHandler->loadServiceList($modelForm)) {
                 $db = \Yii::$app->db;
                 $transaction = $db->beginTransaction();
                 try {
@@ -100,8 +98,8 @@ class ServicesetController extends SecurityController
                     $model->id_state = $stateName::MakeContact;
                     $model->save();
                     $id = $model->id_serviceset;
-                    $data = $modelForm->getServiceList($id);
-                    $this->saveServiceListArray($data);
+                    $data = $listHandler->getServiceList($id, $modelForm);
+                    $setHandler->saveServiceListArray($data);
                     $transaction->commit();
                 } catch (Exception $e) {
                     $transaction->rollback();
@@ -130,34 +128,42 @@ class ServicesetController extends SecurityController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $setHandler = new ServicesetHandler();
         print_r($model->tableName());
-        $state = new StateCheck();
+
         $modelForm = new ServiceListForm();
+        $listHandler = new ServiceListFormHandler();
+
         $service = new ServiceSearch();
         $itemsService = $service->getServiceListItems();
+
+        $state = new StateCheck();
         $itemsState = $state->getStateList();
-        $modelForm->serviceList = $this->findServiceList($id);
+
+        $modelForm->serviceList = $setHandler->findServiceList($id);
         $modelServiceList = ServiceList::findAll(['id_serviceset' => $id]);
 
         $session = Yii::$app->session;
         $address = Yii::$app->request->getReferrer();
         $pathRefer = 'project/view';
         $pathCurr = 'serviceset/update';
-        $gettingId = $this->getReferrerId($address);
+
+
+        $gettingId = $setHandler->getReferrerId($address);
 
         print_r($model->tableName());
-        if ($this->validateServisesetParam($model)) {
-            if ((($this->checkPage($address, $pathRefer)) && ($this->getReferrerId($address) != NULL)) || ($this->checkPage($address, $pathCurr))) {
+        //if ($this->validateServisesetParam($model)) {
+            if ((($setHandler->checkPage($address, $pathRefer)) && ($setHandler->getReferrerId($address) != NULL)) || ($setHandler->checkPage($address, $pathCurr))) {
                 try {
                     $data = 0;
 
-                    if ($model->load(Yii::$app->request->post()) && $model->validate() && $modelForm->loadServiceList()) {
+                    if ($model->load(Yii::$app->request->post()) && $model->validate() && $listHandler->loadServiceList($modelForm)) {
                         $db = \Yii::$app->db;
                         $transaction = $db->beginTransaction();
                         try {
                             $model->save();
-                            $data = $modelForm->getServiceList($id);
-                            $this->updateServiceListArray($data, $modelServiceList);
+                            $data = $listHandler->getServiceList($id, $modelForm);
+                            $setHandler->updateServiceListArray($data, $modelServiceList);
                             $transaction->commit();
                         } catch (Exception $e) {
                             $transaction->rollback();
@@ -178,7 +184,7 @@ class ServicesetController extends SecurityController
                     throw new StaleObjectException(Yii::t('app', 'Error data version'));
                 }
             }
-        }
+        //}
         return $this->redirect(['site/index']);
     }
 
@@ -229,6 +235,7 @@ class ServicesetController extends SecurityController
 
     public function actionChangeState()
     {
+        $setHandler = new ServicesetHandler();
         $request = Yii::$app->request;
         $message = [
             'success' => '',
@@ -242,16 +249,16 @@ class ServicesetController extends SecurityController
         $id_state = null;
         $id = null;
 
-        if (($this->checkGetString($stateName, $getStateKey)) && ($this->checkGetString($servicesetNum, $getNumKey))) {
-            $id_state = $this->getIdFromStringByKey($stateName, $getStateKey);
-            $id = $this->getIdFromStringByKey($servicesetNum, $getNumKey);
+        if (($setHandler->checkGetString($stateName, $getStateKey)) && ($setHandler->checkGetString($servicesetNum, $getNumKey))) {
+            $id_state = $setHandler->getIdFromStringByKey($stateName, $getStateKey);
+            $id = $setHandler->getIdFromStringByKey($servicesetNum, $getNumKey);
         }
 
         //Нужно добавить проверку номера serviceset
 
         if (($id_state != null) && ($id != null)) {
             $model = $this->findModel($id);
-            if ($this->validateServisesetParam($model)) { //добавил сюда
+           // if ($this->validateServisesetParam($model)) { //добавил сюда
                 $model->id_state = $id_state;
 
                 if($id_state < $state::Delivery) {
@@ -280,7 +287,7 @@ class ServicesetController extends SecurityController
                 }
 
                 ($model->save()) ? ($message['success'] = $success) : ($message['error'] = 'error');
-            }
+            //}
 
             if (!$message['success']) {
                 $message['error'] = 'error';
@@ -306,115 +313,5 @@ class ServicesetController extends SecurityController
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-    protected
-    function findServiceList($id)
-    {
-        $serviceListInfo = new ServicelistSearch();
-        $setInfo = $serviceListInfo->getServiceSetInfo($id);
-        $arr = [];
-        for ($i = 0; $i < count($setInfo); $i++) {
-            $arr[$i] = ['Service' => $setInfo[$i]['id']];
-        }
-        return $arr;
-    }
-
-    protected
-    function updateServiceListArray($arrData, $arrModel)
-    {
-
-        $num = min(count($arrData), count($arrModel));
-
-        if ($num != 0) {
-            for ($i = 0; $i < $num; $i++) {
-                $arrModel[$i]->saveServiceList($arrData[$i]);
-            }
-        }
-
-        if (count($arrData) > count($arrModel)) {
-            for ($i = $num; $i < count($arrData); $i++) {
-                $model = new Servicelist();
-                $model->saveServiceList($arrData[$i]);
-            }
-        }
-
-        for ($i = $num; $i < count($arrModel); $i++) {
-            $arrModel[$i]->delete();
-        }
-    }
-
-    protected
-    function saveServiceListArray($arr)
-    {
-        foreach ($arr as $item) {
-            $model = new Servicelist();
-            $model->saveServiceList($item);
-        }
-    }
-
-    protected
-    function saveNewServiceSet($project_id)
-    {
-        $model = new Serviceset();
-        $model->id_project = $project_id;
-        $model->id_state = 1;
-        if (!($model->save())) {
-            return NULL;
-        }
-        return $model->id_serviceset;
-    }
-
-    protected
-    function getReferrerId($str)
-    {
-        $result = NULL;
-        parse_str($str, $el);
-        if (ArrayHelper::keyExists('id', $el)) {
-            $result = (integer)$el['id'];
-        }
-        return $result;
-    }
-
-    protected
-    function checkPage($str, $path)
-    {
-        $query = parse_url($str, PHP_URL_QUERY);
-        parse_str($query, $el);
-        if (ArrayHelper::keyExists('r', $el)) {
-            return ($el['r'] === $path);
-        }
-        return false;
-    }
-
-    protected
-    function checkGetString($str, $key)
-    {
-        //проверить есть ли в $str выражение вида ' $key.-. цифра '
-        $reg = '/' . $key . '-[0-9]{1,}/';
-        return preg_match($reg, $str, $result);
-    }
-
-    protected
-    function getIdFromStringByKey($str, $key)
-    {
-        //найти в $str из выражение вида ' $key.-. цифра ' цифру
-        $arr = explode(' ', $str);
-        $reg = '/' . $key . '-[0-9]{1,}/';
-        $id = null;
-        $counter = 0;
-        foreach ($arr as $el) {
-            if (preg_match($reg, $el, $findEl)) {
-                preg_match('/[0-9]{1,}/', $findEl[0], $result);
-                $id = $result[0];
-                $counter++;
-            }
-        }
-
-        if ($counter != 1) {
-            $id = null;
-        }
-
-        return $id;
     }
 }
