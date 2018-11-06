@@ -2,14 +2,14 @@
 
 namespace app\controllers;
 
+use app\models\EventSearch;
 use Yii;
 use app\models\Event;
-use app\models\EventSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\StaleObjectException;
 use app\models\User;
-use yii\db\ActiveRecord;
+use app\service\EventService;
 
 /**
  * EventController implements the CRUD actions for Event model.
@@ -37,12 +37,7 @@ class EventController extends SecurityController
      */
     public function actionIndex()
     {
-        $searchModel = new EventSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        return $this->render('index', EventService::actionEventIndexRequest());
     }
 
     /**
@@ -53,9 +48,8 @@ class EventController extends SecurityController
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        return $this->render('view', EventService::actionEventViewRequest($id) //костыльно?
+        );
     }
 
     /**
@@ -89,35 +83,7 @@ class EventController extends SecurityController
      */
     public function actionUpdate($id)
     {
-        $session = Yii::$app->session;
-        $session->set('id_event', $id);
-
-        $model = $this->findModel($id);
-        try {
-            if ($this->dataControl($model)) {
-                if (\Yii::$app->request->isAjax) {
-                    if ($model->is_active == 0) {
-                        $model->is_active = 1;
-                    } else {
-                        $model->is_active = 0;
-                    };
-                    $model->save();
-                    return ("OK");
-                }
-
-                if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id_event]);
-                };
-                return $this->render('update', [
-                    'model' => $model,]);
-            }
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        } catch
-        (StaleObjectException $e) {
-            throw new StaleObjectException(Yii::t('app', 'Error data version'));
-        }
+        return $this->render('update', EventService::actionEventUpdateRequest($id));
     }
 
     /**
@@ -140,14 +106,4 @@ class EventController extends SecurityController
      * @return Event the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
-        if (($model = Event::findOne($id)) !== null) {
-            if ($this->compareUserId($model)) {
-                return $model;
-            }
-        }
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
-    }
-
 }

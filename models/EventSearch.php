@@ -75,6 +75,7 @@ class EventSearch extends Event
             $query->andFilterWhere(['like', 'message', $this->message])
                 ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user)
                 ->andWhere('event.is_active != 0')
+                ->andWhere('event.is_active != 0')
                 ->andWhere('event.assignment  >= ' . "'" . $date . "'");
         } else {
             $query->andFilterWhere(['like', 'message', $this->message])
@@ -163,5 +164,13 @@ class EventSearch extends Event
 
             return $eventDataProvider;
         }
+    }
+
+    public function findModel($id)
+    {
+        if (($model = Event::findOne($id)) !== null) {
+            return $model;
+        }
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 }

@@ -40,7 +40,7 @@ class UserController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index', UserService::actionIndexRequest());
+        return $this->render('index', UserService::actionUserIndexRequest());
     }
 
     /**

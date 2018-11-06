@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
     ]) ?>
 
     <?php echo '<div class="form-group"> <label class = "control-label">Создавший</label>
-                <div class = "form-control ">' . $user. '</div> </div>' ?>
+                <div class = "form-control ">' . $model->id_user. '</div> </div>' ?>
 
     <?= $form->field($model, 'id_doer')->textInput(['maxlength' => true]) ?>
 
