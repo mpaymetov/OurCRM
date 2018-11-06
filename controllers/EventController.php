@@ -2,13 +2,10 @@
 
 namespace app\controllers;
 
-use app\models\EventSearch;
 use Yii;
 use app\models\Event;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\db\StaleObjectException;
-use app\models\User;
 use app\service\EventService;
 use yii\helpers\ArrayHelper;
 
@@ -60,19 +57,15 @@ class EventController extends SecurityController
      */
     public function actionCreate()
     {
-        $model = new Event();
-        $user_name = User::findNameById(Yii::$app->user->identity->id_user);
-        $this->takeStartParams($model);
-        if ($this->dataControl($model)) {
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id_event]);
-            }
+        $answer = EventService::actionEventCreateRequest(); // возвращяем объект и экшн который нужно применить к объекту
+        $action = ArrayHelper::getValue($answer, 'action');
+        $model = ArrayHelper::getValue($answer, 'model');
+        if ($action == 'redirect') {
+            return $this->redirect(['view', 'id' => $model->id_event]);
+        } elseif ($action == 'curr') {
+            return $this->render('update', [
+                'model' => $model,]);
         }
-        return $this->render('create', [
-            'model' => $model,
-            'user' => $user_name,
-        ]);
-
     }
 
     /**
@@ -84,7 +77,7 @@ class EventController extends SecurityController
      */
     public function actionUpdate($id)
     {
-        $answer = EventService::actionEventUpdateRequest($id);
+        $answer = EventService::actionEventUpdateRequest($id); // возвращяем объект и экшн который нужно применить к объекту
         $action = ArrayHelper::getValue($answer, 'action');
         $model = ArrayHelper::getValue($answer, 'model');
         if ($action == 'redirect') {
@@ -93,7 +86,6 @@ class EventController extends SecurityController
             return $this->render('update', [
                 'model' => $model,]);
         }
-
     }
 
     /**

@@ -2,10 +2,11 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\models\User;
+use app\service\UserService;
 
-/* @var $user app\models\User */
-/* @var $project app\models\Project */
+/* @var $user app\service\DealService */
+/* @var $project app\service\DealService */
+/* @var $client app\service\DealService */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 <div class="deal-form">
@@ -15,7 +16,7 @@ use app\models\User;
         'options' => ['class' => 'form-horizontal'],
     ]) ?>
     <?php echo '<div class="form-group"> <label class = "control-label">Создавший</label>
-                <div class = "form-control ">' . (User::findNameById($user->id_user)) . '</div> </div>' ?>
+                <div class = "form-control ">' . UserService::findNameById($user->id_user) . '</div> </div>' ?>
     <h4>Клиент</h4>
     <?= $form->field($client, 'name') ?>
     <?= $form->field($client, 'comment') ?>

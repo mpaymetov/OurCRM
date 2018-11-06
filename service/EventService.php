@@ -6,6 +6,8 @@ use app\controllers\SecurityController;
 use Yii;
 use app\models\Event;
 use app\models\EventSearch;
+use app\service\UserServise;
+use app\service\StartParamsService;
 
 
 class EventService extends SecurityController
@@ -53,5 +55,22 @@ class EventService extends SecurityController
         }
     }
 
-
+    public static function actionEventCreateRequest()
+    {
+        $model = new Event();
+        $user_name = UserService::findNameById(Yii::$app->user->identity->id_user);
+        $startParams = new StartParamsService();
+        $startParams->takeStartParams($model);
+        $dataControl = new DataControlService();
+        if ($dataControl->dataControl($model)) {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return ['model' => $model, 'action' => 'redirect'];
+            }
+        }
+        return  [
+            'model' => $model,
+            'action'=> 'curr',
+            'user' => $user_name,
+        ];
+    }
 }
