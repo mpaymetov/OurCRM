@@ -6,7 +6,7 @@
  * Time: 21:25
  */
 
-namespace app\db_modul;
+namespace app\db_modules;
 
 use yii\data\ActiveDataProvider;
 use app\models\Serviceset;
@@ -57,7 +57,7 @@ class servisetDbQuery
             ->all();
         return $data;
     }
-    
+
 
 
 }
