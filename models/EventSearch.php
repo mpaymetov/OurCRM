@@ -71,7 +71,6 @@ class EventSearch extends Event
 
         if ($location == 'index') {
             $date = date('Y-m-d'); // сверяем только по суткам, после 12 не закрытые события переходят в незавершенные
-            var_dump($date);
             $query->andFilterWhere(['like', 'message', $this->message])
                 ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user)
                 ->andWhere('event.is_active != 0')

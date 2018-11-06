@@ -9,11 +9,6 @@ use app\models\Project;
 
 class SecurityController extends Controller
 {
-    public function actionIndex()
-    {
-        return $this->render('index');
-    }
-
     public function dataControl($model)
     {
         if ($this->compareUserId($model)) {
