@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\ServicesetSearch;
+use app\db_modules\servisetDbQuery;
 use app\models\StateCheck;
 use yii\web\Cookie;
 use yii\filters\VerbFilter;
@@ -63,7 +63,7 @@ class SiteController extends SecurityController
         if (Yii::$app->user->isGuest) {
             return Yii::$app->getResponse()->redirect(array('/user/login', 302));
         } else {
-            $searchModel = new ServicesetSearch();
+            $searchModel = new servisetDbQuery();
             $state = new StateCheck();
             $list = $state->getStateList();
             $dataProvider = [];

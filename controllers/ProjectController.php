@@ -13,7 +13,7 @@ use yii\data\ArrayDataProvider;
 use app\models\EventSearch;
 use yii\db\StaleObjectException;
 use yii\web\ForbiddenHttpException;
-use app\db_modul\servisetDbQuery;
+use app\db_modules\servisetDbQuery;
 
 /**
  * ProjectController implements the CRUD actions for Project model.
