@@ -42,30 +42,6 @@ class ServicesetController extends SecurityController
         ];
     }
 
-    /**
-     * Lists all Serviceset models.
-     * @return mixed
-     */
-    /*public function actionIndex()
-    {
-        $searchModel = new ServicesetSearch();
-        $state = new StateCheck();
-        $list = $state->getStateList();
-        $dataProvider = [];
-        $item = [];
-        for($i = 0; $i < count($list) - 1; $i++)
-        {
-            $item['state'] = $list[$i];
-            $item['info'] = new ArrayDataProvider([
-                'allModels' => $searchModel->getServiceSetInfoByStateAndUser($i, Yii::$app->user->identity->id_user)
-                ]);
-            $dataProvider[] = $item;
-        }
-
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-        ]);
-    }*/
 
     /**
      * Displays a single Serviceset model.

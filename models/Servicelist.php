@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "servicelist".
@@ -72,6 +73,10 @@ class Servicelist extends \yii\db\ActiveRecord
 
     public function saveServiceList($data)
     {
+        if(!(ArrayHelper::keyExists('id_serviceset', $data) && ArrayHelper::keyExists('id_service', $data))) {
+            return false;
+        }
+
         $this->id_serviceset = $data['id_serviceset'];
         $this->id_service = $data['id_service'];
         return $this->save();

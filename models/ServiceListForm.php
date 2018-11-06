@@ -42,38 +42,11 @@ class ServiceListForm extends \yii\base\Model
             $validator = new NumberValidator();
             $error = null;
             $validator->validate($item, $error);
+            $validator->integerOnly = true;
             if (!empty($error)) {
                 $key = $serviceList . '[' . $index . ']';
                 $this->addError($key, $error);
             }
         }
-    }
-
-    public function loadServiceList()
-    {
-        if(!(($this->load(\Yii::$app->request->post())) && ($this->validate())))
-            {
-                $errors = $this->errors;
-                return false;
-            }
-        return true;
-    }
-
-
-    public function getServiceList($id)
-    {
-        $data = [];
-        $arr = $this->serviceList['Service'];
-        $i = 0;
-        $num = count($arr);
-        foreach ($arr as $item)
-        {
-            $data[$i] = [
-                'id_serviceset' => $id,
-                'id_service' =>  $item,
-            ];
-            $i++;
-        }
-        return $data;
     }
 }

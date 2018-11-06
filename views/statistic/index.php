@@ -9,8 +9,8 @@
 use yii\helpers\Html;
 use scotthuangzl\googlechart\GoogleChart;
 
-//var_dump($model);
-
-echo GoogleChart::widget(array('visualization' => 'ColumnChart',
-    'data' => $model,
-    'options' => array('title' => 'Chart')));
+echo Html::beginTag('div', ['class' => 'chart']);
+    echo GoogleChart::widget(array('visualization' => 'ColumnChart',
+        'data' => $model,
+        'options' => array('title' => 'Chart')));
+echo Html::endTag('div');

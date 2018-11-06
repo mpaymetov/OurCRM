@@ -68,14 +68,13 @@ class ProjectController extends SecurityController
         $serviceListDataProvider = [];
         for ($i = 0; $i < count($servicesetInfo); $i++) {
             $info = $servicesetInfo[$i];
-            $searchServiceList = new ServicelistSearch();
             $serviceListDataProvider[$i] = array(
                 'ServiceSetInfo' => new ArrayDataProvider([
                     'allModels' => array(
                         0 => $info),
                 ]),
                 'ServiceListInfo' => new ArrayDataProvider([
-                    'allModels' => $searchServiceList->getServiceSetInfo($info['id']),
+                    'allModels' => $servicesetData->getServiceSetInfo($info['id']),
                 ]),
             );
         }

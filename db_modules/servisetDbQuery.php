@@ -9,6 +9,7 @@
 namespace app\db_modules;
 
 use yii\data\ActiveDataProvider;
+use yii\data\SqlDataProvider;
 use app\models\Serviceset;
 use app\models\StateCheck;
 
@@ -58,6 +59,19 @@ class servisetDbQuery
         return $data;
     }
 
+    public function getServiceSetInfo($id)
+    {
+        $data = (new \yii\db\Query())
+            ->select(['servicelist.id_service AS id',
+                'service.name AS name',
+                'service.cost AS cost',
+                ])
+            ->from('servicelist')
+            ->leftJoin('service', 'service.id_service = servicelist.id_service')
+            ->where(['servicelist.id_serviceset' => $id])
+             ->all();
 
+        return $data;
+    }
 
 }
