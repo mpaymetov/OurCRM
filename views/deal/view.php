@@ -1,12 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
-use yii\grid\GridView;
 use yii\helpers\Url;
-use yii\widgets\ListView;
 use yii\helpers\HtmlPurifier;
-use app\assets\ProjectAsset;
 
 ?>
 <div class="col-md-6">
