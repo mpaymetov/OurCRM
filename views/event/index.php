@@ -22,10 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'id_event',
             'message',
             'created',
@@ -33,7 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'link',
             //'id_link',
             //'id_user',
-
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

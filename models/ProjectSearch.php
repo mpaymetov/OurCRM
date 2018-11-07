@@ -85,4 +85,12 @@ class ProjectSearch extends Project
         ]);
         return $dataProvider;
     }
+
+    public function findModel($id)
+    {
+        if (($model = Project::findOne($id)) !== null) {
+            return $model;
+        }
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
 }

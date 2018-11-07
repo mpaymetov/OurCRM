@@ -91,11 +91,13 @@ class DataControlService
 
     public function validateCreateProjectParam($model)
     {
-        if (!property_exists($model, 'id_client')) {
+       /* if (!property_exists($model, 'id_client')) {
             return true;
         } else {
             return false;
-        }
+        } */
+       //todo решить необходимость присутствия id клиента в проекте
+        return true;
     }
 
     public function validateCreateClientParam($model)

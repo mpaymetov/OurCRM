@@ -64,7 +64,7 @@ class EventService extends SecurityController
         $dataControl = new DataControlService();
         if ($dataControl->dataControl($model)) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return ['model' => $model, 'action' => 'redirect'];
+                return ['model' => $model->id_event, 'action' => 'redirect'];
             }
         }
         return  [

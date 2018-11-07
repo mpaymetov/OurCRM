@@ -2,18 +2,14 @@
 
 namespace app\controllers;
 
-use app\models\ServicelistSearch;
+use app\service\ProjectService;
 use Yii;
 use app\models\Project;
-use app\models\ProjectSearch;
-use app\models\ServicesetSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\data\ArrayDataProvider;
-use app\models\EventSearch;
 use yii\db\StaleObjectException;
-use yii\web\ForbiddenHttpException;
-use app\db_modules\servisetDbQuery;
+use yii\helpers\ArrayHelper;
+
 
 /**
  * ProjectController implements the CRUD actions for Project model.
@@ -41,13 +37,8 @@ class ProjectController extends SecurityController
      */
     public function actionIndex()
     {
-
-        $searchModel = new ProjectSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        return $this->render('index', ProjectService::actionProjectIndexRequest()
+        );
     }
 
     /**
@@ -59,36 +50,7 @@ class ProjectController extends SecurityController
     public function actionView($id)
     {
 
-        $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        print_r($actual_link);
-        $searchModel = new ServicesetSearch();
-        $dataProvider = $searchModel->searchProjectById($id);
-        $servicesetData = new servisetDbQuery();
-        $servicesetInfo = $servicesetData->getServiceSetInfoByProjectId($id);
-        $serviceListDataProvider = [];
-        for ($i = 0; $i < count($servicesetInfo); $i++) {
-            $info = $servicesetInfo[$i];
-            $serviceListDataProvider[$i] = array(
-                'ServiceSetInfo' => new ArrayDataProvider([
-                    'allModels' => array(
-                        0 => $info),
-                ]),
-                'ServiceListInfo' => new ArrayDataProvider([
-                    'allModels' => $servicesetData->getServiceSetInfo($info['id']),
-                ]),
-            );
-        }
-
-        $searchEventModel = new EventSearch();
-        $eventDataProvider = $searchEventModel->searchEventId($id, Yii::$app->user->identity->id_user, 2);
-
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'eventDataProvider' => $eventDataProvider,
-            'serviceListDataProvider' => $serviceListDataProvider,
-        ]);
+        return $this->render('view', ProjectService::actionProjectViewRequest($id));
     }
 
     /**
@@ -98,21 +60,15 @@ class ProjectController extends SecurityController
      */
     public function actionCreate()
     {
-        $model = new Project();
-        $this->takeStartParams($model);
-        if ($this->dataControl($model)) {
-            var_dump($model->load(Yii::$app->request->post()));
-            var_dump($model->save());
-            var_dump($model->errors );
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                print_r("sucsess");
-                return $this->redirect(['view', 'id' => $model->id_project]);
-            }
-
+        $answer = ProjectService::actionProjectCreateRequest(); // возвращяем объект и экшн который нужно применить к объекту
+        $action = ArrayHelper::getValue($answer, 'action');
+        $model = ArrayHelper::getValue($answer, 'model');
+        if ($action == 'redirect') {
+            return $this->redirect(['view', 'id' => $model->id_project]);
+        } elseif ($action == 'curr') {
+            return $this->render('update', [
+                'model' => $model,]);
         }
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -124,26 +80,14 @@ class ProjectController extends SecurityController
      */
     public function actionUpdate($id)
     {
-        $session = Yii::$app->session;
-        $session->set('id_project', $id);
-
-        $model = $this->findModel($id);
-        try {
-            if ($this->dataControl($model)) {
-                if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id_project]);
-                };
-                return $this->render('update', [
-                    'model' => $model,
-                ]);
-            }
+        $answer = ProjectService::actionProjectUpdateRequest($id); // возвращяем объект и экшн который нужно применить к объекту
+        $action = ArrayHelper::getValue($answer, 'action');
+        $model = ArrayHelper::getValue($answer, 'model');
+        if ($action == 'redirect') {
+            return $this->redirect(['view', 'id' => $model->id_project]);
+        } elseif ($action == 'curr') {
             return $this->render('update', [
-                'model' => $model,
-            ]);
-
-        } catch
-        (StaleObjectException $e) {
-            throw new StaleObjectException(Yii::t('app', 'Error data version'));
+                'model' => $model,]);
         }
     }
 
@@ -156,8 +100,9 @@ class ProjectController extends SecurityController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-        return $this->redirect(['index']);
+        if (ProjectService::actionProjectDeleteRequest($id)) {
+            return $this->redirect(['index']);
+        }
     }
 
     /**
@@ -167,14 +112,5 @@ class ProjectController extends SecurityController
      * @return Project the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
-        if (($model = Project::findOne($id)) !== null) {
-            if ($this->compareUserId($model)) {
-                return $model;
-            }
-        }
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
-    }
 
 }

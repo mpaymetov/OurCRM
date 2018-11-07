@@ -2,10 +2,10 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-
+use app\service\ProjectService;
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\ProjectSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $searchModel app\service\ProjectService */
+/* @var $dataProvider app\service\ProjectService */
 
 $this->title = Yii::t('common', 'Projects');
 $this->params['breadcrumbs'][] = $this->title;
