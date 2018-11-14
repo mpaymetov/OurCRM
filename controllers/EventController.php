@@ -15,6 +15,9 @@ use yii\helpers\ArrayHelper;
  */
 class EventController extends Controller
 {
+
+    private $eventService;
+
     /**
      * {@inheritdoc}
      */
@@ -30,13 +33,27 @@ class EventController extends Controller
         ];
     }
 
+    public function init()
+    {
+        $this->getService();
+    }
+
+    /**
+     *
+     */
+    public function getService()
+    {
+        $this->eventService = new EventService();
+    }
+
+
     /**
      * Lists all Event models.
      * @return mixed
      */
     public function actionIndex()
     {
-        return $this->render('index', EventService::actionEventIndexRequest());
+        return $this->render('index', $this->eventService->actionEventIndexRequest());
     }
 
     /**
@@ -47,7 +64,7 @@ class EventController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', EventService::actionEventViewRequest($id) //костыльно?
+        return $this->render('view', $this->eventService->actionEventViewRequest($id) //костыльно?
         );
     }
 
@@ -58,7 +75,7 @@ class EventController extends Controller
      */
     public function actionCreate()
     {
-        $answer = EventService::actionEventCreateRequest(); // возвращяем объект и экшн который нужно применить к объекту
+        $answer = $this->eventService->actionEventCreateRequest(); // возвращяем объект и экшн который нужно применить к объекту
         $action = ArrayHelper::getValue($answer, 'action');
         $model = ArrayHelper::getValue($answer, 'model');
         if ($action == 'redirect') {
@@ -78,7 +95,7 @@ class EventController extends Controller
      */
     public function actionUpdate($id)
     {
-        $answer = EventService::actionEventUpdateRequest($id); // возвращяем объект и экшн который нужно применить к объекту
+        $answer = $this->eventService->actionEventUpdateRequest($id); // возвращяем объект и экшн который нужно применить к объекту
         $action = ArrayHelper::getValue($answer, 'action');
         $model = ArrayHelper::getValue($answer, 'model');
         if ($action == 'redirect') {
