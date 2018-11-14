@@ -13,9 +13,10 @@ use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use app\models\StateCheck;
+use yii\web\Controller;
 
 
-class StatisticController extends SecurityController
+class StatisticController extends Controller
 {
     public function actionIndex()
     {

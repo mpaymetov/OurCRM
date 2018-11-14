@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Event;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\service\EventService;
@@ -12,7 +13,7 @@ use yii\helpers\ArrayHelper;
 /**
  * EventController implements the CRUD actions for Event model.
  */
-class EventController extends SecurityController
+class EventController extends Controller
 {
     /**
      * {@inheritdoc}

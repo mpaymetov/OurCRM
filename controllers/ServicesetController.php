@@ -9,6 +9,7 @@ use app\models\Servicelist;
 use app\models\StateCheck;
 use app\models\ServiceSearch;
 use app\models\ServiceListForm;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\StaleObjectException;
@@ -19,7 +20,7 @@ use app\service\ServiceListFormHandler;
 /**
  * ServicesetController implements the CRUD actions for Serviceset model.
  */
-class ServicesetController extends SecurityController
+class ServicesetController extends Controller
 {
     /**
      * {@inheritdoc}

@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\service\DataControlService;
+use app\service\StartParamsService;
 use Yii;
 use app\models\Client;
 use app\models\ClientSearch;
@@ -17,7 +19,7 @@ use yii\db\StaleObjectException;
 /**
  * ClientController implements the CRUD actions for Client model.
  */
-class ClientController extends SecurityController
+class ClientController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -80,8 +82,10 @@ class ClientController extends SecurityController
     public function actionCreate()
     {
         $model = new Client();
-        $this->takeStartParams($model);
-        if ($this->dataControl($model)) {
+        $startParams = new StartParamsService();
+        $dataControl = new DataControlService();
+        $startParams->takeStartParams($model);
+        if ($dataControl->dataControl($model)) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id_client]);
             }
@@ -102,10 +106,10 @@ class ClientController extends SecurityController
     {
         $session = Yii::$app->session;
         $session->set('id_client', $id);
-
+        $dataControl = new DataControlService();
         $model = $this->findModel($id);
         try {
-            if ($this->compareUserId($model)) {
+            if ($dataControl->compareUserId($model)) {
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
                     return $this->redirect(['view', 'id' => $model->id_client]);
                 }

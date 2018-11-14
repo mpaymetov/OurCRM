@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\db_modules\servisetDbQuery;
 use app\models\StateCheck;
+use yii\web\Controller;
 use yii\web\Cookie;
 use yii\filters\VerbFilter;
 use yii\data\ArrayDataProvider;
@@ -13,7 +14,7 @@ use yii\filters\AccessControl;
 /**
  * ServicesetController implements the CRUD actions for Serviceset model.
  */
-class SiteController extends SecurityController
+class SiteController extends Controller
 {
     /**
      * {@inheritdoc}
