@@ -12,12 +12,6 @@ class StartParamsService
         $this->getString();
     }
 
-    public function getString()
-    {
-        var_dump("string");
-    }
-
-
     public function takeStartParams($model)
     {
         $request = Yii::$app->request;
@@ -59,7 +53,6 @@ class StartParamsService
 
     public function takeStartProjectParam($model, $request)
     {
-        var_dump($model);
         $model->id_user = Yii::$app->user->identity->id_user;
         $client_id = $request->get('id_client');
         $model->id_client = $client_id;
