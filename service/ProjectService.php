@@ -21,12 +21,6 @@ class ProjectService
     private $dataControl;
 // аписать коструктор для этого класса __construct
 //попробовать подключать класс конфигурации и подавать туда конкретный data control
-    /* public function init()
-     {
-         $this->getStartParams();
-         $this->getDataControl(new DataControlService());
-     }
-     */
     public function __construct()
     {
         $this->setStartParams(new StartParamsService()) ;
@@ -55,7 +49,6 @@ class ProjectService
 
     public function getViewInfoProject($id)
     {
-        var_dump($this);
         $searchModel = new ServicesetSearch();
         $dataProvider = $searchModel->searchProjectById($id);
         $servicesetData = new servisetDbQuery();
@@ -89,10 +82,7 @@ class ProjectService
     public function setProject()
     {
         $model = new Project();
-        //$startParams = new StartParamsService();
-        //$dataControl = new DataControlService();
         $this->startParams->takeStartParams($model);
-        //$startParams->takeStartParams($model);
         if ($this->dataControl->dataControl($model)) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return ['model' => $model, 'action' => 'redirect'];
