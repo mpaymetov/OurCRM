@@ -68,7 +68,7 @@ class ProjectController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', $this->projectService->getViewProject($id));
+        return $this->render('view', $this->projectService->getViewInfoProject($id));
     }
 
     /**

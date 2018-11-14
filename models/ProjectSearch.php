@@ -94,8 +94,43 @@ class ProjectSearch extends Project
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
-    public function searchNotDoneproject()
+    public function searchNotDoneProject($params, $location = null)
     {
+        $query = Project::find();
 
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+
+            // uncomment the following line if you do not want to return any records when validation fails
+
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id_project' => $this->id_project,
+            'id_client' => $this->id_client,
+            'id_user' => $this->id_user,
+            'is_active' => $this->is_active,
+        ]);
+
+        if ($location == 'index') {
+            $date = date('Y-m-d'); // сверяем только по суткам, после 12 не закрытые события переходят в незавершенные
+            var_dump($date);
+            $query->andFilterWhere(['like', 'comment', $this->comment])
+                ->andWhere('project.id_user = ' . Yii::$app->user->identity->id_user)
+                ->andWhere('project.is_active != 0');
+        } else {
+            $query->andFilterWhere(['like', 'message', $this->message])
+                ->andWhere('project.id_user = ' . Yii::$app->user->identity->id_user);
+        }
+        return $dataProvider;
     }
 }

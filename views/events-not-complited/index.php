@@ -8,6 +8,8 @@ use yii\helpers\Url;
     /* @var $this yii\web\View */
     /* @var $searchModel app\models\EventSearch */
     /* @var $eventDataProvider yii\data\ActiveDataProvider */
+    /* @var $searchModel app\models\projectSearch */
+    /* @var $projectDataProvider yii\data\ActiveDataProvider */
 
     ?>
     <h1><?= \Yii::t('common', 'Events')?></h1>
@@ -21,4 +23,16 @@ use yii\helpers\Url;
         'itemView' => '_post_event',
     ]) ?>
 
+
+</div>
+<div class="col">
+    <h1><?= \Yii::t('common', 'Projects')?></h1>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <p>
+        <a href='<?= Url::toRoute('/project/create'); ?>' class="btn btn-success"><?= \Yii::t('common', 'Create Project')?></a>
+    </p>
+    <?= ListView::widget([
+        'dataProvider' => $projectDataProvider,
+        'itemView' => '_post_project',
+    ]) ?>
 </div>
