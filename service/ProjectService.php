@@ -17,24 +17,30 @@ use app\db_modules\servisetDbQuery;
 class ProjectService
 {   // php не дает сразу инициализировать переменные объектами, поэтому нужны фукции get создающие новые объекты нужных классов
     // но в данном конкретном случае, он их не создает
-     private $startParams;
-     private $dataControl;
-
-     public function init()
+    private $startParams;
+    private $dataControl;
+// аписать коструктор для этого класса __construct
+//попробовать подключать класс конфигурации и подавать туда конкретный data control
+    /* public function init()
      {
-         /*$this->getStartParams();
-         $this->getDataControl();
-         */
+         $this->getStartParams();
+         $this->getDataControl(new DataControlService());
      }
-
-    public function getDataControl()
+     */
+    public function __construct()
     {
-        $this->dataControl = new DataControlService();
+        $this->setStartParams(new StartParamsService()) ;
+        $this->setDataControl(new DataControlService());
     }
 
-    public function getStartParams()
+    public function setDataControl($dataControlService)
     {
-        $this->startParams = new StartParamsService();
+        $this->dataControl = $dataControlService;
+    }
+
+    public function setStartParams($startParams)
+    {
+        $this->startParams = $startParams;
     }
 
     public function getAllProjects()
@@ -83,11 +89,11 @@ class ProjectService
     public function setProject()
     {
         $model = new Project();
-        $startParams = new StartParamsService();
-        $dataControl = new DataControlService();
-        //$this->startParams->takeStartParams($model);
-        $startParams->takeStartParams($model);
-        if ($dataControl->dataControl($model)) {
+        //$startParams = new StartParamsService();
+        //$dataControl = new DataControlService();
+        $this->startParams->takeStartParams($model);
+        //$startParams->takeStartParams($model);
+        if ($this->dataControl->dataControl($model)) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return ['model' => $model, 'action' => 'redirect'];
             }

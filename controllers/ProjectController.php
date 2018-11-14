@@ -18,7 +18,7 @@ use yii\helpers\ArrayHelper;
 class ProjectController extends Controller
 {
 
-    public $projectService;
+    private $projectService;
 
     public function init()
     {
