@@ -12,7 +12,26 @@ use app\service\StartParamsService;
 
 class EventService
 {
-    public static function actionEventIndexRequest()
+    private $startParams;
+    private $dataControl;
+
+    public function __construct()
+    {
+        $this->setStartParams(new StartParamsService()) ;
+        $this->setDataControl(new DataControlService());
+    }
+
+    public function setDataControl($dataControlService)
+    {
+        $this->dataControl = $dataControlService;
+    }
+
+    public function setStartParams($startParams)
+    {
+        $this->startParams = $startParams;
+    }
+
+    public function actionEventIndexRequest()
     {
         $searchModel = new EventSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -22,14 +41,14 @@ class EventService
         ];
     }
 
-    public static function actionEventViewRequest($id)
+    public function actionEventViewRequest($id)
     {
         $searchModel = new EventSearch();
         $model = $searchModel->findModel($id);
         return ['model' => $model];
     }
 
-    public static function actionEventUpdateRequest($id)
+    public function actionEventUpdateRequest($id)
     {
         $session = Yii::$app->session;
         $session->set('id_event', $id);
@@ -55,14 +74,12 @@ class EventService
         }
     }
 
-    public static function actionEventCreateRequest()
+    public function actionEventCreateRequest()
     {
         $model = new Event();
         $user_name = UserService::findNameById(Yii::$app->user->identity->id_user);
-        $startParams = new StartParamsService();
-        $startParams->takeStartParams($model);
-        $dataControl = new DataControlService();
-        if ($dataControl->dataControl($model)) {
+        $this->startParams->takeStartParams($model);
+        if ($this->dataControl->dataControl($model)) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return ['model' => $model, 'action' => 'redirect'];
            }
