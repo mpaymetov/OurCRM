@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\service\ProjectService;
 use Yii;
 use app\models\Project;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\StaleObjectException;
@@ -14,11 +15,29 @@ use yii\helpers\ArrayHelper;
 /**
  * ProjectController implements the CRUD actions for Project model.
  */
-class ProjectController extends SecurityController
+class ProjectController extends Controller
 {
+
+    public $projectService;
+
+    public function init()
+    {
+        $this->getService();
+    }
+
+    /**
+     *
+     */
+    public function getService()
+    {
+        $this->projectService = new ProjectService();
+    }
+
+
     /**
      * {@inheritdoc}
      */
+
     public function behaviors()
     {
         return [
@@ -37,7 +56,7 @@ class ProjectController extends SecurityController
      */
     public function actionIndex()
     {
-        return $this->render('index', ProjectService::actionProjectIndexRequest()
+        return $this->render('index', $this->projectService->getAllProjects()
         );
     }
 
@@ -49,8 +68,7 @@ class ProjectController extends SecurityController
      */
     public function actionView($id)
     {
-
-        return $this->render('view', ProjectService::actionProjectViewRequest($id));
+        return $this->render('view', $this->projectService->getViewProject($id));
     }
 
     /**
@@ -60,7 +78,7 @@ class ProjectController extends SecurityController
      */
     public function actionCreate()
     {
-        $answer = ProjectService::actionProjectCreateRequest(); // возвращяем объект и экшн который нужно применить к объекту
+        $answer = $this->projectService->setProject(); // возвращяем объект и экшн который нужно применить к объекту
         $action = ArrayHelper::getValue($answer, 'action');
         $model = ArrayHelper::getValue($answer, 'model');
         if ($action == 'redirect') {
@@ -80,7 +98,7 @@ class ProjectController extends SecurityController
      */
     public function actionUpdate($id)
     {
-        $answer = ProjectService::actionProjectUpdateRequest($id); // возвращяем объект и экшн который нужно применить к объекту
+        $answer = $this->projectService->setUpdateProject($id); // возвращяем объект и экшн который нужно применить к объекту
         $action = ArrayHelper::getValue($answer, 'action');
         $model = ArrayHelper::getValue($answer, 'model');
         if ($action == 'redirect') {
@@ -100,7 +118,7 @@ class ProjectController extends SecurityController
      */
     public function actionDelete($id)
     {
-        if (ProjectService::actionProjectDeleteRequest($id)) {
+        if ($this->projectService->actionProjectDeleteRequest($id)) {
             return $this->redirect(['index']);
         }
     }

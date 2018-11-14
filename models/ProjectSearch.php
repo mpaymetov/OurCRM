@@ -93,4 +93,9 @@ class ProjectSearch extends Project
         }
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+
+    public function searchNotDoneproject()
+    {
+
+    }
 }
