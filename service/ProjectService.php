@@ -1,13 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: hp
- * Date: 07.11.2018
- * Time: 2:49
- */
 
 namespace app\service;
 
+use app\controllers\ProjectController;
 use Yii;
 use app\models\Project;
 use app\models\ProjectSearch;
@@ -20,8 +15,29 @@ use yii\db\StaleObjectException;
 use app\db_modules\servisetDbQuery;
 
 class ProjectService
-{
-    public static function actionProjectIndexRequest()
+{   // php не дает сразу инициализировать переменные объектами, поэтому нужны фукции get создающие новые объекты нужных классов
+    // но в данном конкретном случае, он их не создает
+     private $startParams;
+     private $dataControl;
+
+     public function init()
+     {
+         /*$this->getStartParams();
+         $this->getDataControl();
+         */
+     }
+
+    public function getDataControl()
+    {
+        $this->dataControl = new DataControlService();
+    }
+
+    public function getStartParams()
+    {
+        $this->startParams = new StartParamsService();
+    }
+
+    public function getAllProjects()
     {
         $searchModel = new ProjectSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -31,8 +47,9 @@ class ProjectService
         ];
     }
 
-    public static function actionProjectViewRequest($id)
+    public function getViewInfoProject($id)
     {
+        var_dump($this);
         $searchModel = new ServicesetSearch();
         $dataProvider = $searchModel->searchProjectById($id);
         $servicesetData = new servisetDbQuery();
@@ -63,17 +80,14 @@ class ProjectService
         ];
     }
 
-    public static function actionProjectCreateRequest()
+    public function setProject()
     {
-
         $model = new Project();
-        $dataControl = new DataControlService();
         $startParams = new StartParamsService();
+        $dataControl = new DataControlService();
+        //$this->startParams->takeStartParams($model);
         $startParams->takeStartParams($model);
         if ($dataControl->dataControl($model)) {
-            var_dump($model->save());
-            var_dump($model->load(Yii::$app->request->post()));
-            var_dump($model->errors);
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return ['model' => $model, 'action' => 'redirect'];
             }
@@ -81,15 +95,14 @@ class ProjectService
         return ['model' => $model, 'action' => 'curr'];
     }
 
-    public static function actionProjectUpdateRequest($id)
+    public function setUpdateProject($id)
     {
         $session = Yii::$app->session;
         $session->set('id_project', $id);
         $search = new ProjectSearch();
-        $dataControl = new DataControlService();
         $model = $search->findModel($id);
         try {
-            if ($dataControl->dataControl($model)) {
+            if ($this->dataControl->dataControl($model)) {
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
                     return ['model' => $model, 'action' => 'redirect'];
                 };
@@ -104,7 +117,7 @@ class ProjectService
         }
     }
 
-    public static function actionProjectDeleteRequest($id)
+    public function actionProjectDeleteRequest($id)
     {
         $search = new ProjectSearch();
         $search->findModel($id)->delete();

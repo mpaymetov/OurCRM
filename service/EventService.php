@@ -10,7 +10,7 @@ use app\service\UserServise;
 use app\service\StartParamsService;
 
 
-class EventService extends SecurityController
+class EventService
 {
     public static function actionEventIndexRequest()
     {
@@ -46,7 +46,7 @@ class EventService extends SecurityController
                 return ("OK");
             }
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return  ['model' => $model, 'action' => 'redirect'];
+                return ['model' => $model, 'action' => 'redirect'];
             };
             return ['model' => $model, 'action' => 'curr'];
         } catch
@@ -64,12 +64,12 @@ class EventService extends SecurityController
         $dataControl = new DataControlService();
         if ($dataControl->dataControl($model)) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return ['model' => $model->id_event, 'action' => 'redirect'];
-            }
+                return ['model' => $model, 'action' => 'redirect'];
+           }
         }
-        return  [
+        return [
             'model' => $model,
-            'action'=> 'curr',
+            'action' => 'curr',
             'user' => $user_name,
         ];
     }

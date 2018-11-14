@@ -6,6 +6,18 @@ use Yii;
 
 class StartParamsService
 {
+
+    public function init()
+    {
+        $this->getString();
+    }
+
+    public function getString()
+    {
+        var_dump("string");
+    }
+
+
     public function takeStartParams($model)
     {
         $request = Yii::$app->request;

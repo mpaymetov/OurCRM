@@ -12,6 +12,11 @@ use Yii;
 
 class DataControlService
 {
+    public function init()
+    {
+
+    }
+
     public function dataControl($model)
     {
         if ($this->compareUserId($model)) {
