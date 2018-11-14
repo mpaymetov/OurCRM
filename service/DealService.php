@@ -9,19 +9,36 @@ use app\models\Client;
 
 class DealService
 {
-    public static function actionDealCreate()
+    private $startParams;
+    private $dataControl;
+
+    public function __construct()
     {
-        $user = User::findOne(Yii::$app->user->identity->id_user);
+        $this->setStartParams(new StartParamsService()) ;
+        $this->setDataControl(new DataControlService());
+    }
+
+    public function setDataControl($dataControlService)
+    {
+        $this->dataControl = $dataControlService;
+    }
+
+    public function setStartParams($startParams)
+    {
+        $this->startParams = $startParams;
+    }
+
+    public function actionDealCreate()
+    {
+        $user = User::findOne(Yii::$app->user->identity->id_user);//todo использовать метод из сервиса
         $project = new Project();
         $client = new Client();
         if (!isset($user, $project, $client)) {
             throw new NotFoundHttpException("Something get wrong");
         }
-        $startParams = new StartParamsService();
-        $startParams->takeStartParams($project);
-        $startParams->takeStartParams($client);
-        $dataControl = new DataControlService();
-        if ($dataControl->dataControl($project) && $dataControl->dataControl($client)) {
+        $this->startParams->takeStartParams($project);
+        $this->startParams->takeStartParams($client);
+        if ($this->dataControl->dataControl($project) && $this->dataControl->dataControl($client)) {
             if ($project->load(Yii::$app->request->post()) && $client->load(Yii::$app->request->post())) {
                 {
                     $client->save(false);
