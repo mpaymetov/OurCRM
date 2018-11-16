@@ -146,7 +146,7 @@ class EventSearch extends Event
             return $eventDataProvider;
         }
     }
-
+//todo написать запросы только к нужным данным
     public function searchClientEventId($id_client)
     {
         if (!Yii::$app->user->isGuest) {

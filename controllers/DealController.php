@@ -36,8 +36,8 @@ class DealController extends Controller
         $client = ArrayHelper::getValue($answer, 'client');
         $project = ArrayHelper::getValue($answer, 'project');
         if ($action == 'redirect') { //todo не находит въюху
-            var_dump($project);
-          //return $this->redirect(['project/view_deal', 'id' => $project->id_project]);
+            //var_dump($project);
+            return $this->render('view', ['project' => $project, 'client' => $client]);
         } elseif ($action == 'curr') {
             return $this->render('create', [
                 'user' => $user,
