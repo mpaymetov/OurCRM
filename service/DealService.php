@@ -11,11 +11,13 @@ class DealService
 {
     private $startParams;
     private $dataControl;
+    private $userService;
 
     public function __construct()
     {
         $this->setStartParams(new StartParamsService()) ;
-        $this->setDataControl(new DataControlService());
+        $this->setDataControl(new DataValidateService());
+        $this->setUserService(new UserService());
     }
 
     public function setDataControl($dataControlService)
@@ -26,6 +28,11 @@ class DealService
     public function setStartParams($startParams)
     {
         $this->startParams = $startParams;
+    }
+
+    Public function setUserService($userService)
+    {
+        $this->userService = $userService;
     }
 
     public function actionDealCreate()
@@ -44,6 +51,7 @@ class DealService
                     $client->save(false);
                     $project->id_client = $client->id_client;
                     $project->save(false);
+                    $user = $this->userService->findNameById($user->id_user);
                     return [
                         'user' => $user,
                         'project' => $project,
