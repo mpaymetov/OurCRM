@@ -35,15 +35,15 @@ class EventController extends Controller
 
     public function init()
     {
-        $this->getService();
+        $this->getService(new EventService());
     }
 
     /**
      *
      */
-    public function getService()
+    public function getService($eventService)
     {
-        $this->eventService = new EventService();
+        $this->eventService = $eventService;
     }
 
 
@@ -64,7 +64,7 @@ class EventController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', $this->eventService->actionEventViewRequest($id) //костыльно?
+        return $this->render('view', $this->eventService->actionEventViewRequest($id)
         );
     }
 
@@ -116,7 +116,7 @@ class EventController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-        return $this->redirect(['index']);
+        return $this->redirect(['index']); //todo перенести в сервис
     }
 
     /**
