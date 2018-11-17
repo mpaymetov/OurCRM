@@ -19,9 +19,20 @@ use yii\db\StaleObjectException;
  */
 class UserController extends Controller
 {
-    /**
-     * {@inheritdoc}
-     */
+
+    private $userService;
+
+    public function init()
+    {
+    $this->getService();
+    }
+
+
+    public function getService()
+    {
+        $this->userService = new UserService();
+    }
+
     public function behaviors()
     {
         return [
@@ -40,7 +51,7 @@ class UserController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index', UserService::actionUserIndexRequest());
+        return $this->render('index', $this->userService->actionUserIndexRequest());
     }
 
     /**

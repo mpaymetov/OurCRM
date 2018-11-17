@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\service\DataControlService;
+use app\service\DataValidateService;
 use app\service\StartParamsService;
 use Yii;
 use app\models\Client;
@@ -83,7 +83,7 @@ class ClientController extends Controller
     {
         $model = new Client();
         $startParams = new StartParamsService();
-        $dataControl = new DataControlService();
+        $dataControl = new DataValidateService();
         $startParams->takeStartParams($model);
         if ($dataControl->dataControl($model)) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -106,7 +106,7 @@ class ClientController extends Controller
     {
         $session = Yii::$app->session;
         $session->set('id_client', $id);
-        $dataControl = new DataControlService();
+        $dataControl = new DataValidateService();
         $model = $this->findModel($id);
         try {
             if ($dataControl->compareUserId($model)) {

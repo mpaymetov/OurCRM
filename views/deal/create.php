@@ -16,7 +16,7 @@ use app\service\UserService;
         'options' => ['class' => 'form-horizontal'],
     ]) ?>
     <?php echo '<div class="form-group"> <label class = "control-label">Создавший</label>
-                <div class = "form-control ">' . UserService::findNameById($user->id_user) . '</div> </div>' ?>
+                <div class = "form-control ">' . $user->login . '</div> </div>' ?>
     <h4>Клиент</h4>
     <?= $form->field($client, 'name') ?>
     <?= $form->field($client, 'comment') ?>

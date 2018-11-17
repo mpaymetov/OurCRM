@@ -62,5 +62,7 @@ class RbacController extends Controller {
 
         // Назначаем роль manager пользователю с ID 2
         $auth->assign($manager, 2);
+
+        $auth->assign($admin, 3);
     }
 }
