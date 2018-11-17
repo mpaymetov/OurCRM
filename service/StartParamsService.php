@@ -3,6 +3,8 @@
 namespace app\service;
 
 use Yii;
+use app\models\StateCheck;
+use app\service\SessionUtility;
 
 class StartParamsService
 {
@@ -37,6 +39,10 @@ class StartParamsService
                 $this->takeStartClientParam($model, $request);
                 return $model;
                 break;
+            case 'serviceset':
+                $this->takeStartServicesetParam($model, $request);
+                return $model;
+                break;
             default:
                 return false;
         }
@@ -61,5 +67,14 @@ class StartParamsService
     public function takeStartClientParam($model, $request)
     {
         $model->id_user = Yii::$app->user->identity->id_user;
+    }
+
+    public function takeStartServicesetParam($model, $request)
+    {
+        $stateName = new StateCheck();
+        $session = new SessionUtility();
+        $model->id_project = $session->GetSessionElem('id_project');
+        $model->id_state = $stateName::MakeContact;
+        $model->is_open = 1;
     }
 }

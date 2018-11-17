@@ -9,13 +9,56 @@
 namespace app\service;
 
 use app\models\Servicelist;
-use app\models\Service;
+use app\models\ServiceSearch;
+use app\models\ServiceListForm;
+use app\models\Serviceset;
+use app\models\StateCheck;
 use yii\helpers\ArrayHelper;
 use app\db_modules\servisetDbQuery;
+use app\service\ServiceListFormHandler;
+
+
 
 
 class ServicesetHandler
 {
+
+    public function CreateNewSet($idProject)
+    {
+        $model = new Serviceset();
+        $stateName = new StateCheck();
+        $model->id_project = $idProject;
+        $model->id_state = $stateName::MakeContact;
+        return $model;
+    }
+
+    public function CreateNewLists($id, $modelForm)
+    {
+        $listHandler = new ServiceListFormHandler();
+        $this->saveServiceListArray($listHandler->getServiceList($id, $modelForm));
+    }
+
+    public function CreateNewServiceset($idProject, $modelForm)
+    {
+        $model = $this->CreateNewSet($idProject);
+        $this->CreateNewLists($model->id_serviceset, $modelForm);
+    }
+
+    public function DeleteServiceset($id)
+    {
+        if (($modelServiceList = ServiceList::findAll(['id_serviceset' => $id])) != null) {
+            foreach ($modelServiceList as $el) {
+                $el->delete();
+            }
+        }
+
+        if (($model = Serviceset::findOne($id)) !== null) {
+            $model->delete();
+        }
+    }
+
+
+
     public function findServiceList($id)
     {
         $serviceListInfo = new servisetDbQuery();
@@ -25,6 +68,33 @@ class ServicesetHandler
             $arr[$i] = ['Service' => $setInfo[$i]['id']];
         }
         return $arr;
+    }
+
+    public function getServicelistFormById($id)
+    {
+        $modelForm = new ServiceListForm();
+        $modelForm->serviceList = $this->findServiceList($id);
+        return $modelForm;
+    }
+
+    public function getServiceListItems()
+    {
+        $service = new ServiceSearch();
+        return $service->getServiceListItems();
+    }
+
+    public function getStateList()
+    {
+        $state = new StateCheck();
+        return $state->getStateList();
+    }
+
+
+    public function checkLastPage($pathRefer, $pathCurr, $address)
+    {
+        $gettingId = $this->getReferrerId($address);
+
+        return ((($this->checkPage($address, $pathRefer)) && ($gettingId != NULL)) || ($this->checkPage($address, $pathCurr)));
     }
 
     public function updateServiceListArray($arrData, $arrModel)

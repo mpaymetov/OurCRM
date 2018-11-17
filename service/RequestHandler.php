@@ -13,6 +13,12 @@ use Yii;
 
 class RequestHandler
 {
+
+    public function getPostRequest($param)
+    {
+        Yii::$app->request->post($param);
+    }
+
     public function getReferrerAddress()
     {
         return Yii::$app->request->getReferrer();
