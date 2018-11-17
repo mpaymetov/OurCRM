@@ -23,14 +23,14 @@ class DataValidateService
 
     public function setRoleService($roleUserService)
     {
-        $this->roleService=$roleUserService;
+        $this->roleService = $roleUserService;
     }
 
     public function checkElemAvailable($model)
     {
         $creator = $model->id_user;
-        if($creator == Yii::$app->user->identity->id_user || $this->roleService->getRole(Yii::$app->user->identity->id_user >= 2))
-        {
+        if ($creator == Yii::$app->user->identity->id_user ||
+            $this->roleService->getRole(Yii::$app->user->identity->id_user >= 2)) {
             return true;
         }
     }
