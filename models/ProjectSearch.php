@@ -123,7 +123,6 @@ class ProjectSearch extends Project
 
         if ($location == 'index') {
             $date = date('Y-m-d'); // сверяем только по суткам, после 12 не закрытые события переходят в незавершенные
-            var_dump($date);
             $query->andFilterWhere(['like', 'comment', $this->comment])
                 ->andWhere('project.id_user = ' . Yii::$app->user->identity->id_user)
                 ->andWhere('project.is_active != 0');
