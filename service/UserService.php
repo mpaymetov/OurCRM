@@ -9,7 +9,7 @@ use app\models\UserSearch;
 class UserService
 {
 
-    public static function actionUserIndexRequest()
+    public function actionUserIndexRequest()
     {
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -19,7 +19,7 @@ class UserService
         ];
     }
 
-    public static function findNameById($id)
+    public function findNameById($id)
     {
         $model = UserSearch::findOne($id);
         $name = $model->login;
