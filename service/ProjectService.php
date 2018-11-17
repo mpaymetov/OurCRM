@@ -23,8 +23,8 @@ class ProjectService
 //попробовать подключать класс конфигурации и подавать туда конкретный data control
     public function __construct()
     {
-        $this->setStartParams(new StartParamsService()) ;
-        $this->setDataControl(new DataControlService());
+        $this->setStartParams(new StartParamsService());
+        $this->setDataControl(new DataValidateService());
     }
 
     public function setDataControl($dataControlService)
@@ -70,13 +70,16 @@ class ProjectService
         $searchEventModel = new EventSearch();
         $eventDataProvider = $searchEventModel->searchEventId($id, Yii::$app->user->identity->id_user, 2);
         $search = new ProjectSearch();
-        return [
-            'model' => $search->findModel($id),
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'eventDataProvider' => $eventDataProvider,
-            'serviceListDataProvider' => $serviceListDataProvider,
-        ];
+        $model = $search->findModel($id);
+        if ($this->dataControl->checkElemAvailable($model)) {
+            return [
+                'model' => $model,
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'eventDataProvider' => $eventDataProvider,
+                'serviceListDataProvider' => $serviceListDataProvider,
+            ];
+        }
     }
 
     public function setProject()
@@ -98,7 +101,7 @@ class ProjectService
         $search = new ProjectSearch();
         $model = $search->findModel($id);
         try {
-            if ($this->dataControl->dataControl($model)) {
+            if ($this->dataControl->checkElemAvailable($model)) {
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
                     return ['model' => $model, 'action' => 'redirect'];
                 };
@@ -116,7 +119,10 @@ class ProjectService
     public function actionProjectDeleteRequest($id)
     {
         $search = new ProjectSearch();
-        $search->findModel($id)->delete();
-        return true;
+        $model = $search->findModel($id);
+        if ($this->dataControl->checkElemAvailable($model)) {
+            $model->delete();
+            return true;
+        }
     }
 }
