@@ -5,9 +5,6 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use app\models\User;
-use app\models\Client;
-use app\models\Project;
 use app\service\DealService;
 use yii\helpers\ArrayHelper;
 
@@ -20,9 +17,6 @@ class DealController extends Controller
         $this->getService();
     }
 
-    /**
-     *
-     */
     public function getService()
     {
         $this->dealService = new DealService();
@@ -36,7 +30,6 @@ class DealController extends Controller
         $client = ArrayHelper::getValue($answer, 'client');
         $project = ArrayHelper::getValue($answer, 'project');
         if ($action == 'redirect') { //todo не находит въюху
-            //var_dump($project);
             return $this->render('view', ['project' => $project, 'client' => $client]);
         } elseif ($action == 'curr') {
             return $this->render('create', [

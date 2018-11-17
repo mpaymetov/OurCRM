@@ -82,8 +82,7 @@ class ProjectController extends Controller
         $action = ArrayHelper::getValue($answer, 'action');
         $model = ArrayHelper::getValue($answer, 'model');
         if ($action == 'redirect') {
-            var_dump($model);
-            //return $this->redirect(['view', 'id' => $model->id_project]);
+            return $this->redirect(['view', 'id' => $model->id_project]);
         } elseif ($action == 'curr') {
             return $this->render('update', [
                 'model' => $model,]);
