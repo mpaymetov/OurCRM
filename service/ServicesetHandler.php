@@ -8,6 +8,7 @@
 
 namespace app\service;
 
+use Yii;
 use app\models\Servicelist;
 use app\models\ServiceSearch;
 use app\models\ServiceListForm;
@@ -22,6 +23,197 @@ use app\service\ServiceListFormHandler;
 
 class ServicesetHandler
 {
+
+    public function createServiceset()
+    {
+        $modelForm = new ServiceListForm();
+        $listHandler = new ServiceListFormHandler();
+        $session = new SessionUtility();
+        $request = new RequestHandler();
+        $action = null;
+        $id = null;
+
+        $pathRefer = 'project/view';
+        $pathCurr = 'serviceset/create';
+        $gettingId = $this->getReferrerId($request->getReferrerAddress());
+
+        if ($this->checkLastPage($pathRefer, $pathCurr, $request->getReferrerAddress())) {
+
+            if (!ArrayHelper::keyExists('id_project', $session->GetSessionArray())) {
+                $session->SetSessionElem('id_project', $gettingId);
+            }
+
+            if ($listHandler->loadServiceList($modelForm)) {
+                $db = \Yii::$app->db;
+                $transaction = $db->beginTransaction();
+                try {
+                    $this->CreateNewServiceset($session->GetSessionElem('id_project'), $modelForm);
+                    /*$model = $this->CreateNewSet($session->GetSessionElem('id_project'));
+                    $model->save();
+                    $this->CreateNewLists($model->id_serviceset, $modelForm);*/
+                    $transaction->commit();
+                } catch (Exception $e) {
+                    $transaction->rollback();
+                }
+                $id = $session->GetSessionElem('id_project');
+                $session->RemoveSessionElem('id_project');
+                $action = 'redirect';
+            } else {
+                $action = 'current';
+            }
+        } else {
+            $action = 'home';
+        }
+
+        return ['action'=>$action, 'modelForm'=>$modelForm, 'id'=>$id];
+    }
+
+    public function updateServiceset($id)
+    {
+        $model = $this->findModel($id);
+        print_r($model->tableName());
+
+        $modelForm = $this->getServicelistFormById($id);
+        $listHandler = new ServiceListFormHandler();
+
+        $request = new RequestHandler();
+        $pathRefer = 'project/view';
+        $pathCurr = 'serviceset/update';
+
+        print_r($model->tableName());
+        $action = null;
+
+        //if ($this->validateServisesetParam($model)) {
+        if ($this->checkLastPage($pathRefer, $pathCurr, $request->getReferrerAddress())) {
+            try {
+
+                if ($model->load(Yii::$app->request->post()) && $model->validate() && $listHandler->loadServiceList($modelForm)) {
+                    $db = \Yii::$app->db;
+                    $transaction = $db->beginTransaction();;
+                    try {
+                        $model->save();
+                        //$data = $listHandler->getServiceList($id, $modelForm);
+                        $this->updateServiceListArray($listHandler->getServiceList($id, $modelForm), ServiceList::findAll(['id_serviceset' => $id]));
+                        $transaction->commit();
+                    } catch (Exception $e) {
+                        $transaction->rollback();
+                    }
+                    $action = 'redirect';
+                } else {
+                    $action = 'current';
+                }
+
+            } catch (StaleObjectException $e) {
+
+                throw new StaleObjectException(Yii::t('app', 'Error data version'));
+            }
+        }
+        //}
+        else {
+            $action = 'home';
+        }
+
+        return ['action'=>$action, 'modelForm'=>$modelForm, 'model'=>$model];
+    }
+
+    public function deleteServiceset($id)
+    {
+        $result = false;
+        $db = \Yii::$app->db;
+        $transaction = $db->beginTransaction();
+        try {
+            $this->DeleteServicesetById($id);
+            $transaction->commit();
+            $result = true;
+        } catch (Exception $e) {
+            $transaction->rollback();
+        }
+        return $result;
+    }
+
+    public function closeServiset($id)
+    {
+        $stateName = new StateCheck();
+        $model = $this->findModel($id);
+        $model->is_open = 0;
+        $model->id_state = $stateName::Delivery;
+        return $model->save();
+    }
+
+    public function cancelServiset($id)
+    {
+        $stateName = new StateCheck();
+        $model = $this->findModel($id);
+        $model->is_open = 0;
+        $model->id_state = $stateName::Close;
+        return $model->save();
+    }
+
+    public function changeServisetState($id)
+    {
+        $setHandler = new ServicesetHandler();
+        $request = new RequestHandler();
+        $message = [
+            'success' => '',
+            'error' => ''
+        ];
+        $stateName = $request->getPostRequest('stateNameString');
+        $servicesetNum = $request->getPostRequest('setNameString');
+        $state = new StateCheck();
+        $getStateKey = 'status';
+        $getNumKey = 'status-bar';
+        $id_state = null;
+        $id = null;
+
+        if (($setHandler->checkGetString($stateName, $getStateKey)) && ($setHandler->checkGetString($servicesetNum, $getNumKey))) {
+            $id_state = $setHandler->getIdFromStringByKey($stateName, $getStateKey);
+            $id = $setHandler->getIdFromStringByKey($servicesetNum, $getNumKey);
+        }
+
+        //Нужно добавить проверку номера serviceset
+
+        if (($id_state != null) && ($id != null)) {
+            $model = $this->findModel($id);
+            // if ($this->validateServisesetParam($model)) { //добавил сюда
+            $model->id_state = $id_state;
+
+            if ($id_state < $state::Delivery) {
+                $model->delivery = null;
+            }
+
+            if ($id_state < $state::Payment) {
+                $model->payment = null;
+            }
+
+            $success = [
+                'set' => $id,
+                'status' => $id_state,
+                'delivery' => $state::Delivery,
+                'payment' => $state::Payment,
+            ];
+
+            if ($id_state == $state::Delivery) {
+                $model->delivery = date("Y-m-d");
+                $success['delivery_date'] = $model->delivery;
+            }
+
+            if ($id_state == $state::Payment) {
+                $model->payment = date("Y-m-d");
+                $success['payment_date'] = $model->payment;
+            }
+
+            ($model->save()) ? ($message['success'] = $success) : ($message['error'] = 'error');
+            //}
+        }
+
+        if ($message['success']!='') {
+            $message['error'] = 'error';
+        }
+
+        return $message;
+    }
+
+
 
     public function CreateNewSet($idProject)
     {
@@ -41,10 +233,11 @@ class ServicesetHandler
     public function CreateNewServiceset($idProject, $modelForm)
     {
         $model = $this->CreateNewSet($idProject);
+        $model->save();
         $this->CreateNewLists($model->id_serviceset, $modelForm);
     }
 
-    public function DeleteServiceset($id)
+    public function DeleteServicesetById($id)
     {
         if (($modelServiceList = ServiceList::findAll(['id_serviceset' => $id])) != null) {
             foreach ($modelServiceList as $el) {
@@ -52,9 +245,7 @@ class ServicesetHandler
             }
         }
 
-        if (($model = Serviceset::findOne($id)) !== null) {
-            $model->delete();
-        }
+        $this->findModel($id)->delete();
     }
 
 
@@ -186,5 +377,14 @@ class ServicesetHandler
         }
 
         return $id;
+    }
+
+    protected function findModel($id)
+    {
+        if (($model = Serviceset::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

@@ -4,6 +4,7 @@ namespace app\controllers;
 
 
 use Yii;
+use yii\web\Controller;
 use app\models\Serviceset;
 use app\models\Servicelist;
 use app\models\StateCheck;
@@ -21,8 +22,21 @@ use app\service\RequestHandler;
 /**
  * ServicesetController implements the CRUD actions for Serviceset model.
  */
-class ServicesetController extends SecurityController
+class ServicesetController extends Controller
 {
+    private $setHandler;
+
+    public function init()
+    {
+        $this->getService();
+    }
+
+    public function getService()
+    {
+        $this->setHandler = new ServicesetHandler();
+    }
+
+
     /**
      * {@inheritdoc}
      */
@@ -39,6 +53,8 @@ class ServicesetController extends SecurityController
     }
 
 
+
+
     /**
      * Creates a new Serviceset model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -46,43 +62,21 @@ class ServicesetController extends SecurityController
      */
     public function actionCreate()
     {
-        $modelForm = new ServiceListForm();
-        $listHandler = new ServiceListFormHandler();
-        $session = new SessionUtility();
-        $request = new RequestHandler();
-        $setHandler = new ServicesetHandler();
+        $answer = $this->setHandler->createServiceset();
+        $action = ArrayHelper::getValue($answer, 'action');
+        $modelForm = ArrayHelper::getValue($answer, 'modelForm');
+        $id = ArrayHelper::getValue($answer, 'id');
 
-        $pathRefer = 'project/view';
-        $pathCurr = 'serviceset/create';
-        $gettingId = $setHandler->getReferrerId($request->getReferrerAddress());
-
-        if ($setHandler->checkLastPage($pathRefer, $pathCurr, $request->getReferrerAddress())) {
-
-            if (!ArrayHelper::keyExists('id_project', $session->GetSessionArray())) {
-                $session->SetSessionElem('id_project', $gettingId);
-            }
-
-            if ($listHandler->loadServiceList($modelForm)) {
-                $db = \Yii::$app->db;
-                $transaction = $db->beginTransaction();
-                try {
-                    $setHandler->CreateNewServiceset($session->GetSessionElem('id_project'), $modelForm);
-                    $transaction->commit();
-                } catch (Exception $e) {
-                    $transaction->rollback();
-                }
-                $session->RemoveSessionElem('id_project');
-                return $this->redirect(['project/view', 'id' => $gettingId]);
-            }
-
+        if ($action == 'redirect') {
+            return $this->redirect(['project/view', 'id' => $id]);
+        } elseif ($action == 'current') {
             return $this->render('create', [
                 'modelForm' => $modelForm,
-                'itemsService' => $setHandler->getServiceListItems(),
+                'itemsService' => $this->setHandler->getServiceListItems(),
             ]);
-
+        } elseif ($action == 'home') {
+            return $this->redirect(['site/index']);
         }
-
-        return $this->redirect(['site/index']);
     }
 
     /**
@@ -94,49 +88,24 @@ class ServicesetController extends SecurityController
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-        $setHandler = new ServicesetHandler();
-        print_r($model->tableName());
 
-        $modelForm = $setHandler->getServicelistFormById($id);
-        $listHandler = new ServiceListFormHandler();
+        $answer = $this->setHandler->updateServiceset($id);
+        $action = ArrayHelper::getValue($answer, 'action');
+        $modelForm = ArrayHelper::getValue($answer, 'modelForm');
+        $model = ArrayHelper::getValue($answer, 'model');
 
-        $request = new RequestHandler();
-        $pathRefer = 'project/view';
-        $pathCurr = 'serviceset/update';
-
-        print_r($model->tableName());
-        //if ($this->validateServisesetParam($model)) {
-            if ($setHandler->checkLastPage($pathRefer, $pathCurr, $request->getReferrerAddress())) {
-                try {
-
-                    if ($model->load(Yii::$app->request->post()) && $model->validate() && $listHandler->loadServiceList($modelForm)) {
-                        $db = \Yii::$app->db;
-                        $transaction = $db->beginTransaction();
-                        try {
-                            $model->save();
-                            //$data = $listHandler->getServiceList($id, $modelForm);
-                            $setHandler->updateServiceListArray($listHandler->getServiceList($id, $modelForm), ServiceList::findAll(['id_serviceset' => $id]));
-                            $transaction->commit();
-                        } catch (Exception $e) {
-                            $transaction->rollback();
-                        }
-                        return $this->redirect(['project/view', 'id' => $model->id_project]);
-                    }
-
-                    return $this->render('update', [
-                        'model' => $model,
-                        'itemsState' =>$setHandler->getStateList(),
-                        'modelForm' => $modelForm,
-                        'itemsService' => $setHandler->getServiceListItems(),
-                    ]);
-                } catch (StaleObjectException $e) {
-
-                    throw new StaleObjectException(Yii::t('app', 'Error data version'));
-                }
-            }
-        //}
-        return $this->redirect(['site/index']);
+        if ($action == 'redirect') {
+            return $this->redirect(['project/view', 'id' => $model->id_project]);
+        } elseif ($action == 'current') {
+            return $this->render('update', [
+                'model' => $model,
+                'itemsState' =>$this->setHandler->getStateList(),
+                'modelForm' => $modelForm,
+                'itemsService' => $this->setHandler->getServiceListItems(),
+            ]);
+        } elseif ($action == 'home') {
+            return $this->redirect(['site/index']);
+        }
     }
 
     /**
@@ -148,15 +117,9 @@ class ServicesetController extends SecurityController
      */
     public function actionDelete($id)
     {
-        $setHandler = new ServicesetHandler();
-        $db = \Yii::$app->db;
-        $transaction = $db->beginTransaction();
-        try {
-            $setHandler->DeleteServiceset($id);
-        } catch (Exception $e) {
-            $transaction->rollback();
-        }
-        return $this->redirect(Yii::$app->request->getReferrer());
+       if($this->setHandler->deleteServiceset($id)) {
+           return $this->redirect(Yii::$app->request->getReferrer());
+       }
     }
 
 
