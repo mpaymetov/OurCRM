@@ -137,6 +137,7 @@ class ServicesetHandler
         $model = $this->findModel($id);
         $model->is_open = 0;
         $model->id_state = $stateName::Delivery;
+        $model->close_date = date("Y-m-d");
         return $model->save();
     }
 
@@ -146,6 +147,7 @@ class ServicesetHandler
         $model = $this->findModel($id);
         $model->is_open = 0;
         $model->id_state = $stateName::Close;
+        $model->close_date = date("Y-m-d");
         return $model->save();
     }
 
@@ -220,6 +222,7 @@ class ServicesetHandler
         $stateName = new StateCheck();
         $model->id_project = $idProject;
         $model->id_state = $stateName::MakeContact;
+        $model->creation_date = date("Y-m-d");
         return $model;
     }
 

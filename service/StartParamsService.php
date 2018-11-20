@@ -62,6 +62,7 @@ class StartParamsService
         $model->id_user = Yii::$app->user->identity->id_user;
         $client_id = $request->get('id_client');
         $model->id_client = $client_id;
+        $model->creation_date = date("Y-m-d");
     }
 
     public function takeStartClientParam($model, $request)
@@ -75,6 +76,7 @@ class StartParamsService
         $session = new SessionUtility();
         $model->id_project = $session->GetSessionElem('id_project');
         $model->id_state = $stateName::MakeContact;
+        $model->creation_date = date("Y-m-d");
         $model->is_open = 1;
     }
 }

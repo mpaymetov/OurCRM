@@ -14,10 +14,24 @@ use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use app\models\StateCheck;
 use yii\web\Controller;
+use app\service\StatisticService;
 
 
 class StatisticController extends Controller
 {
+
+    private $statisticService;
+
+    public function init()
+    {
+        $this->getService();
+    }
+
+    public function getService()
+    {
+        $this->statisticService = new StatisticService();
+    }
+
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {
@@ -25,38 +39,13 @@ class StatisticController extends Controller
         }
 
 
-        $model = $this->getServicesetNumByState(Yii::$app->user->identity->id_user);
+        $model = $this->statisticService->getServicesetNumByStateInfo(Yii::$app->user->identity->id_user);
 
         return $this->render('index', [
             'model' => $model,
         ]);
     }
 
-    private function getServicesetNumByState($idUser)
-    {
-        $query = (new \yii\db\Query())
-            ->select([
-                'serviceset.id_state AS state',
-                'COUNT(*) AS num'
-            ])
-            ->from('serviceset')
-            ->leftJoin('project', 'project.id_project=serviceset.id_project')
-            ->where([
-                'project.id_user' => $idUser
-            ])
-            ->groupBy('serviceset.id_state')
-            ->all();
 
-        $state = new StateCheck();
-        $result = [['state', 'num']];
-
-        foreach ($query as $el)
-        {
-            $arrEl = [(string)$state->getStateName($el['state']),  (int)$el['num']];
-            array_push($result, $arrEl);
-        }
-
-        return $result;
-    }
 
 }
