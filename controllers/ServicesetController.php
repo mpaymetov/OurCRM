@@ -124,86 +124,20 @@ class ServicesetController extends Controller
 
     public function actionClose($id)
     {
-        $stateName = new StateCheck();
-        $model = $this->findModel($id);
-        $model->is_open = 0;
-        $model->id_state = $stateName::Delivery;
-        $model->save();
+        $this->setHandler->closeServiceset($id);
         return $this->redirect(Yii::$app->request->getReferrer());
     }
 
     public function actionCancel($id)
     {
-        $stateName = new StateCheck();
-        $model = $this->findModel($id);
-        $model->is_open = 0;
-        $model->id_state = $stateName::Close;
-        $model->save();
+        $this->setHandler->cancelServiceset($id);
         return $this->redirect(Yii::$app->request->getReferrer());
     }
 
     public function actionChangeState()
     {
-        $setHandler = new ServicesetHandler();
-        $request = new RequestHandler();
-        $message = [
-            'success' => '',
-            'error' => ''
-        ];
-        $stateName = $request->getPostRequest('stateNameString');
-        $servicesetNum = $request->getPostRequest('setNameString');
-        $state = new StateCheck();
-        $getStateKey = 'status';
-        $getNumKey = 'status-bar';
-        $id_state = null;
-        $id = null;
-
-        if (($setHandler->checkGetString($stateName, $getStateKey)) && ($setHandler->checkGetString($servicesetNum, $getNumKey))) {
-            $id_state = $setHandler->getIdFromStringByKey($stateName, $getStateKey);
-            $id = $setHandler->getIdFromStringByKey($servicesetNum, $getNumKey);
-        }
-
-        //Нужно добавить проверку номера serviceset
-
-        if (($id_state != null) && ($id != null)) {
-            $model = $this->findModel($id);
-           // if ($this->validateServisesetParam($model)) { //добавил сюда
-                $model->id_state = $id_state;
-
-                if($id_state < $state::Delivery) {
-                    $model->delivery = null;
-                }
-
-                if($id_state < $state::Payment) {
-                    $model->payment = null;
-                }
-
-                $success = [
-                    'set' => $id,
-                    'status' => $id_state,
-                    'delivery' => $state::Delivery,
-                    'payment' => $state::Payment,
-                ];
-
-                if($id_state == $state::Delivery) {
-                    $model->delivery = date("Y-m-d");
-                    $success['delivery_date'] = $model->delivery;
-                }
-
-                if($id_state == $state::Payment) {
-                    $model->payment = date("Y-m-d");
-                    $success['payment_date'] = $model->payment;
-                }
-
-                ($model->save()) ? ($message['success'] = $success) : ($message['error'] = 'error');
-            //}
-
-            if (!$message['success']) {
-                $message['error'] = 'error';
-            }
-
-            echo json_encode($message);
-        }
+        $message = $this->setHandler->changeServicesetState();
+        echo json_encode($message);
     }
 
 

@@ -131,7 +131,7 @@ class ServicesetHandler
         return $result;
     }
 
-    public function closeServiset($id)
+    public function closeServiceset($id)
     {
         $stateName = new StateCheck();
         $model = $this->findModel($id);
@@ -140,7 +140,7 @@ class ServicesetHandler
         return $model->save();
     }
 
-    public function cancelServiset($id)
+    public function cancelServiceset($id)
     {
         $stateName = new StateCheck();
         $model = $this->findModel($id);
@@ -149,9 +149,8 @@ class ServicesetHandler
         return $model->save();
     }
 
-    public function changeServisetState($id)
+    public function changeServicesetState()
     {
-        $setHandler = new ServicesetHandler();
         $request = new RequestHandler();
         $message = [
             'success' => '',
@@ -165,12 +164,12 @@ class ServicesetHandler
         $id_state = null;
         $id = null;
 
-        if (($setHandler->checkGetString($stateName, $getStateKey)) && ($setHandler->checkGetString($servicesetNum, $getNumKey))) {
-            $id_state = $setHandler->getIdFromStringByKey($stateName, $getStateKey);
-            $id = $setHandler->getIdFromStringByKey($servicesetNum, $getNumKey);
+        if (($this->checkGetString($stateName, $getStateKey)) && ($this->checkGetString($servicesetNum, $getNumKey))) {
+            $id_state = $this->getIdFromStringByKey($stateName, $getStateKey);
+            $id = $this->getIdFromStringByKey($servicesetNum, $getNumKey);
         }
 
-        //Нужно добавить проверку номера serviceset
+         //Нужно добавить проверку номера serviceset
 
         if (($id_state != null) && ($id != null)) {
             $model = $this->findModel($id);

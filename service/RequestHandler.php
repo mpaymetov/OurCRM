@@ -16,7 +16,7 @@ class RequestHandler
 
     public function getPostRequest($param)
     {
-        Yii::$app->request->post($param);
+        return Yii::$app->request->post($param);
     }
 
     public function getReferrerAddress()
