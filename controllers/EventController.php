@@ -53,7 +53,7 @@ class EventController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index', $this->eventService->actionEventIndexRequest());
+        return $this->render('index', $this->eventService->getAllEvents());
     }
 
     /**
@@ -64,7 +64,7 @@ class EventController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', $this->eventService->actionEventViewRequest($id)
+        return $this->render('view', $this->eventService->getEventViewData($id)
         );
     }
 
@@ -75,7 +75,7 @@ class EventController extends Controller
      */
     public function actionCreate()
     {
-        $answer = $this->eventService->actionEventCreateRequest(); // возвращяем объект и экшн который нужно применить к объекту
+        $answer = $this->eventService->setEvent(); // возвращяем объект и экшн который нужно применить к объекту
         $action = ArrayHelper::getValue($answer, 'action');
         $model = ArrayHelper::getValue($answer, 'model');
         if ($action == 'redirect') {
@@ -95,7 +95,7 @@ class EventController extends Controller
      */
     public function actionUpdate($id)
     {
-        $answer = $this->eventService->actionEventUpdateRequest($id); // возвращяем объект и экшн который нужно применить к объекту
+        $answer = $this->eventService->setEventUpdate($id); // возвращяем объект и экшн который нужно применить к объекту
         $action = ArrayHelper::getValue($answer, 'action');
         $model = ArrayHelper::getValue($answer, 'model');
         if ($action == 'redirect') {
