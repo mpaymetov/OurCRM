@@ -19,14 +19,12 @@ use app\db_modules\servisetDbQuery;
 use app\service\ServiceListFormHandler;
 
 
-
-
 class ServicesetHandler
 {
 
     public function createServiceset()
     {
-        $modelForm = new ServiceListForm();
+        $modelForm = new ServiceListForm(); //todo завести глобальные переменные в классе, делается созданием через конструктор класса. Мои классы собираются именно так
         $listHandler = new ServiceListFormHandler();
         $session = new SessionUtility();
         $request = new RequestHandler();
@@ -65,7 +63,7 @@ class ServicesetHandler
             $action = 'home';
         }
 
-        return ['action'=>$action, 'modelForm'=>$modelForm, 'id'=>$id];
+        return ['action' => $action, 'modelForm' => $modelForm, 'id' => $id];
     }
 
     public function updateServiceset($id)
@@ -107,13 +105,12 @@ class ServicesetHandler
 
                 throw new StaleObjectException(Yii::t('app', 'Error data version'));
             }
-        }
-        //}
+        } //}
         else {
             $action = 'home';
         }
 
-        return ['action'=>$action, 'modelForm'=>$modelForm, 'model'=>$model];
+        return ['action' => $action, 'modelForm' => $modelForm, 'model' => $model];
     }
 
     public function deleteServiceset($id)
@@ -171,7 +168,7 @@ class ServicesetHandler
             $id = $this->getIdFromStringByKey($servicesetNum, $getNumKey);
         }
 
-         //Нужно добавить проверку номера serviceset
+        //Нужно добавить проверку номера serviceset
 
         if (($id_state != null) && ($id != null)) {
             $model = $this->findModel($id);
@@ -207,13 +204,12 @@ class ServicesetHandler
             //}
         }
 
-        if ($message['success']!='') {
+        if ($message['success'] != '') {
             $message['error'] = 'error';
         }
 
         return $message;
     }
-
 
 
     public function CreateNewSet($idProject)
@@ -251,7 +247,6 @@ class ServicesetHandler
     }
 
 
-
     public function findServiceList($id)
     {
         $serviceListInfo = new servisetDbQuery();
@@ -283,7 +278,7 @@ class ServicesetHandler
     }
 
 
-    public function checkLastPage($pathRefer, $pathCurr, $address)
+    public function checkLastPage($pathRefer, $pathCurr, $address) //todo перенести в валидатор
     {
         $gettingId = $this->getReferrerId($address);
 
@@ -332,7 +327,7 @@ class ServicesetHandler
         return $model->id_serviceset;
     }
 
-    public function getReferrerId($str)
+    public function getReferrerId($str) //todo перенести в referer handler
     {
         $result = NULL;
         parse_str($str, $el);
