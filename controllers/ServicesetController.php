@@ -4,6 +4,7 @@ namespace app\controllers;
 
 
 use Yii;
+use yii\web\Controller;
 use app\models\Serviceset;
 use app\models\Servicelist;
 use app\models\StateCheck;
@@ -15,13 +16,12 @@ use yii\helpers\ArrayHelper;
 use app\service\ServicesetHandler;
 use app\service\ServiceListFormHandler;
 use app\service\SessionUtility;
-use app\service\ServicesetService;
 use app\service\RequestHandler;
 
 /**
  * ServicesetController implements the CRUD actions for Serviceset model.
  */
-class ServicesetController extends SecurityController
+class ServicesetController extends Controller
 {
     /**
      * {@inheritdoc}
