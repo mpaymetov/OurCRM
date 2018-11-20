@@ -37,7 +37,7 @@ class EventService
         $this->userService = $userService;
     }
 
-    public function actionEventIndexRequest()
+    public function getAllEvents()
     {
         $searchModel = new EventSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams); // todo надо ли впиливать проверку всего массива?
@@ -47,7 +47,7 @@ class EventService
         ];
     }
 
-    public function actionEventViewRequest($id)
+    public function getEventViewData($id)
     {
         $searchModel = new EventSearch();
         $model = $searchModel->findModel($id);
@@ -58,7 +58,7 @@ class EventService
         }
     }
 
-    public function actionEventUpdateRequest($id)
+    public function setEventUpdate($id)
     {
         $session = Yii::$app->session;
         $session->set('id_event', $id);
@@ -87,8 +87,7 @@ class EventService
         }
     }
 
-    public
-    function actionEventCreateRequest()
+    public function setCreateEvent()
     {
         $model = new Event();
         $user_name = $this->userService->findNameById(Yii::$app->user->identity->id_user);

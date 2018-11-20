@@ -26,11 +26,11 @@ class DealController extends Controller
     {
         $answer = $this->dealService->actionDealCreate(); // возвращяем объект и экшн который нужно применить к объекту
         $action = ArrayHelper::getValue($answer, 'action');
-        $user = ArrayHelper::getValue($answer, 'user'); //todo нужен только id.. иначе палится вся информация, вплоть до хеша пароля
+        $user = ArrayHelper::getValue($answer, 'user');
         $client = ArrayHelper::getValue($answer, 'client');
         $project = ArrayHelper::getValue($answer, 'project');
-        if ($action == 'redirect') { //todo не находит въюху
-            return $this->render('view', ['project' => $project, 'client' => $client]);
+        if ($action == 'redirect') {
+            return $this->render('view', ['project' => $project, 'user' => $user->id_user, 'client' => $client]);
         } elseif ($action == 'curr') {
             return $this->render('create', [
                 'user' => $user,
