@@ -44,4 +44,32 @@ class StatisticService
         return $result;
     }
 
+    public function getProjectNumByStateForLastYearInfo($idUser)
+    {
+        $query = $this->dbQuery->getProjectNumberForLastYear($idUser);
+
+        $result = [['month', 'all', 'close', 'cancellation']];
+        foreach ($query as $el)
+        {
+            $arrEl = [$el['month'], (int)$el['num'], (int)$el['close'], (int)$el['cancellation']];
+            array_push($result, $arrEl);
+        }
+
+        return $result;
+    }
+
+    public function getSalesForLastYearInfo($idUser)
+    {
+        $query = $this->dbQuery->getSalesForLastYear($idUser);
+        $result = [['month', 'sale']];
+        foreach ($query as $el)
+        {
+            $arrEl = [$el['month'], (int)$el['cost']];
+            array_push($result, $arrEl);
+        }
+
+        return $result;
+    }
+
+
 }

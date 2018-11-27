@@ -34,14 +34,14 @@ use unclead\multipleinput\MultipleInput;
 
     <?= $form->field($model, 'id_state')->dropDownList($itemsState) ?>
 
-    <?= $form->field($model, 'delivery')->widget(\kartik\datetime\DateTimePicker::class, [
+    <?= $form->field($model, 'delivery')->widget(\kartik\datetime\DatePicker::class, [
         'language' => 'ru',
         'pluginOptions' => [
             'autoclose' => true,
         ]
     ]) ?>
 
-    <?= $form->field($model, 'payment')->widget(\kartik\datetime\DateTimePicker::class, [
+    <?= $form->field($model, 'payment')->widget(\kartik\datetime\DatePicker::class, [
         'language' => 'ru',
         'pluginOptions' => [
             'autoclose' => true,

@@ -133,7 +133,7 @@ class ServicesetHandler
         $stateName = new StateCheck();
         $model = $this->findModel($id);
         $model->is_open = 0;
-        $model->id_state = $stateName::Delivery;
+        $model->id_state = $stateName::Close;
         $model->close_date = date("Y-m-d");
         return $model->save();
     }
@@ -143,7 +143,7 @@ class ServicesetHandler
         $stateName = new StateCheck();
         $model = $this->findModel($id);
         $model->is_open = 0;
-        $model->id_state = $stateName::Close;
+        $model->id_state = $stateName::Сancellation;
         $model->close_date = date("Y-m-d");
         return $model->save();
     }

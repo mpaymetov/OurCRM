@@ -9,12 +9,12 @@
 namespace app\controllers;
 
 use Yii;
-use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use app\models\StateCheck;
 use yii\web\Controller;
 use app\service\StatisticService;
+use app\db_modules\StatisticDbQuery;
 
 
 class StatisticController extends Controller
@@ -39,10 +39,16 @@ class StatisticController extends Controller
         }
 
 
-        $model = $this->statisticService->getServicesetNumByStateInfo(Yii::$app->user->identity->id_user);
+        $serviceset = $this->statisticService->getServicesetNumByStateInfo(Yii::$app->user->identity->id_user);
+        $project = $this->statisticService->getProjectNumByStateForLastYearInfo(Yii::$app->user->identity->id_user);
+        $sale = $this->statisticService->getSalesForLastYearInfo(Yii::$app->user->identity->id_user);
+
+
 
         return $this->render('index', [
-            'model' => $model,
+            'serviceset' => $serviceset,
+            'project'=>$project,
+            'sale'=>$sale,
         ]);
     }
 
