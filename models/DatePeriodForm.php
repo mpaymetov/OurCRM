@@ -7,9 +7,12 @@
  */
 
 namespace app\models;
+use yii;
+use yii\validators\DateValidator;
+use yii\base\Model;
 
 
-class DatePeriodForm extends \yii\base\Model
+class DatePeriodForm extends Model
 {
     public $from;
     public $to;
@@ -17,8 +20,7 @@ class DatePeriodForm extends \yii\base\Model
     public function rules()
     {
         return [
-            [['from', 'to'], 'date'],
-            [['from', 'to'], 'require']
+            [['from', 'to'], 'date']
         ];
     }
 
@@ -26,7 +28,7 @@ class DatePeriodForm extends \yii\base\Model
     {
         return [
             'from' => Yii::t('common', 'From'),
-            'to' => Yii::t('common', 'From')
+            'to' => Yii::t('common', 'To  ')
         ];
     }
 }
