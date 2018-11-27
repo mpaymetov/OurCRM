@@ -25,6 +25,12 @@ class StartParamsService
                 $model->is_active = 0;
             }
         }
+        if (property_exists($model, 'id_user')) {
+            if($model->id_user == null)
+            {
+                $model->id_user =  Yii::$app->user->identity->id_user;
+            }
+        }
 
         switch ($model->tableName()) {
             case 'event':

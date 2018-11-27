@@ -88,6 +88,7 @@ class ProjectService
         $this->startParams->takeStartParams($model);
         if ($this->dataControl->dataControl($model)) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
                 return ['model' => $model, 'action' => 'redirect'];
             }
         }

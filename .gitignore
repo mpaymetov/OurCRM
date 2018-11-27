@@ -10,6 +10,4 @@ tests/*
 vagrant/*
 .idea/*
 config/db.php
-
-config/db.php
-config/db.php
+node_modules/*
