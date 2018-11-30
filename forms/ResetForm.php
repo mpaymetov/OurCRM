@@ -1,10 +1,11 @@
 <?php
 
-namespace app\models;
+namespace app\forms;
 
 use Yii;
 use yii\base\Model;
 use app\controllers\SecurityController;
+use app\models\user;
 
 /**
  * Signup form
