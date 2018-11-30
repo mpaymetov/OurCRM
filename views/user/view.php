@@ -33,4 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <p>
+        <?= Html::a(Yii::t('common', 'Reset Password'), ['reset', 'id' => $model->id_user], ['class' => 'btn btn-primary']) ?>
+    </p>
+
 </div>

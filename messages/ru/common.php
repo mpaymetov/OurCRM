@@ -98,4 +98,5 @@ return [
     'Close' => 'Закрыть',
     'Сancellation' => 'Отказ',
     'Statistic' => 'Статистика',
+    'Reset Password' => 'Сброс пароля',
 ];

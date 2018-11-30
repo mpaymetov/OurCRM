@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use app\controllers\SecurityController;
 use app\models\user;
+use app\service\UserService;
 
 /**
  * Signup form
