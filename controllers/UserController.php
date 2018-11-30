@@ -119,7 +119,7 @@ class UserController extends Controller
             }
         }
 
-        $model->login = User::findNameById($id);
+        $model->login = UserService::findNameById($id);
 
         return $this->render('reset', [
             'model' => $model,

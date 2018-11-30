@@ -79,8 +79,8 @@ class ItemController extends Controller
             $userSearchModel = new userSearch();
             $userDataProvider = $userSearchModel->search(Yii::$app->request->queryParams);
 
-            $roleSearchModel = new roleSearch();
-            if ($roleSearchModel->getUserReadAll()) {} else {
+            /*$roleSearchModel = new roleSearch();
+            if ($roleSearchModel->getUserReadAll()) {} else */{
                 $userDataProvider->query->andWhere('user.id_user = ' . Yii::$app->user->identity->id_user);
             }
 
