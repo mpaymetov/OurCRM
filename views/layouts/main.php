@@ -51,7 +51,6 @@ AppAsset::register($this);
         $menuItems[] = ['label' => \Yii::t('common', 'Log in'), 'url' => ['/user/login']];
     } else {
         $menuItems[] = ['label' => \Yii::t('common', 'Users'), 'url' => ['/user/index']];
-        $menuItems[] = ['label' => \Yii::t('common', 'Roles'), 'url' => ['/role/index']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/user/logout'], 'post')
             . Html::submitButton(
