@@ -19,10 +19,14 @@ class RbacController extends Controller {
         // Создадим роли админа и редактора новостей
         $admin = $auth->createRole('admin');
         $manager = $auth->createRole('manager');
+        $leader = $auth->createRole('leader');
+        $baserole = $auth->createRole('baserole');
 
         // запишем их в БД
         $auth->add($admin);
         $auth->add($manager);
+        $auth->add($leader);
+        $auth->add($baserole);
 
         // Создаем разрешения. Например, просмотр админки viewAdminPage и редактирование новости updateNews
         $viewAdminPage = $auth->createPermission('viewAdminPage');
@@ -59,10 +63,5 @@ class RbacController extends Controller {
 
         // Назначаем роль admin пользователю с ID 1
         $auth->assign($admin, 1);
-
-        // Назначаем роль manager пользователю с ID 2
-        $auth->assign($manager, 2);
-
-        $auth->assign($admin, 3);
     }
 }
