@@ -53,14 +53,11 @@ $config = [
             'class' => 'yii\rbac\DbManager',
         ],
         'db' => $db,
-        /*
         'urlManager' => [
+            'class' => 'yii\web\UrlManager',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'rules' => [
-            ],
         ],
-        */
         'i18n' => [
             'translations' => [
                 '*' => [
