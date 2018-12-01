@@ -3,9 +3,7 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\User;
 use app\service\UserService;
-use app\models\UserSearch;
 use app\forms\LoginForm;
 use app\forms\SignupForm;
 use app\forms\ResetForm;
@@ -24,7 +22,7 @@ class UserController extends Controller
 
     public function init()
     {
-    $this->getService();
+        $this->getService();
     }
 
 
@@ -119,7 +117,7 @@ class UserController extends Controller
             }
         }
 
-        $model->login = UserService::findNameById($id);
+        $model->login = UserService::findLoginById($id);
 
         return $this->render('reset', [
             'model' => $model,
@@ -190,7 +188,7 @@ class UserController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = User::findOne($id)) !== null) {
+        if (($model = UserService::findModel($id)) !== null) {
             return $model;
         }
 

@@ -90,7 +90,7 @@ class EventService
     public function setCreateEvent()
     {
         $model = new Event();
-        $user_name = $this->userService->findNameById(Yii::$app->user->identity->id_user);
+        $user_name = $this->userService->findLoginById(Yii::$app->user->identity->id_user);
         $this->startParams->takeStartParams($model);
         if ($this->dataControl->dataControl($model)) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {

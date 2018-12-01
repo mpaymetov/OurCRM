@@ -26,10 +26,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'first_name',
             'second_name',
             'email:email',
-            'id_department',
+            'departments.name',
             'status',
-            'created_at',
-            'updated_at',
+            'created_at:datetime',
+            'updated_at:datetime',
         ],
     ]) ?>
 

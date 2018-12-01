@@ -71,6 +71,7 @@ class User extends ActiveRecord implements IdentityInterface
             'status' => Yii::t('app', 'Status'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
+            'version' => Yii::t('app', 'version'),
         ];
     }
 
@@ -184,4 +185,8 @@ class User extends ActiveRecord implements IdentityInterface
         $this->auth_key = Yii::$app->security->generateRandomString();
     }
 
+    public function getDepartments()
+    {
+        return $this->hasOne(Department::className(), ['id_department' => 'id_department']);
+    }
 }

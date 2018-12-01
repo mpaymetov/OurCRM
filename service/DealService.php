@@ -51,7 +51,7 @@ class DealService
                     $client->save(false);
                     $project->id_client = $client->id_client;
                     $project->save(false);
-                    $user = $this->userService->findNameById($user->id_user);
+                    $user = $this->userService->findLoginById($user->id_user);
                     return [
                         'user' => $user,
                         'project' => $project,
