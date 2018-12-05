@@ -11,6 +11,7 @@ namespace app\service;
 
 use app\db_modules\StatisticDbQuery;
 use app\models\StateCheck;
+use app\models\DatePeriodForm;
 
 
 
@@ -58,6 +59,22 @@ class StatisticService
         return $result;
     }
 
+    public function getProjectNumByStateForPeriod($idUser, $datePeriod)
+    {
+        $query = $this->dbQuery->getProjectNumberForPeriod($idUser, $datePeriod->from, $datePeriod->to);
+
+        $result = [['month', 'all', 'close', 'cancellation']];
+        foreach ($query as $el)
+        {
+            $arrEl = [$el['month'], (int)$el['num'], (int)$el['close'], (int)$el['cancellation']];
+            array_push($result, $arrEl);
+        }
+
+        return $result;
+    }
+
+
+
     public function getSalesForLastYearInfo($idUser)
     {
         $query = $this->dbQuery->getSalesForLastYear($idUser);
@@ -70,6 +87,40 @@ class StatisticService
 
         return $result;
     }
+
+    public function getSalesForLastPeriod($idUser, $datePeriod)
+    {
+        $query = $this->dbQuery->getSalesForPeriod($idUser, $datePeriod->from, $datePeriod->to);
+        $result = [['month', 'sale']];
+        foreach ($query as $el)
+        {
+            $arrEl = [$el['month'], (int)$el['cost']];
+            array_push($result, $arrEl);
+        }
+
+        return $result;
+    }
+
+
+
+
+    public function getChartInfoByPeriod($idUser, $datePeriod)
+    {
+        $result = null;
+        switch ($datePeriod->type){
+            case 'project':
+                $result = $this->getProjectNumByStateForPeriod($idUser, $datePeriod);
+                break;
+            case 'sale':
+                $result = $this->getSalesForLastPeriod($idUser, $datePeriod);
+                break;
+            default:
+                return false;
+        }
+
+        return $result;
+    }
+
 
 
 }

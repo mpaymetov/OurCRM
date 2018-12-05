@@ -15,6 +15,9 @@ use app\models\DatePeriodForm;
 use yii\web\Controller;
 use app\service\StatisticService;
 use app\db_modules\StatisticDbQuery;
+use app\service\RequestHandler;
+use yii\bootstrap\ActiveForm;
+use yii\web\Response;
 
 
 
@@ -56,6 +59,30 @@ class StatisticController extends Controller
         ]);
     }
 
+    public function actionRenderChartByPeriod()
+    {
+        $dateModel = new DatePeriodForm();
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $response = [];
 
+        if ((Yii::$app->request->isAjax)&&($dateModel->load(\Yii::$app->request->post()))){
+           if($dateModel->validate()) {
+                $response['info'] = $this->statisticService->getChartInfoByPeriod(Yii::$app->user->identity->id_user, $dateModel);
+                $response['type'] = $dateModel->type;
+                if ($response['info'] != null)
+                {
+                    $response['success'] = 'success';
+                    $response['error'] = null;
+                } else {
+                    $response['success'] = null;
+                    $response['error'] = 'error';
+                }
+           } else {
+               return ActiveForm::validate($dateModel);
+           }
+        }
+
+        return $response;
+    }
 
 }

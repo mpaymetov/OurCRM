@@ -16,11 +16,19 @@ class DatePeriodForm extends Model
 {
     public $from;
     public $to;
+    public $type;
+
+    private $types = [
+        'project',
+        'sale'
+    ];
 
     public function rules()
     {
         return [
-            [['from', 'to'], 'date']
+            [['from', 'to'], 'date', 'format' => 'yyyy-mm-dd'],
+            [['from', 'to', 'type'], 'required'],
+            [['type'], 'typesValidate']
         ];
     }
 
@@ -30,5 +38,17 @@ class DatePeriodForm extends Model
             'from' => Yii::t('common', 'From'),
             'to' => Yii::t('common', 'To  ')
         ];
+    }
+
+    public function typesValidate($type)
+    {
+        $result = false;
+
+        foreach ($this->types as $el)
+        {
+            $result = ($result || ($type == $el));
+        }
+
+        return $result;
     }
 }
