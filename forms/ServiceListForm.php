@@ -6,7 +6,7 @@
  * Time: 19:18
  */
 
-namespace app\models;
+namespace app\forms;
 
 use Yii;
 use yii\validators\NumberValidator;

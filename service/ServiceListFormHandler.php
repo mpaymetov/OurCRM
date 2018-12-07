@@ -8,7 +8,7 @@
 
 namespace app\service;
 
-use app\models\ServiceListForm;
+use app\forms\ServiceListForm;
 
 
 class ServiceListFormHandler

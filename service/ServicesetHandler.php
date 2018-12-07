@@ -11,7 +11,7 @@ namespace app\service;
 use Yii;
 use app\models\Servicelist;
 use app\models\ServiceSearch;
-use app\models\ServiceListForm;
+use app\forms\ServiceListForm;
 use app\models\Serviceset;
 use app\models\StateCheck;
 use yii\helpers\ArrayHelper;
