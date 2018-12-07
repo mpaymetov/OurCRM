@@ -15,6 +15,7 @@ use app\models\ProjectSearch;
 use app\models\Event;
 use app\models\EventSearch;
 use yii\db\StaleObjectException;
+use app\service\ClientService;
 
 /**
  * ClientController implements the CRUD actions for Client model.
@@ -24,6 +25,20 @@ class ClientController extends Controller
     /**
      * {@inheritdoc}
      */
+    private $service;
+
+    public function init()
+    {
+        $this->getService();
+    }
+
+    public function getService()
+    {
+        $this->service = new ClientService();
+    }
+
+
+
     public function behaviors()
     {
         return [

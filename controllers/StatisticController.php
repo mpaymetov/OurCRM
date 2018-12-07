@@ -11,7 +11,7 @@ namespace app\controllers;
 use Yii;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
-use app\models\DatePeriodForm;
+use app\forms\DatePeriodForm;
 use yii\web\Controller;
 use app\service\StatisticService;
 use app\db_modules\StatisticDbQuery;

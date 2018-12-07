@@ -6,7 +6,7 @@
  * Time: 20:06
  */
 
-namespace app\models;
+namespace app\forms;
 use yii;
 use yii\validators\DateValidator;
 use yii\base\Model;
