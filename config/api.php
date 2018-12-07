@@ -14,6 +14,7 @@ $config = [
             'class' => 'app\components\LanguageSelector',
         ],
     ],
+    'controllerNamespace' => 'app\api',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
@@ -55,7 +56,7 @@ $config = [
         'db' => $db,
         'urlManager' => [
             'class' => 'yii\web\UrlManager',
-            //'enablePrettyUrl' => true,
+            'enablePrettyUrl' => true,
             'showScriptName' => false,
         ],
         'i18n' => [
