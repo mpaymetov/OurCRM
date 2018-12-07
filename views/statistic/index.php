@@ -9,6 +9,7 @@
 use yii\helpers\Html;
 use scotthuangzl\googlechart\GoogleChart;
 use app\assets\StatisticAsset;
+use yii\web\View;
 
 
 StatisticAsset::register($this);
@@ -56,3 +57,5 @@ echo $this->render(
         'options' => array()));
     echo Html::endTag('div');
 echo Html::endTag('div');
+
+//$this->registerJsFile('https://www.gstatic.com/charts/loader.js',['position' => View::POS_HEAD]);
