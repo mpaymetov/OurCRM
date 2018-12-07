@@ -13,7 +13,7 @@ class m181207_163538_create_person_table extends Migration
     public function safeUp()
     {
         $this->createTable('person', [
-            'id' => $this->primaryKey(),
+            'id_person' => $this->primaryKey(),
             'first_name' => $this->string(50),
             'last_name' => $this->string(50),
             'position' => $this->string(100),
