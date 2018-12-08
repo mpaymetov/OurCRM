@@ -16,7 +16,6 @@ class PersonDbQuery
     {
         $query = (new Query())
             ->from('person')
-            ->innerJoin('person_x_client', 'person.id_person = person_x_client.id_person')
             ->andWhere([
                 'id_client' => $idClient
             ])
@@ -29,7 +28,6 @@ class PersonDbQuery
     {
         $query = (new Query())
             ->from('person')
-            ->innerJoin('person_x_client', 'person.id_person = person_x_client.id_person')
             ->andWhere([
                 'id_client' => $idClient,
                 'main' => 1

@@ -83,6 +83,7 @@ class ClientController extends Controller
         $eventDataProvider = $searchEventModel->searchEventId($id, Yii::$app->user->identity->id_user, 1);
         $searchClientEventModel = new EventSearch();
         $clientEventDataProvider = $searchClientEventModel->searchClientEventId($id, Yii::$app->user->identity->id_user, 1);
+        //$arr = $this->service->GetManagerList(Yii::$app->user->identity->id_department);
         $person = $this->service->GetMainPersonInfo($id);
         return $this->render('view', [
             'model' => $this->findModel($id, Yii::$app->user->identity->id_user),
@@ -92,6 +93,7 @@ class ClientController extends Controller
             'eventDataProvider' => $eventDataProvider,
             'clientEventDataProvider' => $clientEventDataProvider,
             'person' => $person,
+            //'arr' => $arr
         ]);
     }
 
@@ -163,7 +165,11 @@ class ClientController extends Controller
 
     public function actionMove($id)
     {
-        
+        $list = $this->service->GetManagerList(Yii::$app->user->identity->id_department);
+        return $this->render('move', [
+
+        ]);
+
     }
 
     /**

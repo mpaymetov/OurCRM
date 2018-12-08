@@ -72,4 +72,15 @@ class UserSearch extends User
             ->andFilterWhere(['like', 'email', $this->email]);
         return $dataProvider;
     }
+
+    public function GetManagerList($idDepartment)
+    {
+        $query = User::find()
+            ->andFilterWhere([
+                'id_department' => $idDepartment
+            ])
+            ->asArray()
+            ->all();
+        return $query;
+    }
 }

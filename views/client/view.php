@@ -13,6 +13,7 @@ $route_link = 1;
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Clients'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+//var_dump($arr);
 
 ?>
 <div class="client-view col-md-11">

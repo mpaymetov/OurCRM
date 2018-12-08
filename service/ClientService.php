@@ -10,8 +10,8 @@ namespace app\service;
 
 use app\models\Client;
 use yii;
-use app\models\Person_x_client;
 use app\db_modules\PersonDbQuery;
+use app\models\UserSearch;
 
 
 class ClientService
@@ -26,11 +26,8 @@ class ClientService
         try {
             $client->save();
             $person->main = 1;
+            $person->id_client = $client->id_client;
             $person->save();
-            $modelPxC = new Person_x_client();
-            $modelPxC->id_person = $person->id_person;
-            $modelPxC->id_client = $client->id_client;
-            $modelPxC->save();
             $transaction->commit();
             $result = true;
         } catch(\Exception $e) {
@@ -59,5 +56,37 @@ class ClientService
 
         return $info;
     }
+
+    public function GetManagerList($idDepartment)
+    {
+        $arr = (new UserSearch())->GetManagerList($idDepartment);
+        $keys = [
+            'id_user',
+            'first_name',
+            'second_name'
+        ];
+
+        $result = [];
+
+        foreach ($arr as $item) {
+            $curr = [];
+            foreach ($keys as $key) {
+                if(key_exists($key, $item)) {
+                    $curr[$key] = $item[$key];
+                }
+            }
+            if($curr) {
+                array_push($result, $curr);
+            }
+        }
+
+        $list = [];
+        foreach ($result as $item) {
+            $list[(int)$item['id_user']] = $item['first_name'] . ' ' . $item['second_name'];
+        }
+
+        return $list;
+    }
+
 
 }
