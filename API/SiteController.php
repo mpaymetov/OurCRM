@@ -1,6 +1,6 @@
 <?php
 
-namespace app\api\controllers;
+namespace app\api;
 
 use Yii;
 use app\db_modules\servisetDbQuery;
@@ -78,11 +78,9 @@ class SiteController extends Controller
                 }
 
             //return $this->render('index',
-
-            $dataArr = ([
+            echo (json_encode([
                 'dataProvider' => $dataProvider,
-            ]); 
-            echo (json_encode($dataArr, JSON_UNESCAPED_UNICODE));
+            ]));
         }
     }
 
