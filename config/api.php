@@ -14,7 +14,7 @@ $config = [
             'class' => 'app\components\LanguageSelector',
         ],
     ],
-    'controllerNamespace' => 'app\api',
+    'controllerNamespace' => 'app\api\controllers',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',

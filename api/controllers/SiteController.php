@@ -1,6 +1,6 @@
 <?php
 
-namespace app\api;
+namespace app\api\controllers;
 
 use Yii;
 use app\db_modules\servisetDbQuery;
