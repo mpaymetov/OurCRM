@@ -15,7 +15,7 @@ echo Html::activeHiddenInput($model, 'version');
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
+    <?= $this->render('_form-update', [
         'model' => $model,
     ]) ?>
 

@@ -14,22 +14,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'created')->widget(\kartik\date\DatePicker::class, [
-        'language' => 'ru',
-        'pluginOptions' => [
-            'autoclose' => true,
-        ]
-    ]) ?>
+    <?= $form->field($modelPerson, 'first_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($modelPerson, 'last_name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($modelPerson, 'position')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($modelPerson, 'contact')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($modelPerson, 'email')->textInput(['maxlength' => true]) ?>
+
 
     <?= $form->field($model, 'comment')->textarea(['rows' => 6]) ?>
 
-    <?php
-    if($model->id_user){
-        echo $form->field($model, 'id_user')->textInput(['maxlength' => true, 'readonly' => true]);
-    } else {
-        echo $form->field($model, 'id_user')->textInput(['maxlength' => true]);
-    }
-    ?>
 
     <?= Html::activeHiddenInput($model, 'version'); ?>
 

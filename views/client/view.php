@@ -13,12 +13,46 @@ $route_link = 1;
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Clients'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
-<div class="client-view">
-    <div class="post panel">
+<div class="client-view col-md-11">
+    <div class="panel">
         <div class="panel-body">
             <h4><?= html::encode($model->name)?></h4>
-            <p class="post_number"><?= \Yii::t('common', 'client number: ')?> <?= HtmlPurifier::process($model->id_client) ?></p>
+            <div>
+                <?php
+                if($person)
+                {
+                    if($person['first_name'] != null) {
+                        $content = \Yii::t('common', 'First Name') . ': ' . html::encode($person['first_name']);
+                        echo Html::tag('p', $content);
+                    }
+
+                    if($person['last_name'] != null) {
+                        $content = \Yii::t('common', 'Last Name') . ': ' . html::encode($person['last_name']);
+                        echo Html::tag('p', $content);
+                    }
+
+                    if($person['position'] != null) {
+                        $content = \Yii::t('common', 'Position') . ': ' . html::encode($person['position']);
+                        echo Html::tag('p', $content);
+                    }
+
+                    $content = \Yii::t('common', 'Contact') . ': ' . html::encode($person['contact']);
+                    echo Html::tag('p', $content);
+
+                    if($person['email'] != null) {
+                        $content = 'E-mail' . ': ' . html::encode($person['email']);
+                        echo Html::tag('p', $content);
+                    }
+                    echo Html::a(Yii::t('common', 'Update'), ['person/update', 'id' => $person['id']], ['class' => 'btn btn-primary']);
+
+                } else {
+                    echo html::encode('Не указано контактное лицо ');
+                }
+                echo Html::a(Yii::t('common', 'Add Contact'), ['person/create'], ['class' => 'btn btn-primary']);
+                ?>
+            </div>
             <p><?= html::encode($model->comment)?></p>
             <p class=" btn btn_more">
                 <?= Html::a(Yii::t('common', 'Update'), ['update', 'id' => $model->id_client], ['class' => 'btn btn-primary']) ?>
@@ -32,6 +66,11 @@ $this->params['breadcrumbs'][] = $this->title;
             </p>
         </div>
     </div>
+</div>
+
+
+<div class="col-md-1">
+    <?= Html::a(Yii::t('common', 'Передать клиента'), ['move', 'id' => $model->id_client], ['class' => 'btn btn-primary']) ?>
 </div>
 
 

@@ -19,6 +19,7 @@ $model->id_user = Yii::$app->user->identity->id_user;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'modelPerson' => $modelPerson
     ]) ?>
 
 </div>

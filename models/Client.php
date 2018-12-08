@@ -36,7 +36,7 @@ class Client extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'comment', 'id_user'], 'required'],
+            [['name', 'id_user'], 'required'],
             [['created'], 'safe'],
             [['comment'], 'string'],
             [['id_user'], 'integer'],
@@ -52,7 +52,7 @@ class Client extends \yii\db\ActiveRecord
     {
         return [
             'id_client' => Yii::t('common', 'Id Client'),
-            'name' => Yii::t('common', 'Name'),
+            'name' => Yii::t('common', 'Сompany'),
             'created' => Yii::t('common', 'Created'),
             'comment' => Yii::t('common', 'Comment'),
             'id_user' => Yii::t('common', 'Id User'),

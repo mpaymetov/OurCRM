@@ -7,6 +7,8 @@ use app\service\StartParamsService;
 use Yii;
 use app\models\Client;
 use app\models\ClientSearch;
+use app\models\Person;
+use app\models\Person_x_client;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -73,12 +75,15 @@ class ClientController extends Controller
      */
     public function actionView($id)
     {
+        $session = Yii::$app->session;
+        $session->set('id_client', $id);
         $searchModel = new ProjectSearch();
         $dataProvider = $searchModel->searchClientProject($id);
         $searchEventModel = new EventSearch();
         $eventDataProvider = $searchEventModel->searchEventId($id, Yii::$app->user->identity->id_user, 1);
         $searchClientEventModel = new EventSearch();
         $clientEventDataProvider = $searchClientEventModel->searchClientEventId($id, Yii::$app->user->identity->id_user, 1);
+        $person = $this->service->GetMainPersonInfo($id);
         return $this->render('view', [
             'model' => $this->findModel($id, Yii::$app->user->identity->id_user),
             'searchModel' => $searchModel,
@@ -86,6 +91,7 @@ class ClientController extends Controller
             'searchEventModel' => $searchEventModel,
             'eventDataProvider' => $eventDataProvider,
             'clientEventDataProvider' => $clientEventDataProvider,
+            'person' => $person,
         ]);
     }
 
@@ -97,16 +103,19 @@ class ClientController extends Controller
     public function actionCreate()
     {
         $model = new Client();
+        $modelPerson = new Person();
         $startParams = new StartParamsService();
         $dataControl = new DataValidateService();
         $startParams->takeStartParams($model);
+        $startParams->takeStartParams($modelPerson);
         if ($dataControl->dataControl($model)) {
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if ($model->load(Yii::$app->request->post()) && $modelPerson->load(Yii::$app->request->post()) && $this->service->SaveNewClientAndPerson($model, $modelPerson)) {
                 return $this->redirect(['view', 'id' => $model->id_client]);
             }
         }
         return $this->render('create', [
             'model' => $model,
+            'modelPerson' => $modelPerson
         ]);
     }
 
@@ -150,6 +159,11 @@ class ClientController extends Controller
     {
         $this->findModel($id)->delete();
         return $this->redirect(['index']);
+    }
+
+    public function actionMove($id)
+    {
+        
     }
 
     /**

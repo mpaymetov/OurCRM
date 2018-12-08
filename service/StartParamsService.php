@@ -49,6 +49,10 @@ class StartParamsService
                 $this->takeStartServicesetParam($model, $request);
                 return $model;
                 break;
+            case 'person':
+                $this->takeStartPersonParam($model, $request);
+                return $model;
+                break;
             default:
                 return false;
         }
@@ -74,6 +78,12 @@ class StartParamsService
     public function takeStartClientParam($model, $request)
     {
         $model->id_user = Yii::$app->user->identity->id_user;
+        $model->created = date("Y-m-d");
+    }
+
+    public function takeStartPersonParam($model, $request)
+    {
+
     }
 
     public function takeStartServicesetParam($model, $request)

@@ -99,4 +99,9 @@ return [
     'Сancellation' => 'Отказ',
     'Statistic' => 'Статистика',
     'Reset Password' => 'Сброс пароля',
+    'Сompany' => 'Организация',
+    'Last Name' => 'Фамилия',
+    'Position' => 'Должность',
+    'Add Contact' => 'Добавить контактное лицо',
+    '' => '',
 ];
