@@ -16,6 +16,22 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a(\Yii::t('common', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id_user], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                'method' => 'post',
+            ],
+        ]) ?>
+        <?= Html::a(Yii::t('app', 'Disable'), ['disable', 'id' => $model->id_user], [
+                'class' => 'btn btn-warning',
+                'data' => [
+                    'confirm' => Yii::t('app', 'Are you sure you want to disable this item?'),
+                    'method' => 'post',
+                ],
+            ])
+        ?>
+        <?= Html::a(Yii::t('app', 'Enable'), ['enable', 'id' => $model->id_user], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= DetailView::widget([

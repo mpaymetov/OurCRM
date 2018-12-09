@@ -7,6 +7,7 @@ use app\service\UserService;
 use app\forms\LoginForm;
 use app\forms\SignupForm;
 use app\forms\ResetForm;
+use app\forms\CreateForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -66,16 +67,52 @@ class UserController extends Controller
     }
 
     /**
+     * Disable a single User model.
+     * @param string $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDisable($id)
+    {
+        $model = UserService::findModel($id);
+        $model->status = 0;
+        $model->save();
+
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
+     * Enable a single User model.
+     * @param string $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionEnable($id)
+    {
+        $model = UserService::findModel($id);
+        $model->status = 10;
+        $model->save();
+
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
      * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new User();
+        $model = new CreateForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_user]);
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->create()) {
+                $this->redirect(['view', 'id' => $user->id_user]);
+            }
         }
 
         return $this->render('create', [
