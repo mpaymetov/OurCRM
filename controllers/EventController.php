@@ -75,7 +75,7 @@ class EventController extends Controller
      */
     public function actionCreate()
     {
-        $answer = $this->eventService->setEvent(); // возвращяем объект и экшн который нужно применить к объекту
+        $answer = $this->eventService->setCreateEvent(); // возвращяем объект и экшн который нужно применить к объекту
         $action = ArrayHelper::getValue($answer, 'action');
         $model = ArrayHelper::getValue($answer, 'model');
         if ($action == 'redirect') {
