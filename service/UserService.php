@@ -4,6 +4,7 @@ namespace app\service;
 
 use Yii;
 use app\models\UserSearch;
+use yii\data\ArrayDataProvider;
 
 class UserService
 {
@@ -11,6 +12,13 @@ class UserService
     {
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        /*$dataModels = [];
+        $dataModels = $dataProvider->getModels();
+
+        $dataProvider = new ArrayDataProvider([
+            'allModels'=> $dataModels,
+        ]);*/
 
         return [
             'searchModel' => $searchModel,
