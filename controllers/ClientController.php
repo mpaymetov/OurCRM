@@ -8,13 +8,10 @@ use Yii;
 use app\models\Client;
 use app\models\ClientSearch;
 use app\models\Person;
-use app\models\Person_x_client;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\Project;
 use app\models\ProjectSearch;
-use app\models\Event;
 use app\models\EventSearch;
 use yii\db\StaleObjectException;
 use app\service\ClientService;
@@ -167,7 +164,7 @@ class ClientController extends Controller
     {
         $list = $this->service->GetManagerList(Yii::$app->user->identity->id_department);
         return $this->render('move', [
-
+            'list' => $list
         ]);
 
     }

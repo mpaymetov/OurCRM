@@ -35,7 +35,7 @@ class Person extends \yii\db\ActiveRecord
             [['email'], 'email'],
             [['first_name', 'last_name', 'position', 'email'], 'default', 'value' => null],
             [['id_person'], 'integer'],
-            [['main'], 'default', 'value' => 0],
+            [['main', 'last_main'], 'default', 'value' => 0],
             [['version'], 'integer'],
         ];
     }

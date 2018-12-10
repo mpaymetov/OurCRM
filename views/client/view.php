@@ -47,13 +47,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         echo Html::tag('p', $content);
                     }
                     echo Html::a(Yii::t('common', 'Update'), ['person/update', 'id' => $person['id']], ['class' => 'btn btn-primary']);
-
+                    echo Html::a(Yii::t('common', 'View more'), ['person/view-all', 'id' => $model->id_client], []);
                 } else {
                     echo html::encode('Не указано контактное лицо ');
                 }
                 echo Html::a(Yii::t('common', 'Add Contact'), ['person/create'], ['class' => 'btn btn-primary']);
                 ?>
             </div>
+
             <p><?= html::encode($model->comment)?></p>
             <p class=" btn btn_more">
                 <?= Html::a(Yii::t('common', 'Update'), ['update', 'id' => $model->id_client], ['class' => 'btn btn-primary']) ?>

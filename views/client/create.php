@@ -21,5 +21,5 @@ $model->id_user = Yii::$app->user->identity->id_user;
         'model' => $model,
         'modelPerson' => $modelPerson
     ]) ?>
-
+    <?= Html::a(Yii::t('common', 'Back'), Yii::$app->request->getReferrer(), ['class' => 'btn btn-success']) ?>
 </div>
