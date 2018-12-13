@@ -29,6 +29,10 @@ $this->title = Yii::t('common', 'Сделки');
         echo Html::endTag('div');
     }
     ?>
+    <div class="root" id="root">
+    <script src="../web/js/bundle.js">
+    </script>
+    </div>
 
     <?php /*GridView::widget([
         'dataProvider' => $dataProvider,
