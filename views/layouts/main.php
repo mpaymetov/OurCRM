@@ -32,8 +32,8 @@ AppAsset::register($this);
         </script>
     </div>
 
-    <?php  // <?php
-   /* NavBar::begin([
+    <?php
+    NavBar::begin([
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
@@ -81,7 +81,7 @@ AppAsset::register($this);
         <?= $content ?>
     </div>
 </div>
-  */ ?>
+  
 <footer class="footer">
     <div class="container">
         <p class="pull-left">&copy; My Company <?= date('Y') ?> </p>
