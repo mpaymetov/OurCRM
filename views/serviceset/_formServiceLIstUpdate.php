@@ -9,6 +9,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use unclead\multipleinput\MultipleInput;
+use kartik\date\DatePicker;
+
 
 /* @var $this yii\web\View */
 /* @var $modelServicelist app\models\Servicelist */
@@ -24,29 +26,22 @@ use unclead\multipleinput\MultipleInput;
     <?= Html::activeHiddenInput($model, 'version'); ?>
     <?= Html::activeHiddenInput($model, 'id_project'); ?>
 
-    <?php
-   /* if ($model->id_project) {
-        echo $form->field($model, 'id_project')->textInput(['maxlength' => true, 'readonly' => true]);
-    } else {
-        echo $form->field($model, 'id_project')->textInput(['maxlength' => true]);
-    }*/
+    <?= $form->field($model, 'id_state')->dropDownList($itemsState) ?>
+    <?=  $form->field($model, 'delivery')->widget(DatePicker::classname(), [
+        'language' => 'ru',
+        'pluginOptions' => [
+            'autoclose' => true,
+        ]
+    ]);
+    ?>
+    <?=  $form->field($model, 'payment')->widget(DatePicker::classname(), [
+        'language' => 'ru',
+        'pluginOptions' => [
+            'autoclose' => true,
+        ]
+    ]);
     ?>
 
-    <?= $form->field($model, 'id_state')->dropDownList($itemsState) ?>
-
-    <?= $form->field($model, 'delivery')->widget(\kartik\datetime\DatePicker::class, [
-        'language' => 'ru',
-        'pluginOptions' => [
-            'autoclose' => true,
-        ]
-    ]) ?>
-
-    <?= $form->field($model, 'payment')->widget(\kartik\datetime\DatePicker::class, [
-        'language' => 'ru',
-        'pluginOptions' => [
-            'autoclose' => true,
-        ]
-    ]) ?>
 
     <?php
     /*for($i = 0; $i < count($info); $i++)
