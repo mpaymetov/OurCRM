@@ -28,6 +28,7 @@ class DatePeriodForm extends Model
         return [
             [['from', 'to'], 'date', 'format' => 'yyyy-mm-dd'],
             [['from', 'to', 'type'], 'required'],
+            [['from', 'to'], 'dateCheck'],
             [['type'], 'typesValidate']
         ];
     }
@@ -51,4 +52,10 @@ class DatePeriodForm extends Model
 
         return $result;
     }
+
+    public function dateCheck()
+    {
+        return $this->from <= $this->to;
+    }
+
 }

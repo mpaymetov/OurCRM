@@ -41,23 +41,58 @@ class StatisticController extends Controller
         if (Yii::$app->user->isGuest) {
             return Yii::$app->getResponse()->redirect(array('/user/login', 302));
         }
-
         $dateModelProject = new DatePeriodForm();
         $dateModelSale= new DatePeriodForm();
-        $serviceset = $this->statisticService->getServicesetNumByStateInfo(Yii::$app->user->identity->id_user);
-        $project = $this->statisticService->getProjectNumByStateForLastYearInfo(Yii::$app->user->identity->id_user);
-        $sale = $this->statisticService->getSalesForLastYearInfo(Yii::$app->user->identity->id_user);
-
-
 
         return $this->render('index', [
-            'serviceset' => $serviceset,
-            'project'=>$project,
-            'sale'=>$sale,
             'dateModelProject'=>$dateModelProject,
             'dateModelSale'=>$dateModelSale
         ]);
     }
+
+
+    public function actionRenderInitialServicesetChart()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $data = $this->statisticService->getServicesetNumByStateInfo(Yii::$app->user->identity->id_user);
+
+        $response = [
+            'name' => 'serviceset',
+            'chart' => 'ColumnChart',
+            'data' => $data,
+            'error' => empty($data)
+        ];
+        return $response;
+    }
+
+    public function actionRenderInitialProjectChart()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $data = $this->statisticService->getProjectNumByStateForLastYearInfo(Yii::$app->user->identity->id_user);
+        $response = [
+            'name' => 'project',
+            'chart' => 'ColumnChart',
+            'data' => $data,
+            'error' => empty($data)
+        ];
+        return $response;
+    }
+
+    public function actionRenderInitialSaleChart()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $data = $this->statisticService->getSalesForLastYearInfo(Yii::$app->user->identity->id_user);
+        $response = [
+            'name' => 'sale',
+            'chart' => 'LineChart',
+            'data' => $data,
+            'error' => empty($data)
+        ];
+        return $response;
+
+    }
+
+
 
     public function actionRenderChartByPeriod()
     {

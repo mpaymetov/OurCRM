@@ -50,8 +50,9 @@ class statisticDbQuery
 
         $query = \Yii::$app->db->createCommand(
             'SELECT
-	        MONTHNAME(project.creation_date) AS month,
-	        COUNT(*) AS num,
+	        MONTH(project.creation_date) AS `month`,
+	        YEAR(project.creation_date) AS `year`,
+	        COUNT(*) AS `all`,
             SUM(serviceset.id_state=5) AS close,
             SUM(serviceset.id_state=6) AS cancellation
             from serviceset
@@ -86,8 +87,9 @@ class statisticDbQuery
 
         $query = \Yii::$app->db->createCommand(
             'SELECT
-	        MONTHNAME(project.creation_date) AS month,
-	        COUNT(*) AS num,
+	        MONTH(project.creation_date) AS `month`,
+	        YEAR(project.creation_date) AS `year`,
+	        COUNT(*) AS `all`,
             SUM(serviceset.id_state=5) AS close,
             SUM(serviceset.id_state=6) AS cancellation
             from serviceset
@@ -127,8 +129,9 @@ class statisticDbQuery
             ->all();*/
         $query = \Yii::$app->db->createCommand(
             'select
-	        MONTHNAME(serviceset.close_date) AS month,
-            SUM(service.cost) AS cost
+	        MONTH(serviceset.close_date) AS `month`,
+	        YEAR(project.creation_date) AS `year`,
+            SUM(service.cost) AS sale
             from serviceset
             left Join project on project.id_project=serviceset.id_project
             left Join servicelist on servicelist.id_serviceset=serviceset.id_serviceset
@@ -166,8 +169,9 @@ class statisticDbQuery
             ->all();*/
         $query = \Yii::$app->db->createCommand(
             'select
-	        MONTHNAME(serviceset.close_date) AS month,
-            SUM(service.cost) AS cost
+	        MONTH(serviceset.close_date) AS `month`,
+	        YEAR(project.creation_date) AS `year`,
+            SUM(service.cost) AS sale
             from serviceset
             left Join project on project.id_project=serviceset.id_project
             left Join servicelist on servicelist.id_serviceset=serviceset.id_serviceset

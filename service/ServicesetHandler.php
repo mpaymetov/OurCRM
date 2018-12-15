@@ -192,6 +192,10 @@ class ServicesetHandler
 
             if ($id_state == $state::Delivery) {
                 $model->delivery = date("Y-m-d");
+                if(!$model->payment) {
+                    $model->payment = $model->delivery;
+                }
+                $success['payment_date'] = $model->payment;
                 $success['delivery_date'] = $model->delivery;
             }
 
