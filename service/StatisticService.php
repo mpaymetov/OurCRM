@@ -197,8 +197,7 @@ class StatisticService
         $list = $this->getMonthList($from, $to);
         $result = [];
         array_push($result, $columns);
-        foreach ($query as $el)
-        {
+        foreach ($query as $el) {
             $arrEl = [$el['month'], (int)$el['sale']];
             array_push($result, $arrEl);
         }
@@ -208,7 +207,6 @@ class StatisticService
 
             }
         }
-
-$
+    }
 
 }
