@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 
-class Form extends Component{
+class ItemPost extends Component{
 
 
     render(){
         return(
-
-                <div>Hello</div>
+            <div>Hello</div>
         )
     }
 }
 
-export default Form;
+export default ItemPost;
