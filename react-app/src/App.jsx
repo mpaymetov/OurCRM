@@ -6,7 +6,7 @@ import ItemPost from './component/itemPost.jsx';
 
 
 
-const API = 'http://localhost/web/index.php?api';
+const API = 'http://localhost/index.php?api';
 
 class App extends Component {
 
