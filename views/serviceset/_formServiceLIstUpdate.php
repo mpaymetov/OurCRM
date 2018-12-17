@@ -42,20 +42,6 @@ use kartik\date\DatePicker;
     ]);
     ?>
 
-
-    <?php
-    /*for($i = 0; $i < count($info); $i++)
-    {
-        $num = $info[$i];
-        echo $form->field($modelForm, 'serviceList')->dropDownList(
-            $itemsService,
-            ['options' => [
-                $num => ['Selected' => true],
-                ],
-            ]);
-    }*/
-    ?>
-
     <?= $form->field($modelForm, 'serviceList')-> widget(MultipleInput::className(), [
         'max' => 12,
         'columns' => [

@@ -9,10 +9,12 @@
 namespace app\service;
 
 
+use Yii;
 use app\db_modules\StatisticDbQuery;
 use app\models\StateCheck;
-use app\models\DatePeriodForm;
-
+use app\forms\DatePeriodForm;
+use DateInterval;
+use DateTime;
 
 
 class StatisticService
@@ -31,21 +33,40 @@ class StatisticService
         $this->dbQuery = $param;
     }
 
-    public function getServicesetNumByStateInfo($idUser)
+    public function getServicesetNumByStateInfo($datePeriod)
     {
-        $query = $this->dbQuery->getServicesetNumByState($idUser);
+        $query = $this->dbQuery->getServicesetNumByState($datePeriod->user);
 
         if(empty($query)) {
             return null;
         }
 
         $state = new StateCheck();
+        $list = $state->getStateList();
         $result = [['state', 'num']];
+        $find = false;
+        $num = -1;
 
-        foreach ($query as $el)
+        for($i = $state::MakeContact; $i <= $state::Delivery; $i++)
         {
-            $arrEl = [(string)$state->getStateName($el['state']),  (int)$el['num']];
+            foreach ($query as $el) {
+                $find = ($el['state'] == $i);
+                $num++;
+                if($find) {
+                    break;
+                }
+            }
+
+            if($find)
+            {
+                $arrEl = [(string)$list[$i],  (int)$query[$num]['num']];
+            } else {
+                $arrEl = [(string)$list[$i], (int)0];
+            }
+
             array_push($result, $arrEl);
+            $find = false;
+            $num = -1;
         }
 
         return $result;
@@ -55,12 +76,6 @@ class StatisticService
     {
         $query = $this->dbQuery->getProjectNumberForLastYear($idUser);
 
-        if(empty($query)) {
-            return null;
-        }
-
-
-
         $result = [['month', 'all', 'close', 'cancellation']];
         foreach ($query as $el)
         {
@@ -71,73 +86,42 @@ class StatisticService
         return $result;
     }
 
-    public function getProjectNumByStateForPeriod($idUser, $datePeriod)
+    public function getProjectNumByStateForPeriod($datePeriod)
     {
-        $query = $this->dbQuery->getProjectNumberForPeriod($idUser, $datePeriod->from, $datePeriod->to);
+        $query = $this->dbQuery->getProjectNumberForPeriod($datePeriod->user, $datePeriod->from, $datePeriod->to);
 
-        if(empty($query)) {
-            return null;
-        }
+        $columns = ['month', 'all', 'close', 'cancellation'];
 
-        $result = [['month', 'all', 'close', 'cancellation']];
-        foreach ($query as $el)
-        {
-            $arrEl = [$el['month'], (int)$el['all'], (int)$el['close'], (int)$el['cancellation']];
-            array_push($result, $arrEl);
-        }
+        $result = $this->addMonthInfo($query, $columns, $datePeriod->from, $datePeriod->to);
+
+        return $result;
+    }
+
+    public function getSalesForLastPeriod($datePeriod)
+    {
+        $query = $this->dbQuery->getSalesForPeriod($datePeriod->user, $datePeriod->from, $datePeriod->to);
+
+        $columns = ['month', 'sale'];
+
+        $result = $this->addMonthInfo($query, $columns, $datePeriod->from, $datePeriod->to);
 
         return $result;
     }
 
 
 
-    public function getSalesForLastYearInfo($idUser)
-    {
-        $query = $this->dbQuery->getSalesForLastYear($idUser);
-        
-        if(empty($query)) {
-            return null;
-        }
-
-        $result = [['month', 'sale']];
-        foreach ($query as $el)
-        {
-            $arrEl = [$el['month'], (int)$el['sale']];
-            array_push($result, $arrEl);
-        }
-
-        return $result;
-    }
-
-    public function getSalesForLastPeriod($idUser, $datePeriod)
-    {
-        $query = $this->dbQuery->getSalesForPeriod($idUser, $datePeriod->from, $datePeriod->to);
-        
-        if(empty($query)) {
-            return null;
-        }
-
-        $result = [['month', 'sale']];
-        foreach ($query as $el)
-        {
-            $arrEl = [$el['month'], (int)$el['sale']];
-            array_push($result, $arrEl);
-        }
-
-        return $result;
-    }
-
-
-
-    public function getChartInfoByPeriod($idUser, $datePeriod)
+    public function getChartInfoByPeriod($datePeriod)
     {
         $result = null;
         switch ($datePeriod->type){
             case 'project':
-                $result = $this->getProjectNumByStateForPeriod($idUser, $datePeriod);
+                $result = $this->getProjectNumByStateForPeriod($datePeriod);
                 break;
             case 'sale':
-                $result = $this->getSalesForLastPeriod($idUser, $datePeriod);
+                $result = $this->getSalesForLastPeriod($datePeriod);
+                break;
+            case 'serviceset':
+                $result = $this->getServicesetNumByStateInfo($datePeriod);
                 break;
             default:
                 return false;
@@ -152,42 +136,35 @@ class StatisticService
         $lastMonth = date("n", strtotime($to));
         $firstYear = date("Y", strtotime($from));
         $lastYear = date("Y", strtotime($to));
-        $result = [];
         $list = [];
         $yearDifference = $lastYear - $firstYear;
         if($yearDifference == 0) {
             for($i = $firstMonth; $i <= $lastMonth; $i++) {
-                array_push($list, $this->monthList[$i]);
+                array_push($list, ['num' => $i, 'month' => $this->monthList[$i], 'year' => $firstYear]);
             }
-            $result[$firstYear] = $list;
         } elseif ($yearDifference == 1) {
             for($i = $firstMonth; $i <= 12; $i++) {
-                array_push($list, $this->monthList[$i]);
+                array_push($list, ['num' => $i, 'month' => $this->monthList[$i], 'year' => $firstYear]);
             }
-            $result[$firstYear] = $list;
-            $list = [];
+
             for($i = 1; $i <= $lastMonth; $i++) {
-                array_push($list, $this->monthList[$i]);
+                array_push($list, ['num' => $i, 'month' => $this->monthList[$i], 'year' => $lastYear]);
             }
-            $result[$lastYear] = $list;
+
         } elseif ($yearDifference > 1) {
             for($i = $firstMonth; $i <= 12; $i++) {
-                array_push($list, $this->monthList[$i]);
+                array_push($list, ['num' => $i, 'month' => $this->monthList[$i], 'year' => $firstYear]);
             }
-            $result[$firstYear] = $list;
-            $list = [];
+
             for ($i = 1; $i < $yearDifference; $i ++)
             {
                 for ($j = 1; $j <= 12; $j++) {
-                    array_push($list, $this->monthList[$i]);
+                    array_push($list, ['num' => $i, 'month' => $this->monthList[$i], 'year' => $firstYear + $j]);
                 }
-                $result[$firstYear + $i] = $list;
-                $list = [];
             }
             for($i = 1; $i <= $lastMonth; $i++) {
-                array_push($list, $this->monthList[$i]);
+                array_push($list, ['num' => $i, 'month' => $this->monthList[$i], 'year' => $lastYear]);
             }
-            $result[$lastYear] = $list;
         }
         return $list;
     }
@@ -195,18 +172,49 @@ class StatisticService
     public function addMonthInfo($query, $columns, $from, $to)
     {
         $list = $this->getMonthList($from, $to);
+
         $result = [];
         array_push($result, $columns);
-        foreach ($query as $el) {
-            $arrEl = [$el['month'], (int)$el['sale']];
-            array_push($result, $arrEl);
-        }
 
-        foreach ($query as $year => $arr) {
-            foreach ($arr as $month) {
+        $el = [];
+        $find = false;
+        $num = -1;
 
+        foreach ($list as $item) {
+            foreach ($query as $str) {
+                $find = (($str['month'] == $item['num']) && ($str['year'] == $item['year']));
+                $num++;
+                if ($find) {
+                    break;
+                }
             }
+
+            foreach ($columns as $column) {
+                if ($column == 'month') {
+                    array_push($el, $item[$column]);
+                } else {
+                    ($find) ? (array_push($el, $query[$num][$column])) : (array_push($el, (int)0));
+                }
+            }
+
+            array_push($result, $el);
+            $el = [];
+            $find = false;
+            $num = -1;
         }
+        return $result;
+    }
+
+    public function getInitalPeriod($type)
+    {
+        $date = new DatePeriodForm();
+        $currDate = new DateTime;
+        $date->to = $currDate->format('Y-m-d');
+        $currDate->sub(DateInterval::createFromDateString('1 year'));
+        $date->from = $currDate->format('Y-m-d');;
+        $date->type = $type;
+        $date->user = Yii::$app->user->identity->id_user;
+        return $date;
     }
 
 }

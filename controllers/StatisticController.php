@@ -54,10 +54,12 @@ class StatisticController extends Controller
     public function actionRenderInitialServicesetChart()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
-        $data = $this->statisticService->getServicesetNumByStateInfo(Yii::$app->user->identity->id_user);
+        $chartType = 'serviceset';
+        $date = $this->statisticService->getInitalPeriod($chartType);
+        $data = $this->statisticService->getChartInfoByPeriod($date);
 
         $response = [
-            'name' => 'serviceset',
+            'name' => $chartType,
             'chart' => 'ColumnChart',
             'data' => $data,
             'error' => empty($data)
@@ -68,9 +70,12 @@ class StatisticController extends Controller
     public function actionRenderInitialProjectChart()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
-        $data = $this->statisticService->getProjectNumByStateForLastYearInfo(Yii::$app->user->identity->id_user);
+        $chartType = 'project';
+        $date = $this->statisticService->getInitalPeriod($chartType);
+        $data = $this->statisticService->getChartInfoByPeriod($date);
+
         $response = [
-            'name' => 'project',
+            'name' => $chartType,
             'chart' => 'ColumnChart',
             'data' => $data,
             'error' => empty($data)
@@ -81,9 +86,12 @@ class StatisticController extends Controller
     public function actionRenderInitialSaleChart()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
-        $data = $this->statisticService->getSalesForLastYearInfo(Yii::$app->user->identity->id_user);
+        $chartType = 'sale';
+        $date = $this->statisticService->getInitalPeriod($chartType);
+        $data = $this->statisticService->getChartInfoByPeriod($date);
+
         $response = [
-            'name' => 'sale',
+            'name' => $chartType,
             'chart' => 'LineChart',
             'data' => $data,
             'error' => empty($data)
@@ -97,12 +105,13 @@ class StatisticController extends Controller
     public function actionRenderChartByPeriod()
     {
         $dateModel = new DatePeriodForm();
+        $dateModel->user = Yii::$app->user->identity->id_user;
         Yii::$app->response->format = Response::FORMAT_JSON;
         $response = [];
 
         if ((Yii::$app->request->isAjax)&&($dateModel->load(\Yii::$app->request->post()))){
            if($dateModel->validate()) {
-                $response['info'] = $this->statisticService->getChartInfoByPeriod(Yii::$app->user->identity->id_user, $dateModel);
+                $response['info'] = $this->statisticService->getChartInfoByPeriod($dateModel);
                 $response['type'] = $dateModel->type;
                 if ($response['info'] != null)
                 {

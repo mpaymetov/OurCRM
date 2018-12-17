@@ -17,6 +17,7 @@ class DatePeriodForm extends Model
     public $from;
     public $to;
     public $type;
+    public $user;
 
     private $types = [
         'project',
@@ -29,7 +30,8 @@ class DatePeriodForm extends Model
             [['from', 'to'], 'date', 'format' => 'yyyy-mm-dd'],
             [['from', 'to', 'type'], 'required'],
             [['from', 'to'], 'dateCheck'],
-            [['type'], 'typesValidate']
+            [['type'], 'typesValidate'],
+            [['user'], 'integer'],
         ];
     }
 

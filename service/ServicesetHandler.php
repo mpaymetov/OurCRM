@@ -69,7 +69,6 @@ class ServicesetHandler
     public function updateServiceset($id)
     {
         $model = $this->findModel($id);
-        print_r($model->tableName());
 
         $modelForm = $this->getServicelistFormById($id);
         $listHandler = new ServiceListFormHandler();
@@ -78,7 +77,6 @@ class ServicesetHandler
         $pathRefer = 'project/view';
         $pathCurr = 'serviceset/update';
 
-        print_r($model->tableName());
         $action = null;
 
         //if ($this->validateServisesetParam($model)) {
