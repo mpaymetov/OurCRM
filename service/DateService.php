@@ -76,7 +76,7 @@ class DateService
                 if ($column == 'month') {
                     array_push($el, $item[$column]);
                 } else {
-                    ($find) ? (array_push($el, $query[$num][$column])) : (array_push($el, (int)0));
+                    ($find) ? (array_push($el, (int)$query[$num][$column])) : (array_push($el, (int)0));
                 }
             }
 

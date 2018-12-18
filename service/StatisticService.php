@@ -80,20 +80,6 @@ class StatisticService
         return $result;
     }
 
-    public function getProjectNumByStateForLastYearInfo($idUser)
-    {
-        $query = $this->dbQuery->getProjectNumberForLastYear($idUser);
-
-        $result = [['month', 'all', 'close', 'cancellation']];
-        foreach ($query as $el)
-        {
-            $arrEl = [$el['month'], (int)$el['all'], (int)$el['close'], (int)$el['cancellation']];
-            array_push($result, $arrEl);
-        }
-
-        return $result;
-    }
-
     public function getProjectNumByStateForPeriod($datePeriod)
     {
         $query = $this->dbQuery->getProjectNumberForPeriod($datePeriod->user, $datePeriod->from, $datePeriod->to);

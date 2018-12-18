@@ -33,6 +33,7 @@ class DatePeriodForm extends Model
             [['from', 'to'], 'dateCheck'],
             [['type'], 'typesValidate'],
             [['user'], 'integer'],
+            [['user'], 'default', 'value' => null],
         ];
     }
 

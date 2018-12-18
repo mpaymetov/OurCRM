@@ -49,15 +49,17 @@ class UserService
 
         $result = [];
 
-        foreach ($arr as $item) {
-            $curr = [];
-            foreach ($keys as $key) {
-                if(key_exists($key, $item)) {
-                    $curr[$key] = $item[$key];
+        if(!empty($arr)) {
+            foreach ($arr as $item) {
+                $curr = [];
+                foreach ($keys as $key) {
+                    if (key_exists($key, $item)) {
+                        $curr[$key] = $item[$key];
+                    }
                 }
-            }
-            if($curr) {
-                array_push($result, $curr);
+                if ($curr) {
+                    array_push($result, $curr);
+                }
             }
         }
 

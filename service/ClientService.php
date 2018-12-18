@@ -8,11 +8,10 @@
 
 namespace app\service;
 
-use app\models\Client;
+
 use app\models\ClientSearch;
 use yii;
 use app\db_modules\PersonDbQuery;
-use app\models\UserSearch;
 use yii\helpers\ArrayHelper;
 
 

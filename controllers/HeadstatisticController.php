@@ -2,35 +2,39 @@
 /**
  * Created by PhpStorm.
  * User: lenovo
- * Date: 30.10.2018
- * Time: 19:37
+ * Date: 18.12.2018
+ * Time: 20:51
  */
 
 namespace app\controllers;
 
 use Yii;
-use app\forms\DatePeriodForm;
 use yii\web\Controller;
-use app\service\StatisticService;
-use yii\bootstrap\ActiveForm;
-use yii\web\Response;
+use app\forms\DatePeriodForm;
+use app\service\HeadStatisticService;
+use app\service\UserService;
 
 
 
-
-class StatisticController extends Controller
+class HeadstatisticController extends Controller
 {
-
     private $statisticService;
+    private $userService;
 
     public function init()
     {
         $this->getService();
+        $this->getUserService();
     }
 
     public function getService()
     {
-        $this->statisticService = new StatisticService();
+        $this->statisticService = new HeadStatisticService();
+    }
+
+    public function getUserService()
+    {
+        $this->userService = new UserService();
     }
 
     public function actionIndex()
@@ -40,11 +44,13 @@ class StatisticController extends Controller
         }
         $dateModelProject = new DatePeriodForm();
         $dateModelSale= new DatePeriodForm();
+        $managerList = $this->userService->GetManagerList(Yii::$app->user->identity->id_department);
 
 
         return $this->render('index', [
-            'dateModelProject'=>$dateModelProject,
-            'dateModelSale'=>$dateModelSale
+            'dateModelProject' => $dateModelProject,
+            'dateModelSale' => $dateModelSale,
+            'managerList' => $managerList
         ]);
     }
 
@@ -53,8 +59,7 @@ class StatisticController extends Controller
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
         $chartType = 'serviceset';
-        $date = $this->statisticService->getInitalPeriod($chartType);
-        $data = $this->statisticService->getChartInfoByPeriod($date);
+        $data = $this->statisticService->getServicesetNumByAllManagerInfo();
 
         $response = [
             'name' => $chartType,
@@ -103,12 +108,11 @@ class StatisticController extends Controller
     public function actionRenderChartByPeriod()
     {
         $dateModel = new DatePeriodForm();
-        $dateModel->user = Yii::$app->user->identity->id_user;
         Yii::$app->response->format = Response::FORMAT_JSON;
         $response = [];
 
         if ((Yii::$app->request->isAjax)&&($dateModel->load(\Yii::$app->request->post()))){
-           if($dateModel->validate()) {
+            if($dateModel->validate()) {
                 $response['info'] = $this->statisticService->getChartInfoByPeriod($dateModel);
                 $response['type'] = $dateModel->type;
                 if ($response['info'] != null)
@@ -119,9 +123,9 @@ class StatisticController extends Controller
                     $response['success'] = null;
                     $response['error'] = 'error';
                 }
-           } else {
-               return ActiveForm::validate($dateModel);
-           }
+            } else {
+                return ActiveForm::validate($dateModel);
+            }
         }
 
         return $response;
