@@ -59,36 +59,6 @@ class ClientService
         return $info;
     }
 
-    public function GetManagerList($idDepartment)
-    {
-        $arr = (new UserSearch())->GetManagerList($idDepartment);
-        $keys = [
-            'id_user',
-            'first_name',
-            'second_name'
-        ];
-
-        $result = [];
-
-        foreach ($arr as $item) {
-            $curr = [];
-            foreach ($keys as $key) {
-                if(key_exists($key, $item)) {
-                    $curr[$key] = $item[$key];
-                }
-            }
-            if($curr) {
-                array_push($result, $curr);
-            }
-        }
-
-        $list = [];
-        foreach ($result as $item) {
-            $list[(int)$item['id_user']] = $item['first_name'] . ' ' . $item['second_name'];
-        }
-
-        return $list;
-    }
 
     public function GetClientList($idUser)
     {

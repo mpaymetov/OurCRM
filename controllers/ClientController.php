@@ -16,6 +16,7 @@ use app\models\EventSearch;
 use yii\db\StaleObjectException;
 use app\service\ClientService;
 use app\forms\ClientMoveForm;
+use app\service\UserService;
 
 /**
  * ClientController implements the CRUD actions for Client model.
@@ -26,10 +27,15 @@ class ClientController extends Controller
      * {@inheritdoc}
      */
     private $service;
+    private $userService;
 
+    /**
+     *
+     */
     public function init()
     {
         $this->getService();
+        $this->getUserService();
     }
 
     public function getService()
@@ -37,7 +43,10 @@ class ClientController extends Controller
         $this->service = new ClientService();
     }
 
-
+    public function getUserService()
+    {
+        $this->userService = new UserService();
+    }
 
     public function behaviors()
     {
@@ -162,7 +171,7 @@ class ClientController extends Controller
 
     public function actionMove($id)
     {
-        $managerList = $this->service->GetManagerList(Yii::$app->user->identity->id_department);
+        $managerList = $this->userService->GetManagerList(Yii::$app->user->identity->id_department);
         $clientList = $this->service->GetClientList(Yii::$app->user->identity->id_user);
 
         $clientMove = new ClientMoveForm();
