@@ -21,7 +21,8 @@ class DatePeriodForm extends Model
 
     private $types = [
         'project',
-        'sale'
+        'sale',
+        'serviceset'
     ];
 
     public function rules()
@@ -39,7 +40,8 @@ class DatePeriodForm extends Model
     {
         return [
             'from' => Yii::t('common', 'From'),
-            'to' => Yii::t('common', 'To  ')
+            'to' => Yii::t('common', 'To'),
+            'user' => Yii::t('common', 'Manager'),
         ];
     }
 

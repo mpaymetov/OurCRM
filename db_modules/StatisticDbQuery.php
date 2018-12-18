@@ -68,7 +68,7 @@ class statisticDbQuery
         return $query;
     }
 
-    
+
     public function getSalesForPeriod($idUser, $from, $to)
     {
         /*$query = (new \yii\db\Query())

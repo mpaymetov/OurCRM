@@ -15,6 +15,7 @@ use app\models\ProjectSearch;
 use app\models\EventSearch;
 use yii\db\StaleObjectException;
 use app\service\ClientService;
+use app\forms\ClientMoveForm;
 
 /**
  * ClientController implements the CRUD actions for Client model.
@@ -162,9 +163,23 @@ class ClientController extends Controller
 
     public function actionMove($id)
     {
-        $list = $this->service->GetManagerList(Yii::$app->user->identity->id_department);
+        $managerList = $this->service->GetManagerList(Yii::$app->user->identity->id_department);
+        $clientList = $this->service->GetClientList(Yii::$app->user->identity->id_user);
+
+        $clientMove = new ClientMoveForm();
+        $clientMove->idClient = $id;
+
+        if($clientMove->load(Yii::$app->request->post())) { //TODO добавить проверку на загруженные idClient и idManager
+            $model = $this->findModel($id);
+            $model->id_user = $clientMove->idManager;
+            $model->save();
+            return $this->redirect(['index']);
+        }
+
         return $this->render('move', [
-            'list' => $list
+            'managerList' => $managerList,
+            'clientList' => $clientList,
+            'clientMove' => $clientMove
         ]);
 
     }

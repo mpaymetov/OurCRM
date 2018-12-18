@@ -84,4 +84,16 @@ class ClientSearch extends Client
             ->andWhere('client.id_user = ' . Yii::$app->user->identity->id_user);;
         return $dataProvider;
     }
+
+
+    public function searchClientList($idUser)
+    {
+        $query = Client::find()
+            ->andFilterWhere([
+                'id_user' => $idUser
+            ])
+            ->asArray()
+            ->all();
+        return $query;
+    }
 }

@@ -9,9 +9,11 @@
 namespace app\service;
 
 use app\models\Client;
+use app\models\ClientSearch;
 use yii;
 use app\db_modules\PersonDbQuery;
 use app\models\UserSearch;
+use yii\helpers\ArrayHelper;
 
 
 class ClientService
@@ -88,5 +90,11 @@ class ClientService
         return $list;
     }
 
+    public function GetClientList($idUser)
+    {
+        $arr = (new ClientSearch())->searchClientList($idUser);
+        $result = ArrayHelper::map($arr, 'id_client', 'name');
+        return $result;
+    }
 
 }

@@ -15,22 +15,30 @@ use app\models\StateCheck;
 use app\forms\DatePeriodForm;
 use DateInterval;
 use DateTime;
+use app\service\DateService;
 
 
 class StatisticService
 {
     private $dbQuery;
+    private $dateService;
 
-    private $monthList = ['Месяц отсутсвует', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+
 
     public function __construct()
     {
         $this->setDbQuery(new StatisticDbQuery());
+        $this->setDateService(new DateService());
     }
 
     public function setDbQuery($param)
     {
         $this->dbQuery = $param;
+    }
+
+    public function setDateService($param)
+    {
+        $this->dateService = $param;
     }
 
     public function getServicesetNumByStateInfo($datePeriod)
@@ -92,7 +100,7 @@ class StatisticService
 
         $columns = ['month', 'all', 'close', 'cancellation'];
 
-        $result = $this->addMonthInfo($query, $columns, $datePeriod->from, $datePeriod->to);
+        $result = $this->dateService->addMonthInfo($query, $columns, $datePeriod->from, $datePeriod->to);
 
         return $result;
     }
@@ -103,7 +111,7 @@ class StatisticService
 
         $columns = ['month', 'sale'];
 
-        $result = $this->addMonthInfo($query, $columns, $datePeriod->from, $datePeriod->to);
+        $result = $this->dateService->addMonthInfo($query, $columns, $datePeriod->from, $datePeriod->to);
 
         return $result;
     }
@@ -130,80 +138,7 @@ class StatisticService
         return $result;
     }
 
-    public function getMonthList($from, $to)
-    {
-        $firstMonth = date("n", strtotime($from));
-        $lastMonth = date("n", strtotime($to));
-        $firstYear = date("Y", strtotime($from));
-        $lastYear = date("Y", strtotime($to));
-        $list = [];
-        $yearDifference = $lastYear - $firstYear;
-        if($yearDifference == 0) {
-            for($i = $firstMonth; $i <= $lastMonth; $i++) {
-                array_push($list, ['num' => $i, 'month' => $this->monthList[$i], 'year' => $firstYear]);
-            }
-        } elseif ($yearDifference == 1) {
-            for($i = $firstMonth; $i <= 12; $i++) {
-                array_push($list, ['num' => $i, 'month' => $this->monthList[$i], 'year' => $firstYear]);
-            }
 
-            for($i = 1; $i <= $lastMonth; $i++) {
-                array_push($list, ['num' => $i, 'month' => $this->monthList[$i], 'year' => $lastYear]);
-            }
-
-        } elseif ($yearDifference > 1) {
-            for($i = $firstMonth; $i <= 12; $i++) {
-                array_push($list, ['num' => $i, 'month' => $this->monthList[$i], 'year' => $firstYear]);
-            }
-
-            for ($i = 1; $i < $yearDifference; $i ++)
-            {
-                for ($j = 1; $j <= 12; $j++) {
-                    array_push($list, ['num' => $i, 'month' => $this->monthList[$i], 'year' => $firstYear + $j]);
-                }
-            }
-            for($i = 1; $i <= $lastMonth; $i++) {
-                array_push($list, ['num' => $i, 'month' => $this->monthList[$i], 'year' => $lastYear]);
-            }
-        }
-        return $list;
-    }
-
-    public function addMonthInfo($query, $columns, $from, $to)
-    {
-        $list = $this->getMonthList($from, $to);
-
-        $result = [];
-        array_push($result, $columns);
-
-        $el = [];
-        $find = false;
-        $num = -1;
-
-        foreach ($list as $item) {
-            foreach ($query as $str) {
-                $find = (($str['month'] == $item['num']) && ($str['year'] == $item['year']));
-                $num++;
-                if ($find) {
-                    break;
-                }
-            }
-
-            foreach ($columns as $column) {
-                if ($column == 'month') {
-                    array_push($el, $item[$column]);
-                } else {
-                    ($find) ? (array_push($el, $query[$num][$column])) : (array_push($el, (int)0));
-                }
-            }
-
-            array_push($result, $el);
-            $el = [];
-            $find = false;
-            $num = -1;
-        }
-        return $result;
-    }
 
     public function getInitalPeriod($type)
     {
