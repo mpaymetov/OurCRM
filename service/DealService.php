@@ -6,6 +6,8 @@ use Yii;
 use app\models\User;
 use app\models\Project;
 use app\models\Client;
+use app\models\Person;
+use yii\web\NotFoundHttpException;
 
 class DealService
 {
@@ -40,22 +42,28 @@ class DealService
         $user = User::findOne(Yii::$app->user->identity->id_user);//todo использовать метод из сервиса
         $project = new Project();
         $client = new Client();
-        if (!isset($user, $project, $client)) {
+        $person = new Person();
+        if (!isset($user, $project, $client, $person)) {
             throw new NotFoundHttpException("Something get wrong");
         }
         $this->startParams->takeStartParams($project);
         $this->startParams->takeStartParams($client);
+        $this->startParams->takeStartParams($person);
         if ($this->dataControl->dataControl($project) && $this->dataControl->dataControl($client)) {
-            if ($project->load(Yii::$app->request->post()) && $client->load(Yii::$app->request->post())) {
+            if ($project->load(Yii::$app->request->post()) && $client->load(Yii::$app->request->post()) && $person->load(Yii::$app->request->post())) {
                 {
                     $client->save(false);
                     $project->id_client = $client->id_client;
                     $project->save(false);
+                    $person->id_client = $client->id_client;
+                    $person->main = 1;
+                    $person->save();
                     $user = $this->userService->findLoginById($user->id_user);
                     return [
                         'user' => $user,
                         'project' => $project,
                         'client' => $client,
+                        'person' => $person,
                         'action' => 'redirect',
                     ];
                 }
@@ -65,6 +73,7 @@ class DealService
             'user' => $user,
             'project' => $project,
             'client' => $client,
+            'person' => $person,
             'action' => 'curr',
         ];
     }

@@ -29,6 +29,7 @@ class DealController extends Controller
         $user = ArrayHelper::getValue($answer, 'user');
         $client = ArrayHelper::getValue($answer, 'client');
         $project = ArrayHelper::getValue($answer, 'project');
+        $person = ArrayHelper::getValue($answer, 'person');
         if ($action == 'redirect') {
             return $this->render('view', ['project' => $project, 'user' => $user, 'client' => $client]);
         } elseif ($action == 'curr') {
@@ -36,6 +37,7 @@ class DealController extends Controller
                 'user' => $user,
                 'client' => $client,
                 'project' => $project,
+                'person' => $person,
             ]);
         }
     }
