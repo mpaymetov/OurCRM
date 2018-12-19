@@ -94,13 +94,11 @@ class ClientController extends Controller
         $action = ArrayHelper::getValue($answer, 'action');
         $model = ArrayHelper::getValue($answer, 'model');
         $modelPerson = ArrayHelper::getValue($answer, 'modelPerson');
-        var_dump($modelPerson);
         if ($action == 'redirect') {
-            var_dump('sucsess');
-            return $this->redirect(['view', 'id' => $model->id_event]);
+            return $this->redirect(['view', 'id' => $model->id_client]);
         } elseif ($action == 'curr') {
-            var_dump('fall0');
-            return $this->render('update', [
+            var_dump($action);
+            return $this->render('create', [
                 'model' => $model,
                 'modelPerson' => $modelPerson]);
         }

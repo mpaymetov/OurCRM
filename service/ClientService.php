@@ -84,21 +84,27 @@ class ClientService
         $dataControl = new DataValidateService();
         $startParams->takeStartParams($model);
         $startParams->takeStartParams($modelPerson);
+        var_dump($model->load(Yii::$app->request->post()));
+        var_dump($modelPerson->load(Yii::$app->request->post()));
         if ($dataControl->dataControl($model)) {
-            if ($model->load(Yii::$app->request->post()) && $modelPerson->load(Yii::$app->request->post())
-                && $this->SaveNewClientAndPerson($model, $modelPerson)) {
-                return ['view', 'id' => $model->id_client, 'action' => 'redirect'];
-            } else
-                return [
-                    'model' => $model,
-                    'modelPerson' => $modelPerson,
-                    'action'=> 'curr'
-                ];
+            if ($model->load(Yii::$app->request->post()) && $modelPerson->load(Yii::$app->request->post())){
+                if ($this->SaveNewClientAndPerson($model, $modelPerson)) {
+                    return ['view', 'model' => $model, 'action' => 'redirect'];
+                }
+        }
+        else
+            return [
+                'model' => $model,
+                'modelPerson' => $modelPerson,
+                'action' => 'curr'
+            ];
         }
     }
 
-    public function SaveNewClientAndPerson($client, $person)
+    public
+    function SaveNewClientAndPerson($client, $person)
     {
+        var_dump("in save");
         $db = Yii::$app->db;
         $transaction = $db->beginTransaction();
         $result = false;
@@ -117,7 +123,8 @@ class ClientService
         return $result;
     }
 
-    public function GetMainPersonInfo($idClient) //todo в перенести в сервис person и поправить код сверху
+    public
+    function GetMainPersonInfo($idClient) //todo в перенести в сервис person и поправить код сверху
     {
         $personSearch = new PersonDbQuery();
         $arr = $personSearch->SearchMainPerson($idClient);
@@ -138,7 +145,8 @@ class ClientService
     }
 
 
-    public function GetClientList($idUser)
+    public
+    function GetClientList($idUser)
     {
         $arr = (new ClientSearch())->searchClientList($idUser);
         $result = ArrayHelper::map($arr, 'id_client', 'name');
