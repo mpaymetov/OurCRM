@@ -19,11 +19,7 @@ use app\service\UserService;
                 <div class = "form-control ">' . $user->login . '</div> </div>' ?>
     <h4>Клиент</h4>
     <?= $form->field($client, 'name') ?>
-    <?= $form->field($person, 'first_name')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($person, 'last_name')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($person, 'position')->textInput(['maxlength' => true]) ?>
     <?= $form->field($person, 'contact')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($person, 'email')->textInput(['maxlength' => true]) ?>
     <?= $form->field($client, 'comment') ?>
     <h4>Проект</h4>
     <?= $form->field($project, 'name') ?>
