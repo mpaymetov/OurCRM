@@ -18,6 +18,36 @@ use yii\helpers\ArrayHelper;
 class ClientService
 {
 
+    private $startParams;
+    private $dataControl;
+// аписать коструктор для этого класса __construct
+//попробовать подключать класс конфигурации и подавать туда конкретный data control
+    public function __construct()
+    {
+        $this->setStartParams(new StartParamsService());
+        $this->setDataControl(new DataValidateService());
+    }
+
+    public function setDataControl($dataControlService)
+    {
+        $this->dataControl = $dataControlService;
+    }
+
+    public function setStartParams($startParams)
+    {
+        $this->startParams = $startParams;
+    }
+
+    public function getAllClients()
+    {
+        $searchModel = new ClientSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ];
+    }
+
     public function SaveNewClientAndPerson($client, $person)
     {
         $db = Yii::$app->db;

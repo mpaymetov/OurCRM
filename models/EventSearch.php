@@ -77,9 +77,11 @@ class EventSearch extends Event
                 ->andWhere('event.is_active != 0')
                 ->andWhere('event.assignment  >= ' . "'" . $date . "'");
         } else {
+
             $query->andFilterWhere(['like', 'message', $this->message])
                 ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user);
         }
+
         return $dataProvider;
     }
 

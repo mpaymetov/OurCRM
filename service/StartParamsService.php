@@ -9,11 +9,6 @@ use app\service\SessionUtility;
 class StartParamsService
 {
 
-    public function init()
-    {
-        $this->getString();
-    }
-
     public function takeStartParams($model)
     {
         $request = Yii::$app->request;
@@ -83,7 +78,8 @@ class StartParamsService
 
     public function takeStartPersonParam($model, $request)
     {
-
+        $client_id = $request->get('id_client');
+        $model->id_client = $client_id;
     }
 
     public function takeStartServicesetParam($model, $request)
@@ -95,4 +91,5 @@ class StartParamsService
         $model->creation_date = date("Y-m-d");
         $model->is_open = 1;
     }
+
 }

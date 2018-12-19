@@ -8,9 +8,8 @@
 
 namespace app\service;
 
-use app\models\User;
+use app\models\Person;
 use Yii;
-use app\service\RoleService;
 
 class DataValidateService
 {
@@ -59,6 +58,12 @@ class DataValidateService
                         return $model;
                     }
                     break;
+                case 'person':
+                        if($this->validateCreateParams($model))
+                        {
+                            return $model;
+                        }
+                    break;
                 default:
                     return false;
             }
@@ -88,13 +93,12 @@ class DataValidateService
 
     public function validateCreateProjectParam($model)
     {
-        /* if (!property_exists($model, 'id_client')) {
+        if (!property_exists($model, 'id_client')) {
              return true;
          } else {
              return false;
-         } */
+         }
         //todo решить необходимость присутствия id клиента в проекте
-        return true;
     }
 
     public function validateCreateClientParam($model)
@@ -112,5 +116,11 @@ class DataValidateService
         if (Project::findOne($model->id_project)->id_user == Yii::$app->user->identity->id_user) {
             return true;
         };
+    }
+
+    public function validateCreateParams($model)
+    {
+        if(Person::findOne($model->id_user) == Yii::$app->user->identity->id_user);
+        return true;
     }
 }

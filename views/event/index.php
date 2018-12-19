@@ -11,7 +11,7 @@ $this->title = Yii::t('common', 'Events');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="event-index">
-<?php /*
+
    <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id_user',
             ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]); ?> */?>
+    ]); ?>
     <div id="container"></div>
     <script src="js/bundle.js"></script>
 </div>

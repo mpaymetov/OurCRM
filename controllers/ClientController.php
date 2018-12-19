@@ -26,7 +26,7 @@ class ClientController extends Controller
     /**
      * {@inheritdoc}
      */
-    private $service;
+    private $clientService;
     private $userService;
 
     /**
@@ -34,13 +34,13 @@ class ClientController extends Controller
      */
     public function init()
     {
-        $this->getService();
+        $this->getClientService(new ClientService());
         $this->getUserService();
     }
 
-    public function getService()
+    public function getClientService($service)
     {
-        $this->service = new ClientService();
+        $this->clientService = $service;
     }
 
     public function getUserService()
@@ -66,12 +66,10 @@ class ClientController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ClientSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+
+        return $this->render('index', $this->clientService->getAllClients()
+        );
+
     }
 
     /**
@@ -90,7 +88,7 @@ class ClientController extends Controller
         $eventDataProvider = $searchEventModel->searchEventId($id, Yii::$app->user->identity->id_user, 1);
         $searchClientEventModel = new EventSearch();
         $clientEventDataProvider = $searchClientEventModel->searchClientEventId($id, Yii::$app->user->identity->id_user, 1);
-        $person = $this->service->GetMainPersonInfo($id);
+        $person = $this->clientService->GetMainPersonInfo($id);
         return $this->render('view', [
             'model' => $this->findModel($id, Yii::$app->user->identity->id_user),
             'searchModel' => $searchModel,
@@ -117,7 +115,7 @@ class ClientController extends Controller
         $startParams->takeStartParams($model);
         $startParams->takeStartParams($modelPerson);
         if ($dataControl->dataControl($model)) {
-            if ($model->load(Yii::$app->request->post()) && $modelPerson->load(Yii::$app->request->post()) && $this->service->SaveNewClientAndPerson($model, $modelPerson)) {
+            if ($model->load(Yii::$app->request->post()) && $modelPerson->load(Yii::$app->request->post()) && $this->clientService->SaveNewClientAndPerson($model, $modelPerson)) {
                 return $this->redirect(['view', 'id' => $model->id_client]);
             }
         }
@@ -172,7 +170,7 @@ class ClientController extends Controller
     public function actionMove($id)
     {
         $managerList = $this->userService->GetManagerList(Yii::$app->user->identity->id_department);
-        $clientList = $this->service->GetClientList(Yii::$app->user->identity->id_user);
+        $clientList = $this->clientService->GetClientList(Yii::$app->user->identity->id_user);
 
         $clientMove = new ClientMoveForm();
         $clientMove->idClient = $id;

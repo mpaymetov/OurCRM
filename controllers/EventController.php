@@ -35,15 +35,15 @@ class EventController extends Controller
 
     public function init()
     {
-        $this->getService(new EventService());
+        $this->getService();
     }
 
     /**
      *
      */
-    public function getService($eventService)
+    public function getService()
     {
-        $this->eventService = $eventService;
+        $this->eventService = new EventService();
     }
 
 
