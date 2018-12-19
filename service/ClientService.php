@@ -15,7 +15,8 @@ use app\db_modules\PersonDbQuery;
 use yii\helpers\ArrayHelper;
 use app\models\ProjectSearch;
 use app\models\EventSearch;
-
+use app\models\Client;
+use app\models\Person;
 
 class ClientService
 {
@@ -75,6 +76,27 @@ class ClientService
         ];
     }
 
+    public function setClient()
+    {
+        $model = new Client();
+        $modelPerson = new Person();
+        $startParams = new StartParamsService();
+        $dataControl = new DataValidateService();
+        $startParams->takeStartParams($model);
+        $startParams->takeStartParams($modelPerson);
+        if ($dataControl->dataControl($model)) {
+            if ($model->load(Yii::$app->request->post()) && $modelPerson->load(Yii::$app->request->post())
+                && $this->SaveNewClientAndPerson($model, $modelPerson)) {
+                return ['view', 'id' => $model->id_client, 'action' => 'redirect'];
+            } else
+                return [
+                    'model' => $model,
+                    'modelPerson' => $modelPerson,
+                    'action'=> 'curr'
+                ];
+        }
+    }
+
     public function SaveNewClientAndPerson($client, $person)
     {
         $db = Yii::$app->db;
@@ -88,7 +110,7 @@ class ClientService
             $person->save();
             $transaction->commit();
             $result = true;
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             $transaction->rollBack();
         }
 
@@ -100,7 +122,7 @@ class ClientService
         $personSearch = new PersonDbQuery();
         $arr = $personSearch->SearchMainPerson($idClient);
         $info = [];
-        if($arr) {
+        if ($arr) {
             $info = [
                 'id' => $arr[0]['id_person'],
                 'first_name' => $arr[0]['first_name'],

@@ -50,7 +50,9 @@ class DealService
         $this->startParams->takeStartParams($client);
         $this->startParams->takeStartParams($person);
         if ($this->dataControl->dataControl($project) && $this->dataControl->dataControl($client)) {
-            if ($project->load(Yii::$app->request->post()) && $client->load(Yii::$app->request->post()) && $person->load(Yii::$app->request->post())) {
+            if ($project->load(Yii::$app->request->post())
+                && $client->load(Yii::$app->request->post())
+                && $person->load(Yii::$app->request->post())) {
                 {
                     $client->save(false);
                     $project->id_client = $client->id_client;

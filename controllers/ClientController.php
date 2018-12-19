@@ -3,20 +3,16 @@
 namespace app\controllers;
 
 use app\service\DataValidateService;
-use app\service\StartParamsService;
 use Yii;
 use app\models\Client;
-use app\models\ClientSearch;
-use app\models\Person;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\ProjectSearch;
-use app\models\EventSearch;
 use yii\db\StaleObjectException;
 use app\service\ClientService;
 use app\forms\ClientMoveForm;
 use app\service\UserService;
+use yii\helpers\ArrayHelper;
 
 /**
  * ClientController implements the CRUD actions for Client model.
@@ -86,10 +82,6 @@ class ClientController extends Controller
 
     }
 
-    /*
-     *
-     * */
-
 
     /**
      * Creates a new Client model.
@@ -98,21 +90,20 @@ class ClientController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Client();
-        $modelPerson = new Person();
-        $startParams = new StartParamsService();
-        $dataControl = new DataValidateService();
-        $startParams->takeStartParams($model);
-        $startParams->takeStartParams($modelPerson);
-        if ($dataControl->dataControl($model)) {
-            if ($model->load(Yii::$app->request->post()) && $modelPerson->load(Yii::$app->request->post()) && $this->clientService->SaveNewClientAndPerson($model, $modelPerson)) {
-                return $this->redirect(['view', 'id' => $model->id_client]);
-            }
+        $answer = $this->clientService->setClient(); // возвращяем объект и экшн который нужно применить к объекту
+        $action = ArrayHelper::getValue($answer, 'action');
+        $model = ArrayHelper::getValue($answer, 'model');
+        $modelPerson = ArrayHelper::getValue($answer, 'modelPerson');
+        var_dump($modelPerson);
+        if ($action == 'redirect') {
+            var_dump('sucsess');
+            return $this->redirect(['view', 'id' => $model->id_event]);
+        } elseif ($action == 'curr') {
+            var_dump('fall0');
+            return $this->render('update', [
+                'model' => $model,
+                'modelPerson' => $modelPerson]);
         }
-        return $this->render('create', [
-            'model' => $model,
-            'modelPerson' => $modelPerson
-        ]);
     }
 
     /**

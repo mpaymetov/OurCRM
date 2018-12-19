@@ -4,7 +4,6 @@ namespace app\service;
 
 use Yii;
 use app\models\StateCheck;
-use app\service\SessionUtility;
 
 class StartParamsService
 {
@@ -72,6 +71,7 @@ class StartParamsService
 
     public function takeStartClientParam($model, $request)
     {
+        var_dump('in start params');
         $model->id_user = Yii::$app->user->identity->id_user;
         $model->created = date("Y-m-d");
     }
