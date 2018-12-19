@@ -82,8 +82,6 @@ class ClientService
         $modelPerson = new Person();
         $this->startParams->takeStartParams($model);
         $this->startParams->takeStartParams($modelPerson);
-        var_dump($model->load(Yii::$app->request->post()));
-        var_dump($modelPerson->load(Yii::$app->request->post()));
         if ($this->dataControl->dataControl($model)) {
             if ($model->load(Yii::$app->request->post()) && $modelPerson->load(Yii::$app->request->post())){
                 if ($this->SaveNewClientAndPerson($model, $modelPerson)) {
@@ -102,7 +100,6 @@ class ClientService
     public
     function SaveNewClientAndPerson($client, $person)
     {
-        var_dump("in save");
         $db = Yii::$app->db;
         $transaction = $db->beginTransaction();
         $result = false;
