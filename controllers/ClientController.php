@@ -80,26 +80,16 @@ class ClientController extends Controller
      */
     public function actionView($id)
     {
-        $session = Yii::$app->session;
-        $session->set('id_client', $id);
-        $searchModel = new ProjectSearch();
-        $dataProvider = $searchModel->searchClientProject($id);
-        $searchEventModel = new EventSearch();
-        $eventDataProvider = $searchEventModel->searchEventId($id, Yii::$app->user->identity->id_user, 1);
-        $searchClientEventModel = new EventSearch();
-        $clientEventDataProvider = $searchClientEventModel->searchClientEventId($id, Yii::$app->user->identity->id_user, 1);
-        $person = $this->clientService->GetMainPersonInfo($id);
-        return $this->render('view', [
-            'model' => $this->findModel($id, Yii::$app->user->identity->id_user),
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'searchEventModel' => $searchEventModel,
-            'eventDataProvider' => $eventDataProvider,
-            'clientEventDataProvider' => $clientEventDataProvider,
-            'person' => $person,
-            //'arr' => $arr
-        ]);
+
+        return $this->render('view', $this->clientService->getClientViewData($id)
+        );
+
     }
+
+    /*
+     *
+     * */
+
 
     /**
      * Creates a new Client model.

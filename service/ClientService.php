@@ -13,6 +13,8 @@ use app\models\ClientSearch;
 use yii;
 use app\db_modules\PersonDbQuery;
 use yii\helpers\ArrayHelper;
+use app\models\ProjectSearch;
+use app\models\EventSearch;
 
 
 class ClientService
@@ -48,15 +50,29 @@ class ClientService
         ];
     }
 
-    public function getViewInfoClient($id)
+    public function getClientViewData($id)
     {
-        $searchModel = new ClientSearch();
-        $model = $searchModel->findModel($id);
-        if ($this->dataControl->checkElemAvailable($model)) {
-            return ['model' => $model];
-        } else {
-            return false;
-        }
+        $session = Yii::$app->session;
+        $session->set('id_client', $id);
+        $searchProjectModel = new ProjectSearch();
+        $dataProjectProvider = $searchProjectModel->searchClientProject($id);
+        $searchEventModel = new EventSearch();
+        $eventDataProvider = $searchEventModel->searchEventId($id, Yii::$app->user->identity->id_user, 1);
+        $searchClientEventModel = new EventSearch();
+        $clientEventDataProvider = $searchClientEventModel->searchClientEventId($id, Yii::$app->user->identity->id_user, 1);
+        $person = $this->GetMainPersonInfo($id);
+        $searchClientModel = new ClientSearch();
+        $clientModel = $searchClientModel->findOne($id, Yii::$app->user->identity->id_user);
+        return [
+            'model' => $clientModel,
+            'searchModel' => $searchProjectModel,
+            'dataProvider' => $dataProjectProvider,
+            'searchEventModel' => $searchEventModel,
+            'eventDataProvider' => $eventDataProvider,
+            'clientEventDataProvider' => $clientEventDataProvider,
+            'person' => $person,
+            //'arr' => $arr
+        ];
     }
 
     public function SaveNewClientAndPerson($client, $person)
@@ -79,7 +95,7 @@ class ClientService
         return $result;
     }
 
-    public function GetMainPersonInfo($idClient) //todo в персон сервис
+    public function GetMainPersonInfo($idClient) //todo в перенести в сервис person и поправить код сверху
     {
         $personSearch = new PersonDbQuery();
         $arr = $personSearch->SearchMainPerson($idClient);
