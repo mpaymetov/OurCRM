@@ -80,13 +80,11 @@ class ClientService
     {
         $model = new Client();
         $modelPerson = new Person();
-        $startParams = new StartParamsService();
-        $dataControl = new DataValidateService();
-        $startParams->takeStartParams($model);
-        $startParams->takeStartParams($modelPerson);
+        $this->startParams->takeStartParams($model);
+        $this->startParams->takeStartParams($modelPerson);
         var_dump($model->load(Yii::$app->request->post()));
         var_dump($modelPerson->load(Yii::$app->request->post()));
-        if ($dataControl->dataControl($model)) {
+        if ($this->dataControl->dataControl($model)) {
             if ($model->load(Yii::$app->request->post()) && $modelPerson->load(Yii::$app->request->post())){
                 if ($this->SaveNewClientAndPerson($model, $modelPerson)) {
                     return ['view', 'model' => $model, 'action' => 'redirect'];
