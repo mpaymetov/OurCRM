@@ -39,7 +39,9 @@ echo Html::beginTag('div', ['class' => 'one-person panel']);
     }
 
     if($person['main'] != true) {
-        echo Html::a(Yii::t('common', 'Delete'), ['person/delete', 'id' => $person['id_person']], ['class' => 'btn btn-danger']);
+        echo Html::a(Yii::t('common', 'Delete'), ['person/delete', 'id' => $person['id_person']], ['class' => 'btn btn-danger', 'data' => [
+            'confirm' => 'Are you sure you want to delete this item?',
+            'method' => 'post']]);
     }
 
 echo Html::endTag('div');
