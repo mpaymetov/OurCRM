@@ -4,21 +4,19 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
-use yii\web\Response;
 use yii\filters\VerbFilter;
-use yii\web\Cookie;
-
-use app\models\ContactForm;
-use app\models\ClientSearch;
-use app\models\ProjectSearch;
-use app\models\UserSearch;
-use app\models\EventSearch;
 use app\models\Role;
 use app\models\RoleSearch;
+use app\service\ItemService;
+
 
 class ItemController extends Controller
 {
+
+
+
     public function behaviors()
     {
         return [
@@ -62,31 +60,44 @@ class ItemController extends Controller
      * Displays homepage.
      *
      * @return string
+     *
+     * public function init()
+    {
+    $this->getService();
+    }
+
+    /**
+     *
      */
+    private $itemService;
+
+    public function init()
+    {
+        $this->getService();
+    }
+
+    public function getService()
+    {
+        $this->itemService = new ItemService();
+    }
+
+
+
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {
             return Yii::$app->getResponse()->redirect(array('/site/login', 302));
         } else {
-            $searchModel = new ClientSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-            $dataProvider->query->andWhere('client.id_user = ' . Yii::$app->user->identity->id_user);
 
-            $projectSearchModel = new ProjectSearch();
-            $projectDataProvider = $projectSearchModel->search(Yii::$app->request->queryParams);
-            $projectDataProvider->query->andWhere('project.id_user = ' . Yii::$app->user->identity->id_user);
-
-            $userSearchModel = new userSearch();
-            $userDataProvider = $userSearchModel->search(Yii::$app->request->queryParams);
-
-            /*$roleSearchModel = new roleSearch();
-            if ($roleSearchModel->getUserReadAll()) {} else */{
-                $userDataProvider->query->andWhere('user.id_user = ' . Yii::$app->user->identity->id_user);
-            }
-
-            $eventSearchModel = new eventSearch();
-            $eventDataProvider = $eventSearchModel->search(Yii::$app->request->queryParams, 'index');
-            $eventDataProvider->query->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user);
+            $arr = $this->itemService->getAllItems();
+            $searchModel = ArrayHelper::getValue($arr, 'searchModel');
+            $dataProvider = ArrayHelper::getValue($arr, 'dataProvider');
+            $projectSearchModel = ArrayHelper::getValue($arr, 'projectSearchModel');
+            $projectDataProvider= ArrayHelper::getValue($arr, 'projectDataProvider');
+            $userSearchModel = ArrayHelper::getValue($arr, 'userSearchModel');
+            $userDataProvider = ArrayHelper::getValue($arr, 'userDataProvider');
+            $eventSearchModel = ArrayHelper::getValue($arr, 'eventSearchModel');
+            $eventDataProvider = ArrayHelper::getValue($arr, 'eventDataProvider');
 
             return $this->render('index',
                 [
