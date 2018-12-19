@@ -120,10 +120,13 @@ class PersonController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        $oldModel = $this->findModel($model->last_main);
+        if($model->main == 1) {
+            $oldModel = $this->findModel($model->last_main);
+            $oldModel->main = 1;
+            $oldModel->save();
+        }
         $model->delete();
-        $oldModel->main = 1;
-        $oldModel->save();
+        return $this->redirect(Yii::$app->request->getReferrer());
     }
 
     protected function findModel($id)
