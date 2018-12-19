@@ -48,6 +48,17 @@ class ClientService
         ];
     }
 
+    public function getViewInfoClient($id)
+    {
+        $searchModel = new ClientSearch();
+        $model = $searchModel->findModel($id);
+        if ($this->dataControl->checkElemAvailable($model)) {
+            return ['model' => $model];
+        } else {
+            return false;
+        }
+    }
+
     public function SaveNewClientAndPerson($client, $person)
     {
         $db = Yii::$app->db;
@@ -68,7 +79,7 @@ class ClientService
         return $result;
     }
 
-    public function GetMainPersonInfo($idClient)
+    public function GetMainPersonInfo($idClient) //todo в персон сервис
     {
         $personSearch = new PersonDbQuery();
         $arr = $personSearch->SearchMainPerson($idClient);
