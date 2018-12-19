@@ -97,7 +97,6 @@ class ClientController extends Controller
         if ($action == 'redirect') {
             return $this->redirect(['view', 'id' => $model->id_client]);
         } elseif ($action == 'curr') {
-            var_dump($action);
             return $this->render('create', [
                 'model' => $model,
                 'modelPerson' => $modelPerson]);
