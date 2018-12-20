@@ -2,6 +2,7 @@
 
 namespace app\api\controllers;
 
+use app\api\services\MainService;
 use Yii;
 use app\db_modules\servisetDbQuery;
 use app\models\StateCheck;
@@ -16,6 +17,21 @@ use yii\filters\AccessControl;
  */
 class SiteController extends Controller
 {
+    private $mainService;
+
+    public function init()
+    {
+        $this->getService(new MainService());
+    }
+
+    /**
+     *
+     */
+    public function getService($service)
+    {
+        $this->mainService = $service;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -64,25 +80,8 @@ class SiteController extends Controller
         if (Yii::$app->user->isGuest) {
             return Yii::$app->getResponse()->redirect(array('/user/login', 302));
         } else {
-            $searchModel = new servisetDbQuery();
-            $state = new StateCheck();
-            $list = $state->getStateList();
-            $dataProvider = [];
-            $item = [];
-            for ($i = $state::MakeContact; $i <= $state::Close; $i++) {
-                    $item['state'] = $list[$i];
-                    $item['info'] = new ArrayDataProvider([
-                        'allModels' => $searchModel->getServiceSetInfoByStateAndUser($i, Yii::$app->user->identity->id_user)
-                    ]);
-                    $dataProvider[] = $item;
-                }
 
-            //return $this->render('index',
-
-            $dataArr = ([
-                'dataProvider' => $dataProvider,
-            ]); 
-            echo (json_encode($dataArr, JSON_UNESCAPED_UNICODE));
+            echo(json_encode($this->mainService->getMainItems(), JSON_UNESCAPED_UNICODE));
         }
     }
 
