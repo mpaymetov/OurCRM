@@ -117,7 +117,7 @@ class ClientController extends Controller
         $dataControl = new DataValidateService();
         $model = $this->findModel($id);
         try {
-            if ($dataControl->compareUserId($model)) {
+            if ($dataControl->checkElemAvailable($model)) {
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
                     return $this->redirect(['view', 'id' => $model->id_client]);
                 }

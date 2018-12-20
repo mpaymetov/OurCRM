@@ -28,7 +28,7 @@ class DataValidateService
     public function checkElemAvailable($model)
     {
         $creator = $model->id_user;
-        if ($creator == Yii::$app->user->identity->id_user || //todo првоерка на доступнось!!!
+        if ($creator == Yii::$app->user->identity->id_user || //todo првоерка на доступнось
             $this->roleService->getRole(Yii::$app->user->identity->id_user >= 2)) {
             return true;
         }
@@ -36,7 +36,7 @@ class DataValidateService
 
     public function dataControl($model)
     {
-        if ($this->compareUserId($model)) {
+        if ($this->checkElemAvailable($model)) {
             switch ($model->tableName()) {
                 case 'event':
                     if ($this->validateCreateEventParam($model)) {
@@ -59,24 +59,14 @@ class DataValidateService
                     }
                     break;
                 case 'person':
-                        if($this->validateCreateParams($model))
-                        {
-                            return $model;
-                        }
+                    if ($this->validateCreatePersonParams($model)) {
+                        return $model;
+                    }
                     break;
                 default:
                     return false;
             }
 
-        } else {
-            return false;
-        }
-    }
-
-    public function compareUserId($model)
-    {
-        if ($model->id_user == Yii::$app->user->identity->id_user) {
-            return true;
         } else {
             return false;
         }
@@ -91,19 +81,26 @@ class DataValidateService
         }
     }
 
+//todo определить область применения, и станет ясно, что проверять
+
     public function validateCreateProjectParam($model)
     {
         if (!property_exists($model, 'id_client')) {
-             return true;
-         } else {
-             return false;
-         }
-        //todo решить необходимость присутствия id клиента в проекте
+            return true;
+        } else {
+            return false;
+        }
     }
+
+    //todo решить необходимость присутствия id клиента в проекте
+
 
     public function validateCreateClientParam($model)
     {
-        return $model;
+        if (!property_exists($model, 'name') && !property_exists($model, 'comment')) {
+            return $model;
+        }
+        return false;
     }
 
     public function validateCreateUserParam($model)
@@ -118,9 +115,70 @@ class DataValidateService
         };
     }
 
-    public function validateCreateParams($model)
+    public function validateCreatePersonParams($model)
     {
-        if(Person::findOne($model->id_user) == Yii::$app->user->identity->id_user);
-        return true;
+        if (Person::findOne($model->id_user) == Yii::$app->user->identity->id_user) {
+            return true;
+        }
+        return false;
     }
+/*
+    public function preDataControl($model)
+    {
+        if($this->dataControl($model))
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function postDataControll($model)
+    {
+        if($this->postValidate($model))
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function postValidate($model){
+        $model->validate();
+        if ($this->checkElemAvailable($model)) {
+            switch ($model->tableName()) {
+                case 'event':
+                    if ($this->validateCreateEventParam($model)) {
+                        return $model;
+                    }
+                    break;
+                case 'project':
+                    if ($this->validateCreateProjectParam($model)) {
+                        return $model;
+                    }
+                    break;
+                case 'client':
+                    if ($this->validateCreateClientParam($model)) {
+                        return true;
+                    }
+                    break;
+                case 'user':
+                    if ($this->validateCreateUserParam($model)) {
+                        return $model;
+                    }
+                    break;
+                case 'person':
+                    if ($this->validateCreatePersonParams($model)) {
+                        return $model;
+                    }
+                    break;
+                default:
+                    return false;
+            }
+
+        } else {
+            return false;
+        }
+    }
+*/
 }
