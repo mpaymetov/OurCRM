@@ -21,6 +21,8 @@ class CreateForm extends Model
     public $second_name;
     public $id_department;
     public $email;
+    public $role;
+    public $roles;
 
     /**
      * @inheritdoc
@@ -41,6 +43,10 @@ class CreateForm extends Model
             ['password', 'string', 'min' => 3],
             ['first_name', 'required'],
             ['second_name', 'required'],
+            ['id_department', 'required'],
+            ['role', 'trim'],
+            ['role', 'required'],
+            ['role', 'string'],
         ];
     }
 
@@ -63,11 +69,12 @@ class CreateForm extends Model
         $user->first_name = $this->first_name;
         $user->second_name = $this->second_name;
         $user->setPassword($this->password);
+        $user->id_department = (int)$this->id_department;
         $user->generateAuthKey();
         $user->version = 0;
         if ($user->save()) {
             $auth = Yii::$app->authManager;
-            $authorRole = $auth->getRole('baserole');
+            $authorRole = $auth->getRole($this->role);
             $auth->assign($authorRole, $user->getId());
             return $user;
         } else {

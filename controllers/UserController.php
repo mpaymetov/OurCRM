@@ -8,6 +8,7 @@ use app\forms\LoginForm;
 use app\forms\SignupForm;
 use app\forms\ResetForm;
 use app\forms\CreateForm;
+use app\forms\ViewForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -114,6 +115,14 @@ class UserController extends Controller
                 $this->redirect(['view', 'id' => $user->id_user]);
             }
         }
+
+        $roles = Yii::$app->authManager->getRoles();
+        $roleArr = [];
+        foreach ($roles as $key => $value)
+        {
+            $roleArr[$key] = $key;
+        }
+        $model->roles = $roleArr;
 
         return $this->render('create', [
             'model' => $model,

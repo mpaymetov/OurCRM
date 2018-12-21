@@ -14,7 +14,9 @@ use app\models\Department;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'login')->textInput(['maxlength' => true, 'disabled' => true]) ?>
+    <?= $form->field($model, 'login')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'password')->passwordInput() ?>
 
     <?= $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
 
@@ -23,6 +25,8 @@ use app\models\Department;
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'id_department')->dropDownList(ArrayHelper::map(Department::find()->all(), 'id_department', 'name'),['prompt' => 'Выберите Отдел...']) ?>
+
+    <?= $form->field($model, 'role')->dropDownList($model->roles,['prompt' => 'Выберите Роль...']) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('common', 'Save'), ['class' => 'btn btn-success']) ?>
