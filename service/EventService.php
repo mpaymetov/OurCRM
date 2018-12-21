@@ -60,10 +60,9 @@ class EventService
 
     public function setEventUpdate($id)
     {
-        $session = Yii::$app->session;
-        $session->set('id_event', $id);
         $search = new EventSearch();
         $model = $search->findModel($id);
+        //ajax галочка отдельно обрабатываем
         if ($this->dataControl->checkElemAvailable($model)) {
             try {
                 if (\Yii::$app->request->isAjax) {
@@ -75,7 +74,7 @@ class EventService
                     $model->save();
                     return ("OK");
                 }
-                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                if ($model->load(Yii::$app->request->post()) && $this->dataControl($model) && $model->save()) {
                     return ['model' => $model, 'action' => 'redirect'];
                 };
 
@@ -92,10 +91,8 @@ class EventService
         $model = new Event();
         $user_name = $this->userService->findLoginById(Yii::$app->user->identity->id_user);
         $this->startParams->takeStartParams($model);
-        if ($this->dataControl->dataControl($model)) {
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return ['model' => $model, 'action' => 'redirect'];
-            }
+        if ($model->load(Yii::$app->request->post()) && $this->dataControl->dataControl($model) && $model->save()) {
+            return ['model' => $model, 'action' => 'redirect'];
         }
         return [
             'model' => $model,

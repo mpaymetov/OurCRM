@@ -86,11 +86,8 @@ class ProjectService
     {
         $model = new Project();
         $this->startParams->takeStartParams($model);
-        if ($this->dataControl->dataControl($model)) {
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-                return ['model' => $model, 'action' => 'redirect'];
-            }
+        if ($model->load(Yii::$app->request->post()) && $this->dataControl->dataControl($model) && $model->save()) {
+            return ['model' => $model, 'action' => 'redirect'];
         }
         return ['model' => $model, 'action' => 'curr'];
     }
@@ -102,11 +99,9 @@ class ProjectService
         $search = new ProjectSearch();
         $model = $search->findModel($id);
         try {
-            if ($this->dataControl->checkElemAvailable($model)) {
-                if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                    return ['model' => $model, 'action' => 'redirect'];
-                };
-            }
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return ['model' => $model, 'action' => 'redirect'];
+            };
             return [
                 'model' => $model, 'action' => 'curr'
             ];
