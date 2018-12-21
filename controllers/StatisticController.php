@@ -9,11 +9,15 @@
 namespace app\controllers;
 
 use Yii;
-use app\forms\DatePeriodForm;
+use app\forms\StatisticForm;
+use app\forms\HeadStatisticForm;
 use yii\web\Controller;
 use app\service\StatisticService;
+use app\service\HeadStatisticService;
 use yii\bootstrap\ActiveForm;
 use yii\web\Response;
+use app\service\RoleService;
+use app\service\UserService;
 
 
 
@@ -22,29 +26,92 @@ class StatisticController extends Controller
 {
 
     private $statisticService;
+    private $headStatisticService;
+    private $userService;
+    private $roleService;
 
     public function init()
     {
-        $this->getService();
+        $this->getStatisticService();
+        $this->getHeadStatisticService();
+        $this->getUserService();
+        $this->getRoleService();
     }
 
-    public function getService()
+    public function getStatisticService()
     {
         $this->statisticService = new StatisticService();
     }
+
+    public function getHeadStatisticService()
+    {
+        $this->headStatisticService = new HeadStatisticService();
+    }
+
+    public function getUserService()
+    {
+        $this->userService = new UserService();
+    }
+
+    public function getRoleService()
+    {
+        $this->roleService = new RoleService();
+    }
+
+    public function getServiceByRole()
+    {
+        $role = $this->roleService->getRole();
+        if ($role == 'leader' || $role == 'admin') {
+            return $this->headStatisticService;
+        } elseif ($role == 'manager') {
+            return $this->statisticService;
+        }
+    }
+
+    public function getFormByRole()
+    {
+        $role = $this->roleService->getRole();
+        if ($role == 'leader' || $role == 'admin') {
+            $form = new HeadStatisticForm();
+            return $form;
+        } elseif ($role == 'manager') {
+            $form = new StatisticForm();
+            return $form;
+        }
+    }
+
+    public function getStatisticType()
+    {
+        $role = $this->roleService->getRole();
+        if ($role == 'leader' || $role == 'admin') {
+            return 'headStatistic';
+        } elseif ($role == 'manager') {
+            return 'statistic';
+        }
+    }
+
 
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {
             return Yii::$app->getResponse()->redirect(array('/user/login', 302));
         }
-        $dateModelProject = new DatePeriodForm();
-        $dateModelSale= new DatePeriodForm();
 
+        if ($this->roleService->getRole() == 'baserole') {
+            return $this->redirect(['site/index']);
+        }
+
+        $dateModelProject = new HeadStatisticForm();// $this->getFormByRole();
+        $dateModelSale = new HeadStatisticForm();// $this->getFormByRole();
+        print_r($this->roleService->getRole());
+        $managerList = $this->userService->GetManagerList(Yii::$app->user->identity->id_department);
+        $statisticType = $this->getStatisticType();
 
         return $this->render('index', [
             'dateModelProject'=>$dateModelProject,
-            'dateModelSale'=>$dateModelSale
+            'dateModelSale'=>$dateModelSale,
+            'managerList' => $managerList,
+            'statisticType' => $statisticType,
         ]);
     }
 
@@ -52,9 +119,10 @@ class StatisticController extends Controller
     public function actionRenderInitialServicesetChart()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
+        $servise = $this->getServiceByRole();
         $chartType = 'serviceset';
-        $date = $this->statisticService->getInitalPeriod($chartType);
-        $data = $this->statisticService->getChartInfoByPeriod($date);
+        $date = $this->headStatisticService->getInitalPeriod($chartType);
+        $data = $this->headStatisticService->getServicesetNumByStateInfo($date);
 
         $response = [
             'name' => $chartType,
@@ -68,9 +136,10 @@ class StatisticController extends Controller
     public function actionRenderInitialProjectChart()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
+        $servise = $this->getServiceByRole();
         $chartType = 'project';
-        $date = $this->statisticService->getInitalPeriod($chartType);
-        $data = $this->statisticService->getChartInfoByPeriod($date);
+        $date = $this->headStatisticService->getInitalPeriod($chartType);
+        $data = $this->headStatisticService->getChartInfo($date);
 
         $response = [
             'name' => $chartType,
@@ -84,9 +153,10 @@ class StatisticController extends Controller
     public function actionRenderInitialSaleChart()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
+        $servise = $this->getServiceByRole();
         $chartType = 'sale';
-        $date = $this->statisticService->getInitalPeriod($chartType);
-        $data = $this->statisticService->getChartInfoByPeriod($date);
+        $date = $this->headStatisticService->getInitalPeriod($chartType);
+        $data = $this->headStatisticService->getChartInfo($date);
 
         $response = [
             'name' => $chartType,
@@ -102,14 +172,15 @@ class StatisticController extends Controller
 
     public function actionRenderChartByPeriod()
     {
-        $dateModel = new DatePeriodForm();
-        $dateModel->user = Yii::$app->user->identity->id_user;
+        $dateModel = new HeadStatisticForm();
+       // $dateModel->department = Yii::$app->user->identity->id_department;
         Yii::$app->response->format = Response::FORMAT_JSON;
         $response = [];
 
         if ((Yii::$app->request->isAjax)&&($dateModel->load(\Yii::$app->request->post()))){
-           if($dateModel->validate()) {
-                $response['info'] = $this->statisticService->getChartInfoByPeriod($dateModel);
+           $dateModel->department = Yii::$app->user->identity->id_department;
+           if($dateModel->validate() && $dateModel->dateCheck()) {
+                $response['info'] = $this->headStatisticService->getChartInfo($dateModel);
                 $response['type'] = $dateModel->type;
                 if ($response['info'] != null)
                 {

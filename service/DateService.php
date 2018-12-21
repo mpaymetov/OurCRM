@@ -39,10 +39,10 @@ class DateService
                 array_push($list, ['num' => $i, 'month' => $this->monthList[$i], 'year' => $firstYear]);
             }
 
-            for ($i = 1; $i < $yearDifference; $i ++)
+            for ($i = 1; $i < $yearDifference; $i++)
             {
                 for ($j = 1; $j <= 12; $j++) {
-                    array_push($list, ['num' => $i, 'month' => $this->monthList[$i], 'year' => $firstYear + $j]);
+                    array_push($list, ['num' => $j, 'month' => $this->monthList[$j], 'year' => $firstYear + $j]);
                 }
             }
             for($i = 1; $i <= $lastMonth; $i++) {

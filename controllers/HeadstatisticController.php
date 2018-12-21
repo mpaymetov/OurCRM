@@ -10,7 +10,7 @@ namespace app\controllers;
 
 use Yii;
 use yii\web\Controller;
-use app\forms\DatePeriodForm;
+use app\forms\HeadStatisticForm;
 use app\service\HeadStatisticService;
 use app\service\UserService;
 
@@ -42,8 +42,8 @@ class HeadstatisticController extends Controller
         if (Yii::$app->user->isGuest) {
             return Yii::$app->getResponse()->redirect(array('/user/login', 302));
         }
-        $dateModelProject = new DatePeriodForm();
-        $dateModelSale= new DatePeriodForm();
+        $dateModelProject = new HeadStatisticForm();
+        $dateModelSale= new HeadStatisticForm();
         $managerList = $this->userService->GetManagerList(Yii::$app->user->identity->id_department);
 
 
@@ -75,7 +75,7 @@ class HeadstatisticController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
         $chartType = 'project';
         $date = $this->statisticService->getInitalPeriod($chartType);
-        $data = $this->statisticService->getChartInfoByPeriod($date);
+        $data = $this->statisticService->getChartInfo($date);
 
         $response = [
             'name' => $chartType,
@@ -91,7 +91,7 @@ class HeadstatisticController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
         $chartType = 'sale';
         $date = $this->statisticService->getInitalPeriod($chartType);
-        $data = $this->statisticService->getChartInfoByPeriod($date);
+        $data = $this->statisticService->getChartInfo($date);
 
         $response = [
             'name' => $chartType,
@@ -107,13 +107,14 @@ class HeadstatisticController extends Controller
 
     public function actionRenderChartByPeriod()
     {
-        $dateModel = new DatePeriodForm();
+        $dateModel = new HeadStatisticForm();
+        $dateModel->department = Yii::$app->user->identity->id_department;
         Yii::$app->response->format = Response::FORMAT_JSON;
         $response = [];
 
         if ((Yii::$app->request->isAjax)&&($dateModel->load(\Yii::$app->request->post()))){
             if($dateModel->validate()) {
-                $response['info'] = $this->statisticService->getChartInfoByPeriod($dateModel);
+                $response['info'] = $this->statisticService->getChartInfo($dateModel);
                 $response['type'] = $dateModel->type;
                 if ($response['info'] != null)
                 {

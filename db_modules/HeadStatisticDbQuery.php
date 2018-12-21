@@ -103,13 +103,13 @@ class HeadStatisticDbQuery
             left Join servicelist on servicelist.id_serviceset=serviceset.id_serviceset
             left Join service on service.id_service=servicelist.id_service
             left join user on user.id_user=project.id_user
-            where serviceset.id_state=5
+            where serviceset.id_state = 5
             and user.id_department = :id_department
 	        AND project.creation_date >= :first_date
 	        and project.creation_date <= :last_date
             group by MONTH(serviceset.close_date), YEAR(serviceset.close_date)'
         )
-            ->bindValue(':id_user', $idDepartment)
+            ->bindValue(':id_department', $idDepartment)
             ->bindValue(':first_date', $from)
             ->bindValue(':last_date', $to)
             ->queryAll();

@@ -12,7 +12,8 @@ namespace app\service;
 use Yii;
 use app\db_modules\StatisticDbQuery;
 use app\models\StateCheck;
-use app\forms\DatePeriodForm;
+use app\forms\StatisticForm;
+use app\forms\HeadStatisticForm;
 use DateInterval;
 use DateTime;
 use app\service\DateService;
@@ -93,7 +94,7 @@ class StatisticService
 
     public function getSalesForLastPeriod($datePeriod)
     {
-        $query = $this->dbQuery->getSalesForPeriod($datePeriod->user, $datePeriod->from, $datePeriod->to);
+       $query = $this->dbQuery->getSalesForPeriod($datePeriod->user, $datePeriod->from, $datePeriod->to);
 
         $columns = ['month', 'sale'];
 
@@ -104,7 +105,7 @@ class StatisticService
 
 
 
-    public function getChartInfoByPeriod($datePeriod)
+    public function getChartInfo($datePeriod)
     {
         $result = null;
         switch ($datePeriod->type){
@@ -128,7 +129,7 @@ class StatisticService
 
     public function getInitalPeriod($type)
     {
-        $date = new DatePeriodForm();
+        $date = new StatisticForm();
         $currDate = new DateTime;
         $date->to = $currDate->format('Y-m-d');
         $currDate->sub(DateInterval::createFromDateString('1 year'));

@@ -8,29 +8,34 @@
 
 namespace app\service;
 
+use yii;
+use DateInterval;
+use DateTime;
+use app\models\StateCheck;
 use app\db_modules\HeadStatisticDbQuery;
-use app\db_modules\StatisticDbQuery;
 use app\service\DateService;
+use app\forms\HeadStatisticForm;
+use app\service\StatisticService;
 
 
 class HeadStatisticService
 {
     private $dbHeadQuery;
-    private $dbQuery;
+    private $statisticService;
     private $dateService;
-
-
+    private $date;
 
     public function __construct()
     {
-        $this->setDbQuery(new StatisticDbQuery());
+        $this->setStatisticService(new StatisticService());
         $this->setDbHeadQuery(new HeadStatisticDbQuery());
         $this->setDateService(new DateService());
+        $this->setDate(new HeadStatisticForm());
     }
 
-    public function setDbQuery($param)
+    public function setStatisticService($param)
     {
-        $this->dbQuery = $param;
+        $this->statisticService = $param;
     }
 
     public function setDbHeadQuery($param)
@@ -43,9 +48,14 @@ class HeadStatisticService
         $this->dateService = $param;
     }
 
-    public function getServicesetNumByAllManagerInfo()
+    public function setDate($param)
     {
-        $query = $this->dbHeadQuery->getServicesetNumByStateAndDepartment(Yii::$app->user->identity->id_department);
+        $this->date = $param;
+    }
+
+    public function getServicesetNumByStateInfo($datePeriod)
+    {
+        $query = $this->dbHeadQuery->getServicesetNumByStateAndDepartment($datePeriod->department);
 
         if(empty($query)) {
             return null;
@@ -82,20 +92,19 @@ class HeadStatisticService
         return $result;
     }
 
-    public function getProjectNumByAllManager($idDepartment, $datePeriod)
+    public function getProjectNumByAllManager($datePeriod)
     {
-        $query = $this->dbHeadQuery->getProjectNumberByDepartmentForPeriod($idDepartment, $datePeriod->from, $datePeriod->to);
+        $query = $this->dbHeadQuery->getProjectNumberByDepartmentForPeriod($datePeriod->department, $datePeriod->from, $datePeriod->to);
         $columns = ['month', 'all', 'close', 'cancellation'];
-
         $result = $this->dateService->addMonthInfo($query, $columns, $datePeriod->from, $datePeriod->to);
 
         return $result;
 
     }
 
-    public function getSalesForByAllManager($idDepartment, $datePeriod)
+    public function getSalesForByAllManager($datePeriod)
     {
-        $query = $this->dbHeadQuery->getSalesByDepartmentForPeriod($idDepartment, $datePeriod->from, $datePeriod->to);
+        $query = $this->dbHeadQuery->getSalesByDepartmentForPeriod($datePeriod->department, $datePeriod->from, $datePeriod->to);
         $columns = ['month', 'sale'];
 
         $result = $this->dateService->addMonthInfo($query, $columns, $datePeriod->from, $datePeriod->to);
@@ -104,56 +113,86 @@ class HeadStatisticService
 
     }
 
-    public function getProjectNumByStateForPeriod($datePeriod)
+    public function checkFormInfo($datePeriod)
     {
-        $query = $this->dbQuery->getProjectNumberForPeriod($datePeriod->user, $datePeriod->from, $datePeriod->to);
+        if (!$datePeriod->dateCheck()) {
+            return 'error';
+        }
 
-        $columns = ['month', 'all', 'close', 'cancellation'];
+        if (($datePeriod->from == null) xor ($datePeriod->to == null)) {
+            return 'error';
+        }
 
-        $result = $this->dateService->addMonthInfo($query, $columns, $datePeriod->from, $datePeriod->to);
 
-        return $result;
+        $result = [];
+
+        $period = (($datePeriod->from != null) && ($datePeriod->to != null)) ? 'period' : 'year';
+        array_push($result, $period);
+
+        $user = (($datePeriod->user != 0) ? 'one' : 'all');
+        array_push($result, $user);
+
+        return $result[0] . '-' . $result[1];
     }
 
-    public function getSalesForLastPeriod($datePeriod)
-    {
-        $query = $this->dbQuery->getSalesForPeriod($datePeriod->user, $datePeriod->from, $datePeriod->to);
-
-        $columns = ['month', 'sale'];
-
-        $result = $this->dateService->addMonthInfo($query, $columns, $datePeriod->from, $datePeriod->to);
-
-        return $result;
-    }
-
-
-
-    public function getChartInfoByPeriod($datePeriod)
+    public function getChartInfoForAll($datePeriod)
     {
         $result = null;
+        switch ($datePeriod->type){
+            case 'project':
+                $result = $this->getProjectNumByAllManager($datePeriod);
+                break;
+            case 'sale':
+                $result = $this->getSalesForByAllManager($datePeriod);
+                break;
+            default:
+                return false;
+        }
 
-        if ($datePeriod->id_user != null) {
-            switch ($datePeriod->type) {
-                case 'project':
-                    $result = $this->getProjectNumByStateForPeriod($datePeriod);
-                    break;
-                case 'sale':
-                    $result = $this->getSalesForLastPeriod($datePeriod);
-                    break;
-                default:
-                    return false;
-            }
-        } else {
-            switch ($datePeriod->type) {
-                case 'project':
-                    $result = $this->getProjectNumByAllManager(Yii::$app->user->identity->id_department, $datePeriod);
-                    break;
-                case 'sale':
-                    $result = $this->getSalesForByAllManager(Yii::$app->user->identity->id_department, $datePeriod);
-                    break;
-                default:
-                    return false;
-            }
+        return $result;
+
+    }
+
+    public function getChartInfoForOne($datePeriod)
+    {
+        $result = null;
+        switch ($datePeriod->type){
+            case 'project':
+                $result = $this->statisticService->getProjectNumByStateForPeriod($datePeriod);
+                break;
+            case 'sale':
+                $result = $this->statisticService->getSalesForLastPeriod($datePeriod);
+                break;
+            default:
+                return false;
+        }
+
+        return $result;
+    }
+
+
+    public function getChartInfo($datePeriod)
+    {
+        $result = null;
+        $check = $this->checkFormInfo($datePeriod);
+        $defaultPeriod = $this->getInitalPeriod($datePeriod->type);
+        switch ($check) {
+            case 'period-one':
+                $result = $this->getChartInfoForOne($datePeriod);
+                break;
+            case 'period-all':
+                $result = $this->getChartInfoForAll($datePeriod);
+                break;
+            case 'year-one':
+                $defaultPeriod->user = $datePeriod->user;
+                $result = $this->getChartInfoForOne($defaultPeriod);
+                break;
+            case 'year-all':
+                $result = $this->getChartInfoForAll($defaultPeriod);
+                break;
+            case 'error':
+                $result = 'error';
+                break;
         }
 
         return $result;
@@ -161,14 +200,16 @@ class HeadStatisticService
 
     public function getInitalPeriod($type)
     {
-        $date = new DatePeriodForm();
+        $this->date = new HeadStatisticForm();
+        $this->date->department = Yii::$app->user->identity->id_department;
+        $this->date->user = 0;
         $currDate = new DateTime;
-        $date->to = $currDate->format('Y-m-d');
+        $this->date->to = $currDate->format('Y-m-d');
         $currDate->sub(DateInterval::createFromDateString('1 year'));
-        $date->from = $currDate->format('Y-m-d');;
-        $date->type = $type;
-        $date->user = null;
-        return $date;
+        $this->date->from = $currDate->format('Y-m-d');;
+        $this->date->type = $type;
+        $this->date->user = null;
+        return $this->date;
     }
 
 }

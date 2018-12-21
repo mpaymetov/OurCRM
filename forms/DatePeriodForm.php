@@ -16,51 +16,15 @@ class DatePeriodForm extends Model
 {
     public $from;
     public $to;
-    public $type;
-    public $user;
-
-    private $types = [
-        'project',
-        'sale',
-        'serviceset'
-    ];
 
     public function rules()
     {
-        return [
-            [['from', 'to'], 'date', 'format' => 'yyyy-mm-dd'],
-            [['from', 'to', 'type'], 'required'],
-            [['from', 'to'], 'dateCheck'],
-            [['type'], 'typesValidate'],
-            [['user'], 'integer'],
-            [['user'], 'default', 'value' => null],
-        ];
-    }
-
-    public function attributeLabels()
-    {
-        return [
-            'from' => Yii::t('common', 'From'),
-            'to' => Yii::t('common', 'To'),
-            'user' => Yii::t('common', 'Manager'),
-        ];
-    }
-
-    public function typesValidate($type)
-    {
-        $result = false;
-
-        foreach ($this->types as $el)
-        {
-            $result = ($result || ($type == $el));
-        }
-
-        return $result;
+        return [];
     }
 
     public function dateCheck()
     {
-        return $this->from <= $this->to;
+        return ($this->from <= $this->to);
     }
 
 }

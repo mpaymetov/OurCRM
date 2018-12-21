@@ -23,7 +23,7 @@ echo Html::tag('h3', \Yii::t('common', 'Close project distribution'), ['class' =
 echo Html::beginTag('div', ['class' => 'project', 'id' => 'project-chart']);
 echo $this->render(
     '_form',
-    ['model' => $dateModelProject, 'uniqid' => 'project']
+    ['model' => $dateModelProject, 'uniqid' => 'project', 'managerList' => $managerList, 'statisticType' => $statisticType]
 );
 echo Html::tag('div', '', ['class' => 'project', 'id' => 'project-num']);
 echo Html::endTag('div');
@@ -32,7 +32,7 @@ echo Html::tag('h3', \Yii::t('common', 'Sale distribution'), ['class' => 'chart-
 echo Html::beginTag('div', ['class' => 'sale', 'id' => 'sale-chart']);
 echo $this->render(
     '_form',
-    ['model' => $dateModelSale, 'uniqid' => 'sale']
+    ['model' => $dateModelSale, 'uniqid' => 'sale', 'managerList' => $managerList, 'statisticType' => $statisticType]
 );
 echo Html::tag('div', '', ['class' => 'sale', 'id' => 'sale-num']);
 echo Html::endTag('div');
