@@ -112,22 +112,14 @@ class ClientController extends Controller
      */
     public function actionUpdate($id)
     {
-        $session = Yii::$app->session;
-        $session->set('id_client', $id);
-        $dataControl = new DataValidateService();
-        $model = $this->findModel($id);
-        try {
-            if ($dataControl->checkElemAvailable($model)) {
-                if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id_client]);
-                }
-                return $this->render('update', [
-                    'model' => $model,]);
-            }
+        $answer = $this->clientService->setClientUpdate($id); // возвращяем объект и экшн который нужно применить к объекту
+        $action = ArrayHelper::getValue($answer, 'action');
+        $model = ArrayHelper::getValue($answer, 'model');
+        if ($action == 'redirect') {
+            return $this->redirect(['view', 'id' => $model->id_client]);
+        } elseif ($action == 'curr') {
             return $this->render('update', [
                 'model' => $model,]);
-        } catch (StaleObjectException $e) {
-            throw new StaleObjectException(Yii::t('app', 'Error data version'));
         }
     }
 
@@ -153,7 +145,7 @@ class ClientController extends Controller
         $clientMove = new ClientMoveForm();
         $clientMove->idClient = $id;
 
-        if($clientMove->load(Yii::$app->request->post())) { //TODO добавить проверку на загруженные idClient и idManager
+        if ($clientMove->load(Yii::$app->request->post())) { //TODO добавить проверку на загруженные idClient и idManager
             $model = $this->findModel($id);
             $model->id_user = $clientMove->idManager;
             $model->save();

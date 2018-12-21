@@ -82,23 +82,39 @@ class ClientService
         $modelPerson = new Person();
         $this->startParams->takeStartParams($model);
         $this->startParams->takeStartParams($modelPerson);
-        if ($this->dataControl->dataControl($model)) {
-            if ($model->load(Yii::$app->request->post()) && $modelPerson->load(Yii::$app->request->post())){
+        if ($model->load(Yii::$app->request->post()) && $modelPerson->load(Yii::$app->request->post())) {
+            if ($this->dataControl->dataControl($model) && $this->dataControl->dataControl($modelPerson)) {
                 if ($this->SaveNewClientAndPerson($model, $modelPerson)) {
                     return ['view', 'model' => $model, 'action' => 'redirect'];
                 }
-        }
-        else
+            }
+        } else
             return [
                 'model' => $model,
                 'modelPerson' => $modelPerson,
                 'action' => 'curr'
             ];
+    }
+
+    public function setClientUpdate($id)
+    {
+        $model = $this->findModel($id);
+        try {
+            if ($this->dataControl->checkElemAvailable($model)) {
+                if ($model->load(Yii::$app->request->post()) && $this->dataControl->dataControl($model) && $model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id_client]);
+                }
+                return [
+                    'model' => $model, 'action' => 'redirect'];
+            }
+            return [
+                'model' => $model, 'action' => 'curr'];
+        } catch (StaleObjectException $e) {
+            throw new StaleObjectException(Yii::t('app', 'Error data version'));
         }
     }
 
-    public
-    function SaveNewClientAndPerson($client, $person)
+    public function SaveNewClientAndPerson($client, $person)
     {
         $db = Yii::$app->db;
         $transaction = $db->beginTransaction();
@@ -118,8 +134,7 @@ class ClientService
         return $result;
     }
 
-    public
-    function GetMainPersonInfo($idClient) //todo в перенести в сервис person и поправить код сверху
+    public function GetMainPersonInfo($idClient) //todo в перенести в сервис person и поправить код сверху
     {
         $personSearch = new PersonDbQuery();
         $arr = $personSearch->SearchMainPerson($idClient);
@@ -140,8 +155,7 @@ class ClientService
     }
 
 
-    public
-    function GetClientList($idUser)
+    public function GetClientList($idUser)
     {
         $arr = (new ClientSearch())->searchClientList($idUser);
         $result = ArrayHelper::map($arr, 'id_client', 'name');
