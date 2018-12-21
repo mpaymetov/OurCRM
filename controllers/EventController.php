@@ -81,7 +81,7 @@ class EventController extends Controller
         if ($action == 'redirect') {
             return $this->redirect(['view', 'id' => $model->id_event]);
         } elseif ($action == 'curr') {
-            return $this->render('update', [
+            return $this->render('create', [
                 'model' => $model,]);
         }
     }

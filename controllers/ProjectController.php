@@ -84,7 +84,7 @@ class ProjectController extends Controller
         if ($action == 'redirect') {
             return $this->redirect(['view', 'id' => $model->id_project]);
         } elseif ($action == 'curr') {
-            return $this->render('update', [
+            return $this->render('create', [
                 'model' => $model,]);
         }
     }
@@ -101,7 +101,10 @@ class ProjectController extends Controller
         $answer = $this->projectService->setUpdateProject($id); // возвращяем объект и экшн который нужно применить к объекту
         $action = ArrayHelper::getValue($answer, 'action');
         $model = ArrayHelper::getValue($answer, 'model');
+
+
         if ($action == 'redirect') {
+
             return $this->redirect(['view', 'id' => $model->id_project]);
         } elseif ($action == 'curr') {
             return $this->render('update', [
