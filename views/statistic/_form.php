@@ -37,9 +37,9 @@ $form = ActiveForm::begin([
         ]
     ]);
 
-    //if($statisticType == 'headStatistic') {
+    if($statisticType == 'headStatistic') {
         echo $form->field($model, 'user')->dropDownList($managerList, ['prompt' => 'Укажите менеджера']);
-    //}
+    }
 
     echo Html::submitButton(
             Yii::t('app', Yii::t('common', 'Select')),

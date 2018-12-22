@@ -174,6 +174,7 @@ class HeadStatisticService
     public function getChartInfo($datePeriod)
     {
         $result = null;
+        $datePeriod->department = Yii::$app->user->identity->id_department;
         $check = $this->checkFormInfo($datePeriod);
         $defaultPeriod = $this->getInitalPeriod($datePeriod->type);
         switch ($check) {

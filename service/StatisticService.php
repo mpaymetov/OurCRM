@@ -46,10 +46,6 @@ class StatisticService
     {
         $query = $this->dbQuery->getServicesetNumByState($datePeriod->user);
 
-        if(empty($query)) {
-            return null;
-        }
-
         $state = new StateCheck();
         $list = $state->getStateList();
         $result = [['state', 'num']];

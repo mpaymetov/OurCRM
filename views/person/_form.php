@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
     echo $form->field($model, 'contact')->textInput(['maxlength' => true]);
     echo $form->field($model, 'email')->textInput(['maxlength' => true]);
     echo Html::a(Yii::t('common', 'Back'), Yii::$app->request->getReferrer(), ['class' => 'btn btn-success']);
-    echo Html::submitButton(\Yii::t('common', 'Create'), ['class' => 'btn btn-primary']);
+    echo Html::submitButton(\Yii::t('common', 'Save'), ['class' => 'btn btn-primary']);
 
     ActiveForm::end(); ?>
 

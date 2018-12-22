@@ -17,4 +17,5 @@ class RoleService
     {
         return Yii::$app->authManager->getRolesByUser(Yii::$app->user->identity->id_user);
     }
+
 }
