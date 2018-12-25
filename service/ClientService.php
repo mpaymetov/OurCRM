@@ -154,7 +154,6 @@ class ClientService
         return $info;
     }
 
-
     public function GetClientList($idUser)
     {
         $arr = (new ClientSearch())->searchClientList($idUser);

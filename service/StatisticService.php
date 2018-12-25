@@ -21,8 +21,8 @@ use app\service\DateService;
 
 class StatisticService
 {
-    private $dbQuery;
-    private $dateService;
+    protected $dbQuery;
+    protected $dateService;
 
 
 

@@ -18,24 +18,23 @@ use app\forms\HeadStatisticForm;
 use app\service\StatisticService;
 
 
-class HeadStatisticService
+class HeadStatisticService extends StatisticService
 {
-    private $dbHeadQuery;
-    private $statisticService;
-    private $dateService;
-    private $date;
+    protected $dbHeadQuery;
+    protected $headStatisticService;
+    protected $date;
 
     public function __construct()
     {
-        $this->setStatisticService(new StatisticService());
+        parent::__construct();
+        $this->setHeadStatisticService(new StatisticService());
         $this->setDbHeadQuery(new HeadStatisticDbQuery());
-        $this->setDateService(new DateService());
         $this->setDate(new HeadStatisticForm());
     }
 
-    public function setStatisticService($param)
+    public function setHeadStatisticService($param)
     {
-        $this->statisticService = $param;
+        $this->headStatisticService = $param;
     }
 
     public function setDbHeadQuery($param)
@@ -43,23 +42,15 @@ class HeadStatisticService
         $this->dbHeadQuery = $param;
     }
 
-    public function setDateService($param)
-    {
-        $this->dateService = $param;
-    }
-
     public function setDate($param)
     {
         $this->date = $param;
     }
 
-    public function getServicesetNumByStateInfo($datePeriod)
+    public function getServicesetNumByAllManager($datePeriod)
     {
         $query = $this->dbHeadQuery->getServicesetNumByStateAndDepartment($datePeriod->department);
 
-        if(empty($query)) {
-            return null;
-        }
 
         $state = new StateCheck();
         $list = $state->getStateList();
@@ -139,6 +130,9 @@ class HeadStatisticService
     {
         $result = null;
         switch ($datePeriod->type){
+            case 'serviceset':
+                $result = $this->getServicesetNumByAllManager($datePeriod);
+                break;
             case 'project':
                 $result = $this->getProjectNumByAllManager($datePeriod);
                 break;
@@ -158,10 +152,10 @@ class HeadStatisticService
         $result = null;
         switch ($datePeriod->type){
             case 'project':
-                $result = $this->statisticService->getProjectNumByStateForPeriod($datePeriod);
+                $result = $this->getProjectNumByStateForPeriod($datePeriod);
                 break;
             case 'sale':
-                $result = $this->statisticService->getSalesForLastPeriod($datePeriod);
+                $result = $this->getSalesForLastPeriod($datePeriod);
                 break;
             default:
                 return false;
