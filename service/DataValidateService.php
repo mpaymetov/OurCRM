@@ -28,7 +28,6 @@ class DataValidateService
 
     public function checkElemAvailable($model)
     {
-
         if ($model->tableName() == 'person') {
             if ($this->validateCreatePersonParams($model)) {
                 return true;
@@ -41,11 +40,11 @@ class DataValidateService
         } else {
             $creator = $model->id_user;
             if ($creator == Yii::$app->user->identity->id_user ||
-                $this->roleService->getRole(Yii::$app->user->identity->id_user >= 2)) {
+                $this->roleService->getRole(Yii::$app->user->identity->id_user >= 2)) //todo rbac
                 return true;
-            }
         }
     }
+
 
     public function dataControl($model)
     {
@@ -71,7 +70,8 @@ class DataValidateService
     {
         if (Project::findOne($model->id_project)->id_user == Yii::$app->user->identity->id_user) {
             return true;
-        };
+        }
+        return false;
     }
 
     public function validateCreatePersonParams($model)
@@ -84,7 +84,6 @@ class DataValidateService
         return false;
  */
     }
-
 
 
     /*  public function dataControl($model)
