@@ -9,10 +9,12 @@
 namespace app\service;
 
 use app\forms\ServiceListForm;
+use app\service\ServiceListHandler;
 
 
 class ServiceListFormHandler
 {
+
     public function loadServiceList($list)
     {
         if(!(($list->load(\Yii::$app->request->post())) && ($list->validate())))
@@ -29,7 +31,6 @@ class ServiceListFormHandler
         $data = [];
         $arr = $list->serviceList['Service'];
         $i = 0;
-        $num = count($arr);
         foreach ($arr as $item)
         {
             $data[$i] = [
@@ -40,5 +41,14 @@ class ServiceListFormHandler
         }
         return $data;
     }
+
+    public function getServicelistFormById($id)
+    {
+        $modelForm = new ServiceListForm();
+        $listHandler = new ServiceListHandler();
+        $modelForm->serviceList = $listHandler->findServiceList($id);
+        return $modelForm;
+    }
+
 
 }

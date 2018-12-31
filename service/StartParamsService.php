@@ -85,8 +85,7 @@ class StartParamsService
     public function takeStartServicesetParam($model, $request)
     {
         $stateName = new StateCheck();
-        $session = new SessionUtility();
-        $model->id_project = $session->GetSessionElem('id_project');
+        $model->id_project = Yii::$app->session->get('id_project');
         $model->id_state = $stateName::MakeContact;
         $model->creation_date = date("Y-m-d");
         $model->is_open = 1;

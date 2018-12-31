@@ -31,6 +31,7 @@ use kartik\date\DatePicker;
         'language' => 'ru',
         'pluginOptions' => [
             'autoclose' => true,
+            'format' => 'yyyy-mm-dd'
         ]
     ]);
     ?>
@@ -38,6 +39,7 @@ use kartik\date\DatePicker;
         'language' => 'ru',
         'pluginOptions' => [
             'autoclose' => true,
+            'format' => 'yyyy-mm-dd'
         ]
     ]);
     ?>
