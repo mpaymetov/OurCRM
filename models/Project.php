@@ -55,7 +55,7 @@ class Project extends \yii\db\ActiveRecord
         return [
             'id_project' => Yii::t('common', 'Id Project'),
             'name' => Yii::t('common', 'Name'),
-            'id_client' => Yii::t('common', 'Id Client'),
+            'id_client' => Yii::t('common', 'Сompany'),
             'id_user' => Yii::t('common', 'Id User'),
             'comment' => Yii::t('common', 'Comment'),
             'is_active' => Yii::t('common', 'Is Active'),

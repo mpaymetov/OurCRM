@@ -78,6 +78,7 @@ class ServicesetHandler
                 $transaction = $db->beginTransaction();
                 try {
                     $model = $this->createNewSet();
+                    $model->id_project = Yii::$app->session->get('id_project');
                     $model->save();
                     $this->listHandler->saveServiceListArray($this->listFormHandler->getServiceList($model->id_serviceset, $modelForm));
                     $transaction->commit();
@@ -115,7 +116,7 @@ class ServicesetHandler
             try {
                 if ($model->load(Yii::$app->request->post()) && $model->validate() && $this->listFormHandler->loadServiceList($modelForm)) {
                     $db = \Yii::$app->db;
-                    $transaction = $db->beginTransaction();;
+                    $transaction = $db->beginTransaction();
                     try {
                         if($model->id_state != $prevState) {
                             $model->prev_state = $prevState;

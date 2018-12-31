@@ -81,11 +81,18 @@ class ProjectController extends Controller
         $answer = $this->projectService->setProject(); // возвращяем объект и экшн который нужно применить к объекту
         $action = ArrayHelper::getValue($answer, 'action');
         $model = ArrayHelper::getValue($answer, 'model');
+        $modelForm = ArrayHelper::getValue($answer, 'modelForm');
+        $itemsService = ArrayHelper::getValue($answer, 'itemsService');
+        $clientList = ArrayHelper::getValue($answer, 'clientList');
         if ($action == 'redirect') {
             return $this->redirect(['view', 'id' => $model->id_project]);
         } elseif ($action == 'curr') {
             return $this->render('create', [
-                'model' => $model,]);
+                'model' => $model,
+                'modelForm' => $modelForm,
+                'itemsService' => $itemsService,
+                'clientList' => $clientList
+            ]);
         }
     }
 
