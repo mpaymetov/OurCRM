@@ -30,16 +30,20 @@ class DealController extends Controller
         $client = ArrayHelper::getValue($answer, 'client');
         $project = ArrayHelper::getValue($answer, 'project');
         $person = ArrayHelper::getValue($answer, 'person');
+        $modelForm = ArrayHelper::getValue($answer, 'modelForm');
+        $itemsService = ArrayHelper::getValue($answer, 'itemsService');
         if ($action == 'redirect') {
             return $this->render('view', ['project' => $project, 'user' => $user, 'client' => $client]);
-        } elseif ($action == 'curr') {
+       } elseif ($action == 'curr') {
             return $this->render('create', [
                 'user' => $user,
                 'client' => $client,
                 'project' => $project,
                 'person' => $person,
+                'modelForm' => $modelForm,
+                'itemsService' => $itemsService,
             ]);
-        }
+       }
     }
 
 }

@@ -129,12 +129,21 @@ class ProjectService
                 $transaction->commit();
             } catch (Exception $e) {
                 $transaction->rollback();
-                return ['model' => $model, 'modelForm' => $modelForm, 'itemsService' => $this->setHandler->getServiceListItems(), 'clientList' => $clientList, 'action' => 'curr'];
+                return ['model' => $model,
+                    'modelForm' => $modelForm,
+                    'itemsService' => $this->setHandler->getServiceListItems(),
+                    'clientList' => $clientList, 'action' => 'curr'];
             }
 
-            return ['model' => $model, 'modelForm' => $modelForm, 'itemsService' => $this->setHandler->getServiceListItems(), 'clientList' => $clientList, 'action' => 'redirect'];
+            return ['model' => $model,
+                'modelForm' => $modelForm,
+                'itemsService' => $this->setHandler->getServiceListItems(),
+                'clientList' => $clientList, 'action' => 'redirect'];
         }
-        return ['model' => $model, 'modelForm' => $modelForm, 'itemsService' => $this->setHandler->getServiceListItems(), 'clientList' => $clientList, 'action' => 'curr'];
+        return ['model' => $model,
+            'modelForm' => $modelForm,
+            'itemsService' => $this->setHandler->getServiceListItems(),
+            'clientList' => $clientList, 'action' => 'curr'];
     }
 
     public function setUpdateProject($id)

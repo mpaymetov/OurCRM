@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\service\UserService;
+use unclead\multipleinput\MultipleInput;
 
 /* @var $user app\service\DealService */
 /* @var $project app\service\DealService */
@@ -24,6 +25,18 @@ use app\service\UserService;
     <h4>Проект</h4>
     <?= $form->field($project, 'name') ?>
     <?= $form->field($project, 'comment') ?>
+    <?= $form->field($modelForm, 'serviceList')-> widget(MultipleInput::className(), [
+        'max' => 12,
+        'min' => 1,
+        'columns' => [
+            [
+                'name' => 'Service',
+                'type'  => 'dropDownList',
+                'items' => $itemsService,
+            ]
+        ]
+    ])?>
+
 
     <?= Html::submitButton('Create', ['class' => 'btn btn-primary']) ?>
     <?php ActiveForm::end() ?>
