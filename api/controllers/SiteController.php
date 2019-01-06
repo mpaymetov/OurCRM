@@ -11,30 +11,27 @@ use yii\web\Cookie;
 use yii\filters\VerbFilter;
 use yii\data\ArrayDataProvider;
 use yii\filters\AccessControl;
+use yii\rest\ActiveController;
 
 /**
  * ServicesetController implements the CRUD actions for Serviceset model.
  */
-class SiteController extends Controller
+class SiteController extends ActiveController
 {
-    private $mainService;
+   private $mainService;
 
     public function init()
     {
         $this->getService(new MainService());
     }
 
-    /**
-     *
-     */
+
     public function getService($service)
     {
         $this->mainService = $service;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function behaviors()
     {
         return [
@@ -71,10 +68,7 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * Lists all Serviceset models.
-     * @return mixed
-     */
+
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {
@@ -97,5 +91,6 @@ class SiteController extends Controller
         Yii::$app->response->cookies->add($languageCookie);
         return $this->redirect(Yii::$app->request->referrer);
     }
+
 
 }

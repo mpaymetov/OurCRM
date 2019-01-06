@@ -4,23 +4,35 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Event;
+use yii\rest\ActiveController;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\service\EventService;
 use yii\helpers\ArrayHelper;
+use yii\web\Response;
+
 
 /**
  * EventController implements the CRUD actions for Event model.
  */
-class EventController extends Controller
+class EventController extends ActiveController
 {
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        $behaviors['contentNegotiator']['formats']['text/html'] = Response::FORMAT_JSON;
+        return $behaviors;
+    }
 
+    public $modelClass = 'app\models\Event';
+    public $serializer = [
+            'class' => 'yii\rest\Serializer',
+        'collectionEnvelope' => 'items',
+    ];
+/*
     private $eventService;
 
-    /**
-     * {@inheritdoc}
-     */
     public function behaviors()
     {
         return [
@@ -38,41 +50,26 @@ class EventController extends Controller
         $this->getService();
     }
 
-    /**
-     *
-     */
     public function getService()
     {
         $this->eventService = new EventService();
     }
 
 
-    /**
-     * Lists all Event models.
-     * @return mixed
-     */
+
     public function actionIndex()
     {
         return $this->render('index', $this->eventService->getAllEvents());
     }
 
-    /**
-     * Displays a single Event model.
-     * @param string $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
     public function actionView($id)
     {
         return $this->render('view', $this->eventService->getEventViewData($id)
         );
     }
 
-    /**
-     * Creates a new Event model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
+
     public function actionCreate()
     {
         $answer = $this->eventService->setCreateEvent(); // возвращяем объект и экшн который нужно применить к объекту
@@ -86,13 +83,7 @@ class EventController extends Controller
         }
     }
 
-    /**
-     * Updates an existing Event model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
     public function actionUpdate($id)
     {
         $answer = $this->eventService->setEventUpdate($id); // возвращяем объект и экшн который нужно применить к объекту
@@ -106,24 +97,12 @@ class EventController extends Controller
         }
     }
 
-    /**
-     * Deletes an existing Event model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
         return $this->redirect(['index']); //todo перенести в сервис
     }
 
-    /**
-     * Finds the Event model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
-     * @return Event the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+*/
 }

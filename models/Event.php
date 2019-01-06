@@ -82,9 +82,4 @@ class Event extends \yii\db\ActiveRecord
         return $arrModels;
     }
 
-
-    public static function getNotDoneEvent()
-    {
-
-    }
 }
