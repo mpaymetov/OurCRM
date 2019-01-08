@@ -20,15 +20,15 @@ AppAsset::register($this);
         <meta charset="<?= Yii::$app->charset ?>">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/css/site.css">
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
-
     </head>
     <body>
     <div class="wrap">
         <div class="root" id="root">
-            <script src="../web/js/bundle.js">
+            <script src="/js/bundle.js">
             </script>
         </div>
 
