@@ -5,7 +5,7 @@ class ItemEvent extends Component {
     constructor(props) {
         super(props);
         this.state =
-            {hits : this.props.items};
+            {hits: this.props.items};
     }
 
     render() {
@@ -13,14 +13,17 @@ class ItemEvent extends Component {
         if (this.props.hits !== '') {
             console.log('not null', this.props.items);
             return (
+
                 <div>
-                    <div>
-                        {this.props.items.map((hits) =>
-                            <div className="panel-body post panel">
-                                <div>{hits.id_event || ''}</div>
+                    {this.props.items.map((hits) =>
+                        <div className="panel-body post panel">
+                            <div className="col-md-6">
+                                <p className="post_number">номер события:{hits.id_event || ''}</p>
+                                <h5>{hits.message || ''}</h5>
+                                <h6>{hits.id_user}</h6>
                             </div>
-                        )}
-                    </div>
+                        </div>
+                    )}
                 </div>
             )
         } else {

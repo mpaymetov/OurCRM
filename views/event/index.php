@@ -35,5 +35,4 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
     <div id="container"></div>
-    <script src="js/bundle.js"></script>
 </div>
