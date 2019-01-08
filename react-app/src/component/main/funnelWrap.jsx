@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import ItemPost from './itemPost.jsx';
+import {Link, BrowserRouter} from 'react-router-dom';
 
-const API = 'http://localhost/events';
+const API = 'http://localhost/api/funnels';
 
 class Funnel extends Component {
     componentWillMount() {
@@ -9,11 +10,12 @@ class Funnel extends Component {
             .then(response => response.json())
             .then(data => this.setState({hits: data.items}));
     }
+
     render() {
         if (this.props.posts !== null) {
             return (
                 <div>
-                   <ItemPost posts={this.state}/>
+                    <ItemPost posts={this.state}/>
                 </div>
             )
 
@@ -23,5 +25,4 @@ class Funnel extends Component {
 
     }
 }
-
 export default Funnel;

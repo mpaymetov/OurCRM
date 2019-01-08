@@ -1,11 +1,20 @@
 <?php
 namespace app\api\controllers;
 use yii\rest\ActiveController;
+use yii\web\Response;
 
-/**
- * ServicesetController implements the CRUD actions for Serviceset model.
- */
 class UserController extends ActiveController
 {
     public $modelClass = 'app\models\User';
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        $behaviors['contentNegotiator']['formats']['text/html'] = Response::FORMAT_JSON;
+        return $behaviors;
+    }
+
+    public $serializer = [
+        'class' => 'yii\rest\Serializer',
+        'collectionEnvelope' => 'items',
+    ];
 }

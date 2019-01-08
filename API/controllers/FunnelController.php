@@ -16,9 +16,9 @@ use yii\rest\ActiveController;
 /**
  * ServicesetController implements the CRUD actions for Serviceset model.
  */
-class SiteController extends ActiveController
+class FunnelController extends ActiveController
 {
-   private $mainService;
+    private $mainService;
 
     public function init()
     {
@@ -74,7 +74,8 @@ class SiteController extends ActiveController
         if (Yii::$app->user->isGuest) {
             return Yii::$app->getResponse()->redirect(array('/user/login', 302));
         } else {
-            return $this->render('index');
+
+            echo(json_encode($this->mainService->getMainItems(), JSON_UNESCAPED_UNICODE));
         }
     }
 

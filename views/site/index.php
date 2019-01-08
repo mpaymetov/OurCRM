@@ -11,6 +11,7 @@ use yii\widgets\ListView;
 $this->title = Yii::t('common', 'Сделки');
 ?>
 
+<?php /*
 <p>
     <a href='<?= Url::toRoute('/deal/create'); ?>' class="btn btn-success"><?= \Yii::t('common', 'Создать сделку')?></a>
 </p>
@@ -45,4 +46,3 @@ $this->title = Yii::t('common', 'Сделки');
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); */ ?>
-</div>

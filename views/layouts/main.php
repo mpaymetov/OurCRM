@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
 use app\widgets\Alert;
@@ -13,25 +14,27 @@ use app\assets\AppAsset;
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
-<head>
-    <meta charset="<?= Yii::$app->charset ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>
-</head>
-<body>
-<?php $this->beginBody() ?>
+    <head>
+        <meta charset="<?= Yii::$app->charset ?>">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <?= Html::csrfMetaTags() ?>
+        <title><?= Html::encode($this->title) ?></title>
+        <?php $this->head() ?>
 
-<div class="wrap">
-    <div class="root" id="root">
-        <script src="../web/js/bundle.js">
-        </script>
-    </div>
+    </head>
+    <body>
+    <div class="wrap">
+        <div class="root" id="root">
+            <script src="../web/js/bundle.js">
+            </script>
+        </div>
 
+
+
+<?php /*
     <?php
     NavBar::begin([
         'brandLabel' => Yii::$app->name,
@@ -99,3 +102,4 @@ AppAsset::register($this);
 </body>
 </html>
 <?php $this->endPage() ?>
+*/ ?>

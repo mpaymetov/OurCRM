@@ -1,28 +1,28 @@
 import React, {Component} from 'react';
 
 
-class ItemPost extends Component {
+class ItemEvent extends Component {
     constructor(props) {
         super(props);
-        const posts = this.props;
+        this.state =
+            {hits : this.props.items};
     }
 
     render() {
-        console.log('in component', this.props.posts);
-        if (this.props.posts.hits !== undefined || this.props.posts.hits !== null) {
-            console.log('not null', this.props.posts.hits);
+        console.log('in component', this.props);
+        if (this.props.hits !== '') {
+            console.log('not null', this.props.items);
             return (
                 <div>
                     <div>
-                        {this.props.posts.hits.map((item) =>
+                        {this.props.items.map((hits) =>
                             <div className="panel-body post panel">
-                                <div>{item|| ''}</div>
+                                <div>{hits.id_event || ''}</div>
                             </div>
                         )}
                     </div>
                 </div>
             )
-
         } else {
             return (<p>do not render</p>);
         }
@@ -30,4 +30,4 @@ class ItemPost extends Component {
     }
 }
 
-export default ItemPost;
+export default ItemEvent;

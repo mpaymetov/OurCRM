@@ -74,8 +74,7 @@ class SiteController extends ActiveController
         if (Yii::$app->user->isGuest) {
             return Yii::$app->getResponse()->redirect(array('/user/login', 302));
         } else {
-
-            echo(json_encode($this->mainService->getMainItems(), JSON_UNESCAPED_UNICODE));
+            return $this->render('index');
         }
     }
 
