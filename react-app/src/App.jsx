@@ -6,6 +6,7 @@ import Funnel from './component/main/funnelWrap.jsx';
 import NotFound from './component/notfound.jsx';
 import Nav from './component/nav.jsx';
 import EventWarp from './component/event/eventWarp.jsx';
+import ProjectView from './component/project/projectView.jsx'
 
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
@@ -24,6 +25,7 @@ class App extends Component {
                                 <Route exact path="/" component={Form}/>
                                 <Route path="/products" component={Start}/>
                                 <Route path="/funnels" component={Funnel}/>
+                                <Route path="/projects" component={ProjectView}/>
                                 <Route path="/events" component={EventWarp}/>
                                 <Route component={NotFound}/>
                             </Switch>
