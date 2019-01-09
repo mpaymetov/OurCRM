@@ -38,9 +38,10 @@ class ProjectView extends Component {
 
         return (
             <div>
+
                 <ProjectInfo projectInfo = {project}/>
                 <AddButton buttonInfo={info}/>
-
+                <ProjectServiceset serviceset = {servicesetInfo} />
             </div>
         );
     }

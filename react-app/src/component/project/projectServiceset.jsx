@@ -12,9 +12,11 @@ class ProjectServiceset extends Component {
 
         console.log(stateInfo);
 
-        <div className="servicelist-index col-md-12">
-            <StateBar  />
+        return (
+            <div className="servicelist-index col-md-12">
+            <StateBar set={stateInfo} />
         </div>
+        );
     }
 
 }
