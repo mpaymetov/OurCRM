@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import {Route, Switch} from "react-router-dom";
 
 class ItemEvent extends Component {
     constructor(props) {
@@ -13,7 +13,6 @@ class ItemEvent extends Component {
         if (this.props.hits !== '') {
             console.log('not null', this.props.items);
             return (
-
                 <div>
                     {this.props.items.map((hits) =>
                         <div className="panel-body post panel">

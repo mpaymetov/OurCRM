@@ -58,7 +58,7 @@ $config = [
             'rules' => [
                 [
                 'class' => '\yii\rest\UrlRule',
-                'controller' => ['event', 'user', 'funnel'],
+                'controller' => ['event', 'user', 'funnel', 'project'],
                 'prefix' => 'api',
             ],
             ],
