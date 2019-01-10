@@ -15,18 +15,6 @@ use app\api\models\MainDTO;
 
 class MainService
 {
-    private $dto;
-
-    public function __construct()
-    {
-        $this->setDTO(new MainDTO());
-    }
-
-    public function setDTO($dto)
-    {
-        $this->dataControl = $dto;
-    }
-
     public function getMainItems()
     {
         $searchModel = new servisetDbQuery();

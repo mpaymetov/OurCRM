@@ -6,16 +6,12 @@ use app\api\services\MainService;
 use Yii;
 use app\db_modules\servisetDbQuery;
 use app\models\StateCheck;
-use yii\web\Controller;
 use yii\web\Cookie;
 use yii\filters\VerbFilter;
-use yii\data\ArrayDataProvider;
 use yii\filters\AccessControl;
 use yii\rest\ActiveController;
 
-/**
- * ServicesetController implements the CRUD actions for Serviceset model.
- */
+
 class FunnelController extends ActiveController
 {
     private $mainService;
@@ -30,7 +26,6 @@ class FunnelController extends ActiveController
     {
         $this->mainService = $service;
     }
-
 
     public function behaviors()
     {
@@ -74,8 +69,7 @@ class FunnelController extends ActiveController
         if (Yii::$app->user->isGuest) {
             return Yii::$app->getResponse()->redirect(array('/user/login', 302));
         } else {
-
-            echo(json_encode($this->mainService->getMainItems(), JSON_UNESCAPED_UNICODE));
+            return(json_encode($this->mainService->getMainItems(), JSON_UNESCAPED_UNICODE));
         }
     }
 

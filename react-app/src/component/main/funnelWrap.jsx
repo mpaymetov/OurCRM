@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ItemPost from './itemPost.jsx';
 import {Link, BrowserRouter} from 'react-router-dom';
 
-const API = 'http://localhost/api/funnels';
+const API = '/api/funnels';
 
 class Funnel extends Component {
     componentWillMount() {

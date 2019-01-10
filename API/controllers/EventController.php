@@ -4,13 +4,13 @@ namespace app\api\controllers;
 
 use Yii;
 use app\models\Event;
+use app\api\services\EventService;
 use yii\rest\ActiveController;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\service\EventService;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
+use yii\rest\Serializer;
 
 
 /**
@@ -18,6 +18,7 @@ use yii\web\Response;
  */
 class EventController extends ActiveController
 {
+
     public function behaviors()
     {
         $behaviors = parent::behaviors();
@@ -26,25 +27,36 @@ class EventController extends ActiveController
     }
 
     public $modelClass = 'app\models\Event';
+
     public $serializer = [
-            'class' => 'yii\rest\Serializer',
+        'class' => 'yii\rest\Serializer',
         'collectionEnvelope' => 'items',
     ];
-/*
-    private $eventService;
 
-    public function behaviors()
+    public function actions()
     {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
+        $actions = parent::actions();
+        $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
+        unset($actions['index'], $actions['view']);
+
+        return $actions;
     }
 
+    private $eventService;
+
+    /*
+        public function behaviors()
+        {
+            return [
+                'verbs' => [
+                    'class' => VerbFilter::className(),
+                    'actions' => [
+                        'delete' => ['POST'],
+                    ],
+                ],
+            ];
+        }
+    */
     public function init()
     {
         $this->getService();
@@ -56,17 +68,23 @@ class EventController extends ActiveController
     }
 
 
-
     public function actionIndex()
     {
-        return $this->render('index', $this->eventService->getAllEvents());
+        if (Yii::$app->user->isGuest) {
+            return Yii::$app->getResponse()->redirect(array('/user/login', 302));
+        } else {
+            return ($this->eventService->getAllEvents());
+        }
     }
 
 
     public function actionView($id)
     {
-        return $this->render('view', $this->eventService->getEventViewData($id)
-        );
+        if (Yii::$app->user->isGuest) {
+            return Yii::$app->getResponse()->redirect(array('/user/login', 302));
+        } else {
+            return $this->$this->eventService->getEventViewData($id);
+        }
     }
 
 
@@ -103,6 +121,4 @@ class EventController extends ActiveController
         $this->findModel($id)->delete();
         return $this->redirect(['index']); //todo перенести в сервис
     }
-
-*/
 }

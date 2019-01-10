@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ItemEvent from './itemEvent.jsx';
-import {Link, BrowserRouter} from 'react-router-dom';
+import EventForm from './eventForm.jsx';
+import {Link, BrowserRouter, BrowserRouter as Router, Route} from 'react-router-dom';
 
 const API = '/api/events';
 
@@ -9,20 +10,24 @@ class EventWarp extends Component {
         super(props);
         this.state = {jsonData: ''};
     }
+
     componentWillMount() {
         fetch(API)
             .then(response => response.json())
-            .then(data => this.setState({ jsonData: data.items }))
+            .then(data => this.setState({jsonData: data.items}))
             .catch((error) => {
                 console.error(error);
             });
     }
-
+//todo render внутрь if
     render() {
         console.log("in warp", this.state);
         if (this.state.jsonData !== '') {
             return (
                 <div>
+                    <div>
+                        <Link to="/form">Создать сделку</Link>
+                    </div>
                     <ItemEvent items={this.state.jsonData}/>
                 </div>
             )
@@ -33,4 +38,5 @@ class EventWarp extends Component {
 
     }
 }
+
 export default EventWarp;
