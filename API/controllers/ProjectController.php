@@ -9,6 +9,7 @@
 namespace app\api\controllers;
 
 use app\service\ProjectService;
+use app\service\EventService;
 use Yii;
 use app\models\Project;
 use yii\rest\ActiveController;
@@ -33,6 +34,15 @@ class ProjectController extends ActiveController
         $behaviors = parent::behaviors();
         $behaviors['contentNegotiator']['formats']['text/html'] = Response::FORMAT_JSON;
         return $behaviors;
+    }
+
+    public function actions()
+    {
+        $actions = parent::actions();
+        $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
+        unset($actions['index'], $actions['view']);
+
+        return $actions;
     }
 
     public $modelClass = 'app\models\project';
@@ -80,8 +90,11 @@ class ProjectController extends ActiveController
      */
     public function actionIndex()
     {
-        return $this->render('index', $this->projectService->getAllProjects()
-        );
+        if (Yii::$app->user->isGuest) {
+            return Yii::$app->getResponse()->redirect(array('/user/login', 302));
+        } else {
+            return ($this->projectService->getAllProjects());
+        }
     }
 
     /**

@@ -61,10 +61,8 @@ class ProjectService
     {
         $searchModel = new ProjectSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        return [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ];
+        return
+         $dataProvider;
     }
 
     public function getViewInfoProject($id)
