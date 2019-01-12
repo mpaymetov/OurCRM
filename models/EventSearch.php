@@ -1,15 +1,17 @@
 <?php
-
 namespace app\models;
-
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Event;
-
+/**
+ * EventSearch represents the model behind the search form of `app\models\Event`.
+ */
 class EventSearch extends Event
 {
-
+    /**
+     * {@inheritdoc}
+     */
     public function rules()
     {
         return [
@@ -17,26 +19,33 @@ class EventSearch extends Event
             [['message', 'created', 'assignment'], 'safe'],
         ];
     }
-
+    /**
+     * {@inheritdoc}
+     */
     public function scenarios()
     {
+        // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
-
+    /**
+     * Creates data provider instance with search query applied
+     *
+     * @param array $params
+     *
+     * @return ActiveDataProvider
+     */
     public function search($params, $location = null)
     {
         $query = Event::find();
-
+        // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
         $this->load($params);
-
         if (!$this->validate()) {
             return $dataProvider;
         }
-
+        // grid filtering conditions
         $query->andFilterWhere([
             'id_event' => $this->id_event,
             'created' => $this->created,
@@ -46,7 +55,6 @@ class EventSearch extends Event
             'id_user' => $this->id_user,
             'is_active' => $this->is_active,
         ]);
-
         if ($location == 'index') {
             $date = date('Y-m-d'); // сверяем только по суткам, после 12 не закрытые события переходят в незавершенные
             $query->andFilterWhere(['like', 'message', $this->message])
@@ -58,33 +66,22 @@ class EventSearch extends Event
                 ->all();
         } else {
             $query->andFilterWhere(['like', 'message', $this->message])
-                ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user)
-                ->asArray()
-                ->all();
+                ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user);
         }
-
         return $dataProvider;
     }
-
     public function searchNotDoneEvent($params, $location = null)
     {
         $query = Event::find();
-
         // add conditions that should always apply here
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
         $this->load($params);
-
         if (!$this->validate()) {
-
             // uncomment the following line if you do not want to return any records when validation fails
-
             return $dataProvider;
         }
-
         // grid filtering conditions
         $query->andFilterWhere([
             'id_event' => $this->id_event,
@@ -95,43 +92,42 @@ class EventSearch extends Event
             'id_user' => $this->id_user,
             'is_active' => $this->is_active,
         ]);
-
         if ($location == 'index') {
             $date = date('Y-m-d'); // сверяем только по суткам, после 12 не закрытые события переходят в незавершенные
             $query->andFilterWhere(['like', 'message', $this->message])
                 ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user)
                 ->andWhere('event.is_active != 0')
-                ->andWhere('event.assignment  < ' . "'" . $date . "'")
-                ->asArray()
-                ->all();
+                ->andWhere('event.assignment  < ' . "'" . $date . "'");
         } else {
             $query->andFilterWhere(['like', 'message', $this->message])
-                ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user)
-                ->asArray()
-                ->all();
+                ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user);
         }
         return $dataProvider;
     }
-
-
     public function searchEventId($id_link, $id_user, $route_link)
     {
         if (!Yii::$app->user->isGuest) {
-            $query = Event::find();
+            /*$query = Event::find();
             $eventDataProvider = new ActiveDataProvider([
                 'query' => $query,
             ]);
-
             $query->select(['*'])
                 ->from('event')
                 ->where(['link' => $route_link])
                 ->andwhere(['id_link' => $id_link])
                 ->andwhere(['id_user' => $id_user])
+                ->all();*/
+            $query = Event::find()
+                ->select(['*'])
+                ->from('event')
+                ->where(['link' => $route_link])
+                ->andwhere(['id_link' => $id_link])
+                ->andwhere(['id_user' => $id_user])
                 ->all();
-            return $eventDataProvider;
+            return $query;
+            //return $eventDataProvider;
         }
     }
-
 //  todo написать запросы только к нужным данным
     public function searchClientEventId($id_client)
     {
@@ -148,7 +144,6 @@ class EventSearch extends Event
             return $eventDataProvider;
         }
     }
-
     public function findModel($id)
     {
         if (($model = Event::findOne($id)) !== null) {
