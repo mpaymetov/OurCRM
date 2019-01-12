@@ -1,20 +1,20 @@
 import React, {Component} from 'react';
-import ItemEvent from "./itemEvent";
-
 
 class EventView extends Component {
     constructor(props) {
         super(props);
         this.state = {jsonData: ''};
-        this.componentWillMount();
     }
-    componentWillMount() {
-        fetch(API)
-            .then(response => response.json())
-            .then(data => this.setState({ jsonData: data.items }))
-            .catch((error) => {
-                console.error(error);
-            });
+
+    render() {
+        return <div className="done">
+            <p>Match: {JSON.stringify(this.props.match)}</p>
+            <p>Location {JSON.stringify(this.props.location)}</p>
+            <p>Id: {this.props.match.params.id}</p>
+            <p>Name: {new URLSearchParams(this.props.location.search).get("name")}</p>
+            <p>Age: {new URLSearchParams(this.props.location.search).get("age")}</p>
+        </div>;
+
     }
 }
 

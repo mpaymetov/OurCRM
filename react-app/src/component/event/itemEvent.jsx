@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch, Link, Redirect} from 'react-router-dom';
+import EventView from "./EventView.jsx";
+
 
 class ItemEvent extends Component {
     constructor(props) {
@@ -21,6 +23,16 @@ class ItemEvent extends Component {
                                 <h5>{hits.message || ''}</h5>
                                 <h6>{hits.id_user}</h6>
                             </div>
+                            <Router>
+                                <div>
+                                    <nav>
+                                        <Link to={"eventsView"+hits.id_event}> подробнее </Link>
+                                    </nav>
+                                    <Switch>
+                                        <Route path="/eventsView:" component={EventView}/>
+                                    </Switch>
+                                </div>
+                            </Router>
                         </div>
                     )}
                 </div>

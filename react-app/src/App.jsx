@@ -7,8 +7,8 @@ import NotFound from './component/notfound.jsx';
 import Nav from './component/nav.jsx';
 import EventWarp from './component/event/eventWarp.jsx';
 import ProjectView from './component/project/projectView.jsx'
-
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import EventView from "./component/event/eventView.jsx";
 
 
 class App extends Component {

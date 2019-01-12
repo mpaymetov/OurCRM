@@ -3,14 +3,10 @@
 namespace app\api\controllers;
 
 use Yii;
-use app\models\Event;
-use app\api\services\EventService;
+use app\service\EventService;
 use yii\rest\ActiveController;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
-use yii\rest\Serializer;
 
 
 /**
@@ -28,10 +24,6 @@ class EventController extends ActiveController
 
     public $modelClass = 'app\models\Event';
 
-    public $serializer = [
-        'class' => 'yii\rest\Serializer',
-        'collectionEnvelope' => 'items',
-    ];
 
     public function actions()
     {
@@ -42,21 +34,9 @@ class EventController extends ActiveController
         return $actions;
     }
 
+
     private $eventService;
 
-    /*
-        public function behaviors()
-        {
-            return [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ];
-        }
-    */
     public function init()
     {
         $this->getService();
@@ -66,7 +46,6 @@ class EventController extends ActiveController
     {
         $this->eventService = new EventService();
     }
-
 
     public function actionIndex()
     {

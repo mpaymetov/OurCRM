@@ -72,7 +72,6 @@ class ClientService
             'eventDataProvider' => $eventDataProvider,
             'clientEventDataProvider' => $clientEventDataProvider,
             'person' => $person,
-            //'arr' => $arr
         ];
     }
 

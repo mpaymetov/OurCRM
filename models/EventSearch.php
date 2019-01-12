@@ -7,14 +7,9 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Event;
 
-/**
- * EventSearch represents the model behind the search form of `app\models\Event`.
- */
 class EventSearch extends Event
 {
-    /**
-     * {@inheritdoc}
-     */
+
     public function rules()
     {
         return [
@@ -23,27 +18,14 @@ class EventSearch extends Event
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function scenarios()
     {
-        // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
 
-    /**
-     * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
-     * @return ActiveDataProvider
-     */
     public function search($params, $location = null)
     {
         $query = Event::find();
-
-        // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -55,7 +37,6 @@ class EventSearch extends Event
             return $dataProvider;
         }
 
-        // grid filtering conditions
         $query->andFilterWhere([
             'id_event' => $this->id_event,
             'created' => $this->created,
@@ -76,9 +57,10 @@ class EventSearch extends Event
                 ->asArray()
                 ->all();
         } else {
-
             $query->andFilterWhere(['like', 'message', $this->message])
-                ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user);
+                ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user)
+                ->asArray()
+                ->all();
         }
 
         return $dataProvider;
@@ -119,10 +101,14 @@ class EventSearch extends Event
             $query->andFilterWhere(['like', 'message', $this->message])
                 ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user)
                 ->andWhere('event.is_active != 0')
-                ->andWhere('event.assignment  < ' . "'" . $date . "'");
+                ->andWhere('event.assignment  < ' . "'" . $date . "'")
+                ->asArray()
+                ->all();
         } else {
             $query->andFilterWhere(['like', 'message', $this->message])
-                ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user);
+                ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user)
+                ->asArray()
+                ->all();
         }
         return $dataProvider;
     }
@@ -142,7 +128,6 @@ class EventSearch extends Event
                 ->andwhere(['id_link' => $id_link])
                 ->andwhere(['id_user' => $id_user])
                 ->all();
-
             return $eventDataProvider;
         }
     }
@@ -155,13 +140,11 @@ class EventSearch extends Event
             $eventDataProvider = new ActiveDataProvider([
                 'query' => $query,
             ]);
-
             $query->select(['*'])
                 ->from('event')
                 ->leftJoin('project', 'event.id_link = project.id_project')
                 ->where(['or', ['and', ['event.link' => 2, 'project.id_client' => $id_client]], ['and', ['event.link' => 1, 'event.id_link' => $id_client]]])
                 ->all();
-
             return $eventDataProvider;
         }
     }

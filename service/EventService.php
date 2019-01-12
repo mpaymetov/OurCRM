@@ -40,11 +40,8 @@ class EventService
     public function getAllEvents()
     {
         $searchModel = new EventSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams); // todo надо ли впиливать проверку всего массива?
-        return [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ];
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return $dataProvider;
     }
 
     public function getEventViewData($id)
