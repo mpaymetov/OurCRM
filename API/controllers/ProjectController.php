@@ -8,7 +8,7 @@
 
 namespace app\api\controllers;
 
-use app\service\ProjectService;
+use app\api\services\ProjectService;
 use app\service\EventService;
 use Yii;
 use app\models\Project;
@@ -47,10 +47,10 @@ class ProjectController extends ActiveController
 
     public $modelClass = 'app\models\project';
 
-    public $serializer = [
+    /*public $serializer = [
         'class' => 'yii\rest\Serializer',
         'collectionEnvelope' => 'items',
-    ];
+    ];*/
 
     private $projectService;
 
@@ -105,7 +105,7 @@ class ProjectController extends ActiveController
      */
     public function actionView($id)
     {
-        return $this->render('view', $this->projectService->getViewInfoProject($id));
+        return ['items' => $this->projectService->getViewInfoProject($id)];
     }
 
     /**

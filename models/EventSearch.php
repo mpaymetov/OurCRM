@@ -131,7 +131,7 @@ class EventSearch extends Event
     public function searchEventId($id_link, $id_user, $route_link)
     {
         if (!Yii::$app->user->isGuest) {
-            $query = Event::find();
+            /*$query = Event::find();
             $eventDataProvider = new ActiveDataProvider([
                 'query' => $query,
             ]);
@@ -141,9 +141,16 @@ class EventSearch extends Event
                 ->where(['link' => $route_link])
                 ->andwhere(['id_link' => $id_link])
                 ->andwhere(['id_user' => $id_user])
+                ->all();*/
+            $query = Event::find()
+                ->select(['*'])
+                ->from('event')
+                ->where(['link' => $route_link])
+                ->andwhere(['id_link' => $id_link])
+                ->andwhere(['id_user' => $id_user])
                 ->all();
-
-            return $eventDataProvider;
+            return $query;
+            //return $eventDataProvider;
         }
     }
 
