@@ -26,10 +26,10 @@ class ItemEvent extends Component {
                             <Router>
                                 <div>
                                     <nav>
-                                        <Link to={"eventsView"+hits.id_event}> подробнее </Link>
+                                        <Link to={"eventsView/"+hits.id_event}> подробнее </Link>
                                     </nav>
                                     <Switch>
-                                        <Route path="/eventsView:" component={EventView}/>
+                                        <Route path="/eventsView/:id_event" component={EventView}/>
                                     </Switch>
                                 </div>
                             </Router>

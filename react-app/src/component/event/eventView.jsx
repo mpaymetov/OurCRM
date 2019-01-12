@@ -10,7 +10,7 @@ class EventView extends Component {
         return <div className="done">
             <p>Match: {JSON.stringify(this.props.match)}</p>
             <p>Location {JSON.stringify(this.props.location)}</p>
-            <p>Id: {this.props.match.params.id}</p>
+            <p>Id: {this.props.match.params.id_event}</p>
             <p>Name: {new URLSearchParams(this.props.location.search).get("name")}</p>
             <p>Age: {new URLSearchParams(this.props.location.search).get("age")}</p>
         </div>;

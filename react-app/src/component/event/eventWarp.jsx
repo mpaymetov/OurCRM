@@ -14,7 +14,7 @@ class EventWarp extends Component {
     componentWillMount() {
         fetch(API)
             .then(response => response.json())
-            .then(data => this.setState({jsonData: data.items}))
+            .then(data => this.setState({jsonData: data}))
             .catch((error) => {
                 console.error(error);
             });
