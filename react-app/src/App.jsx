@@ -27,6 +27,7 @@ class App extends Component {
                                 <Route path="/funnels" component={Funnel}/>
                                 <Route path="/projects" component={ProjectView}/>
                                 <Route path="/events" component={EventWarp}/>
+                                <Route path="/eventsView/:id_event" component={EventView}/>
                                 <Route component={NotFound}/>
                             </Switch>
                         </div>
