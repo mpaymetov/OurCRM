@@ -1,16 +1,15 @@
 import React, {Component} from 'react';
+import {BrowserRouter , Route, Switch, Link, NavLink} from 'react-router-dom';
 
 class EventInfo extends Component{
 
     render() {
         return (
-            <div className={"post panel"}>
-                <div className={"panel-body"}>
-                    <p>{this.props.eventInfo.text}</p>
-                    <p>Дата создания {this.props.eventInfo.creation_date}</p>
-                    <p>Дата выполнения {this.props.eventInfo.assignment_date}</p>
-                </div>
-
+            <div className={"panel-body"}>
+                <h5>Событие</h5>
+                <p>{this.props.eventInfo.message}</p>
+                <p>Дата создания {this.props.eventInfo.created}</p>
+                <p>Дата выполнения {this.props.eventInfo.assignment}</p>
             </div>
         );
     }

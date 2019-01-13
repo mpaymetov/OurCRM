@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
+import {Link, BrowserRouter, BrowserRouter as Router, Route} from 'react-router-dom';
 
 class AddButton extends Component {
 
     render() {
         return(
-                <a href={this.props.buttonInfo.path} className="btn btn-success">{this.props.buttonInfo.buttonName}</a>
+            <nav>
+                <Link to={this.props.buttonInfo.path} className="btn btn-success"> {this.props.buttonInfo.buttonName} </Link>
+            </nav>
         );
     }
 

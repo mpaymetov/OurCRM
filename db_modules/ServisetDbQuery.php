@@ -20,18 +20,19 @@ class servisetDbQuery
     public function getServiceSetInfoByProjectId($id)
     {
         $data = (new \yii\db\Query())
-            ->select(['id_serviceset AS id', 'id_state AS state', 'delivery AS delivery', 'payment AS payment', 'is_open AS isOpen'])
+            ->select(['id_serviceset AS id', 'id_state', 'delivery', 'payment', 'is_open', 'creation_date'])
             ->from('serviceset')
             ->where('id_project=:id_project', [':id_project' => $id])
             ->all();
 
 
-        $state = new StateCheck();
-        foreach ($data as &$item) {
+        /*$state = new StateCheck();
+        $data['list'] = $state->getStateList();
+        /*foreach ($data as &$item) {
             $i = $item['state'];
             $item['state'] =['id_state' => $i, 'name' => $state->getStateName($i)];
             $item['list'] = $state->getStateList();
-        }
+        } */
 
         return $data;
     }

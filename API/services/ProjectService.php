@@ -70,16 +70,6 @@ class ProjectService
         $servicesetInfo = $servicesetData->getServiceSetInfoByProjectId($id);
         $serviceListDataProvider = [];
         for ($i = 0; $i < count($servicesetInfo); $i++) {
-            /*$info = $servicesetInfo[$i];
-            $serviceListDataProvider[$i] = array(
-                'ServiceSetInfo' => new ArrayDataProvider([
-                    'allModels' => array(
-                        0 => $info),
-                ]),
-                'ServiceListInfo' => new ArrayDataProvider([
-                    'allModels' => $servicesetData->getServiceSetInfo($info['id']),
-                ]),
-            );*/
             $serviceListDataProvider[$i] = array(
                 'servicesetInfo' => $servicesetInfo[$i],
                 'servicelistInfo' => $servicesetData->getServiceSetInfo($servicesetInfo[$i]['id'])
@@ -91,16 +81,16 @@ class ProjectService
         $eventDataProvider = $searchEventModel->searchEventId($id, Yii::$app->user->identity->id_user, 2);
 
         $state = new StateCheck();
-        $list = $state->getStateList();
+        $list = $state->getActiveStateList();
 
         $search = new ProjectSearch();
-        $model = $search->findModel($id);
+        $model = $search->findProjectInfo($id);
         if ($this->dataControl->checkElemAvailable($model)) {
             return [
                 'project' => $model,
                 'event' => $eventDataProvider,
                 'serviceset' => $serviceListDataProvider,
-                'state' => $list
+                'stateList' => $list
             ];
         }
     }
