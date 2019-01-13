@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter , Route, Switch, Link, NavLink} from 'react-router-dom';
+import {BrowserRouter, Route, Switch, Link, NavLink} from 'react-router-dom';
 import EventView from "./EventView.jsx";
 
 
@@ -13,7 +13,8 @@ class ItemEvent extends Component {
     render() {
         if (this.props.hits !== '') {
             return (
-                <div>
+                <div className="container back">
+
                     {this.props.items.map((hits) => //todo попробовать вынести в функцию
                         <div className="panel-body post panel">
                             <div className="col-md-6">
