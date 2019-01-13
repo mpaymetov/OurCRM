@@ -39,6 +39,9 @@ AppAsset::register($this);
             ],
         ]);
 
+        $menuItems = [];
+
+        if (!Yii::$app->user->isGuest) {
         $menuItems = [
             ['label' => \Yii::t('common', 'Items'), 'url' => ['/item/index']],
             ['label' => \Yii::t('common', 'Client'), 'url' => ['/client/index']],
@@ -48,7 +51,7 @@ AppAsset::register($this);
             ['label' => \Yii::t('common', 'Service'), 'url' => ['/service/index']],
             ['label' => \Yii::t('common', 'Event'), 'url' => ['/event/index']],
             ['label' => \Yii::t('common', 'Statistic'), 'url' => ['/statistic/index']],
-        ];
+        ];}
 
         if (Yii::$app->user->isGuest) {
             $menuItems[] = ['label' => \Yii::t('common', 'Log in'), 'url' => ['/user/login']];
