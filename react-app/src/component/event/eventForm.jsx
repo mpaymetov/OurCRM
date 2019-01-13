@@ -3,35 +3,58 @@ import React, {Component} from 'react';
 class EventForm extends Component {
     constructor(props) {
         super(props);
-        this.state = {login: '', password: ''};
+        this.state = {
+            message: "",
+            created: "",
+            id_doer: "",
+            assigment: "",
+            version: "",
+        };
 
-        this.onLoginChange = this.onLoginChange.bind(this);
-        this.onPasswordChange = this.onPasswordChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    onSubmit(event) {
-        alert(`${this.state.login}, добро пожаловать!`);
-        event.preventDefault();
+    onChange(e) {
+        console.log(e);
+        var val = e.target.value;
+        this.setState({message: val});
     }
 
-    onPasswordChange(event) {
-        this.setState({password: event.target.value});
-    }
-
-    onLoginChange(event) {
-        this.setState({login: event.target.value});
+    handleSubmit(e) {
+        e.preventDefault();
+        alert("Имя: " + this.state.message)
+        console.log(this);
     }
 
     render() {
         return (
-            <form onSubmit={this.onSubmit}>
-                <p><label> Название события <input type="text" name="login" value={this.state.login}
-                                         onChange={this.onLoginChange}/></label></p>
-                <p><label> Коментарий <input type="password" name="password" value={this.state.password}
-                                          onChange={this.onPasswordChange}/></label></p>
-                <p><input type="submit" value="Submit"/></p>
-            </form>
+
+                <form onSubmit={this.handleSubmit}>
+                    <p>
+                        <label>Сообщение</label><br/>
+                        <input type="text" value={this.state.message} onChange={this.onChange}/>
+                    </p>
+                    <p>
+                        <label>Создано</label><br/>
+                        <input type="text" value={this.state.created} onChange={this.onChange}/>
+                    </p>
+                    <p>
+                        <label>Исполнитель</label><br/>
+                        <input type="text" value={this.state.id_doer} onChange={this.onChange}/>
+                    </p>
+                    <p>
+                        <label>назначение</label><br/>
+                        <input type="text" value={this.state.assigment} onChange={this.onChange}/>
+                    </p>
+                    <p>
+                        <label>назначение</label><br/>
+                        <input type="text" value={this.state.version} onChange={this.onChange}/>
+                    </p>
+                    <input type="submit" value="Отправить"/>
+
+                </form>
+
         );
     }
 }

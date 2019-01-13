@@ -24,7 +24,6 @@ class EventController extends ActiveController
 
     public $modelClass = 'app\models\Event';
 
-
     public function actions()
     {
         $actions = parent::actions();
@@ -33,7 +32,6 @@ class EventController extends ActiveController
 
         return $actions;
     }
-
 
     private $eventService;
 
@@ -56,7 +54,6 @@ class EventController extends ActiveController
         }
     }
 
-
     public function actionView($id)
     {
         if (Yii::$app->user->isGuest) {
@@ -65,7 +62,6 @@ class EventController extends ActiveController
             return $this->$this->eventService->getEventViewData($id);
         }
     }
-
 
     public function actionCreate()
     {
@@ -80,7 +76,6 @@ class EventController extends ActiveController
         }
     }
 
-
     public function actionUpdate($id)
     {
         $answer = $this->eventService->setEventUpdate($id); // возвращяем объект и экшн который нужно применить к объекту
@@ -93,7 +88,6 @@ class EventController extends ActiveController
                 'model' => $model,]);
         }
     }
-
 
     public function actionDelete($id)
     {

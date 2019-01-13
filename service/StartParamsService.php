@@ -55,10 +55,8 @@ class StartParamsService
     public function takeStartEventParam($model, $request)
     {
         $model->id_user = Yii::$app->user->identity->id_user;
-        $link_id = $request->get('id_link');
-        $link = $request->get('link');
-        $model->link = $link;
-        $model->id_link = $link_id;
+        $model->id_link  = $request->get('id_link');
+        $model->link = $request->get('link');
     }
 
     public function takeStartProjectParam($model, $request)

@@ -1,5 +1,7 @@
 <?php
+
 namespace app\api\controllers;
+
 use app\service\MainService;
 use Yii;
 use yii\web\Cookie;
@@ -10,14 +12,17 @@ use yii\rest\ActiveController;
 class SiteController extends ActiveController
 {
     private $mainService;
+
     public function init()
     {
         $this->getService(new MainService());
     }
+
     public function getService($service)
     {
         $this->mainService = $service;
     }
+
     public function behaviors()
     {
         return [
@@ -40,6 +45,7 @@ class SiteController extends ActiveController
             ],
         ];
     }
+
     public function actions()
     {
         return [
@@ -52,6 +58,7 @@ class SiteController extends ActiveController
             ],
         ];
     }
+
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {
@@ -60,6 +67,7 @@ class SiteController extends ActiveController
             return $this->render('index');
         }
     }
+
     public function actionLanguage()
     {
         $language = Yii::$app->request->post('language');

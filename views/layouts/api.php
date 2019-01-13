@@ -14,29 +14,31 @@ use app\assets\AppAsset;
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
-<head>
-    <meta charset="<?= Yii::$app->charset ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/css/site.css">
-    <?= Html::csrfMetaTags() ?>
-    <?php $this->head() ?>
-</head>
-<body>
-<?php $this->beginBody() ?>
-<div class="wrap">
-    <?php
-    if (!Yii::$app->user->isGuest) {
-        $this->beginContent('@app/views/layouts/bundle.php');
-        $this->endContent();
-    }
-    ?>
+    <head>
+        <?php  $head = new AppAsset();
+        echo $head->css;
+        echo $head->js;
+        ?>
+        <meta charset="<?= Yii::$app->charset ?>">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/css/site.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+        <?= Html::csrfMetaTags() ?>
+        <title><?= Html::encode($this->title) ?></title>
+        <?php $this->head() ?>
+    </head>
+    <body>
+    <div class="wrap">
+        <div class="root" id="root">
+            <script src="/js/bundle.js">
+            </script>
+        </div>
 
-</div>
-</body>
-<?php $this->endBody() ?>
+
+
 <?php /*
     <?php
     NavBar::begin([
@@ -106,6 +108,3 @@ AppAsset::register($this);
 </html>
 <?php $this->endPage() ?>
 */ ?>
-</html>
-
-<?php $this->endPage() ?>

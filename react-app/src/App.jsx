@@ -14,7 +14,6 @@ import EventForm from "./component/event/eventForm.jsx"
 
 class App extends Component {
 
-
     render() {
         return (
             <div className="App">
