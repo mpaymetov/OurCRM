@@ -1,16 +1,26 @@
 import React, {Component} from 'react';
-import ItemEvent from '../event/itemEvent.jsx';
+import EventInfo from './eventInfo.jsx';
 import AddButton from '../button/addButton.jsx';
 
-class EventInfo extends Component{
+class ProjectEvent extends Component{
 
     render() {
         const info = {path: "#", buttonName: "Создать обытие"};
+        console.log(this.props);
+        var eventInfo = <div>У проекта нет событий</div>;
+
+        if(this.props.event.length != 0) {
+            eventInfo = this.props.event.map(
+                (item) => <EventInfo eventInfo={item}/>
+            );
+        }
 
         return (
-            <h1>События</h1>
-            <AddButton buttonInfo = {info}/>
-            <ItemEvent items = {eventInfo}/>
+            <div className={"col-md-6"}>
+                <h1>События</h1>
+                <div className={"event-info post-panel"}>{eventInfo}</div>
+                <AddButton buttonInfo = {info}/>
+            </div>
 
 
         );
@@ -18,4 +28,4 @@ class EventInfo extends Component{
 }
 
 
-export default EventInfo;
+export default ProjectEvent;

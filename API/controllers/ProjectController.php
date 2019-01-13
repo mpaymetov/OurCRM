@@ -8,7 +8,7 @@
 
 namespace app\api\controllers;
 
-use app\ProjectService;
+use app\api\services\ProjectService;
 use app\service\EventService;
 use Yii;
 use app\models\Project;
@@ -44,10 +44,10 @@ class ProjectController extends ActiveController
 
     public $modelClass = 'app\models\project';
 
-    /*public $serializer = [
+    public $serializer = [
         'class' => 'yii\rest\Serializer',
         'collectionEnvelope' => 'items',
-    ];*/
+    ];
 
     private $projectService;
 

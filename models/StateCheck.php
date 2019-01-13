@@ -72,9 +72,18 @@ class StateCheck extends Model
         return $name;
     }
 
-
     public function getStateList()
     {
         return $this->stateList;
+    }
+
+    public function getActiveStateList()
+    {
+        $result = [];
+        for($i = $this::MakeContact; $i <= $this::Delivery; $i++)
+        {
+            array_push($result, $this->stateList[$i]);
+        }
+        return $result;
     }
 }

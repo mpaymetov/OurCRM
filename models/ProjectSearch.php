@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Project;
+use app\models\Client;
 
 /**
  * ProjectSearch represents the model behind the search form of `app\models\Project`.
@@ -95,6 +96,15 @@ class ProjectSearch extends Project
             return $model;
         }
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    public function findProjectInfo($id)
+    {
+        $model = $this->findModel($id);
+        $client = Client::findOne($model->id_client);
+        $model->id_client = $client->name;
+        return $model;
+
     }
 
     public function searchNotDoneProject($params, $location = null)

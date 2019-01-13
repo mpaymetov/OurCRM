@@ -9,9 +9,16 @@ class StateItem extends Component {
     }
 
     render() {
-        return (
-            <a className={this.state.class}>{this.props.item}</a>
-        );
+
+        if(this.props.item !== '') {
+            return (
+                <a className={this.state.class}>{this.props.item.listElem}</a>
+            );
+        } else {
+            return (
+                <div></div>
+            );
+        }
 
     }
 

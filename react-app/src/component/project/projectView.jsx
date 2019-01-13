@@ -1,49 +1,58 @@
 import React, {Component} from 'react';
 import ProjectInfo from  './projectInfo.jsx';
 import AddButton from '../button/addButton.jsx';
-import ProjectServiceset from './projectServiceset.jsx'
+import ProjectServiceset from './projectServiceset.jsx';
+import ProjectEvent from './projectEvent.jsx';
 
+
+const API = '/api/projects/19';
 
 class ProjectView extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {jsonData: ''};
+    }
+
+    componentWillMount() {
+        fetch(API)
+            .then(response => response.json())
+            .then(data => this.setState({jsonData: data.items}))
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
+
+    createServicesetComponent(elem, list){
+        elem.list = list;
+        return <ProjectServiceset serviceset={elem}/>
+    }
+
     render() {
-        const info = {path: "#", buttonName: "Создать"};
-        console.log(info);
-        const project = {
-            name: "Проект",
-            updateButton: {
-                path: "#",
-                buttonName: "Изменить"
-            },
-            deleteButton: {
-                path: "#",
-                buttonName: "Удалить"
-            },
-            client: "ООО \"Организация\"",
-            creation_date: "12-10-2015",
-            comment: "Комментарий"
-        };
-        console.log(project);
 
-        const servicesetInfo = {
-            id: "43",
-            id_state: "0",
-            delivery: "",
-            payment: "",
-            isOpen: "1",
-            list: ["Установление контакта", "Выявление потребностей", "Выставление счета", "Оплата", "Поставка", "Завершено", "Отказ"]
-        };
+        if (this.state.jsonData !== '') {
 
-        console.log(servicesetInfo);
+            var servicesetElem = true;
+            if(this.state.jsonData.serviceset.length != 0) {
+                servicesetElem = this.state.jsonData.serviceset.map(
+                    (elem) => this.createServicesetComponent(elem, this.state.jsonData.stateList)
+                );
+            }
 
-        return (
-            <div>
-
-                <ProjectInfo projectInfo = {project}/>
-                <AddButton buttonInfo={info}/>
-                <ProjectServiceset serviceset = {servicesetInfo} />
-            </div>
-        );
+            return (
+                <div>
+                    <ProjectInfo projectInfo = {this.state.jsonData.project}/>
+                    <AddButton buttonInfo = {{buttonName: "Создать набор", path: "#"}}/>
+                    <ProjectEvent event = {this.state.jsonData.event}/>
+                    <div className={"col-md-12"}>{servicesetElem}</div>
+                </div>
+            );
+        } else {
+            return (
+                <div></div>
+            );
+        }
     }
 }
 

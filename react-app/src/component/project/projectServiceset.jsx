@@ -1,22 +1,46 @@
 import React, {Component} from 'react';
-import StateBar from './stateBar.jsx'
+import StateBar from './stateBar.jsx';
+import ServicesetInfo from './servicesetInfo.jsx';
+import ServiceList from "./serviceList.jsx";
+import UpdateButton from '../button/updateButton.jsx';
+import DeleteButton from '../button/deleteButton.jsx';
+import CloseButton from  '../button/closeButton.jsx';
+import CancellationButton from  '../button/cancellationButton.jsx'
 
 
 class ProjectServiceset extends Component {
 
     render() {
-        const stateInfo = {
-            currState: this.props.serviceset.id_state,
-            list: this.props.serviceset.list
-        };
 
-        console.log(stateInfo);
+        if(this.props.serviceset !== '') {
 
-        return (
-            <div className="servicelist-index col-md-12">
-            <StateBar set={stateInfo} />
-        </div>
-        );
+           const stateInfo = {
+                currState: this.props.serviceset.servicesetInfo.id_state,
+                stateList: this.props.serviceset.list
+            };
+
+            return (
+                <div className={"serviceset-info"}>
+                    <h2>Пакет услуг от {this.props.serviceset.servicesetInfo.creation_date}</h2>
+                    <p>
+                        <UpdateButton buttonInfo = {{buttonName: "Изменить пакет услуг", path: "#"}} />
+                        <DeleteButton buttonInfo = {{buttonName: "Удалить пакет услуг", path: "#"}} />
+                    </p>
+                    <p>
+                        <CloseButton buttonInfo = {{buttonName: "Закрыть", path: "#"}}/>
+                        <CancellationButton buttonInfo = {{buttonName: "Отказ", path: "#"}}/>
+                    </p>
+                    <StateBar set={stateInfo}/>
+                    <ServicesetInfo info = {this.props.serviceset.servicesetInfo}/>
+                    <ServiceList list = {this.props.serviceset.servicelistInfo} />
+                </div>
+            );
+        } else {
+            return (
+                <div></div>
+            );
+        }
+
     }
 
 }
