@@ -28,13 +28,14 @@ AppAsset::register($this);
     </head>
     <body>
     <div class="wrap">
-        <div class="root" id="root">
-            <script src="/js/bundle.js">
-            </script>
-        </div>
+<?php
+if (!Yii::$app->user->isGuest)
+{ $this->beginContent('@app/views/layouts/bundle.php');
+$this->endContent(); }
+?>
 
-
-
+    </div>
+    </body>
 <?php /*
     <?php
     NavBar::begin([
@@ -104,3 +105,4 @@ AppAsset::register($this);
 </html>
 <?php $this->endPage() ?>
 */ ?>
+    </html>
