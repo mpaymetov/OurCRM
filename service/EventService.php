@@ -88,7 +88,7 @@ class EventService
         $model = new Event();
         $user_name = $this->userService->findLoginById(Yii::$app->user->identity->id_user);
         $this->startParams->takeStartParams($model);
-        if ($model->load(Yii::$app->request->post()) && $this->dataControl->dataControl($model) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return ['model' => $model, 'action' => 'redirect'];
         }
         return [

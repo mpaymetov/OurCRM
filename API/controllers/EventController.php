@@ -29,7 +29,7 @@ class EventController extends ActiveController
     {
         $actions = parent::actions();
         $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
-        unset($actions['index'], $actions['view']);
+        unset($actions['index'], $actions['view'], $actions['create']);
 
         return $actions;
     }
@@ -69,7 +69,7 @@ class EventController extends ActiveController
 
     public function actionCreate()
     {
-        $answer = $this->eventService->setCreateEvent(); // возвращяем объект и экшн который нужно применить к объекту
+        $answer = $this->eventService->setCreateEvent();
         $action = ArrayHelper::getValue($answer, 'action');
         $model = ArrayHelper::getValue($answer, 'model');
         if ($action == 'redirect') {

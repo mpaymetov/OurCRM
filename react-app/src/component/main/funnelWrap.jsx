@@ -5,17 +5,26 @@ import {Link, BrowserRouter} from 'react-router-dom';
 const API = '/api/funnels';
 
 class Funnel extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {data: ''};
+    }
+
     componentWillMount() {
         fetch(API)
             .then(response => response.json())
-            .then(data => this.setState({hits: data.items}));
+            .then(data => this.setState({data: data}))
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
     render() {
+        console.log(this.state.data)
         if (this.props.posts !== null) {
             return (
                 <div>
-                    <ItemPost posts={this.state}/>
+                    <ItemPost posts={this.state.data}/>
                 </div>
             )
 
@@ -25,4 +34,5 @@ class Funnel extends Component {
 
     }
 }
+
 export default Funnel;

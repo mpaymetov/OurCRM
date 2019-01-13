@@ -6,7 +6,7 @@
  * Time: 15:12
  */
 
-namespace app\api\services;
+namespace app\service;
 use app\db_modules\servisetDbQuery;
 use app\models\StateCheck;
 use yii\data\ArrayDataProvider;
@@ -30,8 +30,6 @@ class MainService
             $dataProvider[] = $item;
         }
 
-        return $dataArr = ([
-            'dataProvider' => $dataProvider,
-        ]);
+        return $dataProvider;
     }
 }

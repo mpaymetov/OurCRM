@@ -2,18 +2,21 @@
 
 namespace app\api\controllers;
 
-use app\api\services\MainService;
+use app\service\MainService;
 use Yii;
-use app\db_modules\servisetDbQuery;
-use app\models\StateCheck;
 use yii\web\Cookie;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\rest\ActiveController;
+use yii\web\Response;
 
 
 class FunnelController extends ActiveController
 {
+
+    public $modelClass = 'app\models\Event';
+
+
     private $mainService;
 
     public function init()
@@ -29,6 +32,8 @@ class FunnelController extends ActiveController
 
     public function behaviors()
     {
+        $behaviors = parent::behaviors();
+        $behaviors['contentNegotiator']['formats']['text/html'] = Response::FORMAT_JSON;
         return [
             'access' => [
                 'class' => AccessControl::className(),
@@ -51,7 +56,9 @@ class FunnelController extends ActiveController
     }
 
     public function actions()
-    {
+    {$actions = parent::actions();
+        $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
+        unset($actions['index']);
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',

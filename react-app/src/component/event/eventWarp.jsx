@@ -26,16 +26,14 @@ class EventWarp extends Component {
             return (
                 <div>
                     <div>
-                        <Link to="/form">Создать сделку</Link>
+                        <Link to="/eventForm">Создать сделку</Link>
                     </div>
                     <ItemEvent items={this.state.jsonData}/>
                 </div>
             )
-
         } else {
             return (<p>do not render</p>);
         }
-
     }
 }
 

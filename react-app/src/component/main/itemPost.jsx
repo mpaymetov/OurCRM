@@ -4,28 +4,18 @@ import React, {Component} from 'react';
 class ItemPost extends Component {
     constructor(props) {
         super(props);
-        const posts = this.props;
+        const rows = this.props.data;
     }
 
     render() {
-        console.log('in component', this.props.posts);
-        if (this.props.posts.hits !== undefined || this.props.posts.hits !== null) {
-            console.log('not null', this.props.posts.hits);
-            return (
+        console.log('in component', this.props);
+         return (
                 <div>
                     <div>
-                        {this.props.posts.hits.map((item) =>
-                            <div className="panel-body post panel">
-                                <div>{item|| ''}</div>
-                            </div>
-                        )}
+
                     </div>
                 </div>
             )
-
-        } else {
-            return (<p>do not render</p>);
-        }
 
     }
 }

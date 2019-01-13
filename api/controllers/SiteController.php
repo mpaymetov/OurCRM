@@ -1,37 +1,23 @@
 <?php
-
 namespace app\api\controllers;
-
-use app\api\services\MainService;
+use app\service\MainService;
 use Yii;
-use app\db_modules\servisetDbQuery;
-use app\models\StateCheck;
-use yii\web\Controller;
 use yii\web\Cookie;
 use yii\filters\VerbFilter;
-use yii\data\ArrayDataProvider;
 use yii\filters\AccessControl;
 use yii\rest\ActiveController;
 
-/**
- * ServicesetController implements the CRUD actions for Serviceset model.
- */
 class SiteController extends ActiveController
 {
-   private $mainService;
-
+    private $mainService;
     public function init()
     {
         $this->getService(new MainService());
     }
-
-
     public function getService($service)
     {
         $this->mainService = $service;
     }
-
-
     public function behaviors()
     {
         return [
@@ -54,7 +40,6 @@ class SiteController extends ActiveController
             ],
         ];
     }
-
     public function actions()
     {
         return [
@@ -67,8 +52,6 @@ class SiteController extends ActiveController
             ],
         ];
     }
-
-
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {
@@ -77,7 +60,6 @@ class SiteController extends ActiveController
             return $this->render('index');
         }
     }
-
     public function actionLanguage()
     {
         $language = Yii::$app->request->post('language');
@@ -90,6 +72,4 @@ class SiteController extends ActiveController
         Yii::$app->response->cookies->add($languageCookie);
         return $this->redirect(Yii::$app->request->referrer);
     }
-
-
 }

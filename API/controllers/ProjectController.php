@@ -8,15 +8,12 @@
 
 namespace app\api\controllers;
 
-use app\api\services\ProjectService;
+use app\ProjectService;
 use app\service\EventService;
 use Yii;
 use app\models\Project;
 use yii\rest\ActiveController;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use yii\db\StaleObjectException;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
 
