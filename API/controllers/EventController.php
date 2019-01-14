@@ -68,12 +68,12 @@ class EventController extends ActiveController
         $answer = $this->eventService->setCreateEvent();
         $action = ArrayHelper::getValue($answer, 'action');
         $model = ArrayHelper::getValue($answer, 'model');
-        if ($action == 'redirect') {
+        /*if ($action == 'redirect') {
             return $this->redirect(['view', 'id' => $model->id_event]);
         } elseif ($action == 'curr') {
             return $this->render('create', [
                 'model' => $model,]);
-        }
+        }*/
     }
 
     public function actionUpdate($id)

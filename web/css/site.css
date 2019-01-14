@@ -161,3 +161,20 @@ a.desc:after {
     padding-top : 50px;
     margin-top: 60px;
 }
+
+.form_wrap
+{
+    background-color: #fff;
+    width: 500px;
+}
+
+.form_wrap:hover
+{
+    box-shadow: 0 2px 2px rgba(0, 0, 0, .5);
+}
+
+.inner_form
+{
+    padding: 40px;
+}
+

@@ -24,7 +24,7 @@ class ItemEvent extends Component {
                                 <h6>{hits.id_user}</h6>
                             </div>
                             <nav>
-                                <Link to={"/eventsView/" + hits.id_event}> подробнее </Link>
+                                <Link to={"events/eventsView/" + hits.id_event}> подробнее </Link>
                             </nav>
                         </div>
                     )}

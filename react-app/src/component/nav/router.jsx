@@ -23,7 +23,7 @@ class URLRouter extends Component {
                     <Route path="/projectsView/:id_project" component={ProjectView}/>
                     <Route path="/events" component={EventWarp}/>
                     <Route path="/eventsView/:id_event" component={EventView}/>
-                    <Route path="/eventForm" component={EventForm}/>
+                    <Route path="events/eventForm" component={EventForm}/>
                     <Route path="/statistic" component={StatisticView}/>
                     <Route component={NotFound}/>
                 </Switch>)

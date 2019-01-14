@@ -7,6 +7,7 @@ use app\models\Event;
 use app\models\EventSearch;
 use app\service\UserServise;
 use app\service\StartParamsService;
+use yii\helpers\Json;
 
 
 class EventService
@@ -88,13 +89,22 @@ class EventService
         $model = new Event();
         $user_name = $this->userService->findLoginById(Yii::$app->user->identity->id_user);
         $this->startParams->takeStartParams($model);
+        echo Json::encode((Yii::$app->request->post()));
+        $this->pushData((Yii::$app->request->post()), $model);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return ['model' => $model, 'action' => 'redirect'];
         }
         return [
             'model' => $model,
             'action' => 'curr',
-            'user' => $user_name,
+
+        'user' => $user_name,
         ];
     }
+    public function pushData($data, $model)
+    {
+        $model->message = $data['message'];
+
+    }
 }
+
