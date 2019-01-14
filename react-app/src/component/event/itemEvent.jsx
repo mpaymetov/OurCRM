@@ -7,10 +7,11 @@ class ItemEvent extends Component {
     constructor(props) {
         super(props);
         this.state =
-            {hits: this.props.items};
+            {hits: this.props};
     }
 
     render() {
+        console.log(this.state.hits);
         if (this.props.hits !== '') {
             return (
                 <div className="container back">
