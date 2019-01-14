@@ -21,14 +21,26 @@ class ProjectList extends Component {
     render() {
         if (this.state.jsonData !== '') {
 
-            console.log(this.state.jsonData);
-
             return(
                 <div>
-
-                    {this.state.jsonData.items.map(
-                        {elem} =>
-                    )}
+                    <table>
+                        <tr className={"table-header"}>
+                            <td>#</td>
+                            <td>Проект</td>
+                            <td>Клиент</td>
+                            <td>Дата создания</td>
+                            <td></td>
+                        </tr>
+                        {this.state.jsonData.items.map(
+                            (elem) => <tr>
+                                <td></td>
+                                <td>{elem.name}</td>
+                                <td>{elem.id_client}</td>
+                                <td>{elem.creation_date}</td>
+                                <td><Link to={"/projectsView/" + elem.id_project}>Подробнее</Link></td>
+                            </tr>
+                        )}
+                    </table>
                 </div>
             );
         } else {

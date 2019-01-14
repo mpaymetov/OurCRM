@@ -6,7 +6,6 @@ class ProjectEvent extends Component{
 
     render() {
         const info = {path: "#", buttonName: "Создать обытие"};
-        console.log(this.props);
         var eventInfo = <div>У проекта нет событий</div>;
 
         if(this.props.event.length != 0) {

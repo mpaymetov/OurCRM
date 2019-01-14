@@ -5,7 +5,7 @@ import ProjectServiceset from './projectServiceset.jsx';
 import ProjectEvent from './projectEvent.jsx';
 
 
-const API = '/api/projects/19';
+//const API = '/api/projects/19';
 
 class ProjectView extends Component {
 
@@ -15,12 +15,19 @@ class ProjectView extends Component {
     }
 
     componentWillMount() {
-        fetch(API)
+        fetch(this.getProjectUrl())
             .then(response => response.json())
             .then(data => this.setState({jsonData: data.items}))
             .catch((error) => {
                 console.error(error);
             });
+    }
+
+
+    getProjectUrl() {
+        var id = this.props.match.params.id_project;
+        var API = '/api/projects/' + id;
+        return API;
     }
 
 
@@ -39,7 +46,7 @@ class ProjectView extends Component {
                     (elem) => this.createServicesetComponent(elem, this.state.jsonData.stateList)
                 );
             }
-
+            
             return (
                 <div>
                     <ProjectInfo projectInfo = {this.state.jsonData.project}/>
