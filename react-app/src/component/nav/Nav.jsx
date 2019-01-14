@@ -12,6 +12,7 @@ export default class Nav extends React.Component {
                         <li><Link to="/funnels">Воронка</Link></li>
                         <li><Link to="/projects">Проекты</Link></li>
                         <li><Link to="/events">События</Link></li>
+                        <li><Link to="/statistic">Статистика</Link></li>
                     </ul>
                 </div>
             </div>)

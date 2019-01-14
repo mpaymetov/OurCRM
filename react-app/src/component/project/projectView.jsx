@@ -46,7 +46,7 @@ class ProjectView extends Component {
                     (elem) => this.createServicesetComponent(elem, this.state.jsonData.stateList)
                 );
             }
-            
+
             return (
                 <div>
                     <ProjectInfo projectInfo = {this.state.jsonData.project}/>
