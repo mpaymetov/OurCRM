@@ -1,18 +1,21 @@
 import React, {Component} from 'react';
-
+import ItemPost from "./itemPost.jsx";
 
 class FifthColumn extends Component {
     constructor(props) {
         super(props);
-        const column = this.props.column;
+        this.state = {column : this.props.column};
 
     }
 
     render() {
         console.log(" fifth state", this.state);
-        return(
-            <div>sdbg</div>
-        );
+        if (this.state.column.info.allModels.length > 0) {
+            return (
+                <ItemPost column={this.state.column.info.allModels}/>
+            );
+        }
+        return <p>пока нет событий</p>;
     }
 }
 

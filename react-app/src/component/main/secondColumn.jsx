@@ -10,12 +10,12 @@ class SecondColumn extends Component {
 
     render() {
         console.log("second state", this.state);
-        if (this.state.column !== null) {
+        if (this.state.column.info.allModels.length > 0)  {
             return (
                 <ItemPost column={this.state.column.info.allModels}/>
             );
         }
-        return <p>пока нет событий</p>
+        return<p>пока нет событий</p>;
     }
 }
 

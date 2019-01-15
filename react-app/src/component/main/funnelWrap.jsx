@@ -30,7 +30,25 @@ class Funnel extends Component {
         if (this.state.data !== '') {
             return (
                 <div>
-                    <SecondColumn column={this.state.data[1]}/>
+                    <div className={"col-md-2"}>
+                        <FirstColumn column={this.state.data[0]}/>
+                    </div>
+                    <div className={"col-md-2"}>
+                        <SecondColumn column={this.state.data[1]}/>
+                    </div>
+                    <div className={"col-md-2"}>
+                        <ThirdColumn column={this.state.data[2]}/>
+                    </div>
+                    <div className={"col-md-2"}>
+                        <FourthColumn column={this.state.data[3]}/>
+                    </div>
+                    <div className={"col-md-2"}>
+                        <FifthColumn column={this.state.data[4]}/>
+                    </div>
+                    <div className={"col-md-2"}>
+                        <SixthColumn column={this.state.data[5]}/>
+                    </div>
+                    <div className={"col-md-2"}></div>
                 </div>
             )
         } else {
