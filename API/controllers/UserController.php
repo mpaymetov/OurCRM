@@ -229,6 +229,9 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
+        $auth = Yii::$app->authManager;
+        $auth->revokeAll($id);
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
