@@ -26,7 +26,7 @@ class Funnel extends Component {
     }
 
     render() {
-        console.log("wrap", this.state)
+        console.log("wrap", this.state.data)
         if (this.state.data !== '') {
             return (
                 <div>

@@ -15,7 +15,7 @@ class SecondColumn extends Component {
                 <ItemPost column={this.state.column.info.allModels}/>
             );
         }
-        return<p>пока нет событий</p>;
+        return<p></p>;
     }
 }
 

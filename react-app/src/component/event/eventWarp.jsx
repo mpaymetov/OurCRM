@@ -25,7 +25,7 @@ class EventWarp extends Component {
         if (this.state.jsonData !== '') {
             return (
                 <div>
-                    <div>
+                    <div className={"btn_create"}>
                         <Link to="/eventForm">Создать событие</Link>
                     </div>
                     <ItemEvent items={this.state.jsonData}/>

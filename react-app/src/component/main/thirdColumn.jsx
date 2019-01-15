@@ -15,7 +15,7 @@ class ThirdColumn extends Component {
                 <div>sdbg</div>
             );
         }
-        return <p>пока нет событий</p>
+        return <p></p>
     }
 }
 

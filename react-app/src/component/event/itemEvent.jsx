@@ -14,8 +14,7 @@ class ItemEvent extends Component {
         console.log(this.state.hits);
         if (this.props.hits !== '') {
             return (
-                <div className="    back">
-
+                <div className="back">
                     {this.props.items.map((hits) => //todo попробовать вынести в функцию
                         <div className="panel-body post panel">
                             <div className="col-md-6">

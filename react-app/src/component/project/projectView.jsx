@@ -39,9 +39,9 @@ class ProjectView extends Component {
     render() {
 
         if (this.state.jsonData !== '') {
-
+            console.log("in project view", this.state);
             var servicesetElem = true;
-            if (this.state.jsonData.serviceset.length != 0) {
+            if (this.state.jsonData.serviceset.length !== 0) {
                 servicesetElem = this.state.jsonData.serviceset.map(
                     (elem) => this.createServicesetComponent(elem, this.state.jsonData.stateList)
                 );

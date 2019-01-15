@@ -10,7 +10,7 @@ class ItemPost extends Component {
     }
 
     render() {
-        console.log(this.state);
+        console.log("in item", this.state);
         if (this.props.hits !== '') {
             return (
                 <div className="back">
@@ -18,16 +18,15 @@ class ItemPost extends Component {
                         <div className="panel-body post panel">
                             <h5>{hits.client || ''}</h5>
                             <h6>{hits.project_name || ''}</h6>
-                            <h6>{hits.id}</h6>
                             <nav>
-                                <Link to={"/projectView/" + hits.id}> подробнее </Link>
+                                <Link className="more_btn" to={"/projectsView/" + hits.id}> подробнее </Link>
                             </nav>
                         </div>
                     )}
                 </div>
             )
         }
-        return <p>пока нет событий</p>
+        return <p>пока проектов</p>
 
     }
 }
