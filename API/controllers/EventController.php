@@ -59,7 +59,7 @@ class EventController extends ActiveController
         if (Yii::$app->user->isGuest) {
             return Yii::$app->getResponse()->redirect(array('/user/login', 302));
         } else {
-            return $this->$this->eventService->getEventViewData($id);
+            return $this->eventService->getEventViewData($id);
         }
     }
 
