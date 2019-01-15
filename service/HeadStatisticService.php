@@ -50,36 +50,8 @@ class HeadStatisticService extends StatisticService
     public function getServicesetNumByAllManager($datePeriod)
     {
         $query = $this->dbHeadQuery->getServicesetNumByStateAndDepartment($datePeriod->department);
-
-
-        $state = new StateCheck();
-        $list = $state->getStateList();
-        $result = [['state', 'num']];
-        $find = false;
-        $num = -1;
-
-        for($i = $state::MakeContact; $i <= $state::Delivery; $i++)
-        {
-            foreach ($query as $el) {
-                $find = ($el['state'] == $i);
-                $num++;
-                if($find) {
-                    break;
-                }
-            }
-
-            if($find)
-            {
-                $arrEl = [(string)$list[$i],  (int)$query[$num]['num']];
-            } else {
-                $arrEl = [(string)$list[$i], (int)0];
-            }
-
-            array_push($result, $arrEl);
-            $find = false;
-            $num = -1;
-        }
-
+        $columns = ['Этап продаж', 'количество'];
+        $result = $this->addState($query, $columns);
         return $result;
     }
 
@@ -88,7 +60,7 @@ class HeadStatisticService extends StatisticService
         $query = $this->dbHeadQuery->getProjectNumberByDepartmentForPeriod($datePeriod->department, $datePeriod->from, $datePeriod->to);
         $columns = ['month', 'all', 'close', 'cancellation'];
         $result = $this->dateService->addMonthInfo($query, $columns, $datePeriod->from, $datePeriod->to);
-
+        $result[0] = ['Месяц', 'Всего пакетов', 'Закрытые пакеты', 'Отказы'];
         return $result;
 
     }
@@ -97,9 +69,8 @@ class HeadStatisticService extends StatisticService
     {
         $query = $this->dbHeadQuery->getSalesByDepartmentForPeriod($datePeriod->department, $datePeriod->from, $datePeriod->to);
         $columns = ['month', 'sale'];
-
         $result = $this->dateService->addMonthInfo($query, $columns, $datePeriod->from, $datePeriod->to);
-
+        $result[0] = ['Месяц', 'Сумма продаж'];
         return $result;
 
     }

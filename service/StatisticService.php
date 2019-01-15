@@ -46,33 +46,9 @@ class StatisticService
     {
         $query = $this->dbQuery->getServicesetNumByState($datePeriod->user);
 
-        $state = new StateCheck();
-        $list = $state->getStateList();
-        $result = [['state', 'num']];
-        $find = false;
-        $num = -1;
+        $columns = ['Этап продаж', 'количество'];
 
-        for($i = $state::MakeContact; $i <= $state::Delivery; $i++)
-        {
-            foreach ($query as $el) {
-                $find = ($el['state'] == $i);
-                $num++;
-                if($find) {
-                    break;
-                }
-            }
-
-            if($find)
-            {
-                $arrEl = [(string)$list[$i],  (int)$query[$num]['num']];
-            } else {
-                $arrEl = [(string)$list[$i], (int)0];
-            }
-
-            array_push($result, $arrEl);
-            $find = false;
-            $num = -1;
-        }
+        $result = $this->addState($query, $columns);
 
         return $result;
     }
@@ -84,6 +60,7 @@ class StatisticService
         $columns = ['month', 'all', 'close', 'cancellation'];
 
         $result = $this->dateService->addMonthInfo($query, $columns, $datePeriod->from, $datePeriod->to);
+        $result[0] = ['Месяц', 'Всего пакетов', 'Закрытые пакеты', 'Отказы'];
 
         return $result;
     }
@@ -95,7 +72,7 @@ class StatisticService
         $columns = ['month', 'sale'];
 
         $result = $this->dateService->addMonthInfo($query, $columns, $datePeriod->from, $datePeriod->to);
-
+        $result[0] = ['Месяц', 'Сумма продаж'];
         return $result;
     }
 
@@ -133,6 +110,40 @@ class StatisticService
         $date->type = $type;
         $date->user = Yii::$app->user->identity->id_user;
         return $date;
+    }
+
+    public function addState($data, $colmns)
+    {
+        $result = [];
+        array_push($result, $colmns);
+        $state = new StateCheck();
+        $list = $state->getStateList();
+        $find = false;
+        $num = -1;
+
+        for($i = $state::MakeContact; $i <= $state::Delivery; $i++)
+        {
+            foreach ($data as $el) {
+                $find = ($el['state'] == $i);
+                $num++;
+                if($find) {
+                    break;
+                }
+            }
+
+            if($find)
+            {
+                $arrEl = [(string)$list[$i],  (int)$data[$num]['num']];
+            } else {
+                $arrEl = [(string)$list[$i], (int)0];
+            }
+
+            array_push($result, $arrEl);
+            $find = false;
+            $num = -1;
+        }
+
+        return $result;
     }
 
 }

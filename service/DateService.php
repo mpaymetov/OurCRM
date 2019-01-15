@@ -13,6 +13,7 @@ class DateService
 {
     private $monthList = ['Месяц отсутсвует', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
 
+
     public function getMonthList($from, $to)
     {
         $firstMonth = date("n", strtotime($from));

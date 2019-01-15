@@ -23,14 +23,17 @@ class ProjectList extends Component {
 
             return(
                 <div>
-                    <table>
-                        <tr className={"table-header"}>
+                    <table className={"table"}>
+                        <thead>
+                        <tr>
                             <td>#</td>
                             <td>Проект</td>
                             <td>Клиент</td>
                             <td>Дата создания</td>
                             <td></td>
                         </tr>
+                        </thead>
+                        <tbody>
                         {this.state.jsonData.items.map(
                             (elem) => <tr>
                                 <td></td>
@@ -40,6 +43,7 @@ class ProjectList extends Component {
                                 <td><Link to={"/projectsView/" + elem.id_project}>Подробнее</Link></td>
                             </tr>
                         )}
+                        </tbody>
                     </table>
                 </div>
             );

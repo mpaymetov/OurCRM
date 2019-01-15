@@ -129,21 +129,40 @@ class StatisticHandler
         $date = $service->getInitalPeriod($type);
         $data = $service->getChartInfo($date);
         $chartType = null;
+        $chartTitle = null;
 
-        if(($type == 'serviceset') || ($type == 'project')) {
+        /*if(($type == 'serviceset') || ($type == 'project')) {
             $chartType = 'ColumnChart';
         } elseif ($type == 'sale') {
             $chartType = 'LineChart';
+        }*/
+
+        switch ($type){
+            case 'project':
+                $chartType = 'ColumnChart';
+                $chartTitle = 'Распределение закрытых пакетов услуг';
+                break;
+            case 'sale':
+                $chartType = 'LineChart';
+                $chartTitle = 'Статистика продаж';
+                break;
+            case 'serviceset':
+                $chartType = 'ColumnChart';
+                $chartTitle = 'Распределение действующих проектов';
+                break;
+            default:
+                return false;
         }
 
         $response = [
             'name' => $type,
+            'title' => $chartTitle,
             'chart' => $chartType,
             'data' => $data,
             'error' => empty($data) //TODO сделать обработку ошибок при получении data
         ];
 
-        return $response;
+        return ['info' => $response];
     }
 
     public function setChart($request)
@@ -169,7 +188,7 @@ class StatisticHandler
             }
         }
 
-        return $response;
+        return ['info' => $response];
     }
 
 

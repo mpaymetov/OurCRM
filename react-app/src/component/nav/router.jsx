@@ -24,7 +24,7 @@ class URLRouter extends Component {
                     <Route path="/events" component={EventWarp}/>
                     <Route path="/eventsView/:id_event" component={EventView}/>
                     <Route path="/eventForm" component={EventForm}/>
-                    <Route path="/statistic" component={StatisticView}/>
+                    <Route path="/statisticView" component={StatisticView}/>
                     <Route component={NotFound}/>
                 </Switch>)
     }
