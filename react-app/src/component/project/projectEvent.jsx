@@ -5,7 +5,7 @@ import AddButton from '../button/addButton.jsx';
 class ProjectEvent extends Component{
 
     render() {
-        const info = {path: "#", buttonName: "Создать обытие"};
+        const info = {path: "/eventForm", buttonName: "Создать cобытие"};
         var eventInfo = <div>У проекта нет событий</div>;
 
         if(this.props.event.length != 0) {
@@ -17,7 +17,7 @@ class ProjectEvent extends Component{
         return (
             <div className={"col-md-6"}>
                 <h1>События</h1>
-                <div className={"event-info post-panel"}>{eventInfo}</div>
+                <div className={"event-info post-panel "}>{eventInfo}</div>
                 <AddButton buttonInfo = {info}/>
             </div>
 

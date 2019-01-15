@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ProjectInfo from  './projectInfo.jsx';
+import ProjectInfo from './projectInfo.jsx';
 import AddButton from '../button/addButton.jsx';
 import ProjectServiceset from './projectServiceset.jsx';
 import ProjectEvent from './projectEvent.jsx';
@@ -31,7 +31,7 @@ class ProjectView extends Component {
     }
 
 
-    createServicesetComponent(elem, list){
+    createServicesetComponent(elem, list) {
         elem.list = list;
         return <ProjectServiceset serviceset={elem}/>
     }
@@ -41,7 +41,7 @@ class ProjectView extends Component {
         if (this.state.jsonData !== '') {
 
             var servicesetElem = true;
-            if(this.state.jsonData.serviceset.length != 0) {
+            if (this.state.jsonData.serviceset.length != 0) {
                 servicesetElem = this.state.jsonData.serviceset.map(
                     (elem) => this.createServicesetComponent(elem, this.state.jsonData.stateList)
                 );
@@ -49,10 +49,12 @@ class ProjectView extends Component {
 
             return (
                 <div className={"container"}>
-                    <ProjectInfo projectInfo = {this.state.jsonData.project}/>
-                    <AddButton buttonInfo = {{buttonName: "Создать набор", path: "#"}}/>
-                    <ProjectEvent event = {this.state.jsonData.event}/>
-                    <div className={"col-md-12"}>{servicesetElem}</div>
+                    <ProjectInfo projectInfo={this.state.jsonData.project}/>
+                    <ProjectEvent event={this.state.jsonData.event}/>
+                    <div className={"col-md-12"}>
+                        <AddButton buttonInfo={{buttonName: "Создать набор", path: "#"}}/>
+                        <div>{servicesetElem}</div>
+                    </div>
                 </div>
             );
         } else {

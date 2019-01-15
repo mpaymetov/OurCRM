@@ -13,7 +13,7 @@ class ProjectInfo extends Component {
                     <UpdateButton buttonInfo = {{buttonName: "Изменить проект", path: "#"}} />
                     <DeleteButton buttonInfo = {{buttonName: "Удалить проект", path: "#"}} />
                 </p>
-                <div className={"panel-body"}>
+                <div className={"panel-body post panel post-panel"}>
                     <p>{this.props.projectInfo.id_client}</p>
                     <p>{this.props.projectInfo.creation_date}</p>
                     <p>{this.props.projectInfo.comment}</p>

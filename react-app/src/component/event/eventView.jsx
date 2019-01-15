@@ -29,24 +29,20 @@ class EventView extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <p>
                         <label>Сообщение</label><br/>
-                        <input type="text" className="form-control" value={this.state.jsonData.message}/>
+                        <input type="text" className="form-control input_style" value={this.state.jsonData.message}/>
                     </p>
                     <p>
                         <label>Создано</label><br/>
-                        <input type="text" className="form-control" value={this.state.jsonData.created}/>
+                        <input type="text" className="form-control input_style" value={this.state.jsonData.created}/>
                     </p>
                     <p>
                         <label>Исполнитель</label><br/>
-                        <input type="text" className="form-control" value={this.state.jsonData.id_doer}/>
+                        <input type="text" className="form-control input_style" value={this.state.jsonData.id_doer}/>
                     </p>
                     <p>
                         <label>назначение</label><br/>
-                        <input type='text' className="datepicker-here form-control" data-timepicker="true"
+                        <input type='text' className="datepicker-here form-control input_style" data-timepicker="true"
                                data-position="right top"/>
-                    </p>
-                    <p>
-                        <label>версия</label><br/>
-                        <input type="text" className="form-control" value={this.state.jsonData.version}/>
                     </p>
                     <input type="submit" value="Изменить"/>
                     <input type="submit" value="Удалить"/>

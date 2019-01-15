@@ -91,8 +91,11 @@ class EventService
         $this->startParams->takeStartParams($model);
         echo Json::encode((Yii::$app->request->post()));
         $this->pushData((Yii::$app->request->post()), $model);
+        var_dump($model);
+        var_dump($model->save());
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return ['model' => $model, 'action' => 'redirect'];
+
+           var_dump($model);
         }
         return [
             'model' => $model,
@@ -103,7 +106,14 @@ class EventService
     }
     public function pushData($data, $model)
     {
+        $model->id_doer = $data['doer'];
         $model->message = $data['message'];
+        $model->version = $data['version'];
+        $model->created = $data['created'];
+    }
+
+    public function incVersion($model)
+    {
 
     }
 }

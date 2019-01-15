@@ -128,6 +128,12 @@ a.desc:after {
     margin: 10px 0 10px 0;
 }
 
+.post:hover
+{
+    transition: 0.5s;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, .5);
+}
+
 .col {
     width: 23%;
     float: left;
@@ -155,26 +161,53 @@ a.desc:after {
 }
 
 .navbar-nav > li > a
-
-
 .back {
-    padding-top : 50px;
+    padding-top: 50px;
     margin-top: 60px;
 }
 
-.form_wrap
-{
+.form_wrap {
     background-color: #fff;
     width: 500px;
+    border: 1px solid #e8e8e8;
 }
 
-.form_wrap:hover
-{
+.form_wrap:hover {
+    transition: 3s;
     box-shadow: 0 2px 2px rgba(0, 0, 0, .5);
 }
 
-.inner_form
-{
+.inner_form {
     padding: 40px;
 }
 
+.input_style {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, .075);
+    box-shadow: inset 0 0 0  rgba(0, 0, 0, .075);
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
+.input_style:hover
+{
+    transition: 0.5s;
+    -webkit-box-shadow: inset 0 0 1px  rgba(0, 0, 0, .075);;
+    -moz-box-shadow: inset 0 0 1px  rgba(0, 0, 0, .075);;
+    box-shadow: inset 0 0 1px  rgba(0, 0, 0, .075);;
+}
+
+.input_style:focus
+{
+    transition: 0.5s;
+    -webkit-box-shadow: inset 0 0 0  rgba(0, 0, 0, .075);;
+    -moz-box-shadow: inset 0 0 0  rgba(0, 0, 0, .075);;
+    box-shadow: inset 0 0 0  rgba(0, 0, 0, .075);;
+}
+
+.btn {
+margin-top:5px;
+}

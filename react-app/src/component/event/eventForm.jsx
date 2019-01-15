@@ -5,8 +5,8 @@ class EventForm extends Component {
         super(props);
         this.state = {
             message: "",
-            created: new Date(),
-            id_doer: "",
+            created: "",
+            doer: "",
             assigment: "",
             version: "",
         };
@@ -85,28 +85,19 @@ class EventForm extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <p>
                         <label>Сообщение</label><br/>
-                        <input type="text" className="form-control" value={this.state.message}
+                        <textarea type="text" className="form-control input_style" value={this.state.message}
                                onChange={this.onMessageChange}/>
                     </p>
                     <p>
-                        <label>Создано</label><br/>
-                        <input type="text" className="form-control" value={this.state.created}
-                               onChange={this.onCreatedChange}/>
-                    </p>
-                    <p>
                         <label>Исполнитель</label><br/>
-                        <input type="text" className="form-control" value={this.state.id_doer}
+                        <input type="text" className="form-control input_style" value={this.state.id_doer}
                                onChange={this.onDoerChange}/>
                     </p>
                     <p>
-                        <label>назначение</label><br/>
-                        <input type='text' className="datepicker-here form-control" data-timepicker="true"
+                        <label>Назначение</label><br/>
+                        <input type='text' className="datepicker-here form-control input_style" data-timepicker="true"
                                data-position="right top"/>
-                    </p>
-                    <p>
-                        <label>версия</label><br/>
-                        <input type="text" className="form-control" value={this.state.version}
-                               onChange={this.onVersionChange}/>
+
                     </p>
                     <input type="submit" value="Отправить"/>
 

@@ -4,9 +4,10 @@ import {Link, BrowserRouter, BrowserRouter as Router, Route} from 'react-router-
 class AddButton extends Component {
 
     render() {
-        return(
+        return (
             <nav>
-                <Link to={this.props.buttonInfo.path} className="btn btn-success"> {this.props.buttonInfo.buttonName} </Link>
+                <Link to={this.props.buttonInfo.path}
+                      className="btn btn-success"> {this.props.buttonInfo.buttonName} </Link>
             </nav>
         );
     }
