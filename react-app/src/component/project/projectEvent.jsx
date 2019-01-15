@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import EventInfo from './eventInfo.jsx';
 import AddButton from '../button/addButton.jsx';
+import ItemEvent from "../event/itemEvent.jsx";
 
 class ProjectEvent extends Component{
 
@@ -10,7 +10,7 @@ class ProjectEvent extends Component{
 
         if(this.props.event.length != 0) {
             eventInfo = this.props.event.map(
-                (item) => <EventInfo eventInfo={item}/>
+                (item) => <ItemEvent eventInfo={item}/>
             );
         }
 

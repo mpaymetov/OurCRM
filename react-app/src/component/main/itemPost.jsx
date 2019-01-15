@@ -13,16 +13,14 @@ class ItemPost extends Component {
         console.log(this.state);
         if (this.props.hits !== '') {
             return (
-                <div className="container back">
+                <div className="back">
                     {this.props.column.map((hits) => //todo попробовать вынести в функцию
                         <div className="panel-body post panel">
-                            <div className="col-md-6">
-                                <p className="post_number">номер события:{hits.id || ''}</p>
-                                <h5>{hits.message || ''}</h5>
-                                <h6>{hits.id_user}</h6>
-                            </div>
+                            <h5>{hits.client || ''}</h5>
+                            <h6>{hits.project_name || ''}</h6>
+                            <h6>{hits.id}</h6>
                             <nav>
-                                <Link to={"/eventsView/" + hits.id_event}> подробнее </Link>
+                                <Link to={"/projectView/" + hits.id}> подробнее </Link>
                             </nav>
                         </div>
                     )}
