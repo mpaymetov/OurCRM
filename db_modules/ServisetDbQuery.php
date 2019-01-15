@@ -20,7 +20,7 @@ class servisetDbQuery
     public function getServiceSetInfoByProjectId($id)
     {
         $data = (new \yii\db\Query())
-            ->select(['id_serviceset AS id', 'id_state', 'delivery', 'payment', 'is_open', 'creation_date'])
+            ->select(['id_serviceset AS id', 'id_state', 'delivery', 'payment', 'is_open', 'creation_date', 'prev_state', 'close_date', 'id_project'])
             ->from('serviceset')
             ->where('id_project=:id_project', [':id_project' => $id])
             ->all();

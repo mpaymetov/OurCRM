@@ -8,14 +8,14 @@ class ServiceList extends Component {
         if(this.props.list !== ''){
             return (
                 <div className={"servicelist"}>
-                    <table>
-                        <tr className={"table-header"}>
+                    <table className={"table"}>
+                        <thead>
+                        <tr>
                             <td>Услуга</td>
                             <td>Стоимость</td>
                         </tr>
-                        {
-                            this.props.list.map((item) => <ServiceListItem item = {item}/>)
-                        }
+                        </thead>
+                        <tbody>{this.props.list.map((item) => <ServiceListItem item = {item}/>)}</tbody>
                     </table>
                 </div>
             );

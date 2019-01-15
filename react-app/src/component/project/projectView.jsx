@@ -48,7 +48,7 @@ class ProjectView extends Component {
             }
 
             return (
-                <div>
+                <div className={"container"}>
                     <ProjectInfo projectInfo = {this.state.jsonData.project}/>
                     <AddButton buttonInfo = {{buttonName: "Создать набор", path: "#"}}/>
                     <ProjectEvent event = {this.state.jsonData.event}/>

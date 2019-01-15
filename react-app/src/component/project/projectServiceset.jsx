@@ -16,11 +16,14 @@ class ProjectServiceset extends Component {
 
            const stateInfo = {
                 currState: this.props.serviceset.servicesetInfo.id_state,
-                stateList: this.props.serviceset.list
+                stateList: this.props.serviceset.list,
+                prevState: this.props.serviceset.servicesetInfo.prev_state,
+                idServiceset: this.props.serviceset.servicesetInfo.id,
+                setIsOpen: this.props.serviceset.servicesetInfo.is_open
             };
 
             return (
-                <div className={"serviceset-info"}>
+                <div className={"serviceset-info-" + this.props.serviceset.servicesetInfo.id}>
                     <h2>Пакет услуг от {this.props.serviceset.servicesetInfo.creation_date}</h2>
                     <p>
                         <UpdateButton buttonInfo = {{buttonName: "Изменить пакет услуг", path: "#"}} />

@@ -113,15 +113,11 @@ class StatisticHandler
             return ['action' => 'mainPage', 'model' => null];
         }
 
-        $dateModelProject = $this->getFormByRole();
-        $dateModelSale = $this->getFormByRole();
         $idDepartment = Yii::$app->user->identity->id_department;
         $managerList = $this->userService->GetManagerList($idDepartment);
         $statisticType = $this->getStatisticType();
 
         return ['action' => 'current', 'model' => [
-            'dateModelProject'=>$dateModelProject,
-            'dateModelSale'=>$dateModelSale,
             'managerList' => $managerList,
             'statisticType' => $statisticType,
         ]];

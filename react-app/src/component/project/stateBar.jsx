@@ -5,10 +5,12 @@ import StateItem from './stateItem.jsx'
 class StateBar extends Component {
 
 
-    stateListElem(currState, listNum) {
+    stateListElem(set, listNum) {
         var elem = {
-            curr: currState,
-            listElem: listNum
+            curr: set.currState,
+            prev: set.prevState,
+            listElem: listNum,
+            setIsOpen: set.setIsOpen
         }
         return elem;
     }
@@ -21,10 +23,12 @@ class StateBar extends Component {
             var arr = this.props.set.stateList;
 
             var list = arr.map(
-                (item) =>  this.stateListElem(this.props.set.currState, item));
+                (item) =>  this.stateListElem(this.props.set, item));
+
+            let classNameDiv = "btn-group btn-group-justified status-bar-" + this.props.set.idServiceset;
 
             return (
-                <div className="btn-group btn-group-justified status-bar">
+                <div className={classNameDiv}>
                     {list.map((item) => <StateItem item = {item} />)}
                 </div>
             );

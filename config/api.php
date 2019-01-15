@@ -58,9 +58,19 @@ $config = [
             'rules' => [
                 [
                 'class' => '\yii\rest\UrlRule',
-                'controller' => ['event', 'user', 'funnel', 'project'],
+                'controller' => ['event', 'user', 'funnel', 'project', 'statistic'],
+                    'extraPatterns' => [
+                        'GET render-initial-serviceset-chart' => 'render-initial-serviceset-chart',
+                        'POST render-initial-serviceset-chart' => 'render-initial-serviceset-chart',
+                        'GET render-initial-project-chart' => 'render-initial-project-chart',
+                        'POST render-initial-project-chart' => 'render-initial-project-chart',
+                        'GET render-initial-sale-chart' => 'render-initial-sale-chart',
+                        'POST render-initial-sale-chart' => 'render-initial-sale-chart',
+                        'GET render-chart-by-period' => 'render-chart-by-period',
+                        'POST render-chart-by-period' => 'render-chart-by-period',
+                    ],
                 'prefix' => 'api',
-            ],
+                ],
             ],
         ],
 

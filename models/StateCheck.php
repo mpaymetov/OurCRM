@@ -82,7 +82,7 @@ class StateCheck extends Model
         $result = [];
         for($i = $this::MakeContact; $i <= $this::Delivery; $i++)
         {
-            array_push($result, $this->stateList[$i]);
+            array_push($result, ['id' => $i, 'name' => $this->stateList[$i]]);
         }
         return $result;
     }
