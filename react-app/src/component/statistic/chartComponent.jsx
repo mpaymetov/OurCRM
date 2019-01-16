@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Chart from "react-google-charts";
+import DatePeriodForm from "./datePeriodForm.jsx"
 
 class ChartComponent extends Component {
 
@@ -9,7 +10,7 @@ class ChartComponent extends Component {
     }
 
     componentWillMount() {
-         fetch(this.getApi(this.props.type))
+         fetch(this.getApi(this.props.info.type))
              .then(response => response.json())
              .then(data => this.setState({jsonData: data.info}))
              .catch((error) => {
@@ -39,13 +40,14 @@ class ChartComponent extends Component {
     render() {
 
         if (this.state.jsonData !== '') {
-            console.log(this.state.jsonData);
+            //console.log(this.state.jsonData);
             var typeName = this.state.jsonData.chart;
             var arr = this.state.jsonData.data;
 
             return (
-                <div>
+                <div className={"col-md-12"}>
                 <h2>{this.state.jsonData.title}</h2>
+                    <DatePeriodForm info = {this.props.info}/>
                     <div>
                         <Chart
                             chartType={typeName}
@@ -60,7 +62,7 @@ class ChartComponent extends Component {
             return(
               <div></div>
             );
-        }
+       }
     }
 
 }
