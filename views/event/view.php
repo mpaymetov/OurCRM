@@ -14,7 +14,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="event-view">
     <div class="post panel">
         <div class="panel-body">
-                <p class="post_number"><?= \Yii::t('common', 'event number: ')?> <?= HtmlPurifier::process($model->id_event) ?></p>
+                <p class="post_number"><?= \Yii::t('common', 'event number: ')?>
+                    <?= HtmlPurifier::process($model->id_event) ?></p>
                 <h4><?= html::encode($model->message)?></h4>
                 <p><?= \Yii::t('common', 'created: ')?><?= html::encode($model->created)?></p>
                 <p><?= \Yii::t('common', 'assignment: ')?><?= html::encode($model->assignment)?></p>

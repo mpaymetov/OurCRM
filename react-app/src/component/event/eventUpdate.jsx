@@ -1,15 +1,9 @@
 import React, {Component} from 'react';
 
-class EventForm extends Component {
+class EventUpdate extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            message: "",
-            created: "",
-            doer: "",
-            assigment: "",
-            version: "",
-        };
+        this.state = {jsonData: '', active: ''};
 
         this.onMessageChange = this.onMessageChange.bind(this);
         this.onCreatedChange = this.onCreatedChange.bind(this);
@@ -47,10 +41,10 @@ class EventForm extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        fetch('http://localhost/api/events', {
+        fetch('http://localhost/api/events/' + this.state.id_event, {
             method: 'POST', body: JSON.stringify(
                 {
-                    message: this.state.message,
+                    message: this.state.jsonData.message,
                     created: this.state.created,
                     doer: this.state.doer,
                     assigment: this.state.assigment,
@@ -68,35 +62,49 @@ class EventForm extends Component {
             })
             .catch(alert);
     }
+    componentWillMount() {
+        fetch(this.getEventUrl())
+            .then(response => response.json())
+            .then(data => this.setState({jsonData: data}))
+            .catch((error) => {
+                console.error(error);
+            });
+    }
 
+    getEventUrl() {
+        console.log("state", this.props.match.params.id_event)
+        var id = this.props.match.params.id_event;
+        var API = '/api/events/' + id;
+        return API;
+    }
 
     render() {
+
         return (
             <div className="form_wrap panel">
                 <div className="inner_form">
-                <form onSubmit={this.handleSubmit}>
-                    <p>
-                        <label>Сообщение</label><br/>
-                        <textarea type="text" className="form-control input_style" value={this.state.message}
-                               onChange={this.onMessageChange}/>
-                    </p>
-                    <p>
-                        <label>Исполнитель</label><br/>
-                        <input type="text" className="form-control input_style" value={this.state.id_doer}
-                               onChange={this.onDoerChange}/>
-                    </p>
-                    <p>
-                        <label>Назначение</label><br/>
-                        <input type='text' className="datepicker-here form-control input_style" data-timepicker="true"
-                               data-position="right top"/>
-                    </p>
-                    <input type="submit" value="Отправить"/>
-
-                </form>
+                    <form onSubmit={this.handleSubmit}>
+                        <p>
+                            <label>Сообщение</label><br/>
+                            <textarea type="text" className="form-control input_style" value={this.state.jsonData.message}
+                                      onChange={this.onMessageChange}/>
+                        </p>
+                        <p>
+                            <label>Исполнитель</label><br/>
+                            <input type="text" className="form-control input_style" value={this.state.id_doer}
+                                   onChange={this.onDoerChange}/>
+                        </p>
+                        <p>
+                            <label>Назначение</label><br/>
+                            <input type='text' className="datepicker-here form-control input_style" data-timepicker="true"
+                                   data-position="right top"/>
+                        </p>
+                        <input type="submit" value="Отправить"/>
+                    </form>
                 </div>
             </div>
         );
     }
 }
 
-export default EventForm;
+export default EventUpdate;

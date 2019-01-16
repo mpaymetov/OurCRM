@@ -24,6 +24,10 @@ class ItemEvent extends Component {
                             <nav>
                                 <Link to={"/eventsView/" + hits.id_event}> подробнее </Link>
                             </nav>
+                            <form>
+                                <p>Активно<input type="checkbox" id={hits.id_event} className="status"/>
+                                </p>
+                            </form>
                         </div>
                     )}
                 </div>
