@@ -77,7 +77,7 @@ class EventController extends ActiveController
             return Yii::$app->getResponse()->redirect(array('/user/login', 302));
         } else {
             var_dump(\Yii::$app->request->isAjax);
-            //$this->eventService->setEventUpdate($id);
+            $this->eventService->setEventUpdate($id);
         }// возвращяем объект и экшн который нужно применить к объекту
         /*$action = ArrayHelper::getValue($answer, 'action');
         $model = ArrayHelper::getValue($answer, 'model');

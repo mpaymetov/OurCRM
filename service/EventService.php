@@ -72,7 +72,9 @@ class EventService
                     $model->save();
                     return ("OK");
                 }
-                if ($model->load(Yii::$app->request->post()) && $this->dataControl($model) && $model->save()) {
+                $this->pushData((Yii::$app->request->post()), $model);
+                print_r($model);
+                if ($model->save()) {
                     return ['model' => $model, 'action' => 'redirect'];
                 };
 
@@ -90,22 +92,24 @@ class EventService
         $user_name = $this->userService->findLoginById(Yii::$app->user->identity->id_user);
         $this->startParams->takeStartParams($model);
         $this->pushData((Yii::$app->request->post()), $model);
+        print_r(Yii::$app->request->post());
         if ($model->save()) {
-           return($model);
+            return ($model);
         }
         return [
             'model' => $model,
             'action' => 'curr',
 
-        'user' => $user_name,
+            'user' => $user_name,
         ];
     }
+
     public function pushData($data, $model)
     {
-        $model->version = 0;
-        $model->id_doer = $data['doer'];
+        if (array_key_exists('id_doer',$data)) {
+            $model->id_doer = $data['id_doer'];
+        }
         $model->message = $data['message'];
-        $model->created = $data['created'];
     }
 
     public function incVersion($model)

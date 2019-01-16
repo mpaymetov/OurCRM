@@ -20,7 +20,6 @@ class EventForm extends Component {
     }
 
     onMessageChange(e) {
-        console.log(e);
         var val = e.target.value;
         this.setState({message: val});
     }
@@ -36,8 +35,8 @@ class EventForm extends Component {
     }
 
     onAssigmentChange(e) {
-        console.log(e);
-        this.setState({assigment: e});
+        var val = e.target.value;
+        this.setState({assigment: val});
     }
 
     onVersionChange(e) {
@@ -68,7 +67,6 @@ class EventForm extends Component {
             })
             .catch(alert);
     }
-
 
     render() {
         return (
