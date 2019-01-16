@@ -11,7 +11,6 @@ class ItemEvent extends Component {
     }
 
     render() {
-        console.log(this.state.hits);
         if (this.props.hits !== '') {
             return (
                 <div className="back">

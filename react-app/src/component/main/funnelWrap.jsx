@@ -1,11 +1,5 @@
 import React, {Component} from 'react';
-import ItemPost from './itemPost.jsx';
-import FirstColumn from './firstColumn.jsx';
-import SecondColumn from './secondColumn.jsx';
-import ThirdColumn from './thirdColumn.jsx';
-import FourthColumn from './fourthСolumn.jsx';
-import FifthColumn from './fifthColumn.jsx';
-import SixthColumn from './sixthColumn.jsx';
+import StatusRow from './statusRow.jsx';
 import {Link, BrowserRouter} from 'react-router-dom';
 
 const API = '/api/funnels';
@@ -30,25 +24,7 @@ class Funnel extends Component {
         if (this.state.data !== '') {
             return (
                 <div>
-                    <div className={"col-md-2"}>
-                        <FirstColumn column={this.state.data[0]}/>
-                    </div>
-                    <div className={"col-md-2"}>
-                        <SecondColumn column={this.state.data[1]}/>
-                    </div>
-                    <div className={"col-md-2"}>
-                        <ThirdColumn column={this.state.data[2]}/>
-                    </div>
-                    <div className={"col-md-2"}>
-                        <FourthColumn column={this.state.data[3]}/>
-                    </div>
-                    <div className={"col-md-2"}>
-                        <FifthColumn column={this.state.data[4]}/>
-                    </div>
-                    <div className={"col-md-2"}>
-                        <SixthColumn column={this.state.data[5]}/>
-                    </div>
-                    <div className={"col-md-2"}></div>
+                    <StatusRow data={this.state.data}/>
                 </div>
             )
         } else {
