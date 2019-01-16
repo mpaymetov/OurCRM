@@ -65,7 +65,8 @@ class UserService
 
         $list = [];
         foreach ($result as $item) {
-            $list[(int)$item['id_user']] = $item['first_name'] . ' ' . $item['second_name'];
+            //$list[(int)$item['id_user']] = $item['first_name'] . ' ' . $item['second_name'];
+            array_push($list, ['id' => (int)$item['id_user'], 'name' => $item['first_name'] . ' ' . $item['second_name']]);
         }
 
         return $list;

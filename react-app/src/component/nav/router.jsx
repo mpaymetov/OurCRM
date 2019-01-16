@@ -10,6 +10,7 @@ import {Route, Switch} from 'react-router-dom';
 import EventView from "../../component/event/eventView.jsx";
 import EventForm from "../../component/event/eventForm.jsx"
 import StatisticView from "../../component/statistic/statisticView.jsx"
+import CreateServiseList from "../../component/project/createServicesetForm.jsx"
 
 class URLRouter extends Component {
 
@@ -21,6 +22,7 @@ class URLRouter extends Component {
                     <Route path="/funnels" component={Funnel}/>
                     <Route path="/projects" component={ProjectList}/>
                     <Route path="/projectsView/:id_project" component={ProjectView}/>
+                    <Route path="/createServicesetForm" component={CreateServiseList}/>
                     <Route path="/events" component={EventWarp}/>
                     <Route path="/eventsView/:id_event" component={EventView}/>
                     <Route path="/eventForm" component={EventForm}/>

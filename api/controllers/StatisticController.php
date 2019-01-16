@@ -68,7 +68,7 @@ class StatisticController extends ActiveController
                 return Yii::$app->getResponse()->redirect(array('/user/login', 302));
                 break;
             case 'current':
-                return $this->handler->setStatisticIndex();
+                return ['model' => $model]; //$this->handler->setStatisticIndex();
                 break;
             case 'mainPage':
                 return $this->redirect(['site/index']);

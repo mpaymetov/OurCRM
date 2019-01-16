@@ -52,7 +52,7 @@ class ProjectView extends Component {
                     <ProjectInfo projectInfo={this.state.jsonData.project}/>
                     <ProjectEvent event={this.state.jsonData.event}/>
                     <div className={"col-md-12"}>
-                        <AddButton buttonInfo={{buttonName: "Создать набор", path: "#"}}/>
+                        <AddButton buttonInfo={{buttonName: "Создать пакет", path: "/createServicesetForm"}}/>
                         <div>{servicesetElem}</div>
                     </div>
                 </div>
