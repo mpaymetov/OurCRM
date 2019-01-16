@@ -11,6 +11,7 @@ class EventUpdate extends Component {
         this.onAssigmentChange = this.onAssigmentChange.bind(this);
         this.onVersionChange = this.onVersionChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     onMessageChange(e) {
@@ -39,10 +40,26 @@ class EventUpdate extends Component {
         this.setState({version: val});
     }
 
+    getEventUrl() {
+        var id = this.props.match.params.id_event;
+        var API = '/api/events/' + id;
+        return API;
+    }
+
+    componentWillMount() {
+        console.log('params', this.props.match.params.id_event);
+        fetch(this.getEventUrl())
+            .then(response => response.json())
+            .then(data => this.setState({jsonData: data.model}))
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
     handleSubmit(e) {
         e.preventDefault();
-        fetch('http://localhost/api/events/' + this.state.id_event, {
-            method: 'POST', body: JSON.stringify(
+        fetch('http://localhost/api/events/' + this.state.jsonData.id_event, {
+            method: 'PUT', body: JSON.stringify(
                 {
                     message: this.state.jsonData.message,
                     created: this.state.created,
@@ -62,24 +79,9 @@ class EventUpdate extends Component {
             })
             .catch(alert);
     }
-    componentWillMount() {
-        fetch(this.getEventUrl())
-            .then(response => response.json())
-            .then(data => this.setState({jsonData: data}))
-            .catch((error) => {
-                console.error(error);
-            });
-    }
-
-    getEventUrl() {
-        console.log("state", this.props.match.params.id_event)
-        var id = this.props.match.params.id_event;
-        var API = '/api/events/' + id;
-        return API;
-    }
 
     render() {
-
+        console.log("state", this.state.jsonData);
         return (
             <div className="form_wrap panel">
                 <div className="inner_form">
