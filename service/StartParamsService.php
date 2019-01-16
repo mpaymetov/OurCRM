@@ -20,9 +20,14 @@ class StartParamsService
             }
         }
         if (property_exists($model, 'id_user')) {
-            if($model->id_user == null)
-            {
-                $model->id_user =  Yii::$app->user->identity->id_user;
+            if ($model->id_user == null) {
+                $model->id_user = Yii::$app->user->identity->id_user;
+            }
+        }
+        if (property_exists($model, 'version')) {
+            echo("in property");
+            if ($model->version == null) {
+                $model->version = 1;
             }
         }
 
@@ -56,7 +61,7 @@ class StartParamsService
     {
         $model->is_active = 1;
         $model->id_user = Yii::$app->user->identity->id_user;
-        $model->id_link  = $request->get('id_link');
+        $model->id_link = $request->get('id_link');
         $model->link = $request->get('link');
     }
 

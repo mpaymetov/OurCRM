@@ -97,7 +97,6 @@ class EventForm extends Component {
                         <label>Назначение</label><br/>
                         <input type='text' className="datepicker-here form-control input_style" data-timepicker="true"
                                data-position="right top"/>
-
                     </p>
                     <input type="submit" value="Отправить"/>
 

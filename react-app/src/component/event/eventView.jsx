@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from "react-router-dom";
 
 class EventView extends Component {
     constructor(props) {
@@ -25,6 +26,9 @@ class EventView extends Component {
     render() {
         console.log(this.state);
         return <div className="form_wrap panel view_panel">
+            <div className={"btn_create"}>
+                <Link to="/eventForm">Создать событие</Link>
+            </div>
             <div className="inner_form">
                 <form onSubmit={this.handleSubmit}>
                     <p>

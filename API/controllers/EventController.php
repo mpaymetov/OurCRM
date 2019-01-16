@@ -65,28 +65,24 @@ class EventController extends ActiveController
 
     public function actionCreate()
     {
-        $answer = $this->eventService->setCreateEvent();
-        $action = ArrayHelper::getValue($answer, 'action');
-        $model = ArrayHelper::getValue($answer, 'model');
-        /*if ($action == 'redirect') {
-            return $this->redirect(['view', 'id' => $model->id_event]);
-        } elseif ($action == 'curr') {
-            return $this->render('create', [
-                'model' => $model,]);
-        }*/
+        if (Yii::$app->user->isGuest) {
+            return Yii::$app->getResponse()->redirect(array('/user/login', 302));
+        } else {
+            $this->eventService->setCreateEvent();
+        }
     }
 
     public function actionUpdate($id)
     {
         $answer = $this->eventService->setEventUpdate($id); // возвращяем объект и экшн который нужно применить к объекту
-        $action = ArrayHelper::getValue($answer, 'action');
+        /*$action = ArrayHelper::getValue($answer, 'action');
         $model = ArrayHelper::getValue($answer, 'model');
         if ($action == 'redirect') {
             return $this->redirect(['view', 'id' => $model->id_event]);
         } elseif ($action == 'curr') {
             return $this->render('update', [
                 'model' => $model,]);
-        }
+        }*/
     }
 
     public function actionDelete($id)

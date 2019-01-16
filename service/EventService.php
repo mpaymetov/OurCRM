@@ -89,13 +89,9 @@ class EventService
         $model = new Event();
         $user_name = $this->userService->findLoginById(Yii::$app->user->identity->id_user);
         $this->startParams->takeStartParams($model);
-        echo Json::encode((Yii::$app->request->post()));
         $this->pushData((Yii::$app->request->post()), $model);
-        var_dump($model);
-        var_dump($model->save());
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-           var_dump($model);
+        if ($model->save()) {
+           return($model);
         }
         return [
             'model' => $model,
@@ -106,9 +102,9 @@ class EventService
     }
     public function pushData($data, $model)
     {
+        $model->version = 0;
         $model->id_doer = $data['doer'];
         $model->message = $data['message'];
-        $model->version = $data['version'];
         $model->created = $data['created'];
     }
 
