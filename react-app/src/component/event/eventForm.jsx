@@ -70,7 +70,7 @@ class EventForm extends Component {
 
     render() {
         return (
-            <div className="form_wrap panel">
+            <div className="form_wrap panel shadow">
                 <div className="inner_form">
                 <form onSubmit={this.handleSubmit}>
                     <p>

@@ -10,7 +10,7 @@ class TopWrap extends Component {
         return (
             <div>
                 <Router>
-                    <div className="route_wrap">
+                    <div className="top_wrap">
                         <Nav/>
                         <URLRouter/>
                     </div>

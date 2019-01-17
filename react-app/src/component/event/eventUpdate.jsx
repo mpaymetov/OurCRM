@@ -99,7 +99,7 @@ class EventUpdate extends Component {
     render() {
         console.log("state", this.state);
         return (
-            <div className="form_wrap panel">
+            <div className="form_wrap panel shadow">
                 <div className="inner_form">
                     <form onSubmit={this.handleSubmit}>
                         <p>

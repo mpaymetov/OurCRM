@@ -1,21 +1,22 @@
 import React, {Component} from 'react';
+import ItemPost from "./itemPost.jsx";
 
 
 class ThirdColumn extends Component {
     constructor(props) {
         super(props);
-        const column = this.props;
+        this.state = {column: this.props.column};
 
     }
 
     render() {
-        console.log(" third state", this.state);
-        if (this.state !== null) {
+        console.log("forth state", this.state);
+        if (this.state.column.info.allModels.length > 0) {
             return (
-                <div>sdbg</div>
+                <ItemPost column={this.state.column.info.allModels}/>
             );
         }
-        return <p></p>
+        return <p></p>;
     }
 }
 

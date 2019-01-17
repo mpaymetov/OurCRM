@@ -8,7 +8,6 @@ export default class Nav extends React.Component {
                 <div className="navbar-inverse navbar-fixed-top navbar">
                     <ul className="navbar-nav navbar-right nav">
                         <li><Link to="/">Главная</Link></li>
-                        <li><Link to="/products">Товары</Link></li>
                         <li><Link to="/funnels">Воронка</Link></li>
                         <li><Link to="/projects">Проекты</Link></li>
                         <li><Link to="/events">События</Link></li>

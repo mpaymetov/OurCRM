@@ -31,7 +31,7 @@ class EventView extends Component {
 
     render() {
         console.log(this.state.jsonData);
-        return <div className="form_wrap panel view_panel">
+        return <div className="form_wrap panel shadow">
 
             <div className="inner_form">
                 <div className={"btn btn_create"}>
