@@ -5,7 +5,7 @@ $(document).ready(function () {
 
 function cnahgeStatus() {
     console.log("in change");
-    $('.status').click(function () {
+    $('body').on('click', '.status', function () {
         console.log("click!");
             var elem = this.id;
             console.log("click", elem);
