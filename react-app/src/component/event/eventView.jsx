@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 class EventView extends Component {
     constructor(props) {
         super(props);
-        this.state = {jsonData: '', active: ''};
+        this.state = {jsonData: {}};
     }
 
     componentWillMount() {
@@ -22,7 +22,7 @@ class EventView extends Component {
         return API;
     }
 
-    isActive(elem) {
+    checked(elem) {
         console.log("active", elem);
         if (elem === 1) {
             return ('checked');
@@ -61,8 +61,9 @@ class EventView extends Component {
                                data-position="right top"/>
                     </p>
                     <form>
-                        <p>Активно<input checked={this.isActive(this.state.jsonData.is_active)} type="checkbox"
-                                         id={this.state.jsonData.id_event} className="status"/>
+                        <p>Активно<input checked={this.checked(this.state.jsonData.is_active)} type="checkbox"
+                                         id={this.state.jsonData.id_event}
+                                         className="status"/>
                         </p>
                     </form>
                 </form>

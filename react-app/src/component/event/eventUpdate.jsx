@@ -13,11 +13,9 @@ class EventUpdate extends Component {
         this.onAssigmentChange = this.onAssigmentChange.bind(this);
         this.onVersionChange = this.onVersionChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     onMessageChange(e) {
-        console.log(e.target.value);
         var val = e.target.value;
         this.setState({message: val});
     }
@@ -55,7 +53,6 @@ class EventUpdate extends Component {
         var assigment = jsonData.assigment;
         var created = jsonData.created;
         this.setState({message, id_doer, version, assigment, created});
-        console.log("in transfer", this.state);
     }
 
     componentWillMount() {
@@ -85,7 +82,6 @@ class EventUpdate extends Component {
                 return response.json();
             })
             .then(function (data) {
-                alert(data);
                 let elem = document.getElementById('container');
                 elem.innerText = data;
             })
@@ -93,7 +89,7 @@ class EventUpdate extends Component {
     }
 
 
-      isActive(elem) {
+      checked(elem) {
         console.log("active", elem);
         if (elem === 1) {
             return ('checked');
@@ -125,7 +121,7 @@ class EventUpdate extends Component {
                                    data-position="right top"/>
                         </p>
                         <form>
-                            <p>Активно<input checked={this.isActive(this.state.jsonData.is_active)} type="checkbox"
+                            <p>Активно<input checked={this.checked(this.state.jsonData.is_active)} type="checkbox"
                                              id={this.state.jsonData.id_event} className="status"/>
                             </p>
                         </form>

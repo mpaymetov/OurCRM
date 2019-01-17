@@ -4,11 +4,8 @@ $(document).ready(function () {
 });
 
 function cnahgeStatus() {
-    console.log("in change");
     $('body').on('click', '.status', function () {
-        console.log("click!");
             var elem = this.id;
-            console.log("click", elem);
             $.ajax(
                 {
                     type: "PUT",
