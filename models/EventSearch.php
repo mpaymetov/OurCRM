@@ -37,7 +37,6 @@ class EventSearch extends Event
     public function search($params, $location = null)
     {
         $query = Event::find();
-        // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -106,28 +105,18 @@ class EventSearch extends Event
     public function searchEventId($id_link, $id_user, $route_link)
     {
         if (!Yii::$app->user->isGuest) {
-            /*$query = Event::find();
-            $eventDataProvider = new ActiveDataProvider([
-                'query' => $query,
-            ]);
-            $query->select(['*'])
-                ->from('event')
-                ->where(['link' => $route_link])
-                ->andwhere(['id_link' => $id_link])
-                ->andwhere(['id_user' => $id_user])
-                ->all();*/
             $query = Event::find()
                 ->select(['*'])
                 ->from('event')
                 ->where(['link' => $route_link])
                 ->andwhere(['id_link' => $id_link])
                 ->andwhere(['id_user' => $id_user])
+                ->andwhere(['is_active' => 1])
                 ->all();
             return $query;
-            //return $eventDataProvider;
         }
     }
-//  todo написать запросы только к нужным данным
+
     public function searchClientEventId($id_client)
     {
         if (!Yii::$app->user->isGuest) {
