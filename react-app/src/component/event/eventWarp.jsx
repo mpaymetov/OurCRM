@@ -19,13 +19,13 @@ class EventWarp extends Component {
                 console.error(error);
             });
     }
-//todo render внутрь if
+
     render() {
         console.log("in warp", this.state);
         if (this.state.jsonData !== '') {
             return (
                 <div>
-                    <div className={"btn_create"}>
+                    <div className={"btn btn_create"}>
                         <Link to="/eventForm">Создать событие</Link>
                     </div>
                     <ItemEvent items={this.state.jsonData}/>

@@ -31,8 +31,6 @@ class ProjectService
     private $listHandler;
     private $listFormHandler;
 
-// аписать коструктор для этого класса __construct
-//попробовать подключать класс конфигурации и подавать туда конкретный data control
     public function __construct()
     {
         $this->setStartParams(new StartParamsService());
