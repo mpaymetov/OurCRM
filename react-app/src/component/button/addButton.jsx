@@ -7,7 +7,7 @@ class AddButton extends Component {
         return (
             <nav>
                 <Link to={this.props.buttonInfo.path}
-                      className="btn btn-success"> {this.props.buttonInfo.buttonName} </Link>
+                      className="btn btn_create"> {this.props.buttonInfo.buttonName} </Link>
             </nav>
         );
     }

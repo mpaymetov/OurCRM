@@ -4,9 +4,6 @@ import AddButton from '../button/addButton.jsx';
 import ProjectServiceset from './projectServiceset.jsx';
 import ProjectEvent from './projectEvent.jsx';
 
-
-//const API = '/api/projects/19';
-
 class ProjectView extends Component {
 
     constructor(props) {

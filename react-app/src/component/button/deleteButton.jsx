@@ -4,10 +4,10 @@ import {Link, BrowserRouter, BrowserRouter as Router, Route} from 'react-router-
 class DeleteButton extends Component {
 
     render() {
-        return(
-            <nav>
-                <Link to={this.props.buttonInfo.path} className="btn btn-danger"> {this.props.buttonInfo.buttonName} </Link>
-            </nav>
+        return (
+            <div className={"btn btn_delete"}>
+                <Link to={this.props.buttonInfo.path}> {this.props.buttonInfo.buttonName} </Link>
+            </div>
         );
     }
 

@@ -207,7 +207,6 @@ a.desc:after {
 
 .btn_create {
     padding: 10px;
-    width: 150px;
     text-align: -webkit-center;
     border: 1px solid #1b809e;
     border-radius: 2px;
@@ -223,34 +222,36 @@ a.desc:after {
 
 .checkbox_right {
     float: right;
+    margin-right: 20px;
 }
 
 .btn_delete {
     padding: 10px;
-    width: 150px;
     text-align: -webkit-center;
     border: 1px solid #df0101;
     border-radius: 2px;
-    margin-left:10px;
+    margin-left: 10px;
 }
 
-.btn_delete > a
-{
+.btn_delete > a {
     color: #df0101
 }
 
-.btn_create, .btn_delete{
+.btn_create, .btn_delete {
     margin-bottom: 10px;
-}   
+}
 
-.event_event_inner
-{
+.event_event_inner {
     border-right: 0.5px solid #337ab7;
     margin-right: 10px;
 }
 
-.status
-{
+.status {
     margin-left: 5px !important;
     position: absolute;
+}
+
+.shadow:hover {
+    transition: 0.5s;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
 }

@@ -57,7 +57,7 @@ class EventView extends Component {
                         <input type="text" className="form-control input_style" value={this.state.jsonData.id_doer}/>
                     </p>
                     <p>
-                        <label>назначение</label><br/>
+                        <label>Назначено на</label><br/>
                         <input type='text' className="datepicker-here form-control input_style" data-timepicker="true"
                                data-position="right top"/>
                     </p>

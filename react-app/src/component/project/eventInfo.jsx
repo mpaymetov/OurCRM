@@ -13,7 +13,7 @@ class EventInfo extends Component{
 
     render() {
         return (
-            <div className={"panel-body panel post post-panel"}>
+            <div className={"panel-body panel shadow"}>
                 <form className="checkbox_right">
                     <p>Активно<input checked={this.isActive(this.props.eventInfo.is_active)} type="checkbox"
                                      id={this.props.eventInfo.id_event} className="status"/>
