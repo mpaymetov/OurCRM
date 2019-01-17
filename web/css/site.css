@@ -210,7 +210,7 @@ a.desc:after {
     width: 150px;
     text-align: -webkit-center;
     border: 1px solid #1b809e;
-    border-radius: 3px;
+    border-radius: 2px;
 }
 
 .btn_create:hover {
@@ -219,4 +219,38 @@ a.desc:after {
 
 .more_btn {
     color: #1b809e;
+}
+
+.checkbox_right {
+    float: right;
+}
+
+.btn_delete {
+    padding: 10px;
+    width: 150px;
+    text-align: -webkit-center;
+    border: 1px solid #df0101;
+    border-radius: 2px;
+    margin-left:10px;
+}
+
+.btn_delete > a
+{
+    color: #df0101
+}
+
+.btn_create, .btn_delete{
+    margin-bottom: 10px;
+}   
+
+.event_event_inner
+{
+    border-right: 0.5px solid #337ab7;
+    margin-right: 10px;
+}
+
+.status
+{
+    margin-left: 5px !important;
+    position: absolute;
 }

@@ -109,7 +109,12 @@ class EventService
         if (array_key_exists('id_doer',$data)) {
             $model->id_doer = $data['id_doer'];
         }
-        $model->message = $data['message'];
+        if (array_key_exists('message',$data)) {
+            $model->message = $data['message'];
+        }
+        if(array_key_exists('is_active',$data)) {
+            $model->is_active = $data['is_active'];
+        }
     }
 
     public function incVersion($model)

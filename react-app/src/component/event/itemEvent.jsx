@@ -7,7 +7,17 @@ class ItemEvent extends Component {
     constructor(props) {
         super(props);
         this.state =
-            {hits: this.props};
+            {
+                hits: this.props,
+                active: ''
+            };
+    }
+
+    isActive(elem) {
+        console.log("active", elem);
+        if (elem === 1) {
+            return ('checked');
+        }
     }
 
     render() {
@@ -16,16 +26,16 @@ class ItemEvent extends Component {
                 <div className="back">
                     {this.props.items.map((hits) => //todo попробовать вынести в функцию
                         <div className="panel-body post panel">
-                            <div className="col-md-6">
+                            <div className="col-md-9 event_event_inner">
                                 <p className="post_number">номер события:{hits.id_event || ''}</p>
                                 <h5>{hits.message || ''}</h5>
-                                <h6>{hits.id_user}</h6>
                             </div>
                             <nav>
                                 <Link to={"/eventsView/" + hits.id_event}> подробнее </Link>
                             </nav>
                             <form>
-                                <p>Активно<input type="checkbox" id={hits.id_event} className="status"/>
+                                <p>Активно<input checked={this.isActive(hits.is_active)} type="checkbox"
+                                                 id={hits.id_event} className="status"/>
                                 </p>
                             </form>
                         </div>
@@ -33,7 +43,7 @@ class ItemEvent extends Component {
                 </div>
             )
         } else {
-            return (<p>do not render</p>);
+            return (<p></p>);
         }
 
     }

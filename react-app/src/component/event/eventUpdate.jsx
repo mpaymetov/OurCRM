@@ -4,8 +4,7 @@ class EventUpdate extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            jsonData: {
-            }
+            jsonData: {}
         };
 
         this.onMessageChange = this.onMessageChange.bind(this);
@@ -55,8 +54,8 @@ class EventUpdate extends Component {
         var version = jsonData.version;
         var assigment = jsonData.assigment;
         var created = jsonData.created;
-       this.setState({message, id_doer, version, assigment, created});
-       console.log("in transfer", this.state);
+        this.setState({message, id_doer, version, assigment, created});
+        console.log("in transfer", this.state);
     }
 
     componentWillMount() {
@@ -71,7 +70,7 @@ class EventUpdate extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        this.trasferData(this.state.jsonData);
+        this.trasferData(this.state);
         fetch('http://localhost/api/events/' + this.state.jsonData.id_event, {
             method: 'PUT', body: JSON.stringify(
                 {
@@ -83,7 +82,6 @@ class EventUpdate extends Component {
                 }), headers: {'content-type': 'application/json'}
         })
             .then(function (response) {
-                alert(response.status); // 200
                 return response.json();
             })
             .then(function (data) {
@@ -92,6 +90,14 @@ class EventUpdate extends Component {
                 elem.innerText = data;
             })
             .catch(alert);
+    }
+
+
+      isActive(elem) {
+        console.log("active", elem);
+        if (elem === 1) {
+            return ('checked');
+        }
     }
 
     render() {
@@ -118,6 +124,11 @@ class EventUpdate extends Component {
                                    data-timepicker="true"
                                    data-position="right top"/>
                         </p>
+                        <form>
+                            <p>Активно<input checked={this.isActive(this.state.jsonData.is_active)} type="checkbox"
+                                             id={this.state.jsonData.id_event} className="status"/>
+                            </p>
+                        </form>
                         <input type="submit" value="Отправить"/>
                     </form>
                 </div>

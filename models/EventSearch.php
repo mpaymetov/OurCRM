@@ -60,7 +60,6 @@ class EventSearch extends Event
             $query->andFilterWhere(['like', 'message', $this->message])
                 ->andWhere('event.id_user = ' . Yii::$app->user->identity->id_user)
                 ->andWhere('event.is_active != 0')
-                ->andWhere('event.is_active != 0')
                 ->andWhere('event.assignment  >= ' . "'" . $date . "'")
                 ->asArray()
                 ->all();
