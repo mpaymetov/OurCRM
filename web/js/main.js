@@ -1,6 +1,7 @@
 $(document).ready(function () {
     console.log("ready!");
     cnahgeStatus();
+    getDate();
 });
 
 function cnahgeStatus() {
@@ -19,4 +20,11 @@ function cnahgeStatus() {
             );
         }
     );
+}
+
+function getDate() {
+    $('body').on('click', '.datepicker_click', function () {
+        $('.datepicker_click').addClass('datepicker-here');
+        console.log('in get date');
+    });
 }

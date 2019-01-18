@@ -32,7 +32,8 @@ class EventUpdate extends Component {
 
     onAssigmentChange(e) {
         console.log(e);
-        this.setState({assigment: e});
+        var val = e.target.value;
+        this.setState({assignment: val});
     }
 
     onVersionChange(e) {
@@ -46,35 +47,25 @@ class EventUpdate extends Component {
         return API;
     }
 
-    trasferData(jsonData) {
-        var message = jsonData.message;
-        var id_doer = jsonData.doer;
-        var version = jsonData.version;
-        var assigment = jsonData.assigment;
-        var created = jsonData.created;
-        this.setState({message, id_doer, version, assigment, created});
-    }
-
     componentWillMount() {
         console.log('params', this.props.match.params.id_event);
         fetch(this.getEventUrl())
             .then(response => response.json())
             .then(data => this.setState({jsonData: data.model}))
             .catch((error) => {
-                console.error(error);
+                console.log.error(error);
             });
     }
 
     handleSubmit(e) {
         e.preventDefault();
-        this.trasferData(this.state);
         fetch('http://localhost/api/events/' + this.state.jsonData.id_event, {
             method: 'PUT', body: JSON.stringify(
                 {
                     message: this.state.message,
                     created: this.state.created,
                     id_doer: this.state.doer,
-                    assigment: this.state.assigment,
+                    assignment: this.state.assignment,
                     version: this.state.version
                 }), headers: {'content-type': 'application/json'}
         })
@@ -89,7 +80,7 @@ class EventUpdate extends Component {
     }
 
 
-      checked(elem) {
+    checked(elem) {
         console.log("active", elem);
         if (elem === 1) {
             return ('checked');
@@ -116,9 +107,8 @@ class EventUpdate extends Component {
                         </p>
                         <p>
                             <label>Назначение</label><br/>
-                            <input type='text' className="datepicker-here form-control input_style"
-                                   data-timepicker="true"
-                                   data-position="right top"/>
+                            <input type='text' onChange={this.onAssigmentChange} className="form-control input_style"
+                                   placeholder={this.state.jsonData.assignment}/>
                         </p>
                         <form>
                             <p>Активно<input checked={this.checked(this.state.jsonData.is_active)} type="checkbox"

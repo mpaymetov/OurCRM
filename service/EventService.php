@@ -99,7 +99,6 @@ class EventService
         return [
             'model' => $model,
             'action' => 'curr',
-
             'user' => $user_name,
         ];
     }
@@ -114,6 +113,11 @@ class EventService
         }
         if(array_key_exists('is_active',$data)) {
             $model->is_active = $data['is_active'];
+        }
+
+        if(array_key_exists('assignment', $data))
+        {
+            $model->assignment = $data['assignment'];
         }
     }
 

@@ -57,8 +57,7 @@ class EventView extends Component {
                     </p>
                     <p>
                         <label>Назначено на</label><br/>
-                        <input type='text' className="datepicker-here form-control input_style" data-timepicker="true"
-                               data-position="right top"/>
+                        <input type='text' className="form-control input_style" value={this.state.jsonData.assignment}/>
                     </p>
                     <form>
                         <p>Активно<input checked={this.checked(this.state.jsonData.is_active)} type="checkbox"
