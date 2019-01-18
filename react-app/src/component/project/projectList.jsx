@@ -22,11 +22,10 @@ class ProjectList extends Component {
         if (this.state.jsonData !== '') {
 
             return(
-                <div>
+                <div className={"set_list"}>
                     <table className={"table"}>
                         <thead>
                         <tr>
-                            <td>#</td>
                             <td>Проект</td>
                             <td>Клиент</td>
                             <td>Дата создания</td>
@@ -36,7 +35,6 @@ class ProjectList extends Component {
                         <tbody>
                         {this.state.jsonData.items.map(
                             (elem) => <tr>
-                                <td></td>
                                 <td>{elem.name}</td>
                                 <td>{elem.id_client}</td>
                                 <td>{elem.creation_date}</td>

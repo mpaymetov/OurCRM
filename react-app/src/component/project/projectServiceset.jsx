@@ -23,7 +23,7 @@ class ProjectServiceset extends Component {
             };
 
             return (
-                <div className={"serviceset-info-" + this.props.serviceset.servicesetInfo.id}>
+                <div className={"set_list serviceset-info-" + this.props.serviceset.servicesetInfo.id}>
                     <h2>Пакет услуг от {this.props.serviceset.servicesetInfo.creation_date}</h2>
                     <p>
                         <UpdateButton buttonInfo = {{buttonName: "Изменить пакет услуг", path: "#"}} />

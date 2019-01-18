@@ -4,7 +4,7 @@ class CancellationButton extends Component {
 
     render() {
         return(
-            <a href={this.props.buttonInfo.path} className="btn btn-success">{this.props.buttonInfo.buttonName}</a>
+            <a href={this.props.buttonInfo.path} className="btn btn_delete">{this.props.buttonInfo.buttonName}</a>
         );
     }
 

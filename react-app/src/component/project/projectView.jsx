@@ -36,7 +36,6 @@ class ProjectView extends Component {
     render() {
 
         if (this.state.jsonData !== '') {
-            console.log("in project view", this.state);
             var servicesetElem = true;
             if (this.state.jsonData.serviceset.length !== 0) {
                 servicesetElem = this.state.jsonData.serviceset.map(
@@ -48,7 +47,7 @@ class ProjectView extends Component {
                 <div className={"container"}>
                     <ProjectInfo projectInfo={this.state.jsonData.project}/>
                     <ProjectEvent event={this.state.jsonData.event}/>
-                    <div className={"col-md-12"}>
+                        <div className={"col-md-12 set_container"}>
                         <AddButton buttonInfo={{buttonName: "Создать пакет", path: "/createServicesetForm"}}/>
                         <div>{servicesetElem}</div>
                     </div>

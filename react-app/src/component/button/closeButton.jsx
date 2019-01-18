@@ -4,7 +4,7 @@ class CloseButton extends Component {
 
     render() {
         return(
-            <a href={this.props.buttonInfo.path} className="btn btn-success">{this.props.buttonInfo.buttonName}</a>
+            <a href={this.props.buttonInfo.path} className="btn btn_create">{this.props.buttonInfo.buttonName}</a>
         );
     }
 

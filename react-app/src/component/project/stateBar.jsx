@@ -25,7 +25,7 @@ class StateBar extends Component {
             var list = arr.map(
                 (item) =>  this.stateListElem(this.props.set, item));
 
-            let classNameDiv = "btn-group btn-group-justified status-bar-" + this.props.set.idServiceset;
+            let classNameDiv = "btn-group status_bar btn-group-justified status-bar-" + this.props.set.idServiceset;
 
             return (
                 <div className={classNameDiv}>
