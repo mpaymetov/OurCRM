@@ -4,6 +4,7 @@ namespace app\service;
 
 use Yii;
 use app\models\UserSearch;
+use app\forms\ViewForm;
 use yii\data\ArrayDataProvider;
 
 class UserService
@@ -13,17 +14,29 @@ class UserService
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        /*$dataModels = [];
-        $dataModels = $dataProvider->getModels();
-
-        $dataProvider = new ArrayDataProvider([
-            'allModels'=> $dataModels,
-        ]);*/
-
         return [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ];
+    }
+
+    public function actionUserViewRequest($id)
+    {
+        $user = UserService::findModel($id);
+        $model = new ViewForm();
+
+        $model->id = $user->id_user;
+        $model->login = $user->login;
+        $model->first_name = $user->first_name;
+        $model->second_name = $user->second_name;
+        $model->id_department = $user->id_department;
+        $model->status = ((int)$user->status == 0) ? "Disabled" : "Enabled";
+        $model->created_at = $user->created_at;
+        $model->updated_at = $user->updated_at;
+        $model->email = $user->email;
+        $model->role = Yii::$app->authManager->getRole($model->login);
+
+        return $model;
     }
 
     public function findLoginById($id)
@@ -31,6 +44,13 @@ class UserService
         $model = UserSearch::findOne($id);
         $name = $model->login;
         return $name;
+    }
+
+    public function findIdByLogin($login)
+    {
+        $model = User::findByLogin($login);
+        $id = $model->id_user;
+        return $id;
     }
 
     public function findModel($id)
@@ -72,4 +92,19 @@ class UserService
         return $list;
     }
 
+    public function disableUser($id)
+    {
+        $user = UserSearch::findOne($id);
+        $user->status = 0; //User::STATUS_DELETED;
+        $user->save();
+        return $user;
+    }
+
+    public function enableUser($id)
+    {
+        $user = UserSearch::findOne($id);
+        $user->status = 10; //User::STATUS_ACTIVE;
+        $user->save();
+        return $user;
+    }
 }

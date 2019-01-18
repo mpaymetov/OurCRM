@@ -9,7 +9,7 @@ $this->title = Yii::t('common', 'Update User: ') . $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('common', 'Update');
-echo Html::activeHiddenInput($model, 'version');
+//echo Html::activeHiddenInput($model, 'version');
 ?>
 <div class="user-update">
 

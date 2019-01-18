@@ -4,32 +4,30 @@ namespace app\forms;
 
 use Yii;
 use yii\base\Model;
-use app\models\user;
+use app\controllers\SecurityController;
+use app\models\User;
+use app\service\UserService;
 
 /**
- * LoginForm is the model behind the login form.
- *
- * @property User|null $user This property is read-only.
- *
+ * Signup form
  */
-class CreateForm extends Model
+class ViewForm extends Model
 {
     public $id;
     public $login;
-    public $password;
     public $first_name;
     public $second_name;
     public $id_department;
+    public $status;
     public $email;
+    public $created_at;
+    public $updated_at;
     public $role;
-    public $roles;
 
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [
+            ['id', 'trim'],
             ['login', 'trim'],
             ['login', 'required'],
             ['login', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This login has already been taken.'],
@@ -39,14 +37,13 @@ class CreateForm extends Model
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
             ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This email address has already been taken.'],
-            ['password', 'required'],
-            ['password', 'string', 'min' => 3],
             ['first_name', 'required'],
             ['second_name', 'required'],
             ['id_department', 'required'],
             ['role', 'trim'],
             ['role', 'required'],
             ['role', 'string'],
+            ['status', 'trim'],
         ];
     }
 
@@ -55,29 +52,32 @@ class CreateForm extends Model
      *
      * @return User|null the saved model or null if saving fails
      */
-    public function create()
+    public function update()
     {
 
         if (!$this->validate()) {
             return null;
         }
 
-        $user = new User();
+        $user = User::findModel($this->id);
         $user->login = $this->login;
         $user->email = $this->email;
         $user->first_name = $this->first_name;
         $user->second_name = $this->second_name;
-        $user->setPassword($this->password);
         $user->id_department = (int)$this->id_department;
-        $user->generateAuthKey();
-        $user->version = 0;
         if ($user->save()) {
             $auth = Yii::$app->authManager;
+            $auth->removeAll($user->id_user);
             $authorRole = $auth->getRole($this->role);
             $auth->assign($authorRole, $user->getId());
             return $user;
         } else {
             return null;
         }
+    }
+
+    public function getDepartments()
+    {
+        return $this->hasOne(Department::className(), ['id_department' => 'id_department']);
     }
 }

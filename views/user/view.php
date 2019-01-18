@@ -16,14 +16,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a(\Yii::t('common', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id_user], [
+        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a(Yii::t('app', 'Disable'), ['disable', 'id' => $model->id_user], [
+        <?= Html::a(Yii::t('app', 'Disable'), ['disable', 'id' => $model->id], [
                 'class' => 'btn btn-warning',
                 'data' => [
                     'confirm' => Yii::t('app', 'Are you sure you want to disable this item?'),
@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ])
         ?>
-        <?= Html::a(Yii::t('app', 'Enable'), ['enable', 'id' => $model->id_user], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Enable'), ['enable', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= DetailView::widget([
@@ -42,15 +42,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'first_name',
             'second_name',
             'email:email',
-            'departments.name',
+            'id_department',
+            //'departments.name',
             'status',
+            'role',
             'created_at:datetime',
             'updated_at:datetime',
         ],
     ]) ?>
 
     <p>
-        <?= Html::a(Yii::t('common', 'Reset Password'), ['reset', 'id' => $model->id_user], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('common', 'Reset Password'), ['reset', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
     </p>
 
 </div>

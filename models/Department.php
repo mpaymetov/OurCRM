@@ -48,12 +48,4 @@ class Department extends \yii\db\ActiveRecord
             'name' => Yii::t('common', 'Name'),
         ];
     }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getManagers()
-    {
-        return $this->hasMany(Manager::className(), ['id_department' => 'id_department']);
-    }
 }

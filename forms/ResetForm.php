@@ -36,18 +36,21 @@ class ResetForm extends Model
      *
      * @return User|null the saved model or null if saving fails
      */
-    public function reset()
+    public function reset($id)
     {
 
         if (!$this->validate()) {
             return null;
         }
 
-        $user = User::findByLogin($this->login);
-        $user->setPassword($this->password);
-        $user->generateAuthKey();
-        return $user->save() ? $user : null;
-
+        $user = UserService::findModel($id);
+        if ($user != null) {
+            $user->setPassword($this->password);
+            $user->generateAuthKey();
+            $user->save();
+            return $user;
+        }
+        return null;
     }
 
 }

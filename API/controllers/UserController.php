@@ -14,6 +14,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\db\StaleObjectException;
 use app\service\RbacService;
+use app\service\DepartmentService;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -29,7 +30,6 @@ class UserController extends Controller
     {
         $this->getService();
     }
-
 
     public function getService()
     {
@@ -67,7 +67,7 @@ class UserController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->userService->actionUserViewRequest($id),
         ]);
     }
 
@@ -79,13 +79,9 @@ class UserController extends Controller
      */
     public function actionDisable($id)
     {
-        $model = UserService::findModel($id);
-        $model->status = 0;
-        $model->save();
+        $user = UserService::disableUser($id);
 
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        return $this->redirect(['view', 'id' => $user->id_user]);
     }
 
     /**
@@ -96,13 +92,9 @@ class UserController extends Controller
      */
     public function actionEnable($id)
     {
-        $model = UserService::findModel($id);
-        $model->status = 10;
-        $model->save();
+        $user = UserService::enableUser($id);
 
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        return $this->redirect(['view', 'id' => $user->id_user]);
     }
 
     /**
@@ -120,8 +112,6 @@ class UserController extends Controller
             }
         }
 
-        $model->roles = RbacService::getRoleList();
-
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -136,25 +126,21 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
-        $user = $this->findModel($id);
-        $model = new CreateForm();
+        $model = new ViewForm();
         try {
             if ($model->load(Yii::$app->request->post())) {
-                //&& $model->save()
-                return $this->redirect(['view', 'id' => $model->id_user]);
+                $model->id = $id;
+                if ($user = $model->update()) {
+                    return $this->redirect(['view', 'id' => $user->id_user]);
+                } else {
+                    return $this->render('update', [
+                        'model' => $model,
+                    ]);
+                }
             }
 
-            $model->login = $user->login;
-            $model->first_name = $user->first_name;
-            $model->second_name = $user->second_name;
-            $model->id_department = $user->id_department;
-            $model->email = $user->email;
-            $model->role = Yii::$app->authManager->getRole($model->login);
-
-            $model->roles = RbacService::getRoleList();
-
             return $this->render('update', [
-                'model' => $model,
+                'model' => $this->userService->actionUserViewRequest($id),
             ]);
         } catch (StaleObjectException $e) {
 
@@ -167,7 +153,7 @@ class UserController extends Controller
         $model = new ResetForm();
 
         if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->reset()) {
+            if ($user = $model->reset($id)) {
                 return $this->redirect(['view', 'id' => $user->id_user]);
             }
         }
