@@ -132,10 +132,6 @@ class UserController extends Controller
                 $model->id = $id;
                 if ($user = $model->update()) {
                     return $this->redirect(['view', 'id' => $user->id_user]);
-                } else {
-                    return $this->render('update', [
-                        'model' => $model,
-                    ]);
                 }
             }
 

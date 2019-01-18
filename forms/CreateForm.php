@@ -14,7 +14,6 @@ use app\models\user;
  */
 class CreateForm extends Model
 {
-    public $id;
     public $login;
     public $password;
     public $first_name;
@@ -22,8 +21,7 @@ class CreateForm extends Model
     public $id_department;
     public $email;
     public $role;
-    public $roles;
-
+    
     /**
      * @inheritdoc
      */
@@ -41,9 +39,15 @@ class CreateForm extends Model
             ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This email address has already been taken.'],
             ['password', 'required'],
             ['password', 'string', 'min' => 3],
+
+
             ['first_name', 'required'],
+            ['first_name', 'string', 'max' => 255],
             ['second_name', 'required'],
+            ['second_name', 'string', 'max' => 255],
             ['id_department', 'required'],
+            ['id_department', 'string'],
+
             ['role', 'trim'],
             ['role', 'required'],
             ['role', 'string'],
@@ -57,7 +61,6 @@ class CreateForm extends Model
      */
     public function create()
     {
-
         if (!$this->validate()) {
             return null;
         }
@@ -71,6 +74,7 @@ class CreateForm extends Model
         $user->id_department = (int)$this->id_department;
         $user->generateAuthKey();
         $user->version = 0;
+
         if ($user->save()) {
             $auth = Yii::$app->authManager;
             $authorRole = $auth->getRole($this->role);

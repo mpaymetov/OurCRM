@@ -15,11 +15,15 @@ use \yii\web\IdentityInterface;
  * @property string $login
  * @property string $auth_key
  * @property string $password_hash
+ * @property string $first_name
+ * @property string $second_name
  * @property string $password_reset_token
  * @property string $email
+ * @property string id_department
  * @property int $status
  * @property string $created_at
  * @property string $updated_at
+ * @property int $version
  */
 
 class User extends ActiveRecord implements IdentityInterface

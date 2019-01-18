@@ -49,13 +49,13 @@ class SignupForm extends Model
             return null;
         }
 
-
         $user = new User();
         $user->login = $this->login;
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
         $user->version = 0;
+
         if ($user->save()) {
             $auth = Yii::$app->authManager;
             $authorRole = $auth->getRole('baserole');

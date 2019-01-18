@@ -29,8 +29,6 @@ use app\service\RbacService;
 
     <?= $form->field($model, 'role')->dropDownList(RbacService::getRoleList(),['prompt' => 'Выберите Роль...']) ?>
 
-    <?= print_r($model->roles) ?>
-
     <div class="form-group">
         <?= Html::submitButton(Yii::t('common', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>
