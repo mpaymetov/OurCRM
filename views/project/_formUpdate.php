@@ -13,13 +13,6 @@ use unclead\multipleinput\MultipleInput;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php
-        if($model->id_client == null)
-        {
-            echo $form->field($model, 'id_client')->dropDownList($clientList, ['prompt' => 'Выберите организацию']);
-        }
-    ?>
-
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= Html::activeHiddenInput($model, 'version'); ?>

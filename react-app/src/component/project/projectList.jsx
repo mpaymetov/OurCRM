@@ -36,7 +36,7 @@ class ProjectList extends Component {
                         {this.state.jsonData.items.map(
                             (elem) => <tr>
                                 <td>{elem.name}</td>
-                                <td>{elem.id_client}</td>
+                                <td>{elem.client.name}</td>
                                 <td>{elem.creation_date}</td>
                                 <td><Link to={"/projectsView/" + elem.id_project}>Подробнее</Link></td>
                             </tr>

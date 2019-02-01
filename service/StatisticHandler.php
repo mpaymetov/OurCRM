@@ -131,12 +131,6 @@ class StatisticHandler
         $chartType = null;
         $chartTitle = null;
 
-        /*if(($type == 'serviceset') || ($type == 'project')) {
-            $chartType = 'ColumnChart';
-        } elseif ($type == 'sale') {
-            $chartType = 'LineChart';
-        }*/
-
         switch ($type){
             case 'project':
                 $chartType = 'ColumnChart';
@@ -159,7 +153,7 @@ class StatisticHandler
             'title' => $chartTitle,
             'chart' => $chartType,
             'data' => $data,
-            'error' => empty($data) //TODO сделать обработку ошибок при получении data
+            'error' => empty($data)
         ];
 
         return ['info' => $response];

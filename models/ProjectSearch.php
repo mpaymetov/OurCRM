@@ -20,7 +20,7 @@ class ProjectSearch extends Project
     {
         return [
             [['id_project', 'id_client', 'id_user', 'is_active'], 'integer'],
-            [['name', 'comment'], 'safe'],
+            [['name', 'comment',  'client'], 'safe'],
         ];
     }
 
@@ -43,6 +43,7 @@ class ProjectSearch extends Project
     public function search($params)
     {
         $query = Project::find();
+        $query->joinWith('client');
 
         // add conditions that should always apply here
 
@@ -69,6 +70,7 @@ class ProjectSearch extends Project
         $query->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'comment', $this->comment])
             ->andWhere('project.id_user = ' . Yii::$app->user->identity->id_user)
+            ->andFilterWhere(['like', 'client.name', $this->client])
             ->asArray()
             ->all();
 

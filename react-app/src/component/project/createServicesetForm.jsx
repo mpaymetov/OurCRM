@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-class createServicesetForm extends Component{
+class CreateServicesetForm extends Component{
 
     constructor(props) {
         super(props);
@@ -10,13 +10,14 @@ class createServicesetForm extends Component{
 
     createUI(){
         return this.state.values.map((el, i) =>
-            <div key={i} className="form-group">
+            <div key={i} className="form-group status_bar">
                 <div className={"col-sm-10"}>
                 <input type="text" value={el||''} className={"form-control"} onChange={this.handleChange.bind(this, i)} />
                 </div>
                 <div className="col-sm-2">
-                <a className={"glyphicon glyphicon-remove btn btn-default"} onClick={this.removeClick.bind(this, i)}/>
+                <a className={"glyphicon glyphicon-remove btn btn_delete"} onClick={this.removeClick.bind(this, i)}/>
                 </div>
+
             </div>
         )
     }
@@ -50,12 +51,12 @@ class createServicesetForm extends Component{
                 <div>
                     <label className={"col-sm-10"}>Услуга</label>
                     <div class="col-sm-2">
-                    <a className={"glyphicon glyphicon-plus btn btn-default"} onClick={this.addClick.bind(this)}/>
+                    <a className={"glyphicon glyphicon-plus btn btn_create"} onClick={this.addClick.bind(this)}/>
                     </div>
                 </div>
                 {this.createUI()}
                 <div className={"col-sm-12"}>
-                <input  type="submit" class="btn btn-default" value="Создать" />
+                <input  type="submit" class="btn btn_create" value="Создать" />
                 </div>
             </form>
         );
@@ -63,4 +64,4 @@ class createServicesetForm extends Component{
 
 }
 
-export default createServicesetForm
+export default CreateServicesetForm

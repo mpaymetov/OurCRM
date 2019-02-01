@@ -21,11 +21,6 @@ use yii\web\Response;
 class ProjectController extends ActiveController
 {
 
-
-    /**
-     * ProjectController implements the CRUD actions for Project model.
-     */
-
     public function behaviors()
     {
         $behaviors = parent::behaviors();
@@ -56,35 +51,11 @@ class ProjectController extends ActiveController
         $this->getService();
     }
 
-    /**
-     *
-     */
     public function getService()
     {
         $this->projectService = new ProjectService();
     }
 
-
-    /**
-     * {@inheritdoc}
-     */
-    /*
-        public function behaviors()
-        {
-            return [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ];
-        }
-    */
-    /**
-     * Lists all Project models.
-     * @return mixed
-     */
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {
@@ -94,22 +65,11 @@ class ProjectController extends ActiveController
         }
     }
 
-    /**
-     * Displays a single Project model.
-     * @param string $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionView($id)
     {
         return ['items' => $this->projectService->getViewInfoProject($id)];
     }
 
-    /**
-     * Creates a new Project model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
     public function actionCreate()
     {
         $answer = $this->projectService->setProject(); // возвращяем объект и экшн который нужно применить к объекту
@@ -130,13 +90,6 @@ class ProjectController extends ActiveController
         }
     }
 
-    /**
-     * Updates an existing Project model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionUpdate($id)
     {
         $answer = $this->projectService->setUpdateProject($id); // возвращяем объект и экшн который нужно применить к объекту
